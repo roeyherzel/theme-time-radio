@@ -9,8 +9,8 @@ class EpisodesSchema(Schema):
     plot = fields.Str()
     description = fields.Str()
     guest = fields.Str()
-    date_pub = fields.Time()
-    date_add = fields.Time()
+    date_pub = fields.Date()
+    date_add = fields.Date()
     podcast_url = fields.Url()
     thumb = fields.Str()
 

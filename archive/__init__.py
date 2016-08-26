@@ -11,7 +11,7 @@ db.init_app(app)
 
 @app.route('/episodes')
 def view_episodes_list():
-    ep = Episodes.query.all()
+    ep = Episodes.query.order_by(Episodes.date_pub).all()
     res = EpisodesSchema().dump(ep, many=True).data
     return jsonify(res)
 

@@ -21,7 +21,7 @@ $(document).ready(function() {
       $(ep_clone).appendTo('.ep-list');
     }
     //console.log(ep_box);
-    //console.log(episodes[0]);
+    console.log(episodes);
 
 
   });
