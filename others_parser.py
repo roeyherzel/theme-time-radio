@@ -130,13 +130,16 @@ class Episode():
     def __init__(self, ep):
         self.id = int(re.sub(r'http://others\.co\.il/\?p=(.*?)$', r'\1', ep.id))
         self.title = ep.title
-        self.plot = ep.description  # FIXME: need to run BeautifulSoup on it, to get the text
         self.image = ep.img
-        self.link_to_listen = ep.links[1].href
+        self.podcast_link = ep.links[1].href
         self.published = ep.published_parsed
         self.tags = [t.term for t in ep.tags]
         self.guest = None
         self._artist_for_all = None
+
+        soup = BeautifulSoup(ep.description, 'html.parser')
+        soup.a.extract()
+        self.plot = soup.text
 
         soup = BeautifulSoup(ep.content[0].value, 'html.parser')
         playlist_info = soup.ul.findPrevious('p').extract().text
@@ -172,7 +175,7 @@ class Episode():
         self.description = '\n'.join(description)
 
         # collect tracks from playlist
-        time.sleep(3)
+        # time.sleep(3)
 
         position = 1
         self.playlist = list()

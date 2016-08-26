@@ -7,7 +7,8 @@ $(document).ready(function() {
 
     $(ep_box).find('.ep-title').text(episodes[0].attributes.title);
     $(ep_box).find('img').attr('src', episodes[0].attributes.thumb);
-    $(ep_box).find('.ep-plot').text(episodes[0].attributes.date_pub);
+    $(ep_box).find('.ep-plot').text(episodes[0].attributes.plot);
+    $(ep_box).find('.ep-pub').text(episodes[0].attributes.date_pub);
 
     episodes.shift();
 
@@ -15,7 +16,8 @@ $(document).ready(function() {
       var ep_clone = $(ep_box).clone();
       $(ep_clone).find('.ep-title').text(episodes[i].attributes.title);
       $(ep_clone).find('img').attr('src', episodes[i].attributes.thumb);
-      $(ep_clone).find('.ep-plot').text(episodes[i].attributes.date_pub);
+      $(ep_clone).find('.ep-plot').text(episodes[i].attributes.plot);
+      $(ep_clone).find('.ep-pub').text(episodes[i].attributes.date_pub);
       $(ep_clone).appendTo('.ep-list');
     }
     //console.log(ep_box);

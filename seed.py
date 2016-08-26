@@ -120,7 +120,7 @@ with app.app_context():
                                description=ep['description'],
                                guest=ep['guest'],
                                published=strptime(ep['published']),
-                               podcast=ep['link_to_listen'],
+                               podcast=ep['podcast_link'],
                                thumb=ep['image']['src']
                                )
         db.session.add(new_episode)
