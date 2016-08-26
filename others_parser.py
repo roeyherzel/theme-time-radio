@@ -130,6 +130,7 @@ class Episode():
     def __init__(self, ep):
         self.id = int(re.sub(r'http://others\.co\.il/\?p=(.*?)$', r'\1', ep.id))
         self.title = ep.title
+        self.plot = ep.description  # FIXME: need to run BeautifulSoup on it, to get the text
         self.image = ep.img
         self.link_to_listen = ep.links[1].href
         self.published = ep.published_parsed

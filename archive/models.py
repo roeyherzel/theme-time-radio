@@ -20,6 +20,7 @@ class Status(db.Model):
 class Episodes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
+    plot = db.Column(db.String())
     description = db.Column(db.String())
     guest = db.Column(db.String())
     date_pub = db.Column(db.DateTime)
@@ -27,9 +28,10 @@ class Episodes(db.Model):
     podcast_url = db.Column(db.String())
     thumb = db.Column(db.String())
 
-    def __init__(self, id, title, description, guest, published, podcast, thumb):
+    def __init__(self, id, title, description, guest, published, podcast, thumb, plot):
         self.id = id
         self.title = title
+        self.plot = plot
         self.description = description
         self.guest = guest
         self.date_pub = published

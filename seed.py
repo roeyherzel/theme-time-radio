@@ -116,6 +116,7 @@ with app.app_context():
 
         new_episode = Episodes(id=ep['id'],
                                title=ep['title'],
+                               plot=ep['plot'],
                                description=ep['description'],
                                guest=ep['guest'],
                                published=strptime(ep['published']),

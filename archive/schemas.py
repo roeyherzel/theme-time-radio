@@ -6,6 +6,7 @@ class EpisodesSchema(Schema):
     not_blank = validate.Length(min=1, error='Field cannot be blank')
     id = fields.Integer(dump_only=True)
     title = fields.Str()
+    plot = fields.Str()
     description = fields.Str()
     guest = fields.Str()
     date_pub = fields.Time()
