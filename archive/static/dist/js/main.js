@@ -3,7 +3,7 @@ $(document).ready(function() {
   $.get('http://localhost:5000/episodes', function(data, status) {
 
     var episodes = data.data;
-    var ep_box = $('.ep-box');
+    var ep_box = $('.ep-card');
 
     $(ep_box).find('.ep-title').text(episodes[0].attributes.title);
     $(ep_box).find('img').attr('src', episodes[0].attributes.thumb);
@@ -18,9 +18,9 @@ $(document).ready(function() {
       $(ep_clone).find('.ep-plot').text(episodes[i].attributes.date_pub);
       $(ep_clone).appendTo('.ep-list');
     }
-    console.log(ep_box);
-    console.log(episodes[0]);
-    
+    //console.log(ep_box);
+    //console.log(episodes[0]);
+
 
   });
 });

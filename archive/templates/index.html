@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
@@ -12,85 +11,113 @@
     <title>Welcome to Others Archives</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-
+    <!-- Custom styles for this template
+    <link href="{{ url_for('static', filename='dist/css/album.css') }}" rel="stylesheet">-->
   </head>
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Others Archives</a>
+    <div class="navbar-collapse collapse inverse" id="navbar-header">
+      <div class="container-fluid">
+        <div class="about">
+          <h4>About</h4>
+          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+        <div class="social">
+          <h4>Contact</h4>
+          <ul class="list-unstyled">
+            <li><a href="#">Follow on Twitter</a></li>
+            <li><a href="#">Like on Facebook</a></li>
+            <li><a href="#">Email me</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
-    </nav>
+    </div>
+    <div class="navbar navbar-static-top navbar-dark bg-inverse">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header">
+          &#9776;
+        </button>
+        <a href="#" class="navbar-brand">Others Archives</a>
+      </div>
+    </div>
+
+    <section class="jumbotron text-xs-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">Others Archives</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+        <p>
+          <a href="#" class="btn btn-primary">Main call to action</a>
+          <a href="#" class="btn btn-secondary">Secondary action</a>
+        </p>
+      </div>
+    </section>
 
     <div class="container">
 
-      <div class="jumbotron">
-        <h1>Others <br>Archives</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br>
-          All you get is this text and a mostly barebones HTML document.
-        </p>
-      </div>
 
-
-      <div class="ep-list row">
-        <div class="ep-box col-sm-4">
-          <div class="panel panel-default">
-            <div class="panel-image">
-              <img>
-            </div>
-            <div class="ep-title panel-footer"></div>
+      <div class="ep-list card-columns">
+        <div class="ep-card card">
+          <img class="card-img-top" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="ep-title card-title"></h4>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="ep-plot text-muted"></small></p>
           </div>
         </div>
       </div>
 
 
-    </div><!-- /.container -->
+    </div>
 
+    <footer class="text-muted">
+      <div class="container">
+        <p class="pull-xs-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
+      </div>
+    </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <!--
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script>
+      $(function () {
+        Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
+      });
+    </script>
+    -->
+    <script src="{{ url_for('static', filename='dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='dist/js/main.js') }}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    -->
   </body>
   <style>
+
     img {
-      width: 242px;
-      height: 200px;
+      /*width: 242px;
+      height: 200px;*/
       object-fit:cover;
+
       display: block;
-      margin-left: auto;
-      margin-right: auto;
-      margin: 0 auto;
+      margin: 30px auto;
+      margin-bottom: 0;
     }
+
     .ep-list {
       direction: rtl;
     }
     .ep-title {
-      text-align: center;
-    }
-    .ep-plot {
       text-align: center;
     }
   </style>
