@@ -1,5 +1,4 @@
-from marshmallow_jsonapi import Schema, fields
-from marshmallow import validate  #, fields, Schema
+
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -26,8 +25,9 @@ class Episodes(db.Model):
     date_pub = db.Column(db.DateTime)
     date_add = db.Column(db.DateTime)
     podcast_url = db.Column(db.String())
+    thumb = db.Column(db.String())
 
-    def __init__(self, id, title, description, guest, published, podcast):
+    def __init__(self, id, title, description, guest, published, podcast, thumb):
         self.id = id
         self.title = title
         self.description = description
@@ -35,20 +35,7 @@ class Episodes(db.Model):
         self.date_pub = published
         self.date_add = datetime.utcnow()
         self.podcast_url = podcast
-
-
-class EpisodesSchema(Schema):
-    not_blank = validate.Length(min=1, error='Field cannot be blank')
-    id = fields.Integer(dump_only=True)
-    # title = fields.Str()
-    # description = fields.Str()
-    # guest = fields.Str()
-    # date_pub = fields.Time()
-    # date_add = fields.Time()
-    podcast_url = fields.Url()
-
-    class Meta:
-        type_ = 'episode'
+        self.thumb = thumb
 
 
 class Tracks(db.Model):
