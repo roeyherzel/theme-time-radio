@@ -18,7 +18,7 @@ class EpisodesSchema(Schema):
         type_ = 'episode'
 
 
-class TracksSchems(Schema):
+class TracksSchema(Schema):
     not_blank = validate.Length(min=1, error='Field cannot be blank')
     id = fields.Integer(dump_only=True)
     title = fields.Str()
@@ -27,3 +27,16 @@ class TracksSchems(Schema):
 
     class Meta:
         type_ = 'track'
+
+
+class ArtistsSchema(Schema):
+    not_blank = validate.Length(min=1, error='Field cannot be blank')
+    id = fields.Integer(dump_only=True)
+    name = fields.Str()
+    thumb = fields.Str()
+    profile = fields.Str()
+    type = fields.Str()
+    real_name = fields.Str()
+
+    class Meta:
+        type_ = 'artist'

@@ -44,35 +44,7 @@
       </div>
     </div>
 
-    <section class="jumbotron text-xs-center">
-      <div class="container">
-        <h1 class="jumbotron-heading">Others Archives</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-        <p>
-          <a href="#" class="btn btn-primary">Main call to action</a>
-          <a href="#" class="btn btn-secondary">Secondary action</a>
-        </p>
-      </div>
-    </section>
-
-    <div class="container">
-
-      <div class="ep-list">
-        <div class="ep-card col-md-4">
-          <div class="card text-xs-center">
-            <div class="card-block">
-              <h4 class="ep-title card-title"></h4>
-            </div>
-            <img calss="img-fluid" alt="Card image">
-            <div class="card-block">
-              <p class="ep-plot card-text"></p>
-            </div>
-            <div class="ep-pub card-footer text-muted"></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    {% block body %}{% endblock %}
 
     <footer class="text-muted">
       <div class="container">
@@ -97,7 +69,7 @@
     </script>
     -->
     <script src="{{ url_for('static', filename='dist/js/bootstrap.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='dist/js/main.js') }}"></script>
+    {% block script %}{% endblock %}
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     -->
