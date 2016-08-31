@@ -15,9 +15,30 @@ db.init_app(app)
 @app.route('/api/artists')
 def artists_list():
     ep = Artists.query.join(TracksArtists, (TracksArtists.artist_id == Artists.id)) \
-                      .filter(TracksArtists.status == Status.getByName('matched')).order_by(Artists.name).all()
+                      .filter(TracksArtists.status == Status.getIdByName('matched')).order_by(Artists.name).all()
     res = ArtistsSchema().dump(ep, many=True).data
     return jsonify(res)
+
+
+@app.route('/api/artists/<int:artist_id>')
+def artist_detail(artist_id):
+    artist = Artists.query.get(artist_id)
+    res = ArtistsSchema().dump(artist)
+    return jsonify(res.data)
+
+
+@app.route('/api/releases/<int:release_id>')
+def release_detail(release_id):
+    release = Releases.query.get(release_id)
+    res = ReleasesSchema().dump(release)
+    return jsonify(res.data)
+
+
+@app.route('/api/songs/<string:song_id>')
+def song_detail(song_id):
+    song = Songs.query.get(song_id)
+    res = SongsSchema().dump(song)
+    return jsonify(res.data)
 
 
 @app.route('/api/episodes')
@@ -31,7 +52,7 @@ def episodes_list():
 def episode_tracklist(episode_id):
     ep = Episodes.query.get(episode_id)
     res = EpisodesTracklistScheam().dump(ep)
-    return jsonify(res.data['data']['attributes']['tracklist'])
+    return jsonify(res.data['data']['attributes']['tracklist']['data'])
 
 # ----------------------------------------------------------
 # Views

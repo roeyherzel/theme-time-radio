@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% block script %}
+<script src="{{ url_for('static', filename='dist/js/episode_detail.js') }}"
+        data-tracklist-uri="{{ url_for('episode_tracklist', episode_id=ep.id) }}">
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div>
+    <h1>{{ ep.attributes.title }}</h1>
+  </div>
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive center-block" alt="pic" src="{{ ep.attributes.thumb }}">
+    </div>
+    <div class="col-md-7">
+      <p>{{ ep.attributes.description }}</p>
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <p class="track_title"></p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Pos</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Release</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class='track_row'>
+        <td class='track_id'></td>
+        <td class='track_pos'></td>
+        <td class='track_song track_title'></td>
+        <td class='track_artist'></td>
+        <td class='track_release'></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<style>
+  h1 {
+    padding-top: 40px;
+    text-align: center;
+  }
+  .featurette {
+    padding-top: 50px;
+    direction: rtl;
+  }
+
+</style>
+{% endblock %}

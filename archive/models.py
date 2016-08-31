@@ -28,8 +28,12 @@ class Status(db.Model, CRUD):
         self.name = name
 
     @classmethod
-    def getByName(cls, name):
+    def getIdByName(cls, name):
         return cls.query.filter_by(name=name).first().id
+
+    @classmethod
+    def getNameById(cls, id):
+        return cls.query.filter_by(id=id).first().name
 
 
 class Episodes(db.Model, CRUD):
@@ -91,11 +95,11 @@ class TracksTagStatus(db.Model):
 
     def __init__(self, track_id, song=None, release=None, artist=None):
         if song is None:
-            song = Status.getByName('unmatched')
+            song = Status.getIdByName('unmatched')
         if release is None:
-            release = Status.getByName('unmatched')
+            release = Status.getIdByName('unmatched')
         if artist is None:
-            artist = Status.getByName('unmatched')
+            artist = Status.getIdByName('unmatched')
 
         self.track_id = track_id
         self.song = song
@@ -143,7 +147,7 @@ class TracksArtists(db.Model):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
     artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), primary_key=True)
     status = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=False)
-    track = db.relationship('Tracks', backref=db.backref('artists', lazy='dynamic'))
+    track = db.relationship('Tracks', backref=db.backref('artist_tags', lazy='dynamic'))
     artist = db.relationship('Artists', backref=db.backref('tracks', lazy='dynamic'))
 
     def __init__(self, track_id, artist_id, status):
@@ -158,7 +162,7 @@ class TracksReleases(db.Model):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
     release_id = db.Column(db.Integer, db.ForeignKey('releases.id'), primary_key=True)
     status = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=False)
-    track = db.relationship('Tracks', backref=db.backref('releases', lazy='dynamic'))
+    track = db.relationship('Tracks', backref=db.backref('release_tags', lazy='dynamic'))
     release = db.relationship('Releases', backref=db.backref('tracks', lazy='dynamic'))
 
     def __init__(self, track_id, release_id, status):
@@ -173,7 +177,7 @@ class TracksSongs(db.Model):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
     song_id = db.Column(db.String(), db.ForeignKey('songs.id'), primary_key=True)
     status = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=False)
-    track = db.relationship('Tracks', backref=db.backref('songs', lazy='dynamic'))
+    track = db.relationship('Tracks', backref=db.backref('song_tags', lazy='dynamic'))
     song = db.relationship('Songs', backref=db.backref('tracks', lazy='dynamic'))
 
     def __init__(self, track_id, song_id, status):

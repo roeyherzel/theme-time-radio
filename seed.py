@@ -46,7 +46,7 @@ class AddTag():
 
     def add_resource_to_track(self, tag):
         resource_id = tag['id']
-        res = self.class_add_resource_to_track(self.track_id, resource_id, Status.getByName(self.status))
+        res = self.class_add_resource_to_track(self.track_id, resource_id, Status.getIdByName(self.status))
         db.session.add(res)
         print("added")
         db.session.commit()

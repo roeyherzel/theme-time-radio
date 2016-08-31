@@ -1,13 +1,14 @@
 from flask import url_for
 from marshmallow_jsonapi import Schema, fields
 from marshmallow import validate
+from archive.models import Status
 
 
 class TracksTagStatusSchema(Schema):
     id = fields.Integer()
-    song = fields.Integer()
-    release = fields.Integer()
-    artist = fields.Integer()
+    song = fields.Function(lambda obj: Status.getNameById(obj.song))
+    release = fields.Function(lambda obj: Status.getNameById(obj.release))
+    artist = fields.Function(lambda obj: Status.getNameById(obj.artist))
 
     class Meta:
         type_ = 'tag_status'
@@ -23,6 +24,70 @@ class TracksTagQuerySchema(Schema):
         type_ = 'tag_query'
 
 
+class ArtistsSchema(Schema):
+    id = fields.Integer()
+    name = fields.Str()
+    thumb = fields.Str()
+    profile = fields.Str()
+    type = fields.Str()
+    real_name = fields.Str()
+
+    class Meta:
+        type_ = 'artist'
+        self_url = 'http://localhost:5000/api/artists/{artist_id}'
+        self_url_kwargs = {'artist_id': '<id>'}
+
+
+class ReleasesSchema(Schema):
+    id = fields.Integer()
+    title = fields.Str()
+
+    class Meta:
+        type_ = 'release'
+        self_url = 'http://localhost:5000/api/releases/{release_id}'
+        self_url_kwargs = {'release_id': '<id>'}
+
+
+class SongsSchema(Schema):
+    id = fields.Str()
+    title = fields.Str()
+
+    class Meta:
+        type_ = 'song'
+        self_url = 'http://localhost:5000/api/songs/{song_id}'
+        self_url_kwargs = {'song_id': '<id>'}
+
+
+class TracksArtistsSchema(Schema):
+    id = fields.Integer()
+    artist_id = fields.Integer()
+
+    class Meta:
+        type_ = 'artists'
+        self_url = 'http://localhost:5000/api/artists/{artist_id}'
+        self_url_kwargs = {'artist_id': '<artist_id>'}
+
+
+class TracksReleasesSchema(Schema):
+    id = fields.Integer()
+    release_id = fields.Integer()
+
+    class Meta:
+        type_ = 'releases'
+        self_url = 'http://localhost:5000/api/releases/{release_id}'
+        self_url_kwargs = {'release_id': '<release_id>'}
+
+
+class TracksSongsSchema(Schema):
+    id = fields.Integer()
+    song_id = fields.Str()
+
+    class Meta:
+        type_ = 'songs'
+        self_url = 'http://localhost:5000/api/songs/{song_id}'
+        self_url_kwargs = {'song_id': '<song_id>'}
+
+
 class TracksSchema(Schema):
     id = fields.Integer()
     title = fields.Str()
@@ -31,6 +96,10 @@ class TracksSchema(Schema):
     episode_id = fields.Integer()
     tags_query = fields.Nested(TracksTagQuerySchema, many=True)
     tags_status = fields.Nested(TracksTagStatusSchema, many=True)
+
+    song_tags = fields.Nested(TracksSongsSchema, many=True)
+    release_tags = fields.Nested(TracksReleasesSchema, many=True)
+    artist_tags = fields.Nested(TracksArtistsSchema, many=True)
 
     class Meta:
         type_ = 'track'
@@ -62,15 +131,3 @@ class EpisodesTracklistScheam(Schema):
     class Meta:
         type_ = 'playlist'
         strict = True
-
-
-class ArtistsSchema(Schema):
-    id = fields.Integer()
-    name = fields.Str()
-    thumb = fields.Str()
-    profile = fields.Str()
-    type = fields.Str()
-    real_name = fields.Str()
-
-    class Meta:
-        type_ = 'artist'

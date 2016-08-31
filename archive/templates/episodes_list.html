@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='dist/js/episodes_list.js') }}"
+        data-ep-list-uri="{{ url_for('episodes_list') }}">>
+</script>
+{% endblock %}
+
+{% block body %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Others Archives</h1>
+    <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+  </div>
+</div>
+
+<div class="container ep-list">
+
+  <div class="row">
+    <div class="ep-card col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <img alt="pic">
+        <div class="caption">
+          <h3 class="ep-title"></h3>
+          <p class="ep-plot"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.container -->
+<style>
+  .ep-list {
+    direction: rtl;
+    text-align: center;
+  }
+</style>
+{% endblock %}
