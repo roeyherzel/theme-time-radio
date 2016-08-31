@@ -56,6 +56,13 @@ $(document).ready(function() {
               success: showResourceTag(track_id, resource)
             });
 
+          } else if (track_status[resource] === "pending") {
+
+            $('#' + track_id).find('.track_' + resource).append(
+              $('<span>').addClass('pending-glyph glyphicon glyphicon-exclamation-sign')
+            );
+            $('#' + track_id).find('.track_' + resource).append(track_query[resource]);
+
           } else {
             $('#' + track_id).find('.track_' + resource).text(track_query[resource]);
           }

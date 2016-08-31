@@ -19,17 +19,31 @@
     </div>
   </div>
 
-  <hr class="featurette-divider">
 
-  <p class="track_title"></p>
+  <h2 class="sub-header">Tracklist</h2>
+  <hr class="featurette-divider">
+  <button class="btn btn-default matched-badge" type="button">
+    Matched <span class="badge">0</span>
+  </button>
+  <button class="btn btn-default pending-badge" type="button">
+    Pending <span class="badge">0</span>
+  </button>
+  <button class="btn btn-default unmatched-badge" type="button">
+    Unmatched <span class="badge">0</span>
+  </button>
+  <button class="btn btn-default" type="button">
+    Ignored <span class="badge">0</span>
+  </button>
+
+  <hr class="featurette-divider">
   <table class="table">
     <thead>
       <tr>
         <th>#</th>
         <th>Pos</th>
         <th>Title</th>
-        <th>Artist</th>
         <th>Release</th>
+        <th>Artist</th>
       </tr>
     </thead>
     <tbody>
@@ -37,8 +51,8 @@
         <td class='track_id'></td>
         <td class='track_pos'></td>
         <td class='track_song track_title'></td>
-        <td class='track_artist'></td>
         <td class='track_release'></td>
+        <td class='track_artist'></td>
       </tr>
     </tbody>
   </table>
@@ -49,11 +63,24 @@
   h1 {
     padding-top: 40px;
     text-align: center;
+    direction: rtl;
   }
   .featurette {
     padding-top: 50px;
     direction: rtl;
   }
-
+  .pending-glyph {
+    color: #f0ad4e;
+    padding-right: 4px;
+  }
+  .matched-badge {
+    color: #337AB7;
+  }
+  .pending-badge {
+    color: #f0ad4e;
+  }
+  .unmatched-badge {
+    color: #D9534F;
+  }
 </style>
 {% endblock %}
