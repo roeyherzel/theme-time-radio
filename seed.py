@@ -1,6 +1,5 @@
 from archive import app
-from archive.models import db, Status, Episodes, Tracks, TracksTagQuery, TracksTagStatus, \
-                                Artists, TracksArtists, Releases, TracksReleases, Songs, TracksSongs
+from archive.models import *
 
 import sqlalchemy
 import json
@@ -49,7 +48,9 @@ class AddTag():
         resource_id = tag['id']
         res = self.class_add_resource_to_track(self.track_id, resource_id, Status.getByName(self.status))
         db.session.add(res)
+        print("added")
         db.session.commit()
+        print("commit")
         print("{} ({}) to track ({}) status ({})".format(self.name, resource_id, self.track_id, self.status))
 
     def run_querys(self, tag):
@@ -107,10 +108,9 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
-    db.session.add(Status(name='matched'))
-    db.session.add(Status(name='pending'))
-    db.session.add(Status(name='unmatched'))
-    db.session.commit()
+    Status.create(Status(name='matched'))
+    Status.create(Status(name='pending'))
+    Status.create(Status(name='unmatched'))
 
     for ep in json_data['episodes']:  # [1:2]:
 
@@ -123,7 +123,7 @@ with app.app_context():
                                podcast=ep['podcast_link'],
                                thumb=ep['image']['src']
                                )
-        db.session.add(new_episode)
+        Episodes.create(new_episode)
         print("AddEpisode ({}) - {}".format(new_episode.id, ep['title']))
 
         for t in ep['playlist']:
@@ -132,22 +132,18 @@ with app.app_context():
                                position=t['position'],
                                resolved=t['resolved']
                                )
-            db.session.add(new_track)
-            db.session.commit()
+            Tracks.create(new_track)
 
-            db.session.add(
+            TracksTagQuery.create(
                 TracksTagQuery(
-                            track_id=new_track.id,
-                            song=t['query']['song'],
-                            release=t['query']['release'],
-                            artist=t['query']['artist']
-                            )
+                    track_id=new_track.id,
+                    song=t['query']['song'],
+                    release=t['query']['release'],
+                    artist=t['query']['artist']
+                )
             )
-            db.session.commit()
             print("AddTrack ({})".format(new_track.id))
 
             AddArtist(t['tag']['artist'], new_track.id)
             AddRelease(t['tag']['release'], new_track.id)
             AddSong(t['tag']['song'], new_track.id)
-
-    db.session.commit()
