@@ -195,7 +195,7 @@ def insert_tag_status(mapper, connection, target):
 @db.event.listens_for(TracksArtists, "after_insert")
 @db.event.listens_for(TracksReleases, "after_insert")
 @db.event.listens_for(TracksSongs, "after_insert")
-def update_artist_tag_status(mapper, connection, target):
+def update_resource_tag_status(mapper, connection, target):
     dst_table = TracksTagStatus.__table__
     src_table_name = mapper.mapped_table.name
 

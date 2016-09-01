@@ -39,10 +39,7 @@ $(document).ready(function() {
         $(track_clone).find('.track_title')
                       .text(track_info.title)
                       .attr('colspan', '3')
-                      .css({
-                        'direction': 'rtl',
-                        'text-align': 'left'
-                      })
+                      .css({'direction': 'rtl', 'text-align': 'left'})
                       .addClass('active');
       } else {
 
@@ -61,10 +58,21 @@ $(document).ready(function() {
             $('#' + track_id).find('.track_' + resource).append(
               $('<span>').addClass('pending-glyph glyphicon glyphicon-exclamation-sign')
             );
-            $('#' + track_id).find('.track_' + resource).append(track_query[resource]);
+            if (track_query[resource] !== null) {
+              $('#' + track_id).find('.track_' + resource).append(" " + track_query[resource])
+                                                          .addClass('pending-resource');
+              console.log(track_query[resource]);
+            }
 
           } else {
-            $('#' + track_id).find('.track_' + resource).text(track_query[resource]);
+            if (track_query[resource]) {
+              $('#' + track_id).find('.track_' + resource).text(track_query[resource]);
+            } else {
+              $('#' + track_id).find('.track_' + resource).append(
+                $('<span>').addClass('glyphicon glyphicon-question-sign')
+              );
+            }
+
           }
         }
       }

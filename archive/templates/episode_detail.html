@@ -1,7 +1,7 @@
-{% extends 'layout.html' %}
+{% extends "layout.html" %}
 {% block script %}
-<script src="{{ url_for('static', filename='dist/js/episode_detail.js') }}"
-        data-tracklist-uri="{{ url_for('episode_tracklist', episode_id=ep.id) }}">
+<script src="{{ url_for("static", filename="dist/js/episode_detail.js") }}"
+        data-tracklist-uri="{{ url_for("episode_tracklist", episode_id=ep.id) }}">
 </script>
 {% endblock %}
 
@@ -36,23 +36,22 @@
   </button>
 
   <hr class="featurette-divider">
+
   <table class="table">
     <thead>
       <tr>
         <th>#</th>
         <th>Pos</th>
-        <th>Title</th>
-        <th>Release</th>
-        <th>Artist</th>
+        <th>Artist / Album / Song</th>
       </tr>
     </thead>
     <tbody>
-      <tr class='track_row'>
-        <td class='track_id'></td>
-        <td class='track_pos'></td>
-        <td class='track_song track_title'></td>
-        <td class='track_release'></td>
-        <td class='track_artist'></td>
+      <tr class="track_row">
+        <td class="track_id"></td>
+        <td class="track_pos"></td>
+        <td class="track_title">
+          <span class="track_artist"></span> / <span class="track_release"></span> / <span class="track_song"></span>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -71,7 +70,9 @@
   }
   .pending-glyph {
     color: #f0ad4e;
-    padding-right: 4px;
+  }
+  .pending-resource {
+    font-style: italic;
   }
   .matched-badge {
     color: #337AB7;
@@ -82,5 +83,6 @@
   .unmatched-badge {
     color: #D9534F;
   }
+
 </style>
 {% endblock %}
