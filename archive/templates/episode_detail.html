@@ -21,7 +21,7 @@
 
 
   <h2 class="sub-header">Tracklist</h2>
-  <hr class="featurette-divider">
+  
   <button class="btn btn-default matched-badge" type="button">
     Matched <span class="badge">0</span>
   </button>
@@ -41,16 +41,25 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Pos</th>
-        <th>Artist / Album / Song</th>
+        <th>#</th>
+        <th>Thumb</th>
+        <th>Track Info</th>
       </tr>
     </thead>
     <tbody>
       <tr class="track_row">
-        <td class="track_id"></td>
-        <td class="track_pos"></td>
+        <td class="track_id">1</td>
+        <td class="track_pos">1</td>
+        <td class="track_thumb">
+        </td>
         <td class="track_title">
-          <span class="track_artist"></span> / <span class="track_release"></span> / <span class="track_song"></span>
+          <div class="track_song"></div>
+          <div>
+            <small>From: </small><span class="track_release"></span>
+          </div>
+          <div>
+            <small>By: </small><span class="track_artist"></span>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -64,12 +73,19 @@
     text-align: center;
     direction: rtl;
   }
+  .img-thumbnail {
+    width: 100px;
+    height: 100px;
+  }
   .featurette {
     padding-top: 50px;
     direction: rtl;
   }
-  .pending-glyph {
+  .glyphicon-exclamation-sign {
     color: #f0ad4e;
+  }
+  .glyphicon-question-sign {
+    color: #D9534F;
   }
   .pending-resource {
     font-style: italic;
@@ -82,6 +98,13 @@
   }
   .unmatched-badge {
     color: #D9534F;
+  }
+  .track_id,
+  .track_pos {
+    text-align: center;
+  }
+  .table>tbody>tr>td {
+    vertical-align: middle;
   }
 
 </style>

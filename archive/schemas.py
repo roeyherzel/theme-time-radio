@@ -41,6 +41,7 @@ class ArtistsSchema(Schema):
 class ReleasesSchema(Schema):
     id = fields.Integer()
     title = fields.Str()
+    thumb = fields.Str()
 
     class Meta:
         type_ = 'release'
