@@ -92,6 +92,7 @@ class TracksTagStatus(db.Model):
     song = db.Column(db.Integer, db.ForeignKey('status.id'))
     release = db.Column(db.Integer, db.ForeignKey('status.id'))
     artist = db.Column(db.Integer, db.ForeignKey('status.id'))
+    aggregated = db.Column(db.Integer, db.ForeignKey('status.id'))
 
     def __init__(self, track_id, song=None, release=None, artist=None):
         if song is None:
@@ -105,6 +106,7 @@ class TracksTagStatus(db.Model):
         self.song = song
         self.release = release
         self.artist = artist
+        self.aggregated = Status.getIdByName('unmatched')
 
 
 class Artists(db.Model):
@@ -196,18 +198,43 @@ def insert_tag_status(mapper, connection, target):
 @db.event.listens_for(TracksReleases, "after_insert")
 @db.event.listens_for(TracksSongs, "after_insert")
 def update_resource_tag_status(mapper, connection, target):
-    dst_table = TracksTagStatus.__table__
-    src_table_name = mapper.mapped_table.name
+    table = TracksTagStatus.__table__
+    mapped_table_name = mapper.mapped_table.name
 
-    if src_table_name == 'tracks_artists':
+    if mapped_table_name == 'tracks_artists':
         connection.execute(
-            dst_table.update().where(dst_table.c.track_id == target.track_id).values(artist=target.status)
+            table.update().where(table.c.track_id == target.track_id).values(artist=target.status)
         )
-    elif src_table_name == 'tracks_releases':
+    elif mapped_table_name == 'tracks_releases':
         connection.execute(
-            dst_table.update().where(dst_table.c.track_id == target.track_id).values(release=target.status)
+            table.update().where(table.c.track_id == target.track_id).values(release=target.status)
         )
-    elif src_table_name == 'tracks_songs':
+    elif mapped_table_name == 'tracks_songs':
         connection.execute(
-            dst_table.update().where(dst_table.c.track_id == target.track_id).values(song=target.status)
+            table.update().where(table.c.track_id == target.track_id).values(song=target.status)
         )
+
+    # calc and update aggregated status
+    track_tag_status = TracksTagStatus.query.get(target.track_id).__dict__
+    values = [track_tag_status[i] for i in ['song', 'release', 'artist']]
+
+    # pending
+    if Status.getIdByName('pending') in values:
+        agg_status = Status.getIdByName('pending')
+
+    # full-matched
+    elif len(list(filter(lambda x: x == Status.getIdByName('matched'), values))) == 3:
+        agg_status = Status.getIdByName('full-matched')
+
+    # half-matched
+    elif track_tag_status['artist'] == Status.getIdByName('matched') and \
+            track_tag_status['release'] != Status.getIdByName('matched'):
+        agg_status = Status.getIdByName('half-matched')
+
+    # unmatched
+    else:
+        agg_status = Status.getIdByName('unmatched')
+
+    connection.execute(
+        table.update().where(table.c.track_id == target.track_id).values(aggregated=agg_status)
+    )

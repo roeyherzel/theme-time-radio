@@ -111,6 +111,8 @@ with app.app_context():
     Status.create(Status(name='matched'))
     Status.create(Status(name='pending'))
     Status.create(Status(name='unmatched'))
+    Status.create(Status(name='full-matched'))
+    Status.create(Status(name='half-matched'))
 
     for ep in json_data['episodes']:  # [1:2]:
 
