@@ -68,9 +68,23 @@ def vw_artists_list():
 def vw_episode_detail(episode_id):
     ep = Episodes.query.get(episode_id)
     res = EpisodesSchema().dump(ep).data
+    print(res['data']['attributes']['description'])
     return render_template('episode_detail.html', ep=res['data'])
 
 
 @app.route('/')
 def vw_index():
-    return render_template('episodes_list.html')
+    ep_latest = Episodes.query.order_by(Episodes.date_pub).limit(6).all()
+
+    # FIXME: this query returns 23 insted of 21
+    # this is because date_pub has to be in the select statment because of order_by
+    subq = db.session.query(distinct(TracksArtists.artist_id).label("artist_id"), Episodes.date_pub) \
+                     .filter(TracksArtists.status == 1) \
+                     .join(Tracks) \
+                     .join(Episodes) \
+                     .order_by(desc(Episodes.date_pub)) \
+                     .subquery()
+
+    db.session.query(Artists).join(subq, Artists.id == subq.c.artist_id).all()
+
+    return render_template('index.html')

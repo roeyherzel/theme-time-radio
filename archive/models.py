@@ -1,7 +1,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from sqlalchemy import event
+from sqlalchemy import event, desc, distinct
 
 db = SQLAlchemy()
 
@@ -27,6 +27,9 @@ class Status(db.Model, CRUD):
     def __init__(self, name):
         self.name = name
 
+    def __repr__(self):
+        return '<Status ({}) - {}>'.format(self.id, self.name)
+
     @classmethod
     def getIdByName(cls, name):
         return cls.query.filter_by(name=name).first().id
@@ -40,7 +43,7 @@ class Episodes(db.Model, CRUD):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
     plot = db.Column(db.String())
-    description = db.Column(db.String())
+    description = db.Column(db.Unicode())
     guest = db.Column(db.String())
     date_pub = db.Column(db.DateTime)
     date_add = db.Column(db.DateTime)
@@ -58,6 +61,9 @@ class Episodes(db.Model, CRUD):
         self.podcast_url = podcast
         self.thumb = thumb
 
+    def __repr__(self):
+        return '<Episode ({}) - {}>'.format(self.id, self.title)
+
 
 class Tracks(db.Model, CRUD):
     id = db.Column(db.Integer, primary_key=True)
@@ -72,6 +78,9 @@ class Tracks(db.Model, CRUD):
         self.position = position
         self.resolved = resolved
         self.episode_id = episode_id
+
+    def __repr__(self):
+        return '<Track ({}) - {}>'.format(self.id, self.title)
 
 
 class TracksTagQuery(db.Model, CRUD):
@@ -95,17 +104,10 @@ class TracksTagStatus(db.Model):
     aggregated = db.Column(db.Integer, db.ForeignKey('status.id'))
 
     def __init__(self, track_id, song=None, release=None, artist=None):
-        if song is None:
-            song = Status.getIdByName('unmatched')
-        if release is None:
-            release = Status.getIdByName('unmatched')
-        if artist is None:
-            artist = Status.getIdByName('unmatched')
-
         self.track_id = track_id
-        self.song = song
-        self.release = release
-        self.artist = artist
+        self.song = song or Status.getIdByName('unmatched')
+        self.release = release or Status.getIdByName('unmatched')
+        self.artist = artist or Status.getIdByName('unmatched')
         self.aggregated = Status.getIdByName('unmatched')
 
 
@@ -122,6 +124,9 @@ class Artists(db.Model):
     # members
     # aliases
 
+    def __repr__(self):
+        return '<Artist ({}) - {}>'.format(self.id, self.name)
+
 
 class Releases(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -132,6 +137,9 @@ class Releases(db.Model):
     # genres
     # images
 
+    def __repr__(self):
+        return '<Release ({}) - {}>'.format(self.id, self.title)
+
 
 class Songs(db.Model):
     id = db.Column(db.String(), primary_key=True)
@@ -141,6 +149,9 @@ class Songs(db.Model):
     duration = db.Column(db.String())
     release_id = db.Column(db.Integer, db.ForeignKey('releases.id'))
     release = db.relationship('Releases', backref=db.backref('songs', lazy='dynamic'))
+
+    def __repr__(self):
+        return '<Song ({}) - {}>'.format(self.id, self.title)
 
 
 class TracksArtists(db.Model):
@@ -157,6 +168,9 @@ class TracksArtists(db.Model):
         self.artist_id = artist_id
         self.status = status
 
+    def __repr__(self):
+        return '<TracksArtists track({}) - artist({})>'.format(self.track_id, self.artist_id)
+
 
 class TracksReleases(db.Model):
     __tablename__ = 'tracks_releases'
@@ -172,6 +186,9 @@ class TracksReleases(db.Model):
         self.release_id = release_id
         self.status = status
 
+    def __repr__(self):
+        return '<TracksReleases track({}) - release({})>'.format(self.track_id, self.release_id)
+
 
 class TracksSongs(db.Model):
     __tablename__ = 'tracks_songs'
@@ -186,6 +203,9 @@ class TracksSongs(db.Model):
         self.track_id = track_id
         self.song_id = song_id
         self.status = status
+
+    def __repr__(self):
+        return '<TracksSongs track({}) - song({})>'.format(self.track_id, self.song_id)
 
 
 @db.event.listens_for(Tracks, "after_insert")

@@ -12,6 +12,7 @@ $(document).ready(function() {
     var showResourceTag = function(track_selector, resource_selector) {
 
       return function(data) {
+
         var field = 'title';
         if (resource_selector.search('artist') > 0) {
           field = 'name';
