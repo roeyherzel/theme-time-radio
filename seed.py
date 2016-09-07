@@ -116,10 +116,6 @@ with app.app_context():
 
     for ep in json_data['episodes']:  # [1:2]:
 
-        if '\n' in ep['description']:
-            print('kaki\n')
-            ep['description'] = ep['description'].replace('\n', '<br>')
-
         new_episode = Episodes(id=ep['id'],
                                title=ep['title'],
                                plot=ep['plot'],

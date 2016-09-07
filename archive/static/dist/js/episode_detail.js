@@ -1,9 +1,13 @@
 
+function make_link(url, text) {
+  return "<a href=" + url + ">" + text || '' + "</a>";
+}
+
+
 $(document).ready(function() {
   var tracklist_uri = $('script[data-tracklist-uri]').attr('data-tracklist-uri');
 
-  $.getJSON(tracklist_uri, function(data, status) {
-    var tracklist = data;
+  $.getJSON(tracklist_uri, function(tracklist, status) {
     console.log(tracklist);
 
     var track_row = $(".track_row");
@@ -18,16 +22,13 @@ $(document).ready(function() {
           field = 'name';
         }
         $(track_selector).find(resource_selector).html(
-          $('<a>').attr('href', data.data.links.self).text(data.data.attributes[field])
+          make_link(data.data.links.self, data.data.attributes[field])
         );
         if (resource_selector.search('song') < 0) {
           console.log(track_selector, resource_selector, data.data.attributes.thumb);
-          $(track_selector).find('.track_thumb').html(
-            $('<a>').attr('href', data.data.links.self).html(
-              $('<img>').attr('src', data.data.attributes.thumb || '/static/images/default-release.png')
-                        .addClass('img-thumbnail')
-            )
-          );
+
+          $(track_selector).find('.track_thumb').attr({'src': data.data.attributes.thumb, 'title': data.data.attributes[field]})
+                                                .wrap(make_link(data.data.links.self));
         }
       };
     };
@@ -44,16 +45,18 @@ $(document).ready(function() {
       $(track_clone).addClass(track_selector);
       $(track_clone).find('.track_id').text(tracklist[i].id);
       $(track_clone).find('.track_pos').text(tracklist[i].attributes.position);
-      $(track_clone).appendTo('tbody');
+      $(track_clone).appendTo('tbody.track_list');
 
       track_selector = '.' + track_selector;
 
       if (track_info.resolved === false) {
+        $(track_clone).addClass('active');
+        $(track_clone).find('.track_thumb').attr('src', '/static/images/microphone-icon-512x512.png');
         $(track_clone).find('.track_title')
                       .text(track_info.title)
-                      .attr('colspan', '3')
-                      .css({'direction': 'rtl', 'text-align': 'left'})
-                      .addClass('active');
+                      .attr('colspan', '2')
+                      .css({'direction': 'rtl', 'text-align': 'left'});
+
       } else {
         var resources = ['song', 'artist', 'release'];
         for(var r in resources) {

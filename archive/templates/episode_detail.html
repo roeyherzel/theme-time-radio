@@ -15,14 +15,13 @@
       <img class="featurette-image img-responsive center-block" alt="pic" src="{{ ep.attributes.thumb }}">
     </div>
     <div class="col-md-7">
-      <p>{{ ep.attributes.description }}</p>
+      <p>{{ ep.attributes.description | nl2br }}</p>
     </div>
   </div>
+  <hr>
 
 
-  <h2 class="sub-header">Tracklist</h2>
-
-  <button class="btn btn-default matched-badge" type="button">
+  <!--<button class="btn btn-default matched-badge" type="button">
     Matched <span class="badge">0</span>
   </button>
   <button class="btn btn-default pending-badge" type="button">
@@ -35,30 +34,37 @@
     Ignored <span class="badge">0</span>
   </button>
 
-  <hr class="featurette-divider">
+  <hr class="featurette-divider">-->
 
-  <table class="table">
+  <!--<h3 class="page-header">Stats</h3>
+  <div>
+    Tracks Matched Fully
+    Tracks Matched Only Artist
+    Tracks Pending Tag Selection
+    Tracks UnMatched
+  </div>
+-->
+  <table class="table table-condensed">
     <thead>
       <tr>
-        <th>#</th>
-        <th>#</th>
-        <th>Thumb</th>
-        <th>Track Info</th>
+        <th colspan="99"><h3>Tracklist</h3></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="track_list">
       <tr class="track_row">
         <td class="track_id">1</td>
         <td class="track_pos">1</td>
-        <td class="track_thumb">
+        <td>
+          <img class="track_thumb" src="/static/images/default-release1.png", alt="thumb">
         </td>
         <td class="track_title">
-          <div class="track_song"></div>
           <div>
-            <small class="text-muted">From </small><span class="track_release"></span>
+            <span class="text-muted glyphicon glyphicon-music"></span>
+            <span class="track_song"></span>
           </div>
           <div>
-            <small class="text-muted">By &nbsp;&nbsp;&nbsp;&nbsp;</small><span class="track_artist"></span>
+            <span class="text-muted glyphicon glyphicon-cd"></span>
+            <span class="small track_artist"></span> / <span class="small track_release"></span>
           </div>
         </td>
       </tr>
@@ -68,14 +74,18 @@
 </div>
 
 <style>
+  .glyphicon-cd,
+  .glyphicon-music {
+    padding-right: 10px;
+  }
   h1 {
     padding-top: 40px;
     text-align: center;
     direction: rtl;
   }
-  .img-thumbnail {
-    width: 50px;
-    height: 50px;
+  .track_thumb {
+    width: 55px;
+    height: 55px;
   }
   .featurette {
     padding-top: 50px;
