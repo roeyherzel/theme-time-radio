@@ -9,6 +9,7 @@ class TracksTagStatusSchema(Schema):
     song = fields.Function(lambda obj: Status.getNameById(obj.song))
     release = fields.Function(lambda obj: Status.getNameById(obj.release))
     artist = fields.Function(lambda obj: Status.getNameById(obj.artist))
+    aggregated = fields.Function(lambda obj: Status.getNameById(obj.aggregated))
 
     class Meta:
         type_ = 'tag_status'

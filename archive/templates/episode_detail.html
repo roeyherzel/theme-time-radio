@@ -20,57 +20,61 @@
   </div>
   <hr>
 
+  <div class="row">
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Tracklist</h3>
+        </div>
 
-  <!--<button class="btn btn-default matched-badge" type="button">
-    Matched <span class="badge">0</span>
-  </button>
-  <button class="btn btn-default pending-badge" type="button">
-    Pending <span class="badge">0</span>
-  </button>
-  <button class="btn btn-default unmatched-badge" type="button">
-    Unmatched <span class="badge">0</span>
-  </button>
-  <button class="btn btn-default" type="button">
-    Ignored <span class="badge">0</span>
-  </button>
+        <!-- Table -->
+        <table class="table table-condensed">
+          <thead>
+          </thead>
+          <tbody class="track-list">
+            <tr class="track-row">
+              <td class="track-edit">
+                <div class="glyp-button glyphicon glyphicon-edit"></div>
+              </td>
+              <td class="track-fav">
+                <div class="glyp-button glyphicon glyphicon-star-empty"></div>
+              </td>
+              <td class="track-pos text-center"></td>
+              <td class="track-thumb">
+                <img src="/static/images/default-release-cd1.png", alt="thumb">
+              </td>
+              <td class="track-title">
+                <div>
+                  <span class="text-muted glyphicon glyphicon-music"></span>
+                  <span class="track-song"></span>
+                </div>
+                <div>
+                  <span class="text-muted glyphicon glyphicon-cd"></span>
+                  <span class="small track-artist"></span> / <span class="small track-release"></span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-  <hr class="featurette-divider">-->
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Tag Statistics</h3>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item"><span class="badge badge-full">0</span>Tracks Matched Fully</li>
+          <li class="list-group-item"><span class="badge badge-half">0</span>Tracks Matched Artist Only</li>
+          <li class="list-group-item"><span class="badge badge-pending">0</span>Tracks Pending Tag Selection</li>
+          <li class="list-group-item"><span class="badge badge-unmatched">0</span>Tracks Un-Matched</li>
+          <li class="list-group-item"><span class="badge badge-not-song">0</span>Tracks Not Songs</li>
+        </ul>
+      </div>
+    </div>
 
-  <!--<h3 class="page-header">Stats</h3>
-  <div>
-    Tracks Matched Fully
-    Tracks Matched Only Artist
-    Tracks Pending Tag Selection
-    Tracks UnMatched
   </div>
--->
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th colspan="99"><h3>Tracklist</h3></th>
-      </tr>
-    </thead>
-    <tbody class="track_list">
-      <tr class="track_row">
-        <td class="track_id">1</td>
-        <td class="track_pos">1</td>
-        <td>
-          <img class="track_thumb" src="/static/images/default-release1.png", alt="thumb">
-        </td>
-        <td class="track_title">
-          <div>
-            <span class="text-muted glyphicon glyphicon-music"></span>
-            <span class="track_song"></span>
-          </div>
-          <div>
-            <span class="text-muted glyphicon glyphicon-cd"></span>
-            <span class="small track_artist"></span> / <span class="small track_release"></span>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
 </div>
 
 <style>
@@ -83,7 +87,8 @@
     text-align: center;
     direction: rtl;
   }
-  .track_thumb {
+  .track-thumb > a > img,
+  .track-thumb > img {
     width: 55px;
     height: 55px;
   }
@@ -97,22 +102,29 @@
   .glyphicon-question-sign {
     color: #D9534F;
   }
-  .pending-resource {
+
+  .badge-full {
+    background-color: #337AB7;
   }
-  .matched-badge {
-    color: #337AB7;
+  .badge-half {
+    background-color: #5CB85C;
   }
-  .pending-badge {
-    color: #f0ad4e;
+  .badge-pending {
+    background-color: #f0ad4e;
   }
-  .unmatched-badge {
-    color: #D9534F;
+  .badge-unmatched {
+    background-color: #D95551;
   }
-  .track_id,
-  .track_pos {
+
+  .track-fav {
+    border-right: 1px solid #ddd;
+  }
+  .track-fav,
+  .track-edit {
+    font-size: 18px;
     text-align: center;
   }
-  .table>tbody>tr>td {
+  .table > tbody > tr > td {
     vertical-align: middle;
   }
 
