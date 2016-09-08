@@ -3,8 +3,8 @@ function make_link(url, text) {
   return "<a href=" + url + ">" + text || '' + "</a>";
 }
 
-function increment_badge(badge_class) {
-  var $badge = $(badge_class);
+function increment_badge(badge_select) {
+  var $badge = $(badge_select);
   $badge.text(Number($badge.text()) + 1);
 }
 
@@ -60,33 +60,37 @@ $(document).ready(function() {
         //$(track_clone).addClass('active');
         $(track_clone).find('.track-thumb > img').attr('src', '/static/images/microphone1-icon-512x512.png');
         $(track_clone).find('.track-title').text(track_info.title)
-                                           .attr('colspan', '2')
                                            .css({'direction': 'rtl', 'text-align': 'left'});
 
         // aggregated badge
-        increment_badge('.badge-not-song');
+        $(track_clone).find('.track-agg-status').addClass('status-not-song');
+        increment_badge('#badge-not-song');
 
       } else {
         // aggregated badge
         if (track_tag_status_agg === 'full-matched') {
-          increment_badge('.badge-full');
+          $(track_clone).find('.track-agg-status').addClass('status-full');
+          increment_badge('#badge-full');
           $.getJSON({
             url: track_info.release_tags.data[0].links.self,
             success: showThumb(track_selector, 'title')
           });
 
         } else if (track_tag_status_agg === 'half-matched') {
-          increment_badge('.badge-half');
+          $(track_clone).find('.track-agg-status').addClass('status-half');
+          increment_badge('#badge-half');
           $.getJSON({
             url: track_info.artist_tags.data[0].links.self,
             sucess: showThumb(track_selector, 'name')
           });
 
         } else if (track_tag_status_agg === 'pending') {
-          increment_badge('.badge-pending');
+          $(track_clone).find('.track-agg-status').addClass('status-pending');
+          increment_badge('#badge-pending');
 
         } else if (track_tag_status_agg === 'unmatched') {
-          increment_badge('.badge-unmatched');
+          $(track_clone).find('.track-agg-status').addClass('status-unmatched');
+          increment_badge('#badge-unmatched');
         }
 
         for(var r in resources) {

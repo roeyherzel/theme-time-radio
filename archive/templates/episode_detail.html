@@ -53,6 +53,7 @@
                   <span class="small track-artist"></span> / <span class="small track-release"></span>
                 </div>
               </td>
+              <td class="track-agg-status"></td>
             </tr>
           </tbody>
         </table>
@@ -65,11 +66,11 @@
           <h3 class="panel-title text-center">Tag Statistics</h3>
         </div>
         <ul class="list-group">
-          <li class="list-group-item"><span class="badge badge-full">0</span>Tracks Matched Fully</li>
-          <li class="list-group-item"><span class="badge badge-half">0</span>Tracks Matched Artist Only</li>
-          <li class="list-group-item"><span class="badge badge-pending">0</span>Tracks Pending Tag Selection</li>
-          <li class="list-group-item"><span class="badge badge-unmatched">0</span>Tracks Un-Matched</li>
-          <li class="list-group-item"><span class="badge badge-not-song">0</span>Tracks Not Songs</li>
+          <li class="list-group-item"><span class="badge status-full" id='badge-full'>0</span>Tracks Matched Fully</li>
+          <li class="list-group-item"><span class="badge status-half" id='badge-half'>0</span>Tracks Matched Artist Only</li>
+          <li class="list-group-item"><span class="badge status-pending" id='badge-pending'>0</span>Tracks Pending Tag Selection</li>
+          <li class="list-group-item"><span class="badge status-unmatched" id='badge-unmatched'>0</span>Tracks Un-Matched</li>
+          <li class="list-group-item"><span class="badge" id='badge-not-song'>0</span>Tracks Not Songs</li>
         </ul>
       </div>
     </div>
@@ -103,17 +104,22 @@
     color: #D9534F;
   }
 
-  .badge-full {
-    background-color: #337AB7;
+  #badge-full {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
   }
-  .badge-half {
+  .status-half {
     background-color: #5CB85C;
   }
-  .badge-pending {
+  .status-pending {
     background-color: #f0ad4e;
   }
-  .badge-unmatched {
+  .status-unmatched {
     background-color: #D95551;
+  }
+  .status-not-song {
+    background-color: #777777;
   }
 
   .track-fav {
@@ -123,6 +129,10 @@
   .track-edit {
     font-size: 18px;
     text-align: center;
+  }
+
+  .track-agg-status {
+    width: 10px;
   }
   .table > tbody > tr > td {
     vertical-align: middle;
