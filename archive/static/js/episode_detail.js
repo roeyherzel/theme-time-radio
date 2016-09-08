@@ -1,6 +1,6 @@
 
 function make_link(url, text) {
-  return "<a href=" + url + ">" + text || '' + "</a>";
+  return "<a href=" + $SCRIPT_ROOT + url + ">" + text || '' + "</a>";
 }
 
 function increment_badge(badge_select) {
@@ -72,7 +72,7 @@ $(document).ready(function() {
           $(track_clone).find('.track-agg-status').addClass('status-full');
           increment_badge('#badge-full');
           $.getJSON({
-            url: track_info.release_tags.data[0].links.self,
+            url: $SCRIPT_ROOT + track_info.release_tags.data[0].links.self,
             success: showThumb(track_selector, 'title')
           });
 
@@ -80,7 +80,7 @@ $(document).ready(function() {
           $(track_clone).find('.track-agg-status').addClass('status-half');
           increment_badge('#badge-half');
           $.getJSON({
-            url: track_info.artist_tags.data[0].links.self,
+            url: $SCRIPT_ROOT + track_info.artist_tags.data[0].links.self,
             sucess: showThumb(track_selector, 'name')
           });
 
@@ -100,7 +100,7 @@ $(document).ready(function() {
           // matched
           if (track_tag_status[resource] === "matched") {
             $.getJSON({
-              url: track_info[resource + '_tags'].data[0].links.self,
+              url: $SCRIPT_ROOT + track_info[resource + '_tags'].data[0].links.self,
               success: showResourceTag(track_selector, resource_selector)
             });
 

@@ -35,7 +35,7 @@ class ArtistsSchema(Schema):
 
     class Meta:
         type_ = 'artist'
-        self_url = 'http://localhost:5000/api/artists/{artist_id}'
+        self_url = 'artists/{artist_id}'
         self_url_kwargs = {'artist_id': '<id>'}
 
 
@@ -46,7 +46,7 @@ class ReleasesSchema(Schema):
 
     class Meta:
         type_ = 'release'
-        self_url = 'http://localhost:5000/api/releases/{release_id}'
+        self_url = 'releases/{release_id}'
         self_url_kwargs = {'release_id': '<id>'}
 
 
@@ -56,7 +56,7 @@ class SongsSchema(Schema):
 
     class Meta:
         type_ = 'song'
-        self_url = 'http://localhost:5000/api/songs/{song_id}'
+        self_url = 'songs/{song_id}'
         self_url_kwargs = {'song_id': '<id>'}
 
 
@@ -66,7 +66,7 @@ class TracksArtistsSchema(Schema):
 
     class Meta:
         type_ = 'artists'
-        self_url = 'http://localhost:5000/api/artists/{artist_id}'
+        self_url = 'artists/{artist_id}'
         self_url_kwargs = {'artist_id': '<artist_id>'}
 
 
@@ -76,7 +76,7 @@ class TracksReleasesSchema(Schema):
 
     class Meta:
         type_ = 'releases'
-        self_url = 'http://localhost:5000/api/releases/{release_id}'
+        self_url = 'releases/{release_id}'
         self_url_kwargs = {'release_id': '<release_id>'}
 
 
@@ -86,7 +86,7 @@ class TracksSongsSchema(Schema):
 
     class Meta:
         type_ = 'songs'
-        self_url = 'http://localhost:5000/api/songs/{song_id}'
+        self_url = 'songs/{song_id}'
         self_url_kwargs = {'song_id': '<song_id>'}
 
 

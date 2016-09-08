@@ -88,6 +88,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript">
+      var $SCRIPT_ROOT = {{ request.url_root|tojson|safe }};
+      console.log($SCRIPT_ROOT);
+    </script>
     <script src="{{ url_for('static', filename='dist/js/jquery-3.1.0.min.js') }}"></script>
     <script src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
     {% block script %} {% endblock %}

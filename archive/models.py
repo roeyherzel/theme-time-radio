@@ -1,7 +1,6 @@
-
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 from sqlalchemy import event, desc, distinct
+from datetime import datetime
 
 db = SQLAlchemy()
 

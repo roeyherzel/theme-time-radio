@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block script %}
-<script src="{{ url_for("static", filename="dist/js/episode_detail.js") }}"
+<script src="{{ url_for("static", filename="js/episode_detail.js") }}"
         data-tracklist-uri="{{ url_for("episode_tracklist", episode_id=ep.id) }}">
 </script>
 {% endblock %}
@@ -40,16 +40,14 @@
                 <div class="glyp-button glyphicon glyphicon-star-empty"></div>
               </td>
               <td class="track-pos text-center"></td>
-              <td class="track-thumb">
+              <td class="track-thumb text-center">
                 <img src="/static/images/default-release-cd1.png", alt="thumb">
               </td>
               <td class="track-title">
                 <div>
-                  <span class="text-muted glyphicon glyphicon-music"></span>
                   <span class="track-song"></span>
                 </div>
                 <div>
-                  <span class="text-muted glyphicon glyphicon-cd"></span>
                   <span class="small track-artist"></span> / <span class="small track-release"></span>
                 </div>
               </td>
@@ -63,14 +61,14 @@
     <div class="col-md-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title text-center">Tag Statistics</h3>
+          <h3 class="panel-title text-center">Tagging Guide</h3>
         </div>
         <ul class="list-group">
           <li class="list-group-item"><span class="badge status-full" id='badge-full'>0</span>Tracks Matched Fully</li>
           <li class="list-group-item"><span class="badge status-half" id='badge-half'>0</span>Tracks Matched Artist Only</li>
-          <li class="list-group-item"><span class="badge status-pending" id='badge-pending'>0</span>Tracks Pending Tag Selection</li>
+          <li class="list-group-item"><span class="badge status-pending" id='badge-pending'>0</span>Tracks Pending Confirmation</li>
           <li class="list-group-item"><span class="badge status-unmatched" id='badge-unmatched'>0</span>Tracks Un-Matched</li>
-          <li class="list-group-item"><span class="badge" id='badge-not-song'>0</span>Tracks Not Songs</li>
+          <li class="list-group-item"><span class="badge" id='badge-not-song'>0</span>Discussions</li>
         </ul>
       </div>
     </div>
@@ -79,10 +77,6 @@
 </div>
 
 <style>
-  .glyphicon-cd,
-  .glyphicon-music {
-    padding-right: 10px;
-  }
   h1 {
     padding-top: 40px;
     text-align: center;
@@ -122,6 +116,7 @@
     background-color: #777777;
   }
 
+  .track-pos,
   .track-fav {
     border-right: 1px solid #ddd;
   }
