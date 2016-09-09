@@ -54,20 +54,33 @@ class AddArtist(AddTag):
         self.resource_to_track = TracksArtists
         super().__init__(tag, track_id)
 
-    def addImages(self, tag):
-        if tag.get('images') is None:
-            return
+    def addExtraInfo(self, tag):
+        if tag.get('images') is not None:
+            fields = ['type', 'width', 'height', 'uri', 'uri150', 'resource_url', 'artist_id']
+            for img in tag['images']:
+                img['artist_id'] = tag['id']
+                res = ArtistsImages(**self._build_query_params(img, fields))
+                ArtistsImages.create(res)
 
-        fields = ['type', 'width', 'height', 'uri', 'uri150', 'resource_url', 'artist_id']
-        for img in tag['images']:
-            img['artist_id'] = tag['id']
-            res = ArtistsImages(**self._build_query_params(img, fields))
-            ArtistsImages.create(res)
+        if tag.get('aliases') is not None:
+            for a in tag['aliases']:
+                res = ArtistsAliases(id=a['id'], name=a['name'], artist_id=tag['id'])
+                ArtistsAliases.create(res)
+
+        if tag.get('groups') is not None:
+            for a in tag['groups']:
+                res = ArtistsGroups(id=a['id'], name=a['name'], artist_id=tag['id'])
+                ArtistsGroups.create(res)
+
+        if tag.get('members') is not None:
+            for a in tag['members']:
+                res = ArtistsMembers(id=a['id'], name=a['name'], artist_id=tag['id'])
+                ArtistsMembers.create(res)
 
     def run_querys(self, tag):
         self.addResource(tag)
         self.addResourceToTrack(tag)
-        self.addImages(tag)
+        self.addExtraInfo(tag)
 
 
 class AddRelease(AddTag):
@@ -77,7 +90,25 @@ class AddRelease(AddTag):
         self.resource_to_track = TracksReleases
         super().__init__(tag, track_id)
 
-    def add_tracklist(self, tracklist):
+    def addExtraInfo(self, tag):
+        if tag.get('images') is not None:
+            fields = ['type', 'width', 'height', 'uri', 'uri150', 'resource_url', 'release_id']
+            for img in tag['images']:
+                img['release_id'] = tag['id']
+                res = ReleasesImages(**self._build_query_params(img, fields))
+                ReleasesImages.create(res)
+
+        if tag.get('genres') is not None:
+            for g in tag['genres']:
+                res = ReleasesGenres(genre=g, release_id=tag['id'])
+                ReleasesGenres.create(res)
+
+        if tag.get('styles') is not None:
+            for g in tag['styles']:
+                res = ReleasesStyles(style=g, release_id=tag['id'])
+                ReleasesStyles.create(res)
+
+    def addTracklist(self, tracklist):
         tag_fields = ['id', 'position', 'title', 'type', 'duration', 'release_id']
         for tag in tracklist:
             Songs.create(Songs(**self._build_query_params(tag, tag_fields)))
@@ -85,7 +116,8 @@ class AddRelease(AddTag):
     def run_querys(self, tag):
         self.addResource(tag)
         self.addResourceToTrack(tag)
-        self.add_tracklist(tag['tracklist'])
+        self.addExtraInfo(tag)
+        self.addTracklist(tag['tracklist'])
 
 
 class AddSong(AddTag):

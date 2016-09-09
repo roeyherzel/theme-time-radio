@@ -12,7 +12,8 @@ class CRUD():
         db.session.add(resource)
         try:
             db.session.commit()
-            print("create-commited")
+            # NOTE: enable on debug
+            # print("create-commited")
 
         except IntegrityError as err:
             db.session.rollback()
@@ -127,13 +128,30 @@ class Artists(db.Model, CRUD):
     profile = db.Column(db.String())
     type = db.Column(db.String())
     real_name = db.Column(db.String())
-    # groups
-    # urls
-    # members
-    # aliases
 
     def __repr__(self):
         return '<Artist ({}) - {}>'.format(self.id, self.name)
+
+
+class ArtistsAliases(db.Model, CRUD):
+    id = db.Column(db.Integer, primary_key=True)    # NOTE: ids is discogs artist_id
+    name = db.Column(db.String(), primary_key=True)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), primary_key=True)
+    artist = db.relationship('Artists', backref=db.backref('aliases', lazy='dynamic'))
+
+
+class ArtistsGroups(db.Model, CRUD):
+    id = db.Column(db.Integer, primary_key=True)    # NOTE: ids is discogs artist_id
+    name = db.Column(db.String(), primary_key=True)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), primary_key=True)
+    artist = db.relationship('Artists', backref=db.backref('groups', lazy='dynamic'))
+
+
+class ArtistsMembers(db.Model, CRUD):
+    id = db.Column(db.Integer, primary_key=True)    # NOTE: ids is discogs artist_id
+    name = db.Column(db.String(), primary_key=True)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), primary_key=True)
+    artist = db.relationship('Artists', backref=db.backref('members', lazy='dynamic'))
 
 
 class ArtistsImages(db.Model, CRUD):
@@ -153,12 +171,33 @@ class Releases(db.Model, CRUD):
     title = db.Column(db.String())
     thumb = db.Column(db.String())
     year = db.Column(db.Integer())
-    # styles
-    # genres
-    # images
 
     def __repr__(self):
         return '<Release ({}) - {}>'.format(self.id, self.title)
+
+
+class ReleasesGenres(db.Model, CRUD):
+    genre = db.Column(db.String(), primary_key=True)
+    release_id = db.Column(db.Integer, db.ForeignKey('releases.id'), primary_key=True)
+    release = db.relationship('Releases', backref=db.backref('genres', lazy='dynamic'))
+
+
+class ReleasesStyles(db.Model, CRUD):
+    style = db.Column(db.String(), primary_key=True)
+    release_id = db.Column(db.Integer, db.ForeignKey('releases.id'), primary_key=True)
+    release = db.relationship('Releases', backref=db.backref('styles', lazy='dynamic'))
+
+
+class ReleasesImages(db.Model, CRUD):
+    id = db.Column(db.Integer, primary_key=True)
+    release_id = db.Column(db.Integer, db.ForeignKey('releases.id'), primary_key=True)
+    release = db.relationship('Releases', backref=db.backref('images', lazy='dynamic'))
+    type = db.Column(db.String())
+    width = db.Column(db.Integer())
+    height = db.Column(db.Integer())
+    uri = db.Column(db.String())
+    uri150 = db.Column(db.String())
+    resource_url = db.Column(db.String(), unique=True)
 
 
 class Songs(db.Model, CRUD):

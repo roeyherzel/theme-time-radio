@@ -118,12 +118,10 @@ class Track():
                                    self.query['artist'])
 
     def __str__(self):
-        return "original: {}\ntrack  : {}\nrelease: {}\nartist : {}\n".format(
-                self.title,
-                self.query['song'],
-                self.query['release'],
-                self.query['artist'],
-                )
+        return "original: {}\ntrack  : {}\nrelease: {}\nartist : {}\n".format(self.title,
+                                                                              self.query['song'],
+                                                                              self.query['release'],
+                                                                              self.query['artist'])
 
 
 class Episode():
@@ -189,7 +187,7 @@ class Episode():
             print(myTrack)
             print(myTrack.tag)
 
-        print('='*50)
+        print('=' * 50)
 
 data = feedparser.parse(feed_file).entries  # [1:2]
 ep_list = list()

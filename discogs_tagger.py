@@ -94,15 +94,14 @@ class ArtistInfo():
         try:
             self.id = tag.id
             self.images = tag.images
-            # TODO: collect data from data
-            # self.aliases = tag.aliases
-            # self.groups = tag.groups
-            # self.members = tag.members
+            self.aliases = [dict({'id': i.id, 'name': i.name}) for i in tag.aliases]
+            self.groups = [dict({'id': i.id, 'name': i.name}) for i in tag.groups]
+            self.members = [dict({'id': i.id, 'name': i.name}) for i in tag.members]
             self.name = tag.name
             self.title = tag.name
             self.profile = tag.profile
             self.real_name = tag.real_name
-            self.urls = tag.urls
+            self.urls = tag.data.get('urls')
             self.thumb = tag.data.get('thumb')
             self.type = tag.data.get('type')
 
@@ -166,16 +165,6 @@ class Tag():
             self._query_release4(song, artist)
 
         if self.release.status == 'matched':
-
-            # tag Artist (from Release)
-            # NOTE: seems like we havn't used that code block yet...
-            if self.artist.status != 'matched':
-                print("*** NOTE: artist auto tag from release\n")
-                # FIXME: this is need to be fixed somehow...
-                # i want only keep artist_ids on release
-                # FIXME: need to check cases which there are more then 1 artist in artists
-                self.artist.set_matched_tag(self.release.results.artists[0])
-
             # tag Song (from Release)
             if not self._automatic_tag('song', self.release.results.tracklist):
                 self.song.set_pending_tags(self.release.results.tracklist)

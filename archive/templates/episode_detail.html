@@ -65,7 +65,7 @@
           <li class="list-group-item"><span class="badge status-half" id='badge-half'>0</span>Tracks Matched Artist Only</li>
           <li class="list-group-item"><span class="badge status-pending" id='badge-pending'>0</span>Tracks Pending Confirmation</li>
           <li class="list-group-item"><span class="badge status-unmatched" id='badge-unmatched'>0</span>Tracks Un-Matched</li>
-          <li class="list-group-item"><span class="badge" id='badge-not-song'>0</span>Discussions</li>
+          <li class="list-group-item"><span class="badge status-not-song" id='badge-not-song'>0</span>Discussions</li>
         </ul>
       </div>
     </div>
@@ -94,10 +94,8 @@
     color: #D9534F;
   }
 
-  #badge-full {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
+  .status-full {
+    background-color: #5CB85C;
   }
   .status-half {
     background-color: #337AB7;
@@ -109,7 +107,7 @@
     background-color: #D95551;
   }
   .status-not-song {
-    background-color: #777777;
+    background-color: #9B9B9B;
   }
 
   .track-actions {
