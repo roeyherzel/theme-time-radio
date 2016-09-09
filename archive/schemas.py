@@ -25,6 +25,18 @@ class TracksTagQuerySchema(Schema):
         type_ = 'tag_query'
 
 
+class ArtistsImages(Schema):
+    id = fields.Integer()
+    type = fields.Str()
+    width = fields.Integer()
+    height = fields.Integer()
+    uri = fields.Url()
+    uri150 = fields.Url()
+
+    class Meta:
+        type_ = 'image'
+
+
 class ArtistsSchema(Schema):
     id = fields.Integer()
     name = fields.Str()
@@ -32,6 +44,7 @@ class ArtistsSchema(Schema):
     profile = fields.Str()
     type = fields.Str()
     real_name = fields.Str()
+    images = fields.Nested(ArtistsImages, many=True)
 
     class Meta:
         type_ = 'artist'

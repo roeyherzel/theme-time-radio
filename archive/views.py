@@ -8,50 +8,67 @@ from archive.schemas import *
 import re
 from jinja2 import evalcontextfilter, Markup, escape
 
-_paragraph_re = re.compile(r'(?:\r\n|\r|\n){2,}')
+_paragraph_re = re.compile(r'(?:\r){2,}')
 
 
 @app.template_filter()
 @evalcontextfilter
 def nl2br(eval_ctx, value):
     result = u'\n\n'.join(u'%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(escape(value)))
+
     if eval_ctx.autoescape:
         result = Markup(result)
     return result
 
 
-# ----------------------------------------------------------
-# API
-# ----------------------------------------------------------
+class ArtistAPI(MethodView):
+
+    def get(self, artist_id):
+        if artist_id is None:
+            artists = Artists.query.join(TracksArtists, (TracksArtists.artist_id == Artists.id)) \
+                             .filter(TracksArtists.status == Status.getIdByName('matched')) \
+                             .order_by(Artists.name).all()
+            res = ArtistsSchema().dump(artists, many=True)
+            return jsonify(res.data)
+        else:
+            artist = Artists.query.get(artist_id)
+            res = ArtistsSchema().dump(artist).data
+
+            # FIXME: sometimes problems with back/forward
+            if "application/json" in request.headers.get('Accept'):
+                return jsonify(res)
+            else:
+                primary_image = None
+                all_images = artist.images.all()
+                if all_images:
+                    primary_image = [i for i in all_images if i.type == 'primary']
+                    primary_image = primary_image[0] if primary_image else all_images[0]
+
+                return render_template('artist_detail.html', artist=res['data'], primary_image=primary_image)
+
+artist_view = ArtistAPI.as_view('artist_api')
+app.add_url_rule('/artists', defaults={'artist_id': None}, view_func=artist_view)
+app.add_url_rule('/artists/<int:artist_id>', view_func=artist_view)
 
 
-@app.route('/artists')
-def artists_list():
-    ep = Artists.query.join(TracksArtists, (TracksArtists.artist_id == Artists.id)) \
-                      .filter(TracksArtists.status == Status.getIdByName('matched')).order_by(Artists.name).all()
-    res = ArtistsSchema().dump(ep, many=True).data
-    return jsonify(res)
+class ReleaseAPI(MethodView):
+
+    def get(self, release_id):
+        if release_id is None:
+            releases = Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
+                               .filter(TracksReleases.status == Status.getIdByName('matched')) \
+                               .order_by(Releases.title).all()
+            res = ReleasesSchema().dump(releases, many=True)
+            return jsonify(res.data)
+        else:
+            release = Releases.query.get(release_id)
+            res = ReleasesSchema().dump(release)
+            return jsonify(res.data)
 
 
-@app.route('/artists/<int:artist_id>')
-def artist_detail(artist_id):
-    for i in dir(request):
-        if not i.startswith('_'):
-            print("{} - {}".format(i, getattr(request, i)))
-
-    if request.is_xhr:
-        artist = Artists.query.get(artist_id)
-        res = ArtistsSchema().dump(artist)
-        return jsonify(res.data)
-    else:
-        return 'Artist: ' + str(artist_id)
-
-
-@app.route('/releases/<int:release_id>')
-def release_detail(release_id):
-    release = Releases.query.get(release_id)
-    res = ReleasesSchema().dump(release)
-    return jsonify(res.data)
+release_view = ReleaseAPI.as_view('release_api')
+app.add_url_rule('/releases', defaults={'release_id': None}, view_func=release_view)
+app.add_url_rule('/releases/<int:release_id>', view_func=release_view)
 
 
 @app.route('/songs/<string:song_id>')

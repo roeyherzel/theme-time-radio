@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import event, desc, distinct
+from sqlalchemy.exc import IntegrityError
 from datetime import datetime
 
 db = SQLAlchemy()
@@ -9,6 +10,15 @@ class CRUD():
 
     def create(resource):
         db.session.add(resource)
+        try:
+            db.session.commit()
+            print("create-commited")
+
+        except IntegrityError as err:
+            db.session.rollback()
+            print("create-rollback: {}, {}".format(err.orig.diag.message_primary,
+                                                   err.orig.diag.message_detail))
+
         db.session.commit()
 
     def update(resource):
@@ -110,14 +120,13 @@ class TracksTagStatus(db.Model):
         self.aggregated = Status.getIdByName('unmatched')
 
 
-class Artists(db.Model):
+class Artists(db.Model, CRUD):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     thumb = db.Column(db.String())
     profile = db.Column(db.String())
     type = db.Column(db.String())
     real_name = db.Column(db.String())
-    # images
     # groups
     # urls
     # members
@@ -127,7 +136,19 @@ class Artists(db.Model):
         return '<Artist ({}) - {}>'.format(self.id, self.name)
 
 
-class Releases(db.Model):
+class ArtistsImages(db.Model, CRUD):
+    id = db.Column(db.Integer, primary_key=True)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), primary_key=True)
+    artist = db.relationship('Artists', backref=db.backref('images', lazy='dynamic'))
+    type = db.Column(db.String())
+    width = db.Column(db.Integer())
+    height = db.Column(db.Integer())
+    uri = db.Column(db.String())
+    uri150 = db.Column(db.String())
+    resource_url = db.Column(db.String(), unique=True)
+
+
+class Releases(db.Model, CRUD):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
     thumb = db.Column(db.String())
@@ -140,7 +161,7 @@ class Releases(db.Model):
         return '<Release ({}) - {}>'.format(self.id, self.title)
 
 
-class Songs(db.Model):
+class Songs(db.Model, CRUD):
     id = db.Column(db.String(), primary_key=True)
     title = db.Column(db.String())
     position = db.Column(db.String())
@@ -153,7 +174,7 @@ class Songs(db.Model):
         return '<Song ({}) - {}>'.format(self.id, self.title)
 
 
-class TracksArtists(db.Model):
+class TracksArtists(db.Model, CRUD):
     __tablename__ = 'tracks_artists'
 
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
@@ -171,7 +192,7 @@ class TracksArtists(db.Model):
         return '<TracksArtists track({}) - artist({})>'.format(self.track_id, self.artist_id)
 
 
-class TracksReleases(db.Model):
+class TracksReleases(db.Model, CRUD):
     __tablename__ = 'tracks_releases'
 
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
@@ -189,7 +210,7 @@ class TracksReleases(db.Model):
         return '<TracksReleases track({}) - release({})>'.format(self.track_id, self.release_id)
 
 
-class TracksSongs(db.Model):
+class TracksSongs(db.Model, CRUD):
     __tablename__ = 'tracks_songs'
 
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)

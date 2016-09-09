@@ -32,70 +32,67 @@ class AddTag():
         qp = dict([(i, tag[i]) for i in fields])
         return qp
 
-    def add_resource(self, tag):
+    def addResource(self, tag):
         resource_id = tag['id']
-        res = self.class_add_resource(**self._build_query_params(tag))
-        db.session.add(res)
-        try:
-            db.session.commit()
-            print("{} ({})".format(self.name, resource_id))
+        res = self.resource(**self._build_query_params(tag))
+        self.resource.create(res)
 
-        except sqlalchemy.exc.IntegrityError as err:
-            db.session.rollback()
-            print("WARNING - {} {}".format(err.orig.diag.message_detail, err.orig.diag.message_primary))
-
-    def add_resource_to_track(self, tag):
+    def addResourceToTrack(self, tag):
         resource_id = tag['id']
-        res = self.class_add_resource_to_track(self.track_id, resource_id, Status.getIdByName(self.status))
-        db.session.add(res)
-        print("added")
-        db.session.commit()
-        print("commit")
-        print("{} ({}) to track ({}) status ({})".format(self.name, resource_id, self.track_id, self.status))
+        res = self.resource_to_track(self.track_id, resource_id, Status.getIdByName(self.status))
+        self.resource_to_track.create(res)
 
     def run_querys(self, tag):
-        self.add_resource(tag)
-        self.add_resource_to_track(tag)
+        self.addResource(tag)
+        self.addResourceToTrack(tag)
 
 
 class AddArtist(AddTag):
     def __init__(self, tag, track_id):
         self.tag_fields = ['id', 'name', 'thumb', 'profile', 'type', 'real_name']
-        self.class_add_resource = Artists
-        self.class_add_resource_to_track = TracksArtists
+        self.resource = Artists
+        self.resource_to_track = TracksArtists
         super().__init__(tag, track_id)
+
+    def addImages(self, tag):
+        if tag.get('images') is None:
+            return
+
+        fields = ['type', 'width', 'height', 'uri', 'uri150', 'resource_url', 'artist_id']
+        for img in tag['images']:
+            img['artist_id'] = tag['id']
+            res = ArtistsImages(**self._build_query_params(img, fields))
+            ArtistsImages.create(res)
+
+    def run_querys(self, tag):
+        self.addResource(tag)
+        self.addResourceToTrack(tag)
+        self.addImages(tag)
 
 
 class AddRelease(AddTag):
     def __init__(self, tag, track_id):
         self.tag_fields = ['id', 'title', 'thumb', 'year']
-        self.class_add_resource = Releases
-        self.class_add_resource_to_track = TracksReleases
+        self.resource = Releases
+        self.resource_to_track = TracksReleases
         super().__init__(tag, track_id)
 
     def add_tracklist(self, tracklist):
         tag_fields = ['id', 'position', 'title', 'type', 'duration', 'release_id']
         for tag in tracklist:
-            db.session.add(Songs(**self._build_query_params(tag, tag_fields)))
-            try:
-                db.session.commit()
-                print("TrackList: AddSong ({})".format(tag['id']))
-
-            except sqlalchemy.exc.IntegrityError as err:
-                db.session.rollback()
-                print("WARNING - {} {}".format(err.orig.diag.message_detail, err.orig.diag.message_primary))
+            Songs.create(Songs(**self._build_query_params(tag, tag_fields)))
 
     def run_querys(self, tag):
-        self.add_resource(tag)
-        self.add_resource_to_track(tag)
+        self.addResource(tag)
+        self.addResourceToTrack(tag)
         self.add_tracklist(tag['tracklist'])
 
 
 class AddSong(AddTag):
     def __init__(self, tag, track_id):
         self.tag_fields = ['id', 'position', 'title', 'type', 'duration', 'release_id']
-        self.class_add_resource = Songs
-        self.class_add_resource_to_track = TracksSongs
+        self.resource = Songs
+        self.resource_to_track = TracksSongs
         super().__init__(tag, track_id)
 
 
@@ -144,8 +141,6 @@ with app.app_context():
                     artist=t['query']['artist']
                 )
             )
-            print("AddTrack ({})".format(new_track.id))
-
             AddArtist(t['tag']['artist'], new_track.id)
             AddRelease(t['tag']['release'], new_track.id)
             AddSong(t['tag']['song'], new_track.id)

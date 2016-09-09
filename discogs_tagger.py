@@ -196,10 +196,10 @@ class Tag():
                 track_info[name] += "({}) ".format(len(resource.results))
 
         return "song   : {}\nrelease: {}\nartist : {}".format(
-                track_info['song'],
-                track_info['release'],
-                track_info['artist']
-                )
+            track_info['song'],
+            track_info['release'],
+            track_info['artist']
+        )
 
     def _automatic_tag(self, resource_name, pending_list=None):
         """verify resource query string appears in tag's title/name

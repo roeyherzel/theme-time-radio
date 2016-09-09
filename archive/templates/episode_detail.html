@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block script %}
-<script src="{{ url_for("static", filename="js/episode_detail.js") }}"
-        data-tracklist-uri="{{ url_for("episode_tracklist", episode_id=ep.id) }}">
+<script src="{{ url_for('static', filename='js/episode_detail.js') }}"
+        data-tracklist-uri="{{ url_for('episode_tracklist', episode_id=ep.id) }}">
 </script>
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container page-content">
   <div>
     <h1>{{ ep.attributes.title }}</h1>
   </div>
@@ -15,7 +15,7 @@
       <img class="featurette-image img-responsive center-block" alt="pic" src="{{ ep.attributes.thumb }}">
     </div>
     <div class="col-md-7">
-      <p>{{ ep.attributes.description | nl2br }}</p>
+      <p class="lead">{{ ep.attributes.description | nl2br }}</p>
     </div>
   </div>
   <hr>
@@ -33,13 +33,10 @@
           </thead>
           <tbody class="track-list">
             <tr class="track-row">
-              <td class="track-edit">
-                <div class="glyp-button glyphicon glyphicon-edit"></div>
+              <td class="track-actions text-center">
+                <div class="glyphicon glyphicon-option-horizontal"></div>
               </td>
-              <td class="track-fav">
-                <div class="glyp-button glyphicon glyphicon-star-empty"></div>
-              </td>
-              <td class="track-pos text-center"></td>
+              <td class="track-pos text-right"></td>
               <td class="track-thumb text-center">
                 <img src="/static/images/default-release-cd1.png", alt="thumb">
               </td>
@@ -78,7 +75,6 @@
 
 <style>
   h1 {
-    padding-top: 40px;
     text-align: center;
     direction: rtl;
   }
@@ -104,7 +100,7 @@
     border: 1px solid black;
   }
   .status-half {
-    background-color: #5CB85C;
+    background-color: #337AB7;
   }
   .status-pending {
     background-color: #f0ad4e;
@@ -116,14 +112,8 @@
     background-color: #777777;
   }
 
-  .track-pos,
-  .track-fav {
+  .track-actions {
     border-right: 1px solid #ddd;
-  }
-  .track-fav,
-  .track-edit {
-    font-size: 18px;
-    text-align: center;
   }
 
   .track-agg-status {
