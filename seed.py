@@ -55,6 +55,11 @@ class AddArtist(AddTag):
         super().__init__(tag, track_id)
 
     def addExtraInfo(self, tag):
+        if tag.get('urls') is not None:
+            for url in tag['urls']:
+                res = ArtistsUrls(artist_id=tag['id'], url=url)
+                ArtistsUrls.create(res)
+
         if tag.get('images') is not None:
             fields = ['type', 'width', 'height', 'uri', 'uri150', 'resource_url', 'artist_id']
             for img in tag['images']:
@@ -69,12 +74,12 @@ class AddArtist(AddTag):
 
         if tag.get('groups') is not None:
             for a in tag['groups']:
-                res = ArtistsGroups(id=a['id'], name=a['name'], artist_id=tag['id'])
+                res = ArtistsGroups(id=a['id'], name=a['name'], active=a['active'], artist_id=tag['id'])
                 ArtistsGroups.create(res)
 
         if tag.get('members') is not None:
             for a in tag['members']:
-                res = ArtistsMembers(id=a['id'], name=a['name'], artist_id=tag['id'])
+                res = ArtistsMembers(id=a['id'], name=a['name'], active=a['active'], artist_id=tag['id'])
                 ArtistsMembers.create(res)
 
     def run_querys(self, tag):

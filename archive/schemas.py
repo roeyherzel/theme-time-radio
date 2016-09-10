@@ -37,6 +37,38 @@ class ArtistsImages(Schema):
         type_ = 'image'
 
 
+class ArtistsGroups(Schema):
+    id = fields.Integer()
+    name = fields.Str()
+
+    class Meta:
+        type_ = 'group'
+
+
+class ArtistsMembers(Schema):
+    id = fields.Integer()
+    name = fields.Str()
+
+    class Meta:
+        type_ = 'member'
+
+
+class ArtistsAliases(Schema):
+    id = fields.Integer()
+    name = fields.Str()
+
+    class Meta:
+        type_ = 'alias'
+
+
+class ArtistsUrls(Schema):
+    id = fields.Integer()
+    url = fields.Url()
+
+    class Meta:
+        type_ = 'artist_url'
+
+
 class ArtistsSchema(Schema):
     id = fields.Integer()
     name = fields.Str()
@@ -45,6 +77,10 @@ class ArtistsSchema(Schema):
     type = fields.Str()
     real_name = fields.Str()
     images = fields.Nested(ArtistsImages, many=True)
+    groups = fields.Nested(ArtistsGroups, many=True)
+    members = fields.Nested(ArtistsMembers, many=True)
+    aliases = fields.Nested(ArtistsAliases, many=True)
+    urls = fields.Nested(ArtistsUrls, many=True)
 
     class Meta:
         type_ = 'artist'

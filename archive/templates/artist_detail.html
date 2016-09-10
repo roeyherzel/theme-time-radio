@@ -1,28 +1,30 @@
 {% extends "layout.html" %}
+{% block script %}
+<script src="{{ url_for('static', filename='js/artist_detail.js') }}"
+        data-artist-uri="{{ url_for('artist_api', artist_id=artist.id) }}">
+</script>
+{% endblock %}
 
 {% block body %}
 
 <div class="container page-content">
   <div class="row featurette">
     <div class="col-md-8">
-      <h1 class="featurette-heading">{{ artist.attributes.name }} <span class="text-muted small">See for yourself.</span></h1>
-      <p class="lead">{{ artist.attributes.profile | nl2br }}</p>
+      <h1 class="featurette-heading artist-name"></h1>
+      <p class="lead artist-profile"></p>
+      <hr>
       <dl class="dl-horizontal">
-        <dt>Real Name:</dt><dd>{{ artist.attributes.real_name }}</dd>
+        <div class="artist-real"></div>
+        <div class="artist-aliases"></div>
+        <div class="artist-groups"></div>
+        <div class="artist-members"></div>
+        <div class="artist-urls"></div>
       </dl>
+
     </div>
     <div class="col-md-4">
-      {% if primary_image is none %}
-        {% set image_uri = url_for('static', filename='images/default-release-cd1.png') %}
-      {% else %}
-        {% set image_uri = primary_image.uri %}
-      {% endif %}
-
-      <img class="featurette-image img-responsive center-block" src="{{ image_uri }}" alt="image">
+      <img class="featurette-image img-responsive center-block artist-image" src="" alt="image">
     </div>
-    <!--{% for image in artist.attributes.images.data %}
-      <img src="{{ image.attributes.uri }}", width="{{ image.attributes.width }}", height="{{ image.attributes.height }}">
-    {% endfor %}-->
   </div>
   <hr>
 </div>
@@ -32,7 +34,7 @@
     padding-bottom: 10px;
   }
   .dl-horizontal dt {
-    text-align: left;
+  /*  text-align: left;*/
   }
   img {
     width: 300px;
@@ -40,6 +42,8 @@
     object-fit: scale-down;
     margin-top: 50px;
   }
-
+  .artist-real {
+    margin-bottom: 10px;
+  }
 </style>
 {% endblock %}

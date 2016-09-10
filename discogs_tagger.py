@@ -93,10 +93,6 @@ class ArtistInfo():
             return None
         try:
             self.id = tag.id
-            self.images = tag.images
-            self.aliases = [dict({'id': i.id, 'name': i.name}) for i in tag.aliases]
-            self.groups = [dict({'id': i.id, 'name': i.name}) for i in tag.groups]
-            self.members = [dict({'id': i.id, 'name': i.name}) for i in tag.members]
             self.name = tag.name
             self.title = tag.name
             self.profile = tag.profile
@@ -104,6 +100,10 @@ class ArtistInfo():
             self.urls = tag.data.get('urls')
             self.thumb = tag.data.get('thumb')
             self.type = tag.data.get('type')
+            self.aliases = tag.data.get('aliases')
+            self.groups = tag.data.get('groups')
+            self.members = tag.data.get('members')
+            self.images = tag.data.get('images')
 
         except discogs_client.exceptions.HTTPError as err:
             print("HTTPError: {} ({})\n".format(err.msg, tag.name))

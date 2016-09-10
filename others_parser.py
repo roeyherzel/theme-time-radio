@@ -173,8 +173,6 @@ class Episode():
         self.description = '\n'.join(description)
 
         # collect tracks from playlist
-        # time.sleep(3)
-
         position = 1
         self.playlist = list()
         for t in [i.text for i in ul.find_all('li')]:

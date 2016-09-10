@@ -33,13 +33,19 @@
           </thead>
           <tbody class="track-list">
             <tr class="track-row">
+
               <td class="track-actions text-center">
-                <div class="glyphicon glyphicon-option-horizontal"></div>
+                <button type="button" class="btn btn-xs btn-default">
+                  <span class="glyphicon glyphicon-option-horizontal"></span>
+                </button>
               </td>
+
               <td class="track-pos text-right"></td>
+
               <td class="track-thumb text-center">
-                <img src="/static/images/default-release-cd1.png", alt="thumb">
+                <img class="track-default-thumb" src="/static/images/default-release-cd1.png", alt="thumb">
               </td>
+
               <td class="track-title">
                 <div>
                   <span class="track-song"></span>
@@ -48,7 +54,9 @@
                   <span class="small track-artist"></span> / <span class="small track-release"></span>
                 </div>
               </td>
+
               <td class="track-agg-status"></td>
+
             </tr>
           </tbody>
         </table>
@@ -83,6 +91,10 @@
     width: 55px;
     height: 55px;
   }
+  .track-default-thumb {
+    border: 1px solid #DDDDDD;
+  }
+
   .featurette {
     padding-top: 50px;
     direction: rtl;
@@ -110,15 +122,25 @@
     background-color: #9B9B9B;
   }
 
+  .btn-default {
+    border-color: transparent;
+  }
   .track-actions {
     border-right: 1px solid #ddd;
+    text-align: center;
+    width: 15px;
   }
 
   .track-agg-status {
     width: 10px;
   }
+  .glyphicon-option-horizontal {
+
+  }
+  .glyphicon-option-horizontal,
   .table > tbody > tr > td {
     vertical-align: middle;
+    top: 0;
   }
 
 </style>

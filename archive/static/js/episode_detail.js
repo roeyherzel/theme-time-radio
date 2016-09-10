@@ -1,8 +1,4 @@
 
-function make_link(url, text) {
-  return "<a href=" + $SCRIPT_ROOT + url + ">" + text || '' + "</a>";
-}
-
 function increment_badge(badge_select) {
   var $badge = $(badge_select);
   $badge.text(Number($badge.text()) + 1);
@@ -16,7 +12,7 @@ var showResourceTag = function(track_selector, resource_selector) {
       field = 'name';
     }
     $(track_selector).find(resource_selector).html(
-      make_link(data.data.links.self, data.data.attributes[field])
+      make_api_link(data.data.links.self, data.data.attributes[field])
     );
   };
 };
@@ -25,7 +21,8 @@ var showThumb = function(track_selector, field) {
   return function(data) {
     console.log(data);
     $(track_selector).find('.track-thumb > img').attr({'src': data.data.attributes.thumb, 'title': data.data.attributes[field]})
-                                                .wrap(make_link(data.data.links.self));
+                                                .wrap(make_api_link(data.data.links.self))
+                                                .removeClass('track-default-thumb');
   };
 };
 

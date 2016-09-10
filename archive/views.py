@@ -21,31 +21,32 @@ def nl2br(eval_ctx, value):
     return result
 
 
+def request_wants_json():
+    best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
+    return best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']
+
+
 class ArtistAPI(MethodView):
 
     def get(self, artist_id):
         if artist_id is None:
+            # return all matched artists
             artists = Artists.query.join(TracksArtists, (TracksArtists.artist_id == Artists.id)) \
                              .filter(TracksArtists.status == Status.getIdByName('matched')) \
                              .order_by(Artists.name).all()
+
             res = ArtistsSchema().dump(artists, many=True)
             return jsonify(res.data)
         else:
             artist = Artists.query.get(artist_id)
             res = ArtistsSchema().dump(artist).data
 
-            # FIXME: sometimes problems with back/forward
-            if "application/json" in request.headers.get('Accept'):
+            if request_wants_json():
                 return jsonify(res)
             else:
-                primary_image = None
-                all_images = artist.images.all()
-                if all_images:
-                    primary_image = [i for i in all_images if i.type == 'primary']
-                    primary_image = primary_image[0] if primary_image else all_images[0]
+                return render_template('artist_detail.html', artist=res['data'])
 
-                return render_template('artist_detail.html', artist=res['data'], primary_image=primary_image)
-
+# FIXME: need to seperate API and HTML end-points
 artist_view = ArtistAPI.as_view('artist_api')
 app.add_url_rule('/artists', defaults={'artist_id': None}, view_func=artist_view)
 app.add_url_rule('/artists/<int:artist_id>', view_func=artist_view)
