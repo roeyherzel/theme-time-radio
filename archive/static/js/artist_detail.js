@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     $('.artist-image').attr('src', pri_image ? pri_image.attributes.uri : '/static/images/default-artist1.png');
     $('.artist-name').text(artist_data.name);
-    $('.artist-profile').text(artist_data.profile);   // TODO: nl2br
+    //$('.artist-profile').text(artist_data.profile);   // TODO: nl2br
 
     // Real Name
     if (artist_data.real_name) {
