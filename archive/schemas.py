@@ -1,7 +1,7 @@
 from flask import url_for
 from marshmallow_jsonapi import Schema, fields
 from marshmallow import validate
-from archive.models import Status
+from archive.models import *
 
 
 class TracksTagStatusSchema(Schema):

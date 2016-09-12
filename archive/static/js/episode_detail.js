@@ -4,7 +4,7 @@ function increment_badge(badge_select) {
   $badge.text(Number($badge.text()) + 1);
 }
 
-var showResourceTag = function(track_selector, resource_selector) {
+var showTagInfo = function(track_selector, resource_selector) {
 
   return function(data) {
     var field = 'title';
@@ -12,16 +12,15 @@ var showResourceTag = function(track_selector, resource_selector) {
       field = 'name';
     }
     $(track_selector).find(resource_selector).html(
-      make_api_link(data.data.links.self, data.data.attributes[field])
+      make_link(data.links.self, data.attributes[field])
     );
   };
 };
 
 var showThumb = function(track_selector, field) {
   return function(data) {
-    console.log(data);
-    $(track_selector).find('.track-thumb > img').attr({'src': data.data.attributes.thumb, 'title': data.data.attributes[field]})
-                                                .wrap(make_api_link(data.data.links.self))
+    $(track_selector).find('.track-thumb > img').attr({'src': data.attributes.thumb, 'title': data.attributes[field]})
+                                                .wrap(make_link(data.links.self))
                                                 .removeClass('track-default-thumb');
   };
 };
@@ -67,19 +66,13 @@ $(document).ready(function() {
         // aggregated badge
         if (track_tag_status_agg === 'full-matched') {
           $(track_clone).find('.track-agg-status').addClass('status-full');
+          $.getJSON(api_for(track_info.release_tags.data[0].links.self), showThumb(track_selector, 'title'));
           increment_badge('#badge-full');
-          $.getJSON({
-            url: $SCRIPT_ROOT + track_info.release_tags.data[0].links.self,
-            success: showThumb(track_selector, 'title')
-          });
 
         } else if (track_tag_status_agg === 'half-matched') {
           $(track_clone).find('.track-agg-status').addClass('status-half');
+          $.getJSON(api_for(track_info.artist_tags.data[0].links.self), showThumb(track_selector, 'name'));
           increment_badge('#badge-half');
-          $.getJSON({
-            url: $SCRIPT_ROOT + track_info.artist_tags.data[0].links.self,
-            sucess: showThumb(track_selector, 'name')
-          });
 
         } else if (track_tag_status_agg === 'pending') {
           $(track_clone).find('.track-agg-status').addClass('status-pending');
@@ -96,10 +89,7 @@ $(document).ready(function() {
 
           // matched
           if (track_tag_status[resource] === "matched") {
-            $.getJSON({
-              url: $SCRIPT_ROOT + track_info[resource + '_tags'].data[0].links.self,
-              success: showResourceTag(track_selector, resource_selector)
-            });
+            $.getJSON(api_for(track_info[resource + '_tags'].data[0].links.self), showTagInfo(track_selector, resource_selector));
 
           // pending
           } else if (track_tag_status[resource] === "pending") {

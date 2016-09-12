@@ -5,6 +5,9 @@ from archive import app
 from archive.models import *
 from archive.schemas import *
 
+from archive.resources.artists import ArtistAPI
+from archive.resources.releases import ReleaseAPI
+
 import re
 from jinja2 import evalcontextfilter, Markup, escape
 
@@ -21,55 +24,14 @@ def nl2br(eval_ctx, value):
     return result
 
 
-def request_wants_json():
-    best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
-    return best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']
-
-
-class ArtistAPI(MethodView):
-
-    def get(self, artist_id):
-        if artist_id is None:
-            # return all matched artists
-            artists = Artists.query.join(TracksArtists, (TracksArtists.artist_id == Artists.id)) \
-                             .filter(TracksArtists.status == Status.getIdByName('matched')) \
-                             .order_by(Artists.name).all()
-
-            res = ArtistsSchema().dump(artists, many=True)
-            return jsonify(res.data)
-        else:
-            artist = Artists.query.get(artist_id)
-            res = ArtistsSchema().dump(artist).data
-
-            if request_wants_json():
-                return jsonify(res)
-            else:
-                return render_template('artist_detail.html', artist=res['data'])
-
-# FIXME: need to seperate API and HTML end-points
 artist_view = ArtistAPI.as_view('artist_api')
-app.add_url_rule('/artists', defaults={'artist_id': None}, view_func=artist_view)
-app.add_url_rule('/artists/<int:artist_id>', view_func=artist_view)
-
-
-class ReleaseAPI(MethodView):
-
-    def get(self, release_id):
-        if release_id is None:
-            releases = Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
-                               .filter(TracksReleases.status == Status.getIdByName('matched')) \
-                               .order_by(Releases.title).all()
-            res = ReleasesSchema().dump(releases, many=True)
-            return jsonify(res.data)
-        else:
-            release = Releases.query.get(release_id)
-            res = ReleasesSchema().dump(release)
-            return jsonify(res.data)
+app.add_url_rule('/api/artists', defaults={'artist_id': None}, view_func=artist_view)
+app.add_url_rule('/api/artists/<int:artist_id>', view_func=artist_view)
 
 
 release_view = ReleaseAPI.as_view('release_api')
-app.add_url_rule('/releases', defaults={'release_id': None}, view_func=release_view)
-app.add_url_rule('/releases/<int:release_id>', view_func=release_view)
+app.add_url_rule('/api/releases', defaults={'release_id': None}, view_func=release_view)
+app.add_url_rule('/api/releases/<int:release_id>', view_func=release_view)
 
 
 @app.route('/songs/<string:song_id>')
@@ -95,6 +57,13 @@ def episode_tracklist(episode_id):
 # ----------------------------------------------------------
 # Views
 # ----------------------------------------------------------
+
+
+@app.route('/artists/<int:artist_id>')
+def artist_detail(artist_id):
+    artist = Artists.query.get(artist_id)
+    res = ArtistsSchema().dump(artist).data
+    return render_template('artist_detail.html', artist=res['data'])
 
 
 @app.route('/episodes/<int:episode_id>')

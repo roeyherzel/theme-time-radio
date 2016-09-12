@@ -14,7 +14,7 @@ $(document).ready(function() {
   var artist_uri = $('script[data-artist-uri]').attr('data-artist-uri');
 
   $.getJSON(artist_uri, function(artist_obj, status) {
-    var artist_data = artist_obj.data.attributes,
+    var artist_data = artist_obj.attributes,
         images = artist_data.images.data,
         pri_image;
 
