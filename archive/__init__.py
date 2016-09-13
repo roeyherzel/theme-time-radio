@@ -3,6 +3,7 @@ from flask_restful import Api
 from archive.resources.episodes import *
 from archive.resources.artists import *
 from archive.resources.releases import *
+from archive.resources.songs import *
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -21,5 +22,6 @@ api.add_resource(ArtistsReleases, '/api/artists/<int:artist_id>/releases', endpo
 api.add_resource(ArtistsEpisodes, '/api/artists/<int:artist_id>/episodes', endpoint='artist_episodes_api')
 
 api.add_resource(Release, '/api/releases', '/api/releases/<int:release_id>')
+api.add_resource(Song, '/api/songs', '/api/songs/<string:song_id>')
 
 import archive.views

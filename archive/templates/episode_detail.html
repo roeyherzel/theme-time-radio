@@ -18,31 +18,46 @@
       <p class="lead">{{ ep.attributes.description | nl2br }}</p>
     </div>
   </div>
-  <hr>
 
+</div>
+<div class="container-fluid">
+
+  <hr>
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Panel</h3>
+        </div>
+        <ul class="list-group">
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title text-center">Tracklist</h3>
         </div>
 
         <!-- Table -->
-        <table class="table table-condensed">
-          <thead>
-          </thead>
+        <table class="table">
+
           <tbody class="track-list">
             <tr class="track-row">
+              <td class="border">
+                <ul class="list-unstyled actions">
+                  <li><span class="small glyphicon glyphicon glyphicon-heart"></span></li>
+                  <li><span class="small glyphicon glyphicon-option-horizontal"></span></li>
+                  <li><span class="small glyphicon glyphicon-tag track-agg-status"></span></li>
+                </ul>
 
-              <td class="track-actions text-center">
-                <button type="button" class="btn btn-xs btn-default">
-                  <span class="glyphicon glyphicon-option-horizontal"></span>
-                </button>
+              </td>
+              <td class="text-center">
+                <span class="badge track-pos"></span>
               </td>
 
-              <td class="track-pos text-right"></td>
-
-              <td class="track-thumb text-center">
+              <td class="track-thumb">
                 <img class="track-default-thumb" src="/static/images/default-release-cd1.png", alt="thumb">
               </td>
 
@@ -54,9 +69,6 @@
                   <span class="small track-artist"></span> / <span class="small track-release"></span>
                 </div>
               </td>
-
-              <td class="track-agg-status"></td>
-
             </tr>
           </tbody>
         </table>
@@ -69,11 +81,11 @@
           <h3 class="panel-title text-center">Tagging Guide</h3>
         </div>
         <ul class="list-group">
-          <li class="list-group-item"><span class="badge status-full" id='badge-full'>0</span>Tracks Matched Fully</li>
-          <li class="list-group-item"><span class="badge status-half" id='badge-half'>0</span>Tracks Matched Artist Only</li>
-          <li class="list-group-item"><span class="badge status-pending" id='badge-pending'>0</span>Tracks Pending Confirmation</li>
-          <li class="list-group-item"><span class="badge status-unmatched" id='badge-unmatched'>0</span>Tracks Un-Matched</li>
-          <li class="list-group-item"><span class="badge status-not-song" id='badge-not-song'>0</span>Discussions</li>
+          <li class="list-group-item"><span class="badge badge-status-full" id='badge-full'>0</span>Tracks Matched Fully</li>
+          <li class="list-group-item"><span class="badge badge-status-half" id='badge-half'>0</span>Tracks Matched Artist Only</li>
+          <li class="list-group-item"><span class="badge badge-status-pending" id='badge-pending'>0</span>Tracks Pending Confirmation</li>
+          <li class="list-group-item"><span class="badge badge-status-unmatched" id='badge-unmatched'>0</span>Tracks Un-Matched</li>
+          <li class="list-group-item"><span class="badge badge-status-not-song" id='badge-not-song'>0</span>Discussions</li>
         </ul>
       </div>
     </div>
@@ -107,37 +119,54 @@
   }
 
   .status-full {
-    background-color: #5CB85C;
+    color: #5CB85C;
   }
   .status-half {
-    background-color: #337AB7;
+    color: #337AB7;
   }
   .status-pending {
-    background-color: #f0ad4e;
+    color: #f0ad4e;
   }
   .status-unmatched {
-    background-color: #D95551;
+    color: #D95551;
   }
   .status-not-song {
+    color: #9B9B9B;
+  }
+
+  .badge-status-full {
+    background-color: #5CB85C;
+  }
+  .badge-status-half {
+    background-color: #337AB7;
+  }
+  .badge-status-pending {
+    background-color: #f0ad4e;
+  }
+  .badge-status-unmatched {
+    background-color: #D95551;
+  }
+  .badge-status-not-song {
     background-color: #9B9B9B;
   }
 
   .btn-default {
     border-color: transparent;
   }
-  .track-actions {
-    border-right: 1px solid #ddd;
+  .track-pos {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+  }
+  .border {
+    border-right: 1px solid #EEEEEE;
+  }
+  .actions {
+    display: block;
+    margin-bottom: 0;
     text-align: center;
-    width: 15px;
   }
-
-  .track-agg-status {
-    width: 10px;
-  }
-  .glyphicon-option-horizontal {
-
-  }
-  .glyphicon-option-horizontal,
+  /*.glyphicon-option-horizontal,*/
   .table > tbody > tr > td {
     vertical-align: middle;
     top: 0;

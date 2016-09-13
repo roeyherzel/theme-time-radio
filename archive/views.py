@@ -20,13 +20,6 @@ def nl2br(eval_ctx, value):
     return result
 
 
-@app.route('/songs/<string:song_id>')
-def song_detail(song_id):
-    song = Songs.query.get(song_id)
-    res = SongsSchema().dump(song)
-    return jsonify(res.data)
-
-
 @app.route('/artists/<int:artist_id>')
 def artist_detail(artist_id):
     artist = Artists.query.get(artist_id)
