@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block script %}
 <script src="{{ url_for('static', filename='js/artist_detail.js') }}"
-        data-artist-uri="{{ url_for('artist_api', artist_id=artist.id) }}">
+        data-artist-endpoint="{{ url_for('artist_detail', artist_id=artist.id) }}">
 </script>
 {% endblock %}
 
@@ -10,12 +10,49 @@
 <div class="container">
   <div class="row ">
     <div class="col-md-8">
+
       <h1 class="page-header artist-name"></h1>
       <p class="lead artist-profile">{{ artist.attributes.profile | nl2br }}</p>
 
-      <h3 class="page-header">Albums <span class="text-muted small">(appeared on the show)</span></h3>
+      <h3 class="page-header">Albums <span class="text-muted small">(appearance on the show)</span></h3>
+      <div class="row release-list">
+
+        <div class="release-card">
+          <img class="release-thumb" src="" alt="thumb">
+          <div class="release-info">
+            <div class="release-title small"></div>
+            <div class="release-year small"></div>
+          </div>
+        </div>
+
+      </div>
 
       <h3 class="page-header">Episodes</h3>
+      <table>
+        <tbody class="ep-list">
+          <tr class="ep-clone">
+            <td>
+              <div class="media ep-card">
+                <div class="media-left">
+                </div>
+                <div class="media-body ep-body">
+                  <h5 class="media-heading">
+                    <span class="ep-title"></span>
+                    <span class="label label-info ep-guest"></span>
+                    <span class="label label-default ep-date"></span>
+                  </h5>
+                  <p class="ep-plot small"></p>
+                </div>
+                <div class="media-right">
+                  <img class="media-object ep-thumb" src="" alt="thumb">
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
 
     </div>
     <div class="col-md-4" id="sidebar">
@@ -45,7 +82,7 @@
     font-weight: bold;
   }
 
-  img {
+  .artist-image {
     width: 300px;
     height: 300px;
     object-fit: scale-down;
@@ -55,8 +92,58 @@
     margin-bottom: 10px;
   }
 
+  .release-thumb {
+    width: 150px;
+    height: 150px;
+    object-fit: scale-down;
+    margin: 0;
+    display: block;
+    position: relative;
+  }
+  .release-card {
+    width: 150px;
+    height: 197px;
+    float: left;
+    margin: 20px;
+  }
+  .release-info {
+    padding: 6px;
+  }
+  .release-title {
+    height: 1.5em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .ep-card {
+    border: 1.5px solid #EEEEEE;
+    border-radius: 8px;
+    padding: 10px 10px 10px 0px;
+    margin: 5px;
+  }
+  .ep-thumb {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid black;
+  }
+  .ep-title {
+    font-weight: bold;
+  }
+  .ep-guest {
+    font-weight: normal;
+    margin-right: 10px;
+  }
+  .ep-date {
+    float: left
+  }
+  .ep-body {
+    direction: rtl;
+  }
+
   #sidebar {
-    border: 1px solid #DDDDDD;
+    border: 1px solid #EEEEEE;
   }
 </style>
 {% endblock %}

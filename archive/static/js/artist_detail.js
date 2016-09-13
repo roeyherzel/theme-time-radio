@@ -11,9 +11,10 @@ function artistListedInfo(obj, selector, title, callback) {
 
 
 $(document).ready(function() {
-  var artist_uri = $('script[data-artist-uri]').attr('data-artist-uri');
+  var artist_endpint = $('script[data-artist-endpoint]').attr('data-artist-endpoint');
 
-  $.getJSON(artist_uri, function(artist_obj, status) {
+  $.getJSON(api_for(artist_endpint), function(artist_obj, status) {
+    console.log(artist_obj);
     var artist_data = artist_obj.attributes,
         images = artist_data.images.data,
         pri_image;
@@ -46,6 +47,64 @@ $(document).ready(function() {
     // Groups
     artistListedInfo(artist_data.groups, '.artist-groups', 'Member In Groups:', function(group) {
       $('<li>').text(group.attributes.name).appendTo('.artist-groups ul');
+    });
+
+
+    // Artist Releases
+    var group = $('.release-list'),
+        release_card = $('.release-card')
+    $('.release-card').remove()
+
+    $.getJSON(api_for(artist_endpint + '/releases'), function(data, status) {
+
+      data.forEach(function(release, index) {
+        console.log(release);
+        var release_clone = $(release_card).clone()
+
+        $(release_clone).find('img')
+                        .attr('src', release.attributes.thumb || '/static/images/default-release1.png')
+                        .wrap(make_link(release.links.self));
+
+        $(release_clone).find('.release-title')
+                        .html(make_link(release.links.self, release.attributes.title));
+
+        $(release_clone).find('.release-year')
+                        .text(release.attributes.year);
+
+        $(release_clone).appendTo(group)
+      });
+    });
+
+    $.getJSON(api_for(artist_endpint + '/episodes'), function(data, status) {
+
+      var ep_row = $('.ep-clone');
+      $('.ep-clone').remove();
+
+      data.forEach(function(episodeData, index) {
+        console.log(episodeData);
+        var ep_clone = $(ep_row).clone(),
+            ep_pub_date;
+
+        $(ep_clone).find('.ep-title')
+                   .html(make_link(episodeData.links.self, episodeData.attributes.title));
+
+        $(ep_clone).find('.ep-plot')
+                   .text(episodeData.attributes.plot);
+
+        $(ep_clone).find('.ep-thumb')
+                   .attr('src', episodeData.attributes.thumb)
+                   .wrap(make_link(episodeData.links.self));
+
+        if (episodeData.attributes.guest) {
+          $(ep_clone).find('.ep-guest').text(episodeData.attributes.guest);
+        }
+        var ep_pub_date = new Date(episodeData.attributes.date_pub).toDateString();
+        $(ep_clone).find('.ep-date').text(ep_pub_date);
+
+        $(ep_clone).appendTo('.ep-list');
+
+      });
+
     });
 
   });

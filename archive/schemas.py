@@ -92,6 +92,7 @@ class ReleasesSchema(Schema):
     id = fields.Integer()
     title = fields.Str()
     thumb = fields.Str()
+    year = fields.Integer()
 
     class Meta:
         type_ = 'release'

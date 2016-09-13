@@ -1,14 +1,13 @@
-from archive.models.releases import *
-from archive.models.tracks import *
+from archive.models import *
 from archive.schemas import ReleasesSchema
 
-from flask.views import MethodView
+from flask_restful import Resource
 from flask import jsonify
 
 
-class ReleaseAPI(MethodView):
+class Release(Resource):
 
-    def get(self, release_id):
+    def get(self, release_id=None):
         if release_id is not None:
             release = Releases.query.get(release_id)
             res = ReleasesSchema().dump(release)

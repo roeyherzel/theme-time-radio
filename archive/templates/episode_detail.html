@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block script %}
 <script src="{{ url_for('static', filename='js/episode_detail.js') }}"
-        data-tracklist-uri="{{ url_for('episode_tracklist', episode_id=ep.id) }}">
+        data-tracklist-uri="{{ url_for('tracklist_api', episode_id=ep.id) }}">
 </script>
 {% endblock %}
 

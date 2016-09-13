@@ -2,11 +2,7 @@
 $(document).ready(function() {
   var ep_list_uri = $('script[data-ep-list-uri]').attr('data-ep-list-uri');
 
-  function make_link(url) {
-    return "<a href=" + url + "></a>";
-  }
-
-  $.getJSON(ep_list_uri, function(data, status) {
+  $.getJSON(ep_list_uri, {'limit': 6}, function(data, status) {
 
     var episodes = data;
     var ep_card = $('.ep-card');
@@ -15,7 +11,7 @@ $(document).ready(function() {
     var items = 0;
     var group = $('.ep-latest');
 
-    for(var i in episodes.slice(0,6)) {
+    for(var i in episodes) {
       var ep_clone = $(ep_card).clone();
 
       $(ep_clone).attr('data-url', episodes[i].links.self);
