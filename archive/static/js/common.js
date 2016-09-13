@@ -4,12 +4,13 @@ function url_for(endpoint) {
 }
 
 function api_for(endpoint) {
-  if (endpoint[0].search('/') == 0) {
+  if (endpoint.startsWith('/')) {
     endpoint = endpoint.slice(1);
   }
   return $SCRIPT_ROOT + 'api/' + endpoint;
 }
 
 function make_link(endpoint, text) {
-  return $('<a>').attr('href', url_for(endpoint)).text(text || '')
+  var url = endpoint.startsWith("http") ? endpoint : url_for(endpoint);
+  return $('<a>').attr('href', url).text(text || '')
 }

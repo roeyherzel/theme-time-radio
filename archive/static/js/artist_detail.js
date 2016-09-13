@@ -9,6 +9,12 @@ function artistListedInfo(obj, selector, title, callback) {
   }
 }
 
+function getDomain(url) {
+  var a = document.createElement("a");
+  a.href = url;
+  return a.hostname;
+}
+
 
 $(document).ready(function() {
   var artist_endpint = $('script[data-artist-endpoint]').attr('data-artist-endpoint');
@@ -34,19 +40,31 @@ $(document).ready(function() {
     }
     // Aliases
     artistListedInfo(artist_data.aliases, '.artist-aliases', 'Aliases:', function(aliase) {
-      $('<li>').text(aliase.attributes.name).appendTo('.artist-aliases ul');
+      $('<li>').text(aliase.attributes.name)
+               .appendTo('.artist-aliases ul');
     });
     // Urls
     artistListedInfo(artist_data.urls, '.artist-urls', 'Links:', function(url) {
-      $('<li>').html(make_link(url.attributes.url, url.attributes.url).attr('target', '_blank')).appendTo('.artist-urls ul');
+      var website_domain = getDomain(url.attributes.url);
+      var website_favicon = "url(http://grabicon.com/icon?domain=" + website_domain + "&size=16)";
+
+      var website_link = $('<span>').html(make_link(url.attributes.url, website_domain)
+                                    .css(website_favicon));
+
+      $('<li>').html(make_link(url.attributes.url, website_domain).attr('target', '_blank'))
+               .addClass('favicon')
+               .css('background-image', website_favicon)
+               .appendTo('.artist-urls ul');
     });
     // Members
     artistListedInfo(artist_data.members, '.artist-members', 'Members:', function(member) {
-      $('<li>').text(member.attributes.name).appendTo('.artist-members ul');
+      $('<li>').text(member.attributes.name)
+               .appendTo('.artist-members ul');
     });
     // Groups
     artistListedInfo(artist_data.groups, '.artist-groups', 'Member In Groups:', function(group) {
-      $('<li>').text(group.attributes.name).appendTo('.artist-groups ul');
+      $('<li>').text(group.attributes.name)
+               .appendTo('.artist-groups ul');
     });
 
 
