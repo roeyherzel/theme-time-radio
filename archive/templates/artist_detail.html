@@ -14,20 +14,27 @@
       <h1 class="page-header artist-name"></h1>
       <p class="lead artist-profile">{{ artist.attributes.profile | nl2br }}</p>
 
-      <h3 class="page-header">Albums <span class="text-muted small">(appearance on the show)</span></h3>
-      <div class="row release-list">
+      <h3 class="page-header">Albums <span class="text-muted small">appeared on the show</span></h3>
+      <div class="release-list">
 
-        <div class="release-card">
-          <img class="release-thumb" src="" alt="thumb">
-          <div class="release-info">
-            <div class="release-title small"></div>
-            <div class="release-year small"></div>
+        <div class="media release-card">
+          <div class="media-left">
+            <img class="media-object release-thumb" src="" alt="thumb">
+          </div>
+          <div class="media-body release-body">
+            <h5 class="media-heading">
+              <span class="release-title"></span>
+            </h5>
+            <p>
+              <span class="release-year small"></span><br><br>
+              <span class="">played #(count) times in #(count) episodes</span>
+            </p>
           </div>
         </div>
 
       </div>
 
-      <h3 class="page-header">Episodes</h3>
+      <h3 class="page-header">Episodes <span class="text-muted small">appeared on</span></h3>
       <table>
         <tbody class="ep-list">
           <tr class="ep-clone">
@@ -93,18 +100,18 @@
   }
 
   .release-thumb {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     object-fit: scale-down;
     margin: 0;
     display: block;
     position: relative;
   }
   .release-card {
-    width: 150px;
+  /*  width: 150px;
     height: 197px;
     float: left;
-    margin: 20px;
+    margin: 20px;*/
   }
   .release-info {
     padding: 6px;
