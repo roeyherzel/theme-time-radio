@@ -1,5 +1,6 @@
 from archive.models import db
 from archive.models.common import CRUD
+from datetime import datetime
 
 
 class Episodes(db.Model, CRUD):

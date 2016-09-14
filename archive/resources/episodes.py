@@ -5,6 +5,8 @@ from archive.schemas import EpisodesSchema, EpisodesTracklistScheam
 from flask_restful import Resource, reqparse
 from flask import jsonify
 
+from sqlalchemy import desc
+
 
 class Episode(Resource):
     def get(self, episode_id=None):
@@ -17,7 +19,7 @@ class Episode(Resource):
             ep = Episodes.query.get(episode_id)
             res = EpisodesSchema().dump(ep)
         else:
-            ep = utils.limit_api_results(Episodes.query.order_by(Episodes.date_pub), args.get('limit'))
+            ep = utils.limit_api_results(Episodes.query.order_by(desc(Episodes.date_pub)), args.get('limit'))
             res = EpisodesSchema().dump(ep.all(), many=True)
 
         return jsonify(res.data['data'])

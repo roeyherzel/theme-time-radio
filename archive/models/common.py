@@ -1,4 +1,5 @@
 from archive.models import db
+from sqlalchemy.exc import IntegrityError
 
 
 class CRUD():

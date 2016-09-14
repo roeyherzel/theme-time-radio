@@ -1,5 +1,4 @@
-from archive.models import db
-from archive.models import CRUD
+from archive.models import *
 
 
 class Tracks(db.Model, CRUD):

@@ -4,22 +4,22 @@ function increment_badge(badge_select) {
   $badge.text(Number($badge.text()) + 1);
 }
 
-var showTagInfo = function(track_selector, resource_selector) {
+var showTagInfo = function(trackSelector, resourceSelector) {
 
   return function(data) {
     var field = 'title';
-    if (resource_selector.search('artist') > 0) {
+    if (resourceSelector.search('artist') > 0) {
       field = 'name';
     }
-    $(track_selector).find(resource_selector).html(
+    $(trackSelector).find(resourceSelector).html(
       make_link(data.links.self, data.attributes[field])
     );
   };
 };
 
-var showThumb = function(track_selector, field) {
+var showThumb = function(trackSelector, field) {
   return function(data) {
-    $(track_selector).find('.track-thumb > img').attr({'src': data.attributes.thumb, 'title': data.attributes[field]})
+    $(trackSelector).find('.track-thumb > img').attr({'src': data.attributes.thumb, 'title': data.attributes[field]})
                                                 .wrap(make_link(data.links.self))
                                                 .removeClass('track-default-thumb');
   };
@@ -27,93 +27,89 @@ var showThumb = function(track_selector, field) {
 
 
 $(document).ready(function() {
-  var resources = ['song', 'artist', 'release'];
   var tracklist_uri = $('script[data-tracklist-uri]').attr('data-tracklist-uri');
 
   $.getJSON(tracklist_uri, function(tracklist, status) {
 
-    console.log(tracklist);
-    var track_row = $(".track-row");
+    var trackCard = $(".track-row");
     $(".track-row").remove();
 
-    for(var i in tracklist) {
-      var track_selector,
-          track_info = tracklist[i].attributes,
-          track_query = track_info.tags_query.data[0].attributes,
-          track_tag_status = track_info.tags_status.data[0].attributes,
-          track_tag_status_agg = track_tag_status.aggregated,
-          track_clone = $(track_row).clone();
+    tracklist.forEach(function(currentTrack, index) {
+
+      var trackSelector = '#track_' + currentTrack.id,
+          trackData = currentTrack.attributes,
+          trackTagsQuery = trackData.tags_query.data[0].attributes,
+          trackTagsStatus = trackData.tags_status.data[0].attributes,
+          trackClone = $(trackCard).clone();
+
+      $(trackClone).attr('id', 'track_' + currentTrack.id);
+      $(trackClone).find('.track-id').text(currentTrack.id);
+      $(trackClone).find('.track-pos').text(currentTrack.attributes.position);
+      $(trackClone).appendTo('tbody.track-list');
 
 
-      $(track_clone).attr('id', 'track_' + tracklist[i].id);
-      $(track_clone).find('.track-id').text(tracklist[i].id);
-      $(track_clone).find('.track-pos').text(tracklist[i].attributes.position);
-      $(track_clone).appendTo('tbody.track-list');
-
-      track_selector = '#track_' + tracklist[i].id;
-
-      if (track_info.resolved === false) {
-        //$(track_clone).addClass('active');
-        $(track_clone).find('.track-thumb > img').attr('src', '/static/images/microphone1-icon-512x512.png');
-        $(track_clone).find('.track-title').text(track_info.title)
+      if (trackData.resolved === false) {
+        $(trackClone).find('.track-thumb > img').attr('src', '/static/images/microphone1-icon-512x512.png');
+        $(trackClone).find('.track-title').text(trackData.title)
                                            .css({'direction': 'rtl', 'text-align': 'left'});
 
         // aggregated badge
-        $(track_clone).find('.track-agg-status').addClass('status-not-song');
+        $(trackClone).addClass('status-not-song');
         increment_badge('#badge-not-song');
 
       } else {
         // aggregated badge
-        if (track_tag_status_agg === 'full-matched') {
-          $(track_clone).find('.track-agg-status').addClass('status-full');
-          $.getJSON(api_for(track_info.release_tags.data[0].links.self), showThumb(track_selector, 'title'));
+        if (trackTagsStatus.aggregated === 'full-matched') {
+          $(trackClone).addClass('status-full');
+          $.getJSON(api_for(trackData.release_tags.data[0].links.self), showThumb(trackSelector, 'title'));
           increment_badge('#badge-full');
 
-        } else if (track_tag_status_agg === 'half-matched') {
-          $(track_clone).find('.track-agg-status').addClass('status-half');
-          $.getJSON(api_for(track_info.artist_tags.data[0].links.self), showThumb(track_selector, 'name'));
+        } else if (trackTagsStatus.aggregated === 'half-matched') {
+          $(trackClone).addClass('status-half');
+          $.getJSON(api_for(trackData.artist_tags.data[0].links.self), showThumb(trackSelector, 'name'));
           increment_badge('#badge-half');
 
-        } else if (track_tag_status_agg === 'pending') {
-          $(track_clone).find('.track-agg-status').addClass('status-pending');
+        } else if (trackTagsStatus.aggregated === 'pending') {
+          $(trackClone).addClass('status-pending');
           increment_badge('#badge-pending');
 
-        } else if (track_tag_status_agg === 'unmatched') {
-          $(track_clone).find('.track-agg-status').addClass('status-unmatched');
+        } else if (trackTagsStatus.aggregated === 'unmatched') {
+          $(trackClone).addClass('status-unmatched');
           increment_badge('#badge-unmatched');
         }
 
-        for(var r in resources) {
-          var resource = resources[r],
-              resource_selector = '.track-' + resource;
+        ['song', 'artist', 'release'].forEach(function(resource, index) {
+          var resourceSelector = '.track-' + resource;
+              statusSelector = resourceSelector + '-status';
 
           // matched
-          if (track_tag_status[resource] === "matched") {
-            $.getJSON(api_for(track_info[resource + '_tags'].data[0].links.self), showTagInfo(track_selector, resource_selector));
+          if (trackTagsStatus[resource] === "matched") {
+            $.getJSON(api_for(trackData[resource + '_tags'].data[0].links.self), showTagInfo(trackSelector, resourceSelector));
 
           // pending
-          } else if (track_tag_status[resource] === "pending") {
+          } else if (trackTagsStatus[resource] === "pending") {
 
-            $(track_selector).find(resource_selector).append(
-              $('<span>').addClass('glyphicon glyphicon-exclamation-sign')
-            );
-            if (track_query[resource] !== null) {
-              $(track_selector).find(resource_selector).append(" " + track_query[resource])
-                                                       .addClass('pending-resource');
-            }
+            $(trackSelector).find(statusSelector).addClass('glyphicon glyphicon-exclamation-sign');
+            $(trackSelector).find(resourceSelector)
+                             .text("pending selection")
+                             .addClass('color-exclamation-sign')
+                             .css('font-style', 'italic');
 
           // unmatched
           } else {
-            if (track_query[resource]) {
-              $(track_selector).find(resource_selector).text(track_query[resource]);
+            if (trackTagsQuery[resource]) {
+              $(trackSelector).find(resourceSelector).text(trackTagsQuery[resource]);
             } else {
-              $(track_selector).find(resource_selector).html(
-                $('<span>').addClass('glyphicon glyphicon-question-sign')
-              );
+              $(trackSelector).find(statusSelector).addClass('glyphicon glyphicon-question-sign');
+              $(trackSelector).find(resourceSelector)
+                               .text("missing data")
+                               .addClass('color-question-sign')
+                               .css('font-style', 'italic');
             }
           }
-        }
+        });
       }
-    }
+    });
+
   });
 });

@@ -19,42 +19,37 @@
     </div>
   </div>
 
-</div>
-<div class="container-fluid">
+  <h2 class="page-header"><strong>Tagging Status</strong></h2>
 
-  <hr>
+  <div class="btn-group">
+    <button class="btn btn-success" type="button"><span class="badge" id='badge-full'>0</span> Matched</button>
+    <button class="btn btn-info" type="button"><span class="badge" id='badge-half'>0</span> Half-Matched</button>
+    <button class="btn btn-warning" type="button"><span class="badge" id='badge-pending'>0</span> Pending</button>
+    <button class="btn btn-danger" type="button"><span class="badge" id='badge-unmatched'>0</span> Un-Matched</button>
+    <button class="btn btn-default" type="button"><span class="badge" id='badge-not-song'>0</span> Not Songs</button>
+  </div>
+
+  <h2 class="page-header"><strong>Playlist</strong></h2>
+
   <div class="row">
-    <div class="col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title text-center">Panel</h3>
-        </div>
-        <ul class="list-group">
-        </ul>
-      </div>
-    </div>
+    <div class="col-md-8">
 
-    <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title text-center">Tracklist</h3>
-        </div>
-
         <!-- Table -->
         <table class="table">
-
           <tbody class="track-list">
             <tr class="track-row">
-              <td class="border">
-                <ul class="list-unstyled actions">
-                  <li><span class="small glyphicon glyphicon glyphicon-heart"></span></li>
-                  <li><span class="small glyphicon glyphicon-option-horizontal"></span></li>
-                  <li><span class="small glyphicon glyphicon-tag track-agg-status"></span></li>
-                </ul>
 
+              <td class="actions text-center">
+                  <span class="glyphicon glyphicon-option-horizontal"></span>
               </td>
+
+              <td class="actions text-center border-right">
+                <span class="glyphicon glyphicon glyphicon-heart"></span>
+              </td>
+
               <td class="text-center">
-                <span class="badge track-pos"></span>
+                <span class="small track-pos"></span>
               </td>
 
               <td class="track-thumb">
@@ -63,33 +58,22 @@
 
               <td class="track-title">
                 <div>
+                  <span class="track-song-status"></span>
                   <span class="track-song"></span>
                 </div>
                 <div>
-                  <span class="small track-artist"></span> / <span class="small track-release"></span>
+                  <span class="track-artist-status"></span>
+                  <span class="small track-artist"></span> | <span class="track-release-status"></span>
+                  <span class="small track-release"></span>
                 </div>
               </td>
+
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
 
-    <div class="col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title text-center">Tagging Guide</h3>
-        </div>
-        <ul class="list-group">
-          <li class="list-group-item"><span class="badge badge-status-full" id='badge-full'>0</span>Tracks Matched Fully</li>
-          <li class="list-group-item"><span class="badge badge-status-half" id='badge-half'>0</span>Tracks Matched Artist Only</li>
-          <li class="list-group-item"><span class="badge badge-status-pending" id='badge-pending'>0</span>Tracks Pending Confirmation</li>
-          <li class="list-group-item"><span class="badge badge-status-unmatched" id='badge-unmatched'>0</span>Tracks Un-Matched</li>
-          <li class="list-group-item"><span class="badge badge-status-not-song" id='badge-not-song'>0</span>Discussions</li>
-        </ul>
-      </div>
     </div>
-
   </div>
 </div>
 
@@ -98,13 +82,17 @@
     text-align: center;
     direction: rtl;
   }
+  .tag-status-panel {
+    direction: ltr;
+  }
+  .tag-status-badge {
+    //float: right;
+  }
+
   .track-thumb > a > img,
   .track-thumb > img {
     width: 55px;
     height: 55px;
-  }
-  .track-default-thumb {
-    border: 1px solid #DDDDDD;
   }
 
   .featurette {
@@ -113,57 +101,34 @@
   }
   .glyphicon-exclamation-sign {
     color: #f0ad4e;
+    line-height: 20px;
   }
   .glyphicon-question-sign {
     color: #D9534F;
+    line-height: 20px;
   }
-
-  .status-full {
-    color: #5CB85C;
-  }
-  .status-half {
-    color: #337AB7;
-  }
-  .status-pending {
+  .color-exclamation-sign {
     color: #f0ad4e;
   }
-  .status-unmatched {
-    color: #D95551;
-  }
-  .status-not-song {
-    color: #9B9B9B;
+  .color-question-sign {
+    color: #D9534F;
   }
 
-  .badge-status-full {
-    background-color: #5CB85C;
-  }
-  .badge-status-half {
-    background-color: #337AB7;
-  }
-  .badge-status-pending {
-    background-color: #f0ad4e;
-  }
-  .badge-status-unmatched {
-    background-color: #D95551;
-  }
-  .badge-status-not-song {
-    background-color: #9B9B9B;
-  }
-
-  .btn-default {
-    border-color: transparent;
-  }
   .track-pos {
     color: black;
     background-color: white;
-    border: 1px solid black;
+    //border: 1px solid black;
+    font-weight: lighter;
+    width: 20px;
   }
-  .border {
+
+  .border-right {
     border-right: 1px solid #EEEEEE;
   }
   .actions {
-    display: block;
-    margin-bottom: 0;
+    //display: block;
+    margin: 0;
+    padding: 0;
     text-align: center;
   }
   /*.glyphicon-option-horizontal,*/

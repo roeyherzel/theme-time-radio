@@ -12,8 +12,6 @@ from alphabet_detector import AlphabetDetector
 ad = AlphabetDetector()
 
 
-feed_file = 'download.xml'
-
 # ' - '
 SYMB_dash = b' \xe2\x80\x93 '
 
@@ -135,8 +133,12 @@ class Episode():
         self.guest = None
         self._artist_for_all = None
 
+        print("Episode: {}".format(RTL(self.title)))
+
         soup = BeautifulSoup(ep.description, 'html.parser')
-        soup.a.extract()
+        if soup.a:
+            soup.a.extract()
+
         self.plot = soup.text
 
         soup = BeautifulSoup(ep.content[0].value, 'html.parser')
@@ -187,14 +189,19 @@ class Episode():
 
         print('=' * 50)
 
-data = feedparser.parse(feed_file).entries  # [1:2]
-ep_list = list()
 
-for ep in data:
-    myEpisode = Episode(ep)
-    ep_list.append(myEpisode)
-    print("\n--------------\n")
+feed_files = ['download.xml', 'download2.xml']
+feed_files = ['download2.xml']
 
-with open('db.json', 'w') as f:
-    f.write(json.dumps({'episodes': ep_list},
-            default=lambda x: x.__dict__, ensure_ascii=False))
+for feed in feed_files:
+    data = feedparser.parse(feed).entries  # [8:9]
+    ep_list = list()
+
+    for ep in data:
+        myEpisode = Episode(ep)
+        ep_list.append(myEpisode)
+        print("--------------\n")
+
+    with open('db.json', 'w') as f:
+        f.write(json.dumps({'episodes': ep_list},
+                default=lambda x: x.__dict__, ensure_ascii=False))

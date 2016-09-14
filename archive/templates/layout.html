@@ -31,12 +31,16 @@
     <![endif]-->
   </head>
   <style>
+  body {
+    font-family: Verdana;
+  }
   .navbar {
     background-color: #373A3C;
   }
   .navbar-inverse .navbar-brand {
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: lighter;
   }
   .navbar-inverse .navbar-nav>li>a {
     color: #FFFFFF;
@@ -44,7 +48,6 @@
   .page-content {
     padding-top: 40px;
     color: #000000;
-    font-family: Verdana;
   }
   .lead {
     font-size: 16px;
@@ -67,16 +70,16 @@
 
         <div id="navbar" class="navbar-collapse collapse">
 
-          <form class="navbar-form navbar-left">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-          </form>
-
           <ul class="nav navbar-nav">
-            <li><a href="#">Episodes<span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Guests</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Podcast<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Episodes</a></li>
+                <li><a href="#">Guests</a></li>
+                <li><a href="#">Categories</a></li>
+              </ul>
+            </li>
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Music<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -86,6 +89,16 @@
               </ul>
             </li>
           </ul>
+
+          <form class="navbar-form navbar-left">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+            </div><!-- /input-group -->
+          </form>
+
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
@@ -100,7 +113,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript">
       var $SCRIPT_ROOT = {{ request.url_root|tojson|safe }};
-      console.log($SCRIPT_ROOT);
     </script>
     <script src="{{ url_for('static', filename='dist/js/jquery-3.1.0.min.js') }}"></script>
     <script src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
