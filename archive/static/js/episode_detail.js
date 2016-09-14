@@ -19,15 +19,21 @@ var showTagInfo = function(trackSelector, resourceSelector) {
 
 var showThumb = function(trackSelector, field) {
   return function(data) {
-    $(trackSelector).find('.track-thumb > img').attr({'src': data.attributes.thumb, 'title': data.attributes[field]})
-                                                .wrap(make_link(data.links.self))
-                                                .removeClass('track-default-thumb');
+    $(trackSelector).find('.track-thumb > img')
+                    .attr({'src': data.attributes.thumb, 'title': data.attributes[field]})
+                    .wrap(make_link(data.links.self))
+                    .removeClass('track-default-thumb');
   };
 };
 
 
 $(document).ready(function() {
-  var tracklist_uri = $('script[data-tracklist-uri]').attr('data-tracklist-uri');
+
+  var tracklist_uri = $('script[data-tracklist-uri]').attr('data-tracklist-uri'),
+      episodeDate = $('.ep-date').text();
+
+  episodeDate = new Date(episodeDate).toDateString();
+  $('.ep-date').text(episodeDate);
 
   $.getJSON(tracklist_uri, function(tracklist, status) {
 
@@ -50,8 +56,13 @@ $(document).ready(function() {
 
       if (trackData.resolved === false) {
         $(trackClone).find('.track-thumb > img').attr('src', '/static/images/microphone1-icon-512x512.png');
-        $(trackClone).find('.track-title').text(trackData.title)
-                                           .css({'direction': 'rtl', 'text-align': 'left'});
+        $(trackClone).find('.track-artist').parent().remove();
+        $(trackClone).find('.track-release').parent().remove();
+        $(trackClone).find('.track-song').parent().addClass('active');
+        $(trackClone).find('.track-song')
+                     .text(trackData.title)
+                     .css({'direction': 'rtl', 'text-align': 'left'})
+                     .attr('colspan', '3');
 
         // aggregated badge
         $(trackClone).addClass('status-not-song');
@@ -89,27 +100,22 @@ $(document).ready(function() {
           // pending
           } else if (trackTagsStatus[resource] === "pending") {
 
-            $(trackSelector).find(statusSelector).addClass('glyphicon glyphicon-exclamation-sign');
-            $(trackSelector).find(resourceSelector)
-                             .text("pending selection")
-                             .addClass('color-exclamation-sign')
-                             .css('font-style', 'italic');
+            $(trackSelector).find(statusSelector)
+                            .addClass('glyphicon glyphicon-exclamation-sign');
 
           // unmatched
           } else {
             if (trackTagsQuery[resource]) {
               $(trackSelector).find(resourceSelector).text(trackTagsQuery[resource]);
             } else {
-              $(trackSelector).find(statusSelector).addClass('glyphicon glyphicon-question-sign');
-              $(trackSelector).find(resourceSelector)
-                               .text("missing data")
-                               .addClass('color-question-sign')
-                               .css('font-style', 'italic');
+              $(trackSelector).find(statusSelector)
+                              .addClass('glyphicon glyphicon-question-sign');
+
             }
           }
         });
       }
-    });
+    }); // tracklist callback
+  }); // tracklist_uri AJAX
 
-  });
 });

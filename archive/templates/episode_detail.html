@@ -6,47 +6,46 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
-  <div>
-    <h1>{{ ep.attributes.title }}</h1>
-  </div>
-  <div class="row featurette">
-    <div class="col-md-5">
-      <img class="featurette-image img-responsive center-block" alt="pic" src="{{ ep.attributes.thumb }}">
-    </div>
-    <div class="col-md-7">
-      <p class="lead">{{ ep.attributes.description | nl2br }}</p>
-    </div>
-  </div>
-
-  <h2 class="page-header"><strong>Tagging Status</strong></h2>
-
-  <div class="btn-group">
-    <button class="btn btn-success" type="button"><span class="badge" id='badge-full'>0</span> Matched</button>
-    <button class="btn btn-info" type="button"><span class="badge" id='badge-half'>0</span> Half-Matched</button>
-    <button class="btn btn-warning" type="button"><span class="badge" id='badge-pending'>0</span> Pending</button>
-    <button class="btn btn-danger" type="button"><span class="badge" id='badge-unmatched'>0</span> Un-Matched</button>
-    <button class="btn btn-default" type="button"><span class="badge" id='badge-not-song'>0</span> Not Songs</button>
-  </div>
-
-  <h2 class="page-header"><strong>Playlist</strong></h2>
+<div class="container-fluid">
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="media">
+      <div class="media-left">
+        <img class="media-object ep-thumb img-rounded" alt="pic" src="{{ ep.attributes.thumb }}">
+        <hr>
+        <p class="small heb">{{ ep.attributes.description | nl2br }}</p>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading ep-title">{{ ep.attributes.title }}</h3>
+        <dl class="dl-horizontal">
+          <dt>Aired:</dt>
+          <dd><span class="ep-date">{{ ep.attributes.date_pub }}</span></dd>
 
-      <div class="panel panel-default">
+          <dt>Guest:</dt>
+          <dd><span class="ep-guest">{{ ep.attributes.guest }}</span></dd>
+
+          <dt>Categories:</dt>
+          <dd><span class="ep-guest">{{ ep.attributes.guest }}</span></dd>
+        </dl>
+
+
+
+
         <!-- Table -->
         <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>SONG</th>
+              <th>ARTIST</th>
+              <th>ALBUM</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
           <tbody class="track-list">
             <tr class="track-row">
-
-              <td class="actions text-center">
-                  <span class="glyphicon glyphicon-option-horizontal"></span>
-              </td>
-
-              <td class="actions text-center border-right">
-                <span class="glyphicon glyphicon glyphicon-heart"></span>
-              </td>
 
               <td class="text-center">
                 <span class="small track-pos"></span>
@@ -56,31 +55,78 @@
                 <img class="track-default-thumb" src="/static/images/default-release-cd1.png", alt="thumb">
               </td>
 
-              <td class="track-title">
-                <div>
-                  <span class="track-song-status"></span>
-                  <span class="track-song"></span>
-                </div>
-                <div>
-                  <span class="track-artist-status"></span>
-                  <span class="small track-artist"></span> | <span class="track-release-status"></span>
-                  <span class="small track-release"></span>
-                </div>
+              <td class="small track-song"></td>
+              <td>
+                <span class="track-artist-status"></span><span class="small track-artist"></span>
+              </td>
+              <td>
+                <span class="track-release-status"></span><span class="small track-release"></span>
+              </td>
+
+              <td class="actions text-center">
+                  <span class="glyphicon glyphicon-option-horizontal"></span>
+              </td>
+
+              <td class="actions text-center border-right">
+                <span class="glyphicon glyphicon-plus"></span>
               </td>
 
             </tr>
           </tbody>
         </table>
+
       </div>
 
     </div>
   </div>
-</div>
+  <div class="row">
+
+  </div>
+
+
+  <!--<h2 class="page-header"><strong>Tagging Status</strong></h2>
+
+  <div class="btn-group">
+    <button class="btn btn-sm btn-success" type="button"><span class="badge" id='badge-full'>0</span> Matched</button>
+    <button class="btn btn-sm btn-info" type="button"><span class="badge" id='badge-half'>0</span> Half-Matched</button>
+    <button class="btn btn-sm btn-warning" type="button"><span class="badge" id='badge-pending'>0</span> Pending</button>
+    <button class="btn btn-sm btn-danger" type="button"><span class="badge" id='badge-unmatched'>0</span> Un-Matched</button>
+    <button class="btn btn-sm btn-default" type="button"><span class="badge" id='badge-not-song'>0</span> Not Songs</button>
+  </div>-->
 
 <style>
-  h1 {
-    text-align: center;
+  .dl-horizontal {
+    text-align: left;
+  }
+  .container-fluid {
+    margin: 0 40px 0 40px;
+  }
+  .heb {
     direction: rtl;
+  }
+  .media-left {
+    padding-right: 40px;
+  }
+  .ep-title {
+    margin-bottom: 10px
+  }
+  .ep-thumb {
+    width: 340px;
+    height: 340px;
+    object-fit: cover;
+  }
+  .table {
+    margin: 20px 0 20px 0;
+  }
+  .table > thead > tr {
+    border-top: 1px solid #ddd;
+  }
+  .table > thead > tr > th {
+    font-weight: lighter;
+    font-size: 85%;
+    color: #808080;
+    border-bottom: 1px solid #ddd;
+    padding: 4px;
   }
   .tag-status-panel {
     direction: ltr;
@@ -95,29 +141,17 @@
     height: 55px;
   }
 
-  .featurette {
-    padding-top: 50px;
-    direction: rtl;
-  }
   .glyphicon-exclamation-sign {
     color: #f0ad4e;
-    line-height: 20px;
+    font-size: 130%;
   }
   .glyphicon-question-sign {
     color: #D9534F;
-    line-height: 20px;
-  }
-  .color-exclamation-sign {
-    color: #f0ad4e;
-  }
-  .color-question-sign {
-    color: #D9534F;
+    font-size: 130%;
   }
 
   .track-pos {
-    color: black;
-    background-color: white;
-    //border: 1px solid black;
+    color: #808080;
     font-weight: lighter;
     width: 20px;
   }
