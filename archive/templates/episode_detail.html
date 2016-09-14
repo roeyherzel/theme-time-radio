@@ -17,14 +17,15 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading ep-title">{{ ep.attributes.title }}</h3>
-        <dl class="dl-horizontal">
-          <dt>Aired:</dt>
+
+        <dl>
+          <dt>Aired On</dt>
           <dd><span class="ep-date">{{ ep.attributes.date_pub }}</span></dd>
 
-          <dt>Guest:</dt>
+          <dt>Guests</dt>
           <dd><span class="ep-guest">{{ ep.attributes.guest }}</span></dd>
 
-          <dt>Categories:</dt>
+          <dt>Categories</dt>
           <dd><span class="ep-guest">{{ ep.attributes.guest }}</span></dd>
         </dl>
 
@@ -95,8 +96,28 @@
   </div>-->
 
 <style>
-  .dl-horizontal {
-    text-align: left;
+  dl {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  }
+  dt {
+    float: left;
+    width: 10%;
+    /* adjust the width; make sure the total of both is 100% */
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+    color: #777
+  }
+  dd {
+    float: left;
+    width: 90%;
+    /* adjust the width; make sure the total of both is 100% */
+    padding: 0;
+    padding-bottom: 1px;
+    margin: 0;
   }
   .container-fluid {
     margin: 0 40px 0 40px;
