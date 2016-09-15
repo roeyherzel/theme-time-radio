@@ -12,15 +12,34 @@
     <div class="media">
       <div class="media-left">
         <img class="media-object ep-thumb img-rounded" alt="pic" src="{{ ep.thumb }}">
-        <hr>
-        <p class="small heb">{{ ep.description | nl2br }}</p>
+
+        <ul class="list-inline text-center">
+          <li>
+            <span class="badge-tag" id="badge-artist-matched" data-toggle="tooltip" title="Matched">0</span>
+            <span class="badge-tag" id="badge-artist-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
+            <span class="title-tag-status">Artists</span>
+          </li>
+          <li>
+            <span class="badge-tag" id="badge-release-matched" data-toggle="tooltip" title="Matched">0</span>
+            <span class="badge-tag" id="badge-release-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
+            <span class="title-tag-status">Albums</span>
+          </li>
+          <li>
+            <span class="badge-tag" id="badge-song-matched" data-toggle="tooltip" title="Matched">0</span>
+            <span class="badge-tag" id="badge-song-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
+            <span class="title-tag-status">Songs</span>
+          </li>
+        </ul>
+        <hr style="margin-top: 10px">
+
+        <p class="small ep-desc">{{ ep.description | nl2br }}</p>
       </div>
       <div class="media-body">
         <h3 class="media-heading ep-title">{{ ep.title }}</h3>
 
-        <dl>
+        <dl class="ep-info">
           <dt>Aired On</dt>
-          <dd><span class="label label-default ep-date">{{ ep.date_pub }}</span></dd>
+          <dd><span class="ep-date">{{ ep.date_pub }}</span></dd>
 
           {% if ep.guest %}
             <dt>Guests</dt>
@@ -35,6 +54,7 @@
               {% endfor %}
             </span>
           </dd>
+
         </dl>
 
         <div class="ep-actions">
@@ -73,7 +93,7 @@
               </td>
 
               <td class="track-thumb">
-                <img class="track-default-thumb" src="/static/images/default-release-cd1.png", alt="thumb">
+                <img class="track-default-thumb" src="", alt="thumb">
               </td>
 
               <td class="small track-song"></td>
@@ -102,19 +122,28 @@
     </div>
   </div>
 
-
-
-  <!--<h2 class="page-header"><strong>Tagging Status</strong></h2>
-
-  <div class="btn-group">
-    <button class="btn btn-sm btn-success" type="button"><span class="badge" id='badge-full'>0</span> Matched</button>
-    <button class="btn btn-sm btn-info" type="button"><span class="badge" id='badge-half'>0</span> Half-Matched</button>
-    <button class="btn btn-sm btn-warning" type="button"><span class="badge" id='badge-pending'>0</span> Pending</button>
-    <button class="btn btn-sm btn-danger" type="button"><span class="badge" id='badge-unmatched'>0</span> Un-Matched</button>
-    <button class="btn btn-sm btn-default" type="button"><span class="badge" id='badge-not-song'>0</span> Not Songs</button>
-  </div>-->
-
 <style>
+  .list-inline,
+  ul {
+    background-color: #373A3C;
+    border-radius: 4px;
+    padding: 3px 0 5px 0;
+    margin: 0;
+  }
+  .badge-tag {
+    padding: 3px 5px 3px 5px;
+    border-style: hidden;
+    border-radius: 15px;
+    background-color: #FFF;
+    color: #373A3C;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .title-tag-status {
+    font-size: 12px;
+    font-weight: normal;
+    color: #FFF;
+  }
   .tooltip-inner {
     white-space:pre;
     max-width:none;
@@ -148,45 +177,37 @@
   .label {
     font-weight: normal;
   }
-  dl {
-    width: 100%;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-  }
-  dt {
-    float: left;
-    width: 10%;
-    /* adjust the width; make sure the total of both is 100% */
-    padding: 0;
-    margin: 0;
+  .ep-info > dt {
+    font-size: small;
     font-weight: normal;
-    color: #777
+    color: #808080;
   }
-  dd {
-    float: left;
-    width: 90%;
-    /* adjust the width; make sure the total of both is 100% */
-    padding: 0;
-    padding-bottom: 1px;
-    margin: 0;
+  .ep-info > dd {
+    padding-bottom: 5px;
+    font-size: larger;
+    font-weight: normal;
   }
   .container-fluid {
     margin: 0 40px 0 40px;
   }
-  .heb {
-    direction: rtl;
-  }
+
   .media-left {
     padding-right: 40px;
   }
+  .ep-desc {
+    direction: rtl;
+    color: #373A3C;
+  }
   .ep-title {
+    direction: rtl;
+    text-align: left;
     margin-bottom: 10px
   }
   .ep-thumb {
     width: 340px;
     height: 340px;
     object-fit: cover;
+    margin-bottom: 10px;
   }
 
   .table {

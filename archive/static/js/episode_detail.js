@@ -1,7 +1,8 @@
 
-function increment_badge(badge_select) {
-  var $badge = $(badge_select);
-  $badge.text(Number($badge.text()) + 1);
+function increment_resource_status_badge(resource, status) {
+  var $badge = $('#'+ 'badge-' + resource + '-' + status),
+      newVal = Number($badge.text()) + 1;
+  $badge.text(newVal);
 }
 
 var showTagInfo = function(trackSelector, resourceSelector) {
@@ -17,10 +18,11 @@ var showTagInfo = function(trackSelector, resourceSelector) {
   };
 };
 
-var showThumb = function(trackSelector, field) {
+var default_track_thumb = '/static/images/default-release-cd1.png';
+var setResourceThumb = function(trackSelector, field) {
   return function(data) {
     $(trackSelector).find('.track-thumb > img')
-                    .attr({'src': data.attributes.thumb, 'title': data.attributes[field]})
+                    .attr({'src': data.attributes.thumb || default_track_thumb, 'title': data.attributes[field]})
                     .wrap(make_link(data.links.self))
                     .removeClass('track-default-thumb');
   };
@@ -31,7 +33,7 @@ $(document).ready(function() {
   var playlist_uri = $('script[data-playlist-uri]').attr('data-playlist-uri'),
       episodeDate = $('.ep-date').text();
 
-  episodeDate = new Date(episodeDate).toDateString();
+  episodeDate = new Date(episodeDate).toDateString().split(' ').slice(1).join(' ');
   $('.ep-date').text(episodeDate);
 
   $.getJSON(playlist_uri, function(playlist, status) {
@@ -52,7 +54,7 @@ $(document).ready(function() {
       $(trackClone).find('.track-pos').text(currentTrack.attributes.position);
       $(trackClone).appendTo('tbody.track-list');
 
-
+      // not resolved or type other
       if (trackData.resolved === false) {
         $(trackClone).find('.track-thumb > img').attr('src', '/static/images/microphone1-icon-512x512.png');
         $(trackClone).find('.track-artist').parent().remove();
@@ -63,29 +65,15 @@ $(document).ready(function() {
                      .css({'direction': 'rtl', 'text-align': 'left'})
                      .attr('colspan', '3');
 
-        // aggregated badge
-        $(trackClone).addClass('status-not-song');
-        increment_badge('#badge-not-song');
-
       } else {
-        // aggregated badge
-        if (trackTagsStatus.aggregated === 'full-matched') {
-          $(trackClone).addClass('status-full');
-          $.getJSON(api_for(trackData.release_tags.data[0].links.self), showThumb(trackSelector, 'title'));
-          increment_badge('#badge-full');
+        if (trackTagsStatus['release'] === 'matched') {
+          $.getJSON(api_for(trackData.release_tags.data[0].links.self), setResourceThumb(trackSelector, 'title'));
 
-        } else if (trackTagsStatus.aggregated === 'half-matched') {
-          $(trackClone).addClass('status-half');
-          $.getJSON(api_for(trackData.artist_tags.data[0].links.self), showThumb(trackSelector, 'name'));
-          increment_badge('#badge-half');
+        } else if (trackTagsStatus['artist'] === 'matched') {
+          $.getJSON(api_for(trackData.artist_tags.data[0].links.self), setResourceThumb(trackSelector, 'name'));
 
-        } else if (trackTagsStatus.aggregated === 'pending') {
-          $(trackClone).addClass('status-pending');
-          increment_badge('#badge-pending');
-
-        } else if (trackTagsStatus.aggregated === 'unmatched') {
-          $(trackClone).addClass('status-unmatched');
-          increment_badge('#badge-unmatched');
+        } else {
+          $(trackClone).find('.track-thumb > img').attr('src', default_track_thumb);
         }
 
         ['song', 'artist', 'release'].forEach(function(resource, index) {
@@ -95,6 +83,7 @@ $(document).ready(function() {
           // matched
           if (trackTagsStatus[resource] === "matched") {
             $.getJSON(api_for(trackData[resource + '_tags'].data[0].links.self), showTagInfo(trackSelector, resourceSelector));
+            increment_resource_status_badge(resource, trackTagsStatus[resource]);
 
           // pending
           } else if (trackTagsStatus[resource] === "pending") {
@@ -109,13 +98,14 @@ $(document).ready(function() {
 
           // unmatched
           } else {
+            increment_resource_status_badge(resource, trackTagsStatus[resource]);
             if (trackTagsQuery[resource]) {
               $(trackSelector).find(resourceSelector).text(trackTagsQuery[resource]);
             } else {
               $(trackSelector).find(statusSelector)
                               .addClass('glyphicon glyphicon-question-sign')
                               .attr({
-                                'data-toggle': "tooltip", 'title': "Missing " + capitalize(resource) + " Info"
+                                'data-toggle': "tooltip", 'title': "Missing " + capitalize(resource) + " Information"
                               });
 
             }
