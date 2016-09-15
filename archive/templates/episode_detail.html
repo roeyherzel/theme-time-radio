@@ -15,17 +15,17 @@
 
         <ul class="list-inline text-center">
           <li>
-            <span class="badge-tag" id="badge-artist-matched" data-toggle="tooltip" title="Matched">0</span>
+            <span class="badge-tag badge-tag-matched" id="badge-artist-matched" data-toggle="tooltip" title="Matched">0</span>
             <span class="badge-tag" id="badge-artist-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
             <span class="title-tag-status">Artists</span>
           </li>
           <li>
-            <span class="badge-tag" id="badge-release-matched" data-toggle="tooltip" title="Matched">0</span>
+            <span class="badge-tag badge-tag-matched" id="badge-release-matched" data-toggle="tooltip" title="Matched">0</span>
             <span class="badge-tag" id="badge-release-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
             <span class="title-tag-status">Albums</span>
           </li>
           <li>
-            <span class="badge-tag" id="badge-song-matched" data-toggle="tooltip" title="Matched">0</span>
+            <span class="badge-tag badge-tag-matched" id="badge-song-matched" data-toggle="tooltip" title="Matched">0</span>
             <span class="badge-tag" id="badge-song-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
             <span class="title-tag-status">Songs</span>
           </li>
@@ -93,7 +93,7 @@
               </td>
 
               <td class="track-thumb">
-                <img class="track-default-thumb" src="", alt="thumb">
+                <img class="track-default-thumb img-rounded" src="", alt="thumb">
               </td>
 
               <td class="small track-song"></td>
@@ -134,10 +134,13 @@
     padding: 3px 5px 3px 5px;
     border-style: hidden;
     border-radius: 15px;
-    background-color: #FFF;
+    background-color: #D9534F;
     color: #373A3C;
     font-size: 10px;
-    font-weight: 700;
+    font-weight: bold;
+  }
+  .badge-tag-matched {
+    background-color: #5CB85C;
   }
   .title-tag-status {
     font-size: 12px;
