@@ -27,3 +27,9 @@ class Episodes(db.Model, CRUD):
 
     def __repr__(self):
         return '<Episode ({}) - {}>'.format(self.id, self.title)
+
+
+class EpisodesCategories(db.Model, CRUD):
+    category = db.Column(db.String(), primary_key=True)
+    episode_id = db.Column(db.Integer, db.ForeignKey('episodes.id'), primary_key=True)
+    episodes = db.relationship('Episodes', backref=db.backref('categories', lazy='dynamic'))

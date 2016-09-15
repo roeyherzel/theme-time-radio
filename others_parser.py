@@ -11,6 +11,28 @@ from bidi.algorithm import get_display
 from alphabet_detector import AlphabetDetector
 ad = AlphabetDetector()
 
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-file", type=str, help="rss feed file to process")
+parser.add_argument("-num", type=int, help="number of episodes to process")
+parser.add_argument("-index", type=int, help="episode index to process")
+args = parser.parse_args()
+
+# defaults
+feed_files = ['download.xml', 'download2.xml']
+
+if args.file:
+    feed_files = [args.file]
+
+
+def set_args(episodes_feed_list):
+    print(args)
+    if args.num:
+        return episodes_feed_list[0:args.num]
+    if args.index:
+        return list(episodes_feed_list[args.index])
+
+    return episodes_feed_list
 
 # ' - '
 SYMB_dash = b' \xe2\x80\x93 '
@@ -37,13 +59,8 @@ HEB_listen_to_show = b'\xd7\x9c\xd7\x94\xd7\x90\xd7\x96\xd7\xa0\xd7\x94 \
 
 # regex for hebrew words
 regex_artist_for_all = re.compile(r'' + HEB_artist_for_all.decode() + r'(.*?)(\.$|$)')
-
-regex_guest_in_studio = re.compile(r'' + HEB_guest_in_studio.decode() +
-                                   r'(\s|:)(.*?)(\.$|$)')
-
-regex_conversation_with = re.compile(r'' + HEB_conversation_with.decode() +
-                                     r'(\s|:)(.*?)(\.$|$)')
-
+regex_guest_in_studio = re.compile(r'' + HEB_guest_in_studio.decode() + r'(\s|:)(.*?)(\.$|$)')
+regex_conversation_with = re.compile(r'' + HEB_conversation_with.decode() + r'(\s|:)(.*?)(\.$|$)')
 regex_listen_to_show = re.compile(r'' + HEB_listen_to_show.decode() + r'.*?')
 
 
@@ -121,6 +138,15 @@ class Track():
                                                                               self.query['release'],
                                                                               self.query['artist'])
 
+def categories_filter(cat):
+    if cat.isdigit():
+        return False
+
+    elif cat in ['ספטמבר', 'אוגוסט', 'יולי', 'יוני', 'מאי', 'אפריל', 'מרץ', 'פברואר', 'ינואר', 'דצמבר', 'נובמבר', 'אוקטובר']:
+        return False
+    else:
+        return True
+
 
 class Episode():
     def __init__(self, ep):
@@ -129,18 +155,21 @@ class Episode():
         self.image = ep.img
         self.podcast_link = ep.links[1].href
         self.published = ep.published_parsed
-        self.tags = [t.term for t in ep.tags]
+        self.categories = list(filter(categories_filter, [t.term for t in ep.tags]))
         self.guest = None
         self._artist_for_all = None
 
         print("Episode: {}".format(RTL(self.title)))
 
+        # parse plot
         soup = BeautifulSoup(ep.description, 'html.parser')
         if soup.a:
             soup.a.extract()
 
-        self.plot = soup.text
+        clean_plot = re.search(r'(?P<plot>.*?)_{2,}', soup.text)
+        self.plot = clean_plot.group('plot') if clean_plot else soup.text
 
+        # parse body
         soup = BeautifulSoup(ep.content[0].value, 'html.parser')
         playlist_info = soup.ul.findPrevious('p').extract().text
         ul = soup.ul.extract()
@@ -190,11 +219,8 @@ class Episode():
         print('=' * 50)
 
 
-feed_files = ['download.xml', 'download2.xml']
-feed_files = ['download2.xml']
-
 for feed in feed_files:
-    data = feedparser.parse(feed).entries  # [8:9]
+    data = set_args(feedparser.parse(feed).entries)
     ep_list = list()
 
     for ep in data:

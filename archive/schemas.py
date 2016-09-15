@@ -157,6 +157,14 @@ class TracksSchema(Schema):
         type_ = 'track'
 
 
+class EpisodesCategoriesSchema(Schema):
+    id = fields.Integer()
+    category = fields.Str()
+
+    class Meta:
+        type_ = 'category'
+
+
 class EpisodesSchema(Schema):
     id = fields.Integer()
     title = fields.Str()
@@ -167,6 +175,7 @@ class EpisodesSchema(Schema):
     date_add = fields.Date()
     podcast_url = fields.Url()
     thumb = fields.Str()
+    categories = fields.Nested(EpisodesCategoriesSchema, many=True)
 
     class Meta:
         type_ = 'episodes'

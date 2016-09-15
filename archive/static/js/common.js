@@ -14,3 +14,7 @@ function make_link(endpoint, text) {
   var url = endpoint.startsWith("http") ? endpoint : url_for(endpoint);
   return $('<a>').attr('href', url).text(text || '')
 }
+
+function capitalize(str) {
+  return str[0].toUpperCase() + str.slice(1);
+}

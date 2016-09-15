@@ -30,8 +30,9 @@ def artist_detail(artist_id):
 @app.route('/episodes/<int:episode_id>')
 def episode_detail(episode_id):
     ep = Episodes.query.get(episode_id)
-    res = EpisodesSchema().dump(ep).data
-    return render_template('episode_detail.html', ep=res['data'])
+    # res = EpisodesSchema().dump(ep).data
+    print(ep)
+    return render_template('episode_detail.html', ep=ep)  # res['data'])
 
 
 @app.route('/')

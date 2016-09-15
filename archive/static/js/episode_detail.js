@@ -28,19 +28,18 @@ var showThumb = function(trackSelector, field) {
 
 
 $(document).ready(function() {
-
-  var tracklist_uri = $('script[data-tracklist-uri]').attr('data-tracklist-uri'),
+  var playlist_uri = $('script[data-playlist-uri]').attr('data-playlist-uri'),
       episodeDate = $('.ep-date').text();
 
   episodeDate = new Date(episodeDate).toDateString();
   $('.ep-date').text(episodeDate);
 
-  $.getJSON(tracklist_uri, function(tracklist, status) {
+  $.getJSON(playlist_uri, function(playlist, status) {
 
     var trackCard = $(".track-row");
     $(".track-row").remove();
 
-    tracklist.forEach(function(currentTrack, index) {
+    playlist.forEach(function(currentTrack, index) {
 
       var trackSelector = '#track_' + currentTrack.id,
           trackData = currentTrack.attributes,
@@ -99,9 +98,14 @@ $(document).ready(function() {
 
           // pending
           } else if (trackTagsStatus[resource] === "pending") {
+            var pending_count = trackData[resource + '_tags'].data.length;
 
             $(trackSelector).find(statusSelector)
-                            .addClass('glyphicon glyphicon-exclamation-sign');
+                            .addClass('glyphicon glyphicon-exclamation-sign')
+                            .attr({
+                              'data-toggle': "tooltip",
+                              'title': "Pending Selection - found " + pending_count + " possible " + capitalize(resource) + " tags",
+                            });
 
           // unmatched
           } else {
@@ -109,13 +113,17 @@ $(document).ready(function() {
               $(trackSelector).find(resourceSelector).text(trackTagsQuery[resource]);
             } else {
               $(trackSelector).find(statusSelector)
-                              .addClass('glyphicon glyphicon-question-sign');
+                              .addClass('glyphicon glyphicon-question-sign')
+                              .attr({
+                                'data-toggle': "tooltip", 'title': "Missing " + capitalize(resource) + " Info"
+                              });
 
             }
           }
+          $('[data-toggle="tooltip"]').tooltip();
         });
       }
-    }); // tracklist callback
-  }); // tracklist_uri AJAX
+    }); // playlist callback
+  }); // playlist_uri AJAX
 
 });

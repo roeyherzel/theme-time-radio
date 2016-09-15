@@ -48,9 +48,6 @@ $(document).ready(function() {
       var website_domain = getDomain(url.attributes.url);
       var website_favicon = "url(http://grabicon.com/icon?domain=" + website_domain + "&size=16)";
 
-      var website_link = $('<span>').html(make_link(url.attributes.url, website_domain)
-                                    .css(website_favicon));
-
       $('<li>').html(make_link(url.attributes.url, website_domain).attr('target', '_blank'))
                .addClass('favicon')
                .css('background-image', website_favicon)

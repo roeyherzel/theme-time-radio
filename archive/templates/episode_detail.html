@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block script %}
 <script src="{{ url_for('static', filename='js/episode_detail.js') }}"
-        data-tracklist-uri="{{ url_for('tracklist_api', episode_id=ep.id) }}">
+        data-playlist-uri="{{ url_for('tracklist_api', episode_id=ep.id) }}">
 </script>
 {% endblock %}
 
@@ -11,37 +11,57 @@
   <div class="row">
     <div class="media">
       <div class="media-left">
-        <img class="media-object ep-thumb img-rounded" alt="pic" src="{{ ep.attributes.thumb }}">
+        <img class="media-object ep-thumb img-rounded" alt="pic" src="{{ ep.thumb }}">
         <hr>
-        <p class="small heb">{{ ep.attributes.description | nl2br }}</p>
+        <p class="small heb">{{ ep.description | nl2br }}</p>
       </div>
       <div class="media-body">
-        <h3 class="media-heading ep-title">{{ ep.attributes.title }}</h3>
+        <h3 class="media-heading ep-title">{{ ep.title }}</h3>
 
         <dl>
           <dt>Aired On</dt>
-          <dd><span class="ep-date">{{ ep.attributes.date_pub }}</span></dd>
+          <dd><span class="label label-default ep-date">{{ ep.date_pub }}</span></dd>
 
-          <dt>Guests</dt>
-          <dd><span class="ep-guest">{{ ep.attributes.guest }}</span></dd>
+          {% if ep.guest %}
+            <dt>Guests</dt>
+            <dd><span class="label label-info ep-guest">{{ ep.guest }}</span></dd>
+          {% endif %}
 
           <dt>Categories</dt>
-          <dd><span class="ep-guest">{{ ep.attributes.guest }}</span></dd>
+          <dd>
+            <span class="ep-guest">
+              {% for c in ep.categories %}
+                <span class="label label-success">{{ c.category }}</span>
+              {% endfor %}
+            </span>
+          </dd>
         </dl>
 
+        <div class="ep-actions">
 
+          <a href="{{ ep.podcast_url }}" target="_blank" class="btn btn-default btn-circle btn-ep-play" data-toggle="tooltip" title="Play Podcast">
+            <span class="glyphicon glyphicon-play"></span>
+          </a>
+
+          <button type="button" name="button" class="btn btn-default btn-circle btn-ep-plus" data-toggle="tooltip" title="Save to Your Music">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+
+          <button type="button" name="button" class="btn btn-default btn-circle btn-ep-option">
+            <span class="glyphicon glyphicon-option-horizontal"></span>
+          </button>
+        </div>
 
 
         <!-- Table -->
         <table class="table">
           <thead>
             <tr>
-              <th></th>
+              <th class="text-center">#</th>
               <th></th>
               <th>SONG</th>
               <th>ARTIST</th>
               <th>ALBUM</th>
-              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -64,12 +84,13 @@
                 <span class="track-release-status"></span><span class="small track-release"></span>
               </td>
 
-              <td class="actions text-center">
+              <td class="text-center">
+                <button type="button" name="button" class="btn btn-default btn-circle btn-track-plus" data-toggle="tooltip" title="Save to Your Music">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                <button type="button" name="button" class="btn btn-default btn-circle btn-track-option">
                   <span class="glyphicon glyphicon-option-horizontal"></span>
-              </td>
-
-              <td class="actions text-center border-right">
-                <span class="glyphicon glyphicon-plus"></span>
+                </button>
               </td>
 
             </tr>
@@ -80,9 +101,7 @@
 
     </div>
   </div>
-  <div class="row">
 
-  </div>
 
 
   <!--<h2 class="page-header"><strong>Tagging Status</strong></h2>
@@ -96,6 +115,39 @@
   </div>-->
 
 <style>
+  .tooltip-inner {
+    white-space:pre;
+    max-width:none;
+  }
+  .ep-actions {
+    float: right;
+    margin-bottom: 10px;
+  }
+  .btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #3884FE;
+    border-style: hidden;
+    border-radius: 15px;
+    border-color: #373A3C;
+    color: #FFF;
+    padding: 6px 0;
+    margin-left: 8px;
+  }
+  .btn-ep-option {
+    padding-right: 1px;
+  }
+  .btn-ep-plus {
+    padding: 5px 1px 6px 3px;
+  }
+  .btn-ep-play {
+    padding-left: 2px;
+  }
+  .label {
+    font-weight: normal;
+  }
   dl {
     width: 100%;
     overflow: hidden;
@@ -136,6 +188,7 @@
     height: 340px;
     object-fit: cover;
   }
+
   .table {
     margin: 20px 0 20px 0;
   }
@@ -149,11 +202,10 @@
     border-bottom: 1px solid #ddd;
     padding: 4px;
   }
-  .tag-status-panel {
-    direction: ltr;
-  }
-  .tag-status-badge {
-    //float: right;
+  .table > tbody > tr > td {
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+    top: 0;
   }
 
   .track-thumb > a > img,
@@ -164,10 +216,12 @@
 
   .glyphicon-exclamation-sign {
     color: #f0ad4e;
-    font-size: 130%;
   }
   .glyphicon-question-sign {
     color: #D9534F;
+  }
+  .glyphicon-exclamation-sign,
+  .glyphicon-question-sign {
     font-size: 130%;
   }
 
@@ -177,19 +231,15 @@
     width: 20px;
   }
 
-  .border-right {
-    border-right: 1px solid #EEEEEE;
+  .btn-track-option {
+    padding-top: 7px;
   }
-  .actions {
-    //display: block;
-    margin: 0;
-    padding: 0;
+  .btn-track-option,
+  .btn-track-plus {
+    border: 0;
+    background-color: transparent;
+    color: #3884FE;
     text-align: center;
-  }
-  /*.glyphicon-option-horizontal,*/
-  .table > tbody > tr > td {
-    vertical-align: middle;
-    top: 0;
   }
 
 </style>
