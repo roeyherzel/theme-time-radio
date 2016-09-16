@@ -88,13 +88,13 @@ $(document).ready(function() {
           // pending
           } else if (trackTagsStatus[resource] === "pending") {
             var pending_count = trackData[resource + '_tags'].data.length;
-
             $(trackSelector).find(statusSelector)
                             .addClass('glyphicon glyphicon-exclamation-sign')
                             .attr({
                               'data-toggle': "tooltip",
                               'title': "Pending Selection - found " + pending_count + " possible " + capitalize(resource) + " tags",
                             });
+            increment_resource_status_badge(resource, trackTagsStatus[resource]);
 
           // unmatched
           } else {
