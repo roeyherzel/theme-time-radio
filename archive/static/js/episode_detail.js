@@ -33,7 +33,7 @@ $(document).ready(function() {
   var playlist_uri = $('script[data-playlist-uri]').attr('data-playlist-uri'),
       episodeDate = $('.ep-date').text();
 
-  episodeDate = new Date(episodeDate).toDateString().split(' ').slice(1).join(' ');
+  episodeDate = str_to_date(episodeDate);
   $('.ep-date').text(episodeDate);
 
   $.getJSON(playlist_uri, function(playlist, status) {

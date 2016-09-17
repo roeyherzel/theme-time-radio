@@ -7,16 +7,17 @@
 
 {% block body %}
 
-<div class="container">
-  <div class="row ">
+<div class="container-fluid">
+
+  <div class="row">
     <div class="col-md-8">
-
       <h1 class="page-header artist-name"></h1>
-      <p class="lead artist-profile">{{ artist.attributes.profile | nl2br }}</p>
 
-      <h3 class="page-header">Albums <span class="text-muted small">appeared on the show</span></h3>
+      <h3 class="sub-header">Top Songs</h3>
+
+      <hr>
+      <h3 class="sub-header">Albums</h3>
       <div class="release-list">
-
         <div class="media release-card">
           <div class="media-left">
             <img class="media-object release-thumb" src="" alt="thumb">
@@ -31,24 +32,33 @@
             </p>
           </div>
         </div>
-
       </div>
 
-      <h3 class="page-header">Episodes <span class="text-muted small">appeared on</span></h3>
+      <hr>
+      <h3 class="sub-header">Episodes</h3>
       <table>
         <tbody class="ep-list">
           <tr class="ep-clone">
             <td>
               <div class="media ep-card">
-                <div class="media-left">
-                </div>
                 <div class="media-body ep-body">
                   <h5 class="media-heading">
                     <span class="ep-title"></span>
-                    <span class="label label-info ep-guest"></span>
-                    <span class="label label-default ep-date"></span>
+                    <span class="btn-group ep-actions" role="group" aria-label="...">
+
+                      <button type="button" name="button" class="btn btn-default btn-circle_ btn-ep-plus_" data-toggle="tooltip" title="Save to Your Music">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+
+                      <button type="button" name="button" class="btn btn-default btn-circle_ btn-ep-option_">
+                        <span class="glyphicon glyphicon-option-horizontal"></span>
+                      </button>
+
+                    </span>
                   </h5>
                   <p class="ep-plot small"></p>
+                  <ul class="list-inline ep-categories"></ul>
+                  <span class="label label-default ep-date"></span>
                 </div>
                 <div class="media-right">
                   <img class="media-object ep-thumb" src="" alt="thumb">
@@ -59,28 +69,58 @@
         </tbody>
       </table>
 
-
-
     </div>
+
     <div class="col-md-4" id="sidebar">
       <img class="img-responsive center-block artist-image" src="" alt="image">
       <hr>
-
-      <div>
-        <dl class="dl-horizontal_">
-          <div class="artist-real"></div>
-          <div class="artist-aliases"></div>
-          <div class="artist-groups"></div>
-          <div class="artist-members"></div>
-          <div class="artist-urls"></div>
+      <p class="artist-profile">{{ artist.attributes.profile | nl2br }}</p>
+      <hr>
+      <div class="dl-horizontal">
+        <dl>
+          <div class="artist-real">
+            <dt>Real Name:</dt>
+            <dd>
+              <ul class="list-unstyled"></ul>
+            </dd>
+          </div>
+          <div class="artist-aliases">
+            <dt>Aliases:</dt>
+            <dd>
+              <ul class="list-unstyled"></ul>
+            </dd>
+          </div>
+          <div class="artist-urls">
+            <dt>Links:</dt>
+            <dd>
+              <ul class="list-unstyled"></ul>
+            </dd>
+          </div>
+          <div class="artist-groups">
+            <dt>Member in Groups:</dt>
+            <dd>
+              <ul class="list-unstyled"></ul>
+            </dd>
+          </div>
+          <div class="artist-members">
+            <dt>Group's Members:</dt>
+            <dd>
+              <ul class="list-unstyled"></ul>
+            </dd>
+          </div>
         </dl>
       </div>
     </div>
 
   </div>
-  <hr>
-</div>
 
+</div>
+<div class="container">
+  <div class="row">
+    <hr>
+
+  </div>
+</div>
 <style>
   .favicon {
     background-position: 0 6px;
@@ -97,17 +137,18 @@
   .page-header {
     font-weight: bold;
   }
-
+  .sub-header {
+    font-weight: bold;
+  }
   .artist-image {
-    width: 300px;
-    height: 300px;
-    object-fit: scale-down;
+    //width: 300px;
+    //height: 300px;
+    //object-fit: scale-down;
     margin-top: 20px;
   }
-  .artist-real {
-    margin-bottom: 10px;
+  .artist-profile {
+    font-size: 90%;
   }
-
   .release-thumb {
     width: 100px;
     height: 100px;
@@ -135,7 +176,7 @@
   .ep-card {
     border: 1.5px solid #EEEEEE;
     border-radius: 8px;
-    padding: 10px 10px 10px 0px;
+    padding: 10px;
     margin: 5px;
   }
   .ep-thumb {
@@ -147,15 +188,37 @@
   .ep-title {
     font-weight: bold;
   }
-  .ep-guest {
-    font-weight: normal;
-    margin-right: 10px;
-  }
-  .ep-date {
+  .ep-actions {
     float: left;
+  }
+  .btn-circle_ {
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    color: #3884FE;
+    border-color: #777777;
+  }
+
+  .btn-ep-option,
+  .btn-ep-plus {
+    font-size: 10px;
+    color: white;
   }
   .ep-body {
     direction: rtl;
+  }
+  .ep-date {
+    float: left;
+    font-size: 85%;
+  }
+  .ep-categories {
+    padding-right: 0;
+  }
+  .ep-categories > li {
+    margin-left: 5px;
+    font-weight: normal;
+    font-size: 90%;
   }
 
   #sidebar {

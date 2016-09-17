@@ -1,10 +1,10 @@
 
 function artistListedInfo(obj, selector, title, callback) {
   if (obj.data.length > 0) {
-    $('<dt>').text(title).appendTo(selector);
+    /*$('<dt>').text(title).appendTo(selector);
     $('<dd>').appendTo(selector);
     $('<ul>').addClass('list-unstyled').appendTo(selector + ' dd')
-
+*/
     obj.data.forEach(callback);
   }
 }
@@ -21,8 +21,8 @@ $(document).ready(function() {
 
   $.getJSON(api_for(artist_endpint), function(artist_obj, status) {
     console.log(artist_obj);
-    var artist_data = artist_obj.attributes,
-        images = artist_data.images.data,
+    var artistData = artist_obj.attributes,
+        images = artistData.images.data,
         pri_image;
 
     // Primary Image
@@ -30,21 +30,19 @@ $(document).ready(function() {
                 images.find(function(i) { return i.attributes.type === 'secondary'});
 
     $('.artist-image').attr('src', pri_image ? pri_image.attributes.uri : '/static/images/default-artist1.png');
-    $('.artist-name').text(artist_data.name);
-    //$('.artist-profile').text(artist_data.profile);   // TODO: nl2br
+    $('.artist-name').text(artistData.name);
 
     // Real Name
-    if (artist_data.real_name) {
-      $('<dt>').text("Real Name:").appendTo('.artist-real');
-      $('<dd>').text(artist_data.real_name).appendTo('.artist-real');
+    if (artistData.real_name) {
+      $('<li>').text(artistData.real_name).appendTo('.artist-real ul');
     }
     // Aliases
-    artistListedInfo(artist_data.aliases, '.artist-aliases', 'Aliases:', function(aliase) {
+    artistListedInfo(artistData.aliases, '.artist-aliases', 'Aliases:', function(aliase) {
       $('<li>').text(aliase.attributes.name)
                .appendTo('.artist-aliases ul');
     });
     // Urls
-    artistListedInfo(artist_data.urls, '.artist-urls', 'Links:', function(url) {
+    artistListedInfo(artistData.urls, '.artist-urls', 'Links:', function(url) {
       var website_domain = getDomain(url.attributes.url);
       var website_favicon = "url(http://grabicon.com/icon?domain=" + website_domain + "&size=16)";
 
@@ -54,12 +52,12 @@ $(document).ready(function() {
                .appendTo('.artist-urls ul');
     });
     // Members
-    artistListedInfo(artist_data.members, '.artist-members', 'Members:', function(member) {
+    artistListedInfo(artistData.members, '.artist-members', 'Members:', function(member) {
       $('<li>').text(member.attributes.name)
                .appendTo('.artist-members ul');
     });
     // Groups
-    artistListedInfo(artist_data.groups, '.artist-groups', 'Member In Groups:', function(group) {
+    artistListedInfo(artistData.groups, '.artist-groups', 'Members In Groups:', function(group) {
       $('<li>').text(group.attributes.name)
                .appendTo('.artist-groups ul');
     });
@@ -110,11 +108,22 @@ $(document).ready(function() {
                    .attr('src', episodeData.attributes.thumb)
                    .wrap(make_link(episodeData.links.self));
 
+        // date
+        $(ep_clone).find('.ep-categories').append(
+          $('<li>').text(str_to_date(episodeData.attributes.date_pub)).addClass('label label-default')
+        );
+        // guest as category
         if (episodeData.attributes.guest) {
-          $(ep_clone).find('.ep-guest').text(episodeData.attributes.guest);
+          $(ep_clone).find('.ep-categories').append(
+            $('<li>').text(episodeData.attributes.guest).addClass('label label-warning')
+          );
         }
-        var ep_pub_date = new Date(episodeData.attributes.date_pub).toDateString();
-        $(ep_clone).find('.ep-date').text(ep_pub_date);
+        // categories
+        episodeData.attributes.categories.data.forEach(function(cat) {
+          $(ep_clone).find('.ep-categories').append(
+            $('<li>').text(cat.attributes.category).addClass('label label-success')
+          );
+        });
 
         $(ep_clone).appendTo('.ep-list');
 
