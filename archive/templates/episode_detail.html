@@ -9,120 +9,102 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="media">
-      <div class="media-left">
-        <img class="media-object ep-thumb img-rounded" alt="pic" src="{{ ep.thumb }}">
-        <hr >
-        <p class="ep-desc">{{ ep.description | nl2br }}</p>
+    <div class="col-md-3">
+      <img class="img-responsive center-block ep-thumb img-rounded" alt="pic" src="{{ ep.thumb }}">
+      <hr class="hr-thin">
+      <ul class="list-inline text-center">
+        {% if ep.guest %}
+          <li><span class="label label-guest">{{ ep.guest }}</span></li>
+        {% endif %}
+
+        {% for c in ep.categories %}
+          <li><span class="label label-category">{{ c.category }}</span></li>
+        {% endfor %}
+      </ul>
+      <hr class="hr-thin">
+      <p class="ep-desc">{{ ep.description | nl2br }}</p>
+    </div>
+
+    <div class="col-md-9">
+      <h3 class="media-heading ep-title">{{ ep.title }}</h3>
+      <h4><span class="ep-date">{{ ep.date_pub }}</span></h4>
+
+      <div >
+        <a href="{{ ep.podcast_url }}" target="_blank" class="btn btn-default" data-toggle="tooltip" title="Play Episode">
+          <span class="glyphicon glyphicon-play"></span>
+        </a>
+        <button type="button" name="button-ep-bookmark" class="btn btn-default" data-toggle="tooltip" title="Bookmark Episode">
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
+        <button type="button" name="button-ep-played" class="btn btn-default" data-toggle="tooltip" title="Mark as Played">
+          <span class="glyphicon glyphicon-headphones"></span><span> unplayed</span>
+        </button>
       </div>
-      <div class="media-body">
-        <h2 class="media-heading ep-title">{{ ep.title }}</h2>
+      <!-- Table -->
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th></th>
+            <th>SONG</th>
+            <th>ARTIST</th>
+            <th>ALBUM</th>
+            <th class="text-center"><span class="glyphicon glyphicon-bookmark"></span></th>
+          </tr>
+        </thead>
+        <tbody class="track-list">
+          <tr class="track-row">
 
-        <dl class="ep-info">
-          <dt>Aired On</dt>
-          <dd><span class="ep-date">{{ ep.date_pub }}</span></dd>
+            <td class="text-center">
+              <span class="track-pos"></span>
+            </td>
 
-          {% if ep.guest %}
-            <dt>Guests</dt>
-            <dd><span class="label label-info ep-guest">{{ ep.guest }}</span></dd>
-          {% endif %}
+            <td class="track-thumb">
+              <img class="track-default-thumb img-rounded" src="", alt="thumb">
+            </td>
 
-          <dt>Categories</dt>
-          <dd>
-            <span class="ep-guest">
-              {% for c in ep.categories %}
-                <span class="label label-success">{{ c.category }}</span>
-              {% endfor %}
-            </span>
-          </dd>
+            <td class="track-song"></td>
+            <td>
+              <span class="track-artist-status"></span><span class="track-artist"></span>
+            </td>
+            <td>
+              <span class="track-release-status"></span><span class="track-release"></span>
+            </td>
 
-        </dl>
+            <td class="text-center">
+              <button type="button" name="button" class="btn btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Track">
+                <span class="glyphicon glyphicon-star-empty"></span>
+              </button>
+            </td>
 
-        <div class="ep-actions">
+          </tr>
+        </tbody>
+      </table>
 
-          <a href="{{ ep.podcast_url }}" target="_blank" class="btn btn-default btn-circle btn-ep-play" data-toggle="tooltip" title="Play Podcast">
-            <span class="glyphicon glyphicon-play"></span>
-          </a>
-
-          <button type="button" name="button" class="btn btn-default btn-circle btn-ep-plus" data-toggle="tooltip" title="Save to Your Music">
-            <span class="glyphicon glyphicon-plus"></span>
-          </button>
-
-          <button type="button" name="button" class="btn btn-default btn-circle btn-ep-option">
-            <span class="glyphicon glyphicon-option-horizontal"></span>
-          </button>
-        </div>
-
-
-        <!-- Table -->
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="text-center">#</th>
-              <th></th>
-              <th>SONG</th>
-              <th>ARTIST</th>
-              <th>ALBUM</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody class="track-list">
-            <tr class="track-row">
-
-              <td class="text-center">
-                <span class="track-pos"></span>
-              </td>
-
-              <td class="track-thumb">
-                <img class="track-default-thumb img-rounded" src="", alt="thumb">
-              </td>
-
-              <td class="track-song"></td>
-              <td>
-                <span class="track-artist-status"></span><span class="track-artist"></span>
-              </td>
-              <td>
-                <span class="track-release-status"></span><span class="track-release"></span>
-              </td>
-
-              <td class="text-center">
-                <button type="button" name="button" class="btn btn-default btn-circle btn-track-plus" data-toggle="tooltip" title="Save to Your Music">
-                  <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                <button type="button" name="button" class="btn btn-default btn-circle btn-track-option">
-                  <span class="glyphicon glyphicon-option-horizontal"></span>
-                </button>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-
-        <!--<ul class="list-inline text-center">
-          <li>
-            <span class="title-tag-status">Artists</span>
-            <span class="badge-tag badge-tag-matched" id="badge-artist-matched" data-toggle="tooltip" title="Matched">0</span>
-            <span class="badge-tag badge-tag-pending" id="badge-artist-pending" data-toggle="tooltip" title="Pending">0</span>
-            <span class="badge-tag badge-tag-unmatched" id="badge-artist-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
-          </li>
-          <li>
-            <span class="title-tag-status">Albums</span>
-            <span class="badge-tag badge-tag-matched" id="badge-release-matched" data-toggle="tooltip" title="Matched">0</span>
-            <span class="badge-tag badge-tag-pending" id="badge-release-pending" data-toggle="tooltip" title="Pending">0</span>
-            <span class="badge-tag badge-tag-unmatched" id="badge-release-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
-          </li>
-          <li>
-            <span class="title-tag-status">Songs</span>
-            <span class="badge-tag badge-tag-matched" id="badge-song-matched" data-toggle="tooltip" title="Matched">0</span>
-            <span class="badge-tag badge-tag-pending" id="badge-song-pending" data-toggle="tooltip" title="Pending">0</span>
-            <span class="badge-tag badge-tag-unmatched" id="badge-song-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
-          </li>
-        </ul>-->
-
-      </div>
+      <!--<ul class="list-inline text-center">
+        <li>
+          <span class="title-tag-status">Artists</span>
+          <span class="badge-tag badge-tag-matched" id="badge-artist-matched" data-toggle="tooltip" title="Matched">0</span>
+          <span class="badge-tag badge-tag-pending" id="badge-artist-pending" data-toggle="tooltip" title="Pending">0</span>
+          <span class="badge-tag badge-tag-unmatched" id="badge-artist-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
+        </li>
+        <li>
+          <span class="title-tag-status">Albums</span>
+          <span class="badge-tag badge-tag-matched" id="badge-release-matched" data-toggle="tooltip" title="Matched">0</span>
+          <span class="badge-tag badge-tag-pending" id="badge-release-pending" data-toggle="tooltip" title="Pending">0</span>
+          <span class="badge-tag badge-tag-unmatched" id="badge-release-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
+        </li>
+        <li>
+          <span class="title-tag-status">Songs</span>
+          <span class="badge-tag badge-tag-matched" id="badge-song-matched" data-toggle="tooltip" title="Matched">0</span>
+          <span class="badge-tag badge-tag-pending" id="badge-song-pending" data-toggle="tooltip" title="Pending">0</span>
+          <span class="badge-tag badge-tag-unmatched" id="badge-song-unmatched" data-toggle="tooltip" title="UnMatched">0</span>
+        </li>
+      </ul>-->
 
     </div>
   </div>
+</div>
 
 <style>
   .badge-tag {
@@ -153,35 +135,26 @@
     max-width:none;
   }
   .ep-actions {
-    float: right;
-    margin-bottom: 10px;
+
   }
 
-  .btn-ep-play {
-    padding-left: 2px;
-  }
   .label {
     font-weight: normal;
   }
-  .ep-info > dt {
-    font-size: 13px;
-    font-weight: normal;
-    color: #767676;
+  .hr-thin {
+    margin: 10px 0 10px 0;
   }
-  .ep-info > dd {
-    padding-bottom: 5px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #474747;
+  .label-guest {
+    color: black;
+    background-color: #FFFF8D;
+  }
+  .label-category {
+    color: black;
+    background-color: #CCFF90;
   }
 
-
-  .media-left {
-    padding-right: 40px;
-  }
   .ep-desc {
     direction: rtl;
-    color: #898989;
     font-size: 85%;
   }
   .ep-title {
@@ -191,9 +164,7 @@
     margin-bottom: 10px
   }
   .ep-thumb {
-    width: 340px;
-    height: 340px;
-    object-fit: cover;
+    object-fit: contain;
     margin-bottom: 10px;
   }
 
@@ -217,39 +188,37 @@
   }
 
   .track-row {
-    font-size: 13px;
-    color: #474747;
+    font-size: 12px;
+    //color: #474747;
   }
   .track-thumb > a > img,
   .track-thumb > img {
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
   }
   .track-pos {
     color: #808080;
     font-weight: lighter;
     width: 20px;
   }
-  .btn-track-option {
-    padding-top: 7px;
-  }
-  .btn-track-option,
-  .btn-track-plus {
+
+  .btn-bookmark {
     border: 0;
     background-color: transparent;
-    color: #3884FE;
-    text-align: center;
+    padding: 3px 6px 3px 6px;
+    color: #808080;
   }
+
   .glyphicon-exclamation-sign {
-    color: #f0ad4e;
+    //color: #f0ad4e;
   }
   .glyphicon-question-sign {
     color: #D9534F;
   }
   .glyphicon-exclamation-sign,
   .glyphicon-question-sign {
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 14px;
+    //line-height: 18px;
   }
 
 

@@ -115,13 +115,13 @@ $(document).ready(function() {
         // guest as category
         if (episodeData.attributes.guest) {
           $(ep_clone).find('.ep-categories').append(
-            $('<li>').text(episodeData.attributes.guest).addClass('label label-warning')
+            $('<li>').text(episodeData.attributes.guest).addClass('label label-guest')
           );
         }
         // categories
         episodeData.attributes.categories.data.forEach(function(cat) {
           $(ep_clone).find('.ep-categories').append(
-            $('<li>').text(cat.attributes.category).addClass('label label-success')
+            $('<li>').text(cat.attributes.category).addClass('label label-category')
           );
         });
 
