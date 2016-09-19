@@ -29,7 +29,7 @@ $(document).ready(function() {
     pri_image = images.find(function(i) { return i.attributes.type === 'primary'}) ||
                 images.find(function(i) { return i.attributes.type === 'secondary'});
 
-    $('.artist-image').attr('src', pri_image ? pri_image.attributes.uri : '/static/images/default-artist1.png');
+    $('.artist-image').attr('src', pri_image ? pri_image.attributes.uri : '/static/images/default-artist.png');
     $('.artist-name').text(artistData.name);
 
     // Real Name
@@ -75,7 +75,7 @@ $(document).ready(function() {
         var release_clone = $(release_card).clone()
 
         $(release_clone).find('img')
-                        .attr('src', release.attributes.thumb || '/static/images/default-release1.png')
+                        .attr('src', release.attributes.thumb || '/static/images/default-release.png')
                         .wrap(make_link(release.links.self));
 
         $(release_clone).find('.release-title')

@@ -18,7 +18,7 @@ var showTagInfo = function(trackSelector, resourceSelector) {
   };
 };
 
-var default_track_thumb = '/static/images/default-release-cd1.png';
+var default_track_thumb = '/static/images/default-cd.png';
 var setResourceThumb = function(trackSelector, field) {
   return function(data) {
     $(trackSelector).find('.track-thumb > img')
@@ -31,10 +31,10 @@ var setResourceThumb = function(trackSelector, field) {
 
 $(document).ready(function() {
   var playlist_uri = $('script[data-playlist-uri]').attr('data-playlist-uri'),
-      episodeDate = $('.ep-date').text();
+      episodeDate = $('#epDate').text();
 
   episodeDate = str_to_date(episodeDate);
-  $('.ep-date').text(episodeDate);
+  $('#epDate').text(episodeDate);
 
   $.getJSON(playlist_uri, function(playlist, status) {
 
@@ -56,7 +56,7 @@ $(document).ready(function() {
 
       // not resolved or type other
       if (trackData.resolved === false) {
-        $(trackClone).find('.track-thumb > img').attr('src', '/static/images/microphone1-icon-512x512.png');
+        $(trackClone).find('.track-thumb > img').attr('src', '/static/images/default-microphone.png');
         $(trackClone).find('.track-artist').parent().remove();
         $(trackClone).find('.track-release').parent().remove();
         $(trackClone).find('.track-song').parent().addClass('active');

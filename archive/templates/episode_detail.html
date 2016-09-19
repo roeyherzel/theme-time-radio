@@ -13,12 +13,14 @@
       <img class="img-responsive center-block ep-thumb img-rounded" alt="pic" src="{{ ep.thumb }}">
       <hr class="hr-thin">
       <ul class="list-inline text-center">
+        <li><span class="label label-date" id="epDate" data-toggle="tooltip" title="Aired On">{{ ep.date_pub }}</span></li>
+
         {% if ep.guest %}
-          <li><span class="label label-guest">{{ ep.guest }}</span></li>
+          <li><span class="label label-guest" data-toggle="tooltip" title="Guest">{{ ep.guest }}</span></li>
         {% endif %}
 
         {% for c in ep.categories %}
-          <li><span class="label label-category">{{ c.category }}</span></li>
+          <li><span class="label label-category" data-toggle="tooltip" title="Category">{{ c.category }}</span></li>
         {% endfor %}
       </ul>
       <hr class="hr-thin">
@@ -26,20 +28,24 @@
     </div>
 
     <div class="col-md-9">
-      <h3 class="media-heading ep-title">{{ ep.title }}</h3>
-      <h4><span class="ep-date">{{ ep.date_pub }}</span></h4>
+      <h3 class="media-heading page-header ep-title">{{ ep.title }}</h3>
 
-      <div >
-        <a href="{{ ep.podcast_url }}" target="_blank" class="btn btn-default" data-toggle="tooltip" title="Play Episode">
-          <span class="glyphicon glyphicon-play"></span>
-        </a>
-        <button type="button" name="button-ep-bookmark" class="btn btn-default" data-toggle="tooltip" title="Bookmark Episode">
-          <span class="glyphicon glyphicon-star-empty"></span>
-        </button>
-        <button type="button" name="button-ep-played" class="btn btn-default" data-toggle="tooltip" title="Mark as Played">
-          <span class="glyphicon glyphicon-headphones"></span><span> unplayed</span>
-        </button>
+      <div class="btn-toolbar" role="toolbar" aria-label="...">
+        <div class="btn-group" role="group" aria-label="...">
+          <a href="{{ ep.podcast_url }}" target="_blank" class="btn btn-sm btn-default" data-toggle="tooltip" title="Play Episode">
+            <span class="glyphicon glyphicon-play"></span>
+          </a>
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+          <button type="button" name="button-ep-bookmark" class="btn btn-sm btn-default" data-toggle="tooltip" title="Bookmark Episode">
+            <span class="glyphicon glyphicon-star-empty"></span>
+          </button>
+          <button type="button" name="button-ep-played" class="btn btn-sm btn-default" data-toggle="tooltip" title="Mark as Played">
+            <span class="glyphicon glyphicon-headphones"></span><span> Unplayed</span>
+          </button>
+        </div>
       </div>
+
       <!-- Table -->
       <table class="table table-condensed">
         <thead>
@@ -131,11 +137,10 @@
     color: #373A3C;
   }
   .tooltip-inner {
-    white-space:pre;
-    max-width:none;
+    white-space: pre;
+    max-width: none;
   }
-  .ep-actions {
-
+  .btn-ep-actions {
   }
 
   .label {
@@ -144,9 +149,13 @@
   .hr-thin {
     margin: 10px 0 10px 0;
   }
+  .label-date {
+    color: black;
+    background-color: #CFD8DC;
+  }
   .label-guest {
     color: black;
-    background-color: #FFFF8D;
+    background-color: #FFD180;
   }
   .label-category {
     color: black;
@@ -210,10 +219,10 @@
   }
 
   .glyphicon-exclamation-sign {
-    //color: #f0ad4e;
+    color: #FF8A80;
   }
   .glyphicon-question-sign {
-    color: #D9534F;
+    color: #808080;
   }
   .glyphicon-exclamation-sign,
   .glyphicon-question-sign {
