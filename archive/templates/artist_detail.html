@@ -13,64 +13,55 @@
     <div class="col-md-8">
       <h1 class="page-header artist-name"></h1>
 
-      <h3 class="sub-header">Top Songs</h3>
+      <h4 class="sub-header">Top Songs</h4>
 
       <hr>
-      <h3 class="sub-header">Albums</h3>
-      <div class="release-list">
-        <div class="media release-card">
-          <div class="media-left">
-            <img class="media-object release-thumb" src="" alt="thumb">
-          </div>
-          <div class="media-body release-body">
-            <h5 class="media-heading">
-              <span class="release-title"></span>
-            </h5>
-            <p>
-              <span class="release-year small"></span><br><br>
-              <span class="">played #(count) times in #(count) episodes</span>
-            </p>
+      <h4 class="sub-header">Albums</h4>
+      <div class="row release-list">
+
+        <div class="col-md-4 release-card">
+          <img class="release-thumb thumbnail text-center" src="" alt="thumb">
+          <div class="release-info">
+            <div class="release-title small"></div>
+            <div class="release-year small text-muted"></div>
           </div>
         </div>
+
       </div>
 
       <hr>
-      <h3 class="sub-header">Episodes</h3>
-      <table>
+      <h4 class="sub-header">Episodes</h4>
+      <table class="table table-condensed">
+
         <tbody class="ep-list">
           <tr class="ep-clone">
-            <td>
-              <div class="media ep-card">
-                <div class="media-body ep-body">
-                  <h5 class="media-heading">
-                    <span class="ep-title"></span>
-                    <span class="btn-group ep-actions" role="group" aria-label="...">
 
-                      <button type="button" name="button" class="btn btn-default btn-circle_ btn-ep-plus_" data-toggle="tooltip" title="Save to Your Music">
-                        <span class="glyphicon glyphicon-plus"></span>
-                      </button>
-
-                      <button type="button" name="button" class="btn btn-default btn-circle_ btn-ep-option_">
-                        <span class="glyphicon glyphicon-option-horizontal"></span>
-                      </button>
-
-                    </span>
-                  </h5>
-                  <p class="ep-plot small"></p>
-                  <ul class="list-inline ep-categories"></ul>
-                </div>
-                <div class="media-right">
-                  <img class="media-object ep-thumb" src="" alt="thumb">
-                </div>
-              </div>
+            <td class="ep-actions text-center">
+              <button type="button" name="button-ep-bookmark" class="btn btn-lg btn-default btn-ep-bookmark" data-toggle="tooltip" title="Bookmark Episode">
+                <span class="glyphicon glyphicon-star-empty"></span>
+              </button>
             </td>
+
+            <td class="text-center">
+              <img class="ep-thumb" src="" alt="thumb">
+            </td>
+
+            <td>
+              <h5>
+                <span class="ep-title"></span>
+                <span class="ep-date label label-date"></span>
+              </h5>
+              <p class="ep-plot small"></p>
+              <ul class="list-inline ep-categories"></ul>
+            </td>
+
           </tr>
         </tbody>
       </table>
 
     </div>
 
-    <div class="col-md-4" id="sidebar">
+    <div class="col-md-4 well" id="sidebar">
       <img class="img-responsive center-block artist-image" src="" alt="image">
       <hr>
       <p class="artist-profile">{{ artist.attributes.profile | nl2br }}</p>
@@ -140,30 +131,24 @@
     font-weight: bold;
   }
   .artist-image {
-    //width: 300px;
-    //height: 300px;
-    //object-fit: scale-down;
     margin-top: 20px;
   }
   .artist-profile {
     font-size: 90%;
   }
+
   .release-thumb {
-    width: 100px;
-    height: 100px;
-    object-fit: scale-down;
-    margin: 0;
-    display: block;
-    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 0;
   }
   .release-card {
-  /*  width: 150px;
-    height: 197px;
-    float: left;
-    margin: 20px;*/
+    width: 170px;
+    margin-right: 10px;
   }
   .release-info {
-    padding: 6px;
+    margin-top: 5px;
+    margin-left: 2px;
   }
   .release-title {
     height: 1.5em;
@@ -172,44 +157,40 @@
     text-overflow: ellipsis;
   }
 
+
+  .table > tbody > tr {
+    border: 1px solid rgb(221, 221, 221);
+  }
+  .table > tbody > tr > td {
+    vertical-align: middle;
+  }
+  .ep-actions {
+    border-right: 1px solid rgb(221, 221, 221);
+  }
+  .btn-ep-bookmark {
+    border-color: transparent;
+    padding: 6px;
+  }
   .ep-card {
-    border: 1.5px solid #EEEEEE;
-    border-radius: 8px;
     padding: 10px;
     margin: 5px;
   }
   .ep-thumb {
     width: 100px;
     height: 100px;
-    object-fit: cover;
     border: 1px solid black;
+    object-fit: cover;
   }
   .ep-title {
     font-weight: bold;
   }
-  .ep-actions {
-    float: left;
-  }
-  .btn-circle_ {
-    padding: 2px 6px;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 8px;
-    color: #3884FE;
-    border-color: #777777;
+  .ep-date {
+    float: right;
   }
 
-  .btn-ep-option,
-  .btn-ep-plus {
-    font-size: 10px;
-    color: white;
-  }
-  .ep-body {
-    direction: rtl;
-  }
-  .ep-date {
-    float: left;
-    font-size: 85%;
+  .label-date {
+    color: black;
+    background-color: #CFD8DC;
   }
   .ep-categories {
     padding-right: 0;
@@ -226,9 +207,6 @@
   .label-category {
     color: black;
     background-color: #CCFF90;
-  }
-  #sidebar {
-    border: 1px solid #EEEEEE;
   }
 </style>
 {% endblock %}

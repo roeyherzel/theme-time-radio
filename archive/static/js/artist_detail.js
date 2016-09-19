@@ -43,13 +43,17 @@ $(document).ready(function() {
     });
     // Urls
     artistListedInfo(artistData.urls, '.artist-urls', 'Links:', function(url) {
-      var website_domain = getDomain(url.attributes.url);
-      var website_favicon = "url(http://grabicon.com/icon?domain=" + website_domain + "&size=16)";
 
-      $('<li>').html(make_link(url.attributes.url, website_domain).attr('target', '_blank'))
-               .addClass('favicon')
-               .css('background-image', website_favicon)
-               .appendTo('.artist-urls ul');
+      /* NOTE: WORKAROUND - for urls that have been filtered out by api marshal field validation */
+      if (url.attributes) {
+        var website_domain = getDomain(url.attributes.url);
+        var website_favicon = "url(http://grabicon.com/icon?domain=" + website_domain + "&size=16)";
+
+        $('<li>').html(make_link(url.attributes.url, website_domain).attr('target', '_blank'))
+                 .addClass('favicon')
+                 .css('background-image', website_favicon)
+                 .appendTo('.artist-urls ul');
+      }
     });
     // Members
     artistListedInfo(artistData.members, '.artist-members', 'Members:', function(member) {
@@ -63,7 +67,7 @@ $(document).ready(function() {
     });
 
 
-    // Artist Releases
+    // Albums
     var group = $('.release-list'),
         release_card = $('.release-card')
     $('.release-card').remove()
@@ -109,9 +113,8 @@ $(document).ready(function() {
                    .wrap(make_link(episodeData.links.self));
 
         // date
-        $(ep_clone).find('.ep-categories').append(
-          $('<li>').text(str_to_date(episodeData.attributes.date_pub)).addClass('label label-default')
-        );
+        $(ep_clone).find('.ep-date').text(str_to_date(episodeData.attributes.date_pub));
+
         // guest as category
         if (episodeData.attributes.guest) {
           $(ep_clone).find('.ep-categories').append(

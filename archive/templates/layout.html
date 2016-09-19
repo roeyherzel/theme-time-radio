@@ -35,16 +35,13 @@
     //font-family: "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
     font-family: BentonSansRE, Verdana, sans-serif;
   }
-  .navbar {
-    background-color: #373A3C;
+
+  .navbar-brand {
+    font-weight: bold;
   }
-  .navbar-inverse .navbar-brand {
-    color: #FFFFFF;
-    font-size: 16px;
-    font-weight: lighter;
-  }
-  .navbar-inverse .navbar-nav>li>a {
-    color: #FFFFFF;
+  .navbar-default .navbar-brand,
+  .navbar-default .navbar-nav > li > a {
+    color: #373A3C;
   }
   .page-content {
     padding-top: 40px;
@@ -75,9 +72,8 @@
   </style>
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -89,6 +85,15 @@
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
+
+          <form class="navbar-form navbar-left">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+            </div><!-- /input-group -->
+          </form>
 
           <ul class="nav navbar-nav">
             <li class="dropdown">
@@ -109,15 +114,6 @@
               </ul>
             </li>
           </ul>
-
-          <form class="navbar-form navbar-left">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-              </span>
-            </div><!-- /input-group -->
-          </form>
 
         </div><!--/.navbar-collapse -->
       </div>
