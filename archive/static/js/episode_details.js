@@ -19,11 +19,12 @@ var showTagInfo = function(trackSelector, resourceSelector) {
 };
 
 var default_track_thumb = '/static/images/default-cd.png';
+var default_artist_thumb = '/static/images/default-artist.png';
 
-var setResourceThumb = function(trackSelector, field) {
+var setResourceThumb = function(trackSelector, field, defaultThumb) {
   return function(data) {
     $(trackSelector).find('.track-thumb > img')
-                    .attr({'src': data.thumb || default_track_thumb, 'title': data[field]})
+                    .attr({'src': data.thumb || defaultThumb, 'title': data[field]})
                     .wrap(make_link(data.resource_path))
                     .removeClass('track-default-thumb');
   };
@@ -72,10 +73,10 @@ $(document).ready(function() {
 
       } else {
         if (trackTagStatus['release'] === 'matched') {
-          $.getJSON(api_for(currentTrack.tags_release[0].resource_path), setResourceThumb(trackSelector, 'title'));
+          $.getJSON(api_for(currentTrack.tags_release[0].resource_path), setResourceThumb(trackSelector, 'title', default_track_thumb));
 
         } else if (trackTagStatus['artist'] === 'matched') {
-          $.getJSON(api_for(currentTrack.tags_artist[0].resource_path), setResourceThumb(trackSelector, 'name'));
+          $.getJSON(api_for(currentTrack.tags_artist[0].resource_path), setResourceThumb(trackSelector, 'name', default_artist_thumb));
 
         } else {
           $(trackClone).find('.track-thumb > img').attr('src', default_track_thumb);
