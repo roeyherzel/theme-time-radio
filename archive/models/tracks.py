@@ -53,7 +53,7 @@ class TracksArtists(db.Model, CRUD):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
     artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), primary_key=True)
     status = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=False)
-    track = db.relationship('Tracks', backref=db.backref('artist_tags', lazy='dynamic'))
+    track = db.relationship('Tracks', backref=db.backref('tags_artist', lazy='dynamic'))
     artist = db.relationship('Artists', backref=db.backref('tracks', lazy='dynamic'))
 
     def __init__(self, track_id, artist_id, status):
@@ -71,7 +71,7 @@ class TracksReleases(db.Model, CRUD):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
     release_id = db.Column(db.Integer, db.ForeignKey('releases.id'), primary_key=True)
     status = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=False)
-    track = db.relationship('Tracks', backref=db.backref('release_tags', lazy='dynamic'))
+    track = db.relationship('Tracks', backref=db.backref('tags_release', lazy='dynamic'))
     release = db.relationship('Releases', backref=db.backref('tracks', lazy='dynamic'))
 
     def __init__(self, track_id, release_id, status):
@@ -89,7 +89,7 @@ class TracksSongs(db.Model, CRUD):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
     song_id = db.Column(db.String(), db.ForeignKey('songs.id'), primary_key=True)
     status = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=False)
-    track = db.relationship('Tracks', backref=db.backref('song_tags', lazy='dynamic'))
+    track = db.relationship('Tracks', backref=db.backref('tags_song', lazy='dynamic'))
     song = db.relationship('Songs', backref=db.backref('tracks', lazy='dynamic'))
 
     def __init__(self, track_id, song_id, status):

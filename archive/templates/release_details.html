@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block script %}
+<script src="{{ url_for('static', filename='js/release_details.js') }}"
+        data-endpoint="{{ url_for('release_details', release_id=release.id) }}">
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-3">
+      <img class="img-responsive center-block img-rounded release-pri-image" alt="image">
+    </div>
+    <div class="col-md-9">
+      <h2 class="sub-header release-title"></h2>
+      <h3>
+        <ul class="list-inline release-artists"></ul>
+      </h3>
+      <!--<h3 class="release-year"></h3>-->
+      <h4>
+        <ul class="list-inline release-genres">
+          <li class="release-year"></li>
+          <li>&#9679</li>
+        </ul>
+        <ul class="list-inline release-styles"></ul>
+      </h4>
+
+      <table class="table">
+        <thead>
+          <th>Pos</th>
+          <th>SONG</th>
+          <th>TIME</th>
+        </thead>
+        <tbody class="song-list">
+          <tr class="song-row">
+            <td class="song-position"></td>
+            <td class="song-title"></td>
+            <td class="song-duration"></td>
+          </tr>
+        <tbody>
+      <table>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .release-title {
+    font-weight: bold;
+  }
+</style>
+{% endblock %}

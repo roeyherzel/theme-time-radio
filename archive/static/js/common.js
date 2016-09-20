@@ -4,6 +4,11 @@ function url_for(endpoint) {
 }
 
 function api_for(endpoint) {
+  if (! endpoint) {
+    console.error("api_for: " + endpoint);
+    return null;
+  }
+
   if (endpoint.startsWith('/')) {
     endpoint = endpoint.slice(1);
   }

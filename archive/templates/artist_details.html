@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block script %}
-<script src="{{ url_for('static', filename='js/artist_detail.js') }}"
-        data-artist-endpoint="{{ url_for('artist_detail', artist_id=artist.id) }}">
+<script src="{{ url_for('static', filename='js/artist_details.js') }}"
+        data-artist-endpoint="{{ url_for('artist_details', artist_id=artist.id) }}">
 </script>
 {% endblock %}
 
@@ -64,7 +64,7 @@
     <div class="col-md-4 well" id="sidebar">
       <img class="img-responsive center-block artist-image" src="" alt="image">
       <hr>
-      <p class="artist-profile">{{ artist.attributes.profile | nl2br }}</p>
+      <p class="artist-profile">{{ artist.profile | nl2br }}</p>
       <hr>
       <div class="dl-horizontal">
         <dl>

@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block script %}
-<script src="{{ url_for('static', filename='js/episode_detail.js') }}"
+<script src="{{ url_for('static', filename='js/episode_details.js') }}"
         data-playlist-uri="{{ url_for('tracklist_api', episode_id=ep.id) }}">
 </script>
 {% endblock %}
@@ -136,31 +136,6 @@
     font-weight: normal;
     color: #373A3C;
   }
-  .tooltip-inner {
-    white-space: pre;
-    max-width: none;
-  }
-  .btn-ep-actions {
-  }
-
-  .label {
-    font-weight: normal;
-  }
-  .hr-thin {
-    margin: 10px 0 10px 0;
-  }
-  .label-date {
-    color: black;
-    background-color: #CFD8DC;
-  }
-  .label-guest {
-    color: black;
-    background-color: #FFD180;
-  }
-  .label-category {
-    color: black;
-    background-color: #CCFF90;
-  }
 
   .ep-desc {
     direction: rtl;
@@ -177,28 +152,8 @@
     margin-bottom: 10px;
   }
 
-  .table {
-    margin: 20px 0 20px 0;
-  }
-  .table > thead > tr {
-    border-top: 1px solid #ddd;
-  }
-  .table > thead > tr > th {
-    font-weight: lighter;
-    font-size: 85%;
-    color: #808080;
-    border-bottom: 1px solid #ddd;
-    padding: 4px;
-  }
-  .table > tbody > tr > td {
-    border-bottom: 1px solid #ddd;
-    vertical-align: middle;
-    top: 0;
-  }
-
   .track-row {
     font-size: 12px;
-    //color: #474747;
   }
   .track-thumb > a > img,
   .track-thumb > img {
@@ -227,7 +182,6 @@
   .glyphicon-exclamation-sign,
   .glyphicon-question-sign {
     font-size: 14px;
-    //line-height: 18px;
   }
 
 

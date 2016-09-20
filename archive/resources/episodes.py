@@ -1,14 +1,15 @@
-from archive.common import utils
+from archive.common.utils import limit_api_results
+from archive.common.schemas import EpisodeSchema, EpisodeTracklistScheam
 from archive.models import *
-from archive.schemas import EpisodesSchema, EpisodesTracklistScheam
 
-from flask_restful import Resource, reqparse
-from flask import jsonify
+from flask_restful import Resource, reqparse, marshal_with
 
 from sqlalchemy import desc
 
 
 class Episode(Resource):
+
+    @marshal_with(EpisodeSchema)
     def get(self, episode_id=None):
         parser = reqparse.RequestParser()
         parser.add_argument('limit', type=int, help="limit query results")
@@ -16,17 +17,13 @@ class Episode(Resource):
         print(args)
 
         if episode_id is not None:
-            ep = Episodes.query.get(episode_id)
-            res = EpisodesSchema().dump(ep)
+            return Episodes.query.get(episode_id)
         else:
-            ep = utils.limit_api_results(Episodes.query.order_by(desc(Episodes.date_pub)), args.get('limit'))
-            res = EpisodesSchema().dump(ep.all(), many=True)
-
-        return jsonify(res.data['data'])
+            return limit_api_results(Episodes.query.order_by(desc(Episodes.date_pub)), args.get('limit')).all()
 
 
 class Tracklist(Resource):
+
+    @marshal_with(EpisodeTracklistScheam)
     def get(self, episode_id):
-        ep = Episodes.query.get(episode_id)
-        res = EpisodesTracklistScheam().dump(ep)
-        return jsonify(res.data['data']['attributes']['tracklist']['data'])
+        return Episodes.query.get(episode_id)

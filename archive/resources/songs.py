@@ -1,13 +1,10 @@
 from archive.models import *
-from archive.schemas import SongsSchema
-
-from flask_restful import Resource
-from flask import jsonify
+from archive.common.schemas import SongSchema
+from flask_restful import Resource, marshal_with
 
 
 class Song(Resource):
 
+    @marshal_with(SongSchema)
     def get(self, song_id):
-        song = Songs.query.get(song_id)
-        res = SongsSchema().dump(song)
-        return jsonify(res.data['data'])
+        return Songs.query.get(song_id)

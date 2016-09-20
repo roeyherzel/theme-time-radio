@@ -1,0 +1,45 @@
+
+.table {
+  margin: 20px 0 20px 0;
+}
+.table > thead > tr {
+  border-top: 1px solid rgb(221, 221, 221);
+}
+.table > thead > tr > th {
+  font-weight: lighter;
+  font-size: 85%;
+  color: #808080;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding: 4px;
+}
+.table > tbody > tr > td {
+  border-bottom: 1px solid rgb(221, 221, 221);
+  vertical-align: middle;
+  top: 0;
+}
+
+.hr-thin {
+  margin: 10px 0 10px 0;
+}
+
+.label {
+  font-weight: normal !important;
+}
+.label-date {
+  background-color: #CFD8DC;
+}
+.label-guest {
+  background-color: #FFD180;
+}
+.label-category {
+  background-color: #CCFF90;
+}
+
+.label-date, .label-guest, .label-category {
+  color: black !important;
+}
+
+.tooltip-inner {
+  white-space: pre;
+  max-width: none;
+}

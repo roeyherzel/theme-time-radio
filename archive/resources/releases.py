@@ -1,21 +1,27 @@
 from archive.models import *
-from archive.schemas import ReleasesSchema
+from archive.common.schemas import ReleaseSchema, ArtistSchema
 
-from flask_restful import Resource
-from flask import jsonify
+from flask_restful import Resource, marshal_with
 
 
 class Release(Resource):
 
+    @marshal_with(ReleaseSchema)
     def get(self, release_id=None):
         if release_id is not None:
-            release = Releases.query.get(release_id)
-            res = ReleasesSchema().dump(release)
+            return Releases.query.get(release_id)
         else:
-            releases = Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
-                               .filter(TracksReleases.status == Status.getIdByName('matched')) \
-                               .order_by(Releases.title).all()
+            return Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
+                                 .filter(TracksReleases.status == Status.getIdByName('matched')) \
+                                 .order_by(Releases.title).all()
 
-            res = ReleasesSchema().dump(releases, many=True)
 
-        return jsonify(res.data['data'])
+class ReleasesArtists(Resource):
+
+    @marshal_with(ArtistSchema)
+    def get(self, release_id):
+        return Artists.query.join(TracksArtists, (TracksArtists.artist_id == Artists.id)) \
+                            .join(TracksReleases, (TracksReleases.track_id == TracksArtists.track_id)) \
+                            .filter(TracksReleases.release_id == release_id) \
+                            .filter(TracksArtists.status == Status.getIdByName('matched')) \
+                            .all()

@@ -2,7 +2,6 @@ from flask import jsonify, render_template, request
 
 from archive import app
 from archive.models import *
-from archive.schemas import *
 
 import re
 from jinja2 import evalcontextfilter, Markup, escape
@@ -20,19 +19,22 @@ def nl2br(eval_ctx, value):
     return result
 
 
+@app.route('/releases/<int:release_id>')
+def release_details(release_id):
+    release = Releases.query.get(release_id)
+    return render_template('release_details.html', release=release)
+
+
 @app.route('/artists/<int:artist_id>')
-def artist_detail(artist_id):
+def artist_details(artist_id):
     artist = Artists.query.get(artist_id)
-    res = ArtistsSchema().dump(artist)
-    return render_template('artist_detail.html', artist=res.data['data'])
+    return render_template('artist_details.html', artist=artist)
 
 
 @app.route('/episodes/<int:episode_id>')
-def episode_detail(episode_id):
+def episode_details(episode_id):
     ep = Episodes.query.get(episode_id)
-    # res = EpisodesSchema().dump(ep).data
-    print(ep)
-    return render_template('episode_detail.html', ep=ep)  # res['data'])
+    return render_template('episode_details.html', ep=ep)
 
 
 @app.route('/')

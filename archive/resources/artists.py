@@ -1,47 +1,40 @@
 from archive.models import *
-from archive.schemas import *
+from archive.common.schemas import ArtistSchema, ReleaseSchema, EpisodeSchema
 
-from flask_restful import Resource
-from flask import jsonify
+from flask_restful import Resource, marshal_with
 
 
 class Artist(Resource):
 
+    @marshal_with(ArtistSchema)
     def get(self, artist_id=None):
         if artist_id is not None:
-            artist = Artists.query.get(artist_id)
-            res = ArtistsSchema().dump(artist)
+            return Artists.query.get(artist_id)
         else:
-            # return all matched artists
-            artists = Artists.query.join(TracksArtists, (TracksArtists.artist_id == Artists.id)) \
-                             .filter(TracksArtists.status == Status.getIdByName('matched')) \
-                             .order_by(Artists.name) \
-                             .all()
-            res = ArtistsSchema().dump(artists, many=True)
-
-        return jsonify(res.data['data'])
+            return Artists.query.join(TracksArtists, (TracksArtists.artist_id == Artists.id)) \
+                                .filter(TracksArtists.status == Status.getIdByName('matched')) \
+                                .order_by(Artists.name) \
+                                .all()
 
 
 class ArtistsReleases(Resource):
 
+    @marshal_with(ReleaseSchema)
     def get(self, artist_id):
         # TODO: add distinct - list seems to be uniqe but it won't hurt to add 'distinct'
-        releases = Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
-                                 .join(TracksArtists, (TracksArtists.track_id == TracksReleases.track_id)) \
-                                 .filter(TracksArtists.artist_id == artist_id) \
-                                 .filter(TracksReleases.status == Status.getIdByName('matched')) \
-                                 .all()
-        res = ReleasesSchema().dump(releases, many=True)
-        return jsonify(res.data['data'])
+        return Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
+                             .join(TracksArtists, (TracksArtists.track_id == TracksReleases.track_id)) \
+                             .filter(TracksArtists.artist_id == artist_id) \
+                             .filter(TracksReleases.status == Status.getIdByName('matched')) \
+                             .all()
 
 
 class ArtistsEpisodes(Resource):
 
+    @marshal_with(EpisodeSchema)
     def get(self, artist_id):
-        episodes = Episodes.query.join(Tracks, (Tracks.episode_id == Episodes.id)) \
-                                 .join(TracksArtists, TracksArtists.track_id == Tracks.id) \
-                                 .filter(TracksArtists.artist_id == artist_id) \
-                                 .filter(TracksArtists.status == Status.getIdByName('matched')) \
-                                 .all()
-        res = EpisodesSchema().dump(episodes, many=True)
-        return jsonify(res.data['data'])
+        return Episodes.query.join(Tracks, (Tracks.episode_id == Episodes.id)) \
+                             .join(TracksArtists, TracksArtists.track_id == Tracks.id) \
+                             .filter(TracksArtists.artist_id == artist_id) \
+                             .filter(TracksArtists.status == Status.getIdByName('matched')) \
+                             .all()

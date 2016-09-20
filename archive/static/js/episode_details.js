@@ -13,17 +13,18 @@ var showTagInfo = function(trackSelector, resourceSelector) {
       field = 'name';
     }
     $(trackSelector).find(resourceSelector).html(
-      make_link(data.links.self, data.attributes[field])
+      make_link(data.resource_path, data[field])
     );
   };
 };
 
 var default_track_thumb = '/static/images/default-cd.png';
+
 var setResourceThumb = function(trackSelector, field) {
   return function(data) {
     $(trackSelector).find('.track-thumb > img')
-                    .attr({'src': data.attributes.thumb || default_track_thumb, 'title': data.attributes[field]})
-                    .wrap(make_link(data.links.self))
+                    .attr({'src': data.thumb || default_track_thumb, 'title': data[field]})
+                    .wrap(make_link(data.resource_path))
                     .removeClass('track-default-thumb');
   };
 };
@@ -38,39 +39,43 @@ $(document).ready(function() {
 
   $.getJSON(playlist_uri, function(playlist, status) {
 
+    playlist = playlist.tracklist;
+
     var trackCard = $(".track-row");
     $(".track-row").remove();
 
     playlist.forEach(function(currentTrack, index) {
 
+      console.log(currentTrack, currentTrack.tags_status[0]);
+
+
       var trackSelector = '#track_' + currentTrack.id,
-          trackData = currentTrack.attributes,
-          trackTagsQuery = trackData.tags_query.data[0].attributes,
-          trackTagsStatus = trackData.tags_status.data[0].attributes,
+          trackTagStatus = currentTrack.tags_status[0],
+          trackTagQuery = currentTrack.tags_query[0],
           trackClone = $(trackCard).clone();
 
       $(trackClone).attr('id', 'track_' + currentTrack.id);
       $(trackClone).find('.track-id').text(currentTrack.id);
-      $(trackClone).find('.track-pos').text(currentTrack.attributes.position);
+      $(trackClone).find('.track-pos').text(currentTrack.position);
       $(trackClone).appendTo('tbody.track-list');
 
       // not resolved or type other
-      if (trackData.resolved === false) {
+      if (currentTrack.resolved === false) {
         $(trackClone).find('.track-thumb > img').attr('src', '/static/images/default-microphone.png');
         $(trackClone).find('.track-artist').parent().remove();
         $(trackClone).find('.track-release').parent().remove();
         $(trackClone).find('.track-song').parent().addClass('active');
         $(trackClone).find('.track-song')
-                     .text(trackData.title)
+                     .text(currentTrack.title)
                      .css({'direction': 'rtl', 'text-align': 'left'})
                      .attr('colspan', '3');
 
       } else {
-        if (trackTagsStatus['release'] === 'matched') {
-          $.getJSON(api_for(trackData.release_tags.data[0].links.self), setResourceThumb(trackSelector, 'title'));
+        if (trackTagStatus['release'] === 'matched') {
+          $.getJSON(api_for(currentTrack.tags_release[0].resource_path), setResourceThumb(trackSelector, 'title'));
 
-        } else if (trackTagsStatus['artist'] === 'matched') {
-          $.getJSON(api_for(trackData.artist_tags.data[0].links.self), setResourceThumb(trackSelector, 'name'));
+        } else if (trackTagStatus['artist'] === 'matched') {
+          $.getJSON(api_for(currentTrack.tags_artist[0].resource_path), setResourceThumb(trackSelector, 'name'));
 
         } else {
           $(trackClone).find('.track-thumb > img').attr('src', default_track_thumb);
@@ -81,26 +86,27 @@ $(document).ready(function() {
               statusSelector = resourceSelector + '-status';
 
           // matched
-          if (trackTagsStatus[resource] === "matched") {
-            $.getJSON(api_for(trackData[resource + '_tags'].data[0].links.self), showTagInfo(trackSelector, resourceSelector));
-            increment_resource_status_badge(resource, trackTagsStatus[resource]);
+          if (trackTagStatus[resource] === "matched") {
+            $.getJSON(api_for(currentTrack['tags_' + resource][0].resource_path), showTagInfo(trackSelector, resourceSelector));
+            increment_resource_status_badge(resource, currentTrack[resource]);
 
           // pending
-          } else if (trackTagsStatus[resource] === "pending") {
-            var pending_count = trackData[resource + '_tags'].data.length;
+        } else if (trackTagStatus[resource] === "pending") {
+            var pending_count = currentTrack['tags_' + resource].length;
             $(trackSelector).find(statusSelector)
                             .addClass('glyphicon glyphicon-exclamation-sign')
                             .attr({
                               'data-toggle': "tooltip",
                               'title': "Pending Selection - found " + pending_count + " possible " + capitalize(resource) + " tags",
                             });
-            increment_resource_status_badge(resource, trackTagsStatus[resource]);
+            increment_resource_status_badge(resource, currentTrack[resource]);
 
           // unmatched
           } else {
-            increment_resource_status_badge(resource, trackTagsStatus[resource]);
-            if (trackTagsQuery[resource]) {
-              $(trackSelector).find(resourceSelector).text(trackTagsQuery[resource]);
+            increment_resource_status_badge(resource, currentTrack[resource]);
+            console.log(trackTagQuery[resource]);
+            if (trackTagQuery[resource]) {
+              $(trackSelector).find(resourceSelector).text(trackTagQuery[resource]);
             } else {
               $(trackSelector).find(statusSelector)
                               .addClass('glyphicon glyphicon-question-sign')

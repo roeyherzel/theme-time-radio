@@ -14,7 +14,7 @@ class CRUD():
         except IntegrityError as err:
             db.session.rollback()
             print("create-rollback: {}, {}".format(err.orig.diag.message_primary,
-                                                   err.orig.diag.message_detail))
+                                                   err.orig.diag.message_details))
 
         db.session.commit()
 
