@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block script %}
-<script src="{{ url_for('static', filename='js/release_details.js') }}"
-        data-endpoint="{{ url_for('release_details', release_id=release.id) }}">
+<script src="{{ url_for('static', filename='js/release_info.js') }}"
+        data-endpoint="{{ url_for('release_info', release_id=release.id) }}">
 </script>
 {% endblock %}
 

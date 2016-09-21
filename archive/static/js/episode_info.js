@@ -98,7 +98,7 @@ $(document).ready(function() {
                             .addClass('glyphicon glyphicon-exclamation-sign')
                             .attr({
                               'data-toggle': "tooltip",
-                              'title': "Pending Selection - found " + pending_count + " possible " + capitalize(resource) + " tags",
+                              'title': "Pending selection...found " + pending_count + " possible " + capitalize(resource) + " tags",
                             });
             increment_resource_status_badge(resource, currentTrack[resource]);
 

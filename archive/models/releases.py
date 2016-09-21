@@ -12,6 +12,13 @@ class Releases(db.Model, CRUD):
         return '<Release ({}) - {}>'.format(self.id, self.title)
 
 
+class ReleaseArtists(db.Model, CRUD):
+    release_id = db.Column(db.Integer, db.ForeignKey('release_id'), primary_key=True)
+    release = db.relationship('Releases', backref=db.backref('artists'), lazy='dynamic')
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist_id'), primary_key=True)
+    artist = db.relationship('Artists', backref=db.backref('releases'), lazy='dynamic')
+
+
 class ReleasesGenres(db.Model, CRUD):
     genre = db.Column(db.String(), primary_key=True)
     release_id = db.Column(db.Integer, db.ForeignKey('releases.id'), primary_key=True)

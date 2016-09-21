@@ -19,22 +19,30 @@ def nl2br(eval_ctx, value):
     return result
 
 
+@app.route('/songs/<string:song_id>')
+def song_info(song_id):
+    song = Songs.query.get(song_id)
+    image = song.release.images.filter_by(type='primary').one()
+
+    return render_template('song_info.html', song=song, image=image)
+
+
 @app.route('/releases/<int:release_id>')
-def release_details(release_id):
+def release_info(release_id):
     release = Releases.query.get(release_id)
-    return render_template('release_details.html', release=release)
+    return render_template('release_info.html', release=release)
 
 
 @app.route('/artists/<int:artist_id>')
-def artist_details(artist_id):
+def artist_info(artist_id):
     artist = Artists.query.get(artist_id)
-    return render_template('artist_details.html', artist=artist)
+    return render_template('artist_info.html', artist=artist)
 
 
 @app.route('/episodes/<int:episode_id>')
-def episode_details(episode_id):
+def episode_info(episode_id):
     ep = Episodes.query.get(episode_id)
-    return render_template('episode_details.html', ep=ep)
+    return render_template('episode_info.html', ep=ep)
 
 
 @app.route('/')
