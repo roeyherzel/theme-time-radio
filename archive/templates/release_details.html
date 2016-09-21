@@ -10,36 +10,46 @@
 
   <div class="row">
     <div class="col-md-3">
-      <img class="img-responsive center-block img-rounded release-pri-image" alt="image">
-    </div>
-    <div class="col-md-9">
-      <h2 class="sub-header release-title"></h2>
-      <h3>
-        <ul class="list-inline release-artists"></ul>
-      </h3>
-      <!--<h3 class="release-year"></h3>-->
-      <h4>
-        <ul class="list-inline release-genres">
-          <li class="release-year"></li>
-          <li>&#9679</li>
-        </ul>
-        <ul class="list-inline release-styles"></ul>
-      </h4>
+      <img class="img-responsive center-block img-rounded release-primary-image" src="" alt="image">
+      <div class="release-images">
 
-      <table class="table">
+      </div>
+    </div>
+    <div class="col-md-7">
+
+      <h3 class="release-title"></h3>
+      <div>
+        <ul class="list-inline release-artists">
+        </ul>
+      </div>
+      <hr class="hr-thin">
+      <div>
+        <ul class="list-inline release-labels">
+          <li><span class="label label-default label-year release-year"></span></li>
+        </ul>
+
+      </div>
+
+      <table class="table table-condensed">
         <thead>
-          <th>Pos</th>
+          <th>#</th>
           <th>SONG</th>
           <th>TIME</th>
+          <th class="text-center"><span class="glyphicon glyphicon-bookmark"></span></th>
         </thead>
         <tbody class="song-list">
           <tr class="song-row">
             <td class="song-position"></td>
             <td class="song-title"></td>
             <td class="song-duration"></td>
+            <td class="text-center">
+              <button type="button" name="button" class="btn btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Song">
+                <span class="glyphicon glyphicon-star-empty"></span>
+              </button>
+            </td>
           </tr>
-        <tbody>
-      <table>
+        </tbody>
+      </table>
     </div>
 
   </div>
@@ -48,7 +58,16 @@
 
 <style>
   .release-title {
-    font-weight: bold;
+    font-weight: 500;
+    margin-top: 2px;
+    margin-bottom: 5px;
   }
+  .release-artists {
+    font-size: 18px;
+  }
+  .release-labels > li {
+    font-size: 14px;
+  }
+
 </style>
 {% endblock %}

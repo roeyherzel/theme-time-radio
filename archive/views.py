@@ -41,7 +41,7 @@ def episode_details(episode_id):
 def index():
     ep_latest = Episodes.query.order_by(Episodes.date_pub).limit(6).all()
 
-    # FIXME: this query returns 23 insted of 21
+    # FIXME: this query returns 23 instead of 21
     # this is because date_pub has to be in the select statment because of order_by
     subq = db.session.query(distinct(TracksArtists.artist_id).label("artist_id"), Episodes.date_pub) \
                      .filter(TracksArtists.status == 1) \

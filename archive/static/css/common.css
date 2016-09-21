@@ -23,10 +23,14 @@
 }
 
 .label {
-  font-weight: normal !important;
+  font-weight: normal;
+  color: black;
+  font-size: 100%;
 }
+.label-year,
 .label-date {
   background-color: #CFD8DC;
+  color: black;
 }
 .label-guest {
   background-color: #FFD180;
@@ -34,9 +38,18 @@
 .label-category {
   background-color: #CCFF90;
 }
+.label-genre {
+  background-color: #80D8FF;
+}
+.label-style {
+  background-color: #A7FFEB
+}
 
-.label-date, .label-guest, .label-category {
-  color: black !important;
+.btn-bookmark {
+  border: 0;
+  background-color: transparent;
+  padding: 3px 6px 3px 6px;
+  color: #808080;
 }
 
 .tooltip-inner {

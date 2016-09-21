@@ -28,7 +28,13 @@
     </div>
 
     <div class="col-md-9">
-      <h3 class="media-heading page-header ep-title">{{ ep.title }}</h3>
+      <button type="button" name="button-ep-bookmark" class="btn btn-bookmark" data-toggle="tooltip" title="Bookmark Episode">
+        <span class="glyphicon glyphicon-star-empty"></span>
+      </button>
+
+      <h3 class="media-heading page-header">
+        <span class="ep-title">{{ ep.title }}</span>
+      </h3>
 
       <div class="btn-toolbar" role="toolbar" aria-label="...">
         <div class="btn-group" role="group" aria-label="...">
@@ -37,11 +43,8 @@
           </a>
         </div>
         <div class="btn-group" role="group" aria-label="...">
-          <button type="button" name="button-ep-bookmark" class="btn btn-sm btn-default" data-toggle="tooltip" title="Bookmark Episode">
-            <span class="glyphicon glyphicon-star-empty"></span>
-          </button>
-          <button type="button" name="button-ep-played" class="btn btn-sm btn-default" data-toggle="tooltip" title="Mark as Played">
-            <span class="glyphicon glyphicon-headphones"></span><span> Unplayed</span>
+          <button type="button" name="button-ep-played" class="btn btn-sm btn-default" data-toggle="tooltip" title="Mark as Unplayed">
+            <span class="glyphicon glyphicon-headphones">&nbsp;</span><span class="glyphicon glyphicon-ok"></span>
           </button>
         </div>
       </div>
@@ -55,7 +58,6 @@
             <th>SONG</th>
             <th>ARTIST</th>
             <th>ALBUM</th>
-            <th class="text-center"><span class="glyphicon glyphicon-bookmark"></span></th>
           </tr>
         </thead>
         <tbody class="track-list">
@@ -75,12 +77,6 @@
             </td>
             <td>
               <span class="track-release-status"></span><span class="track-release"></span>
-            </td>
-
-            <td class="text-center">
-              <button type="button" name="button" class="btn btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Track">
-                <span class="glyphicon glyphicon-star-empty"></span>
-              </button>
             </td>
 
           </tr>
@@ -137,6 +133,12 @@
     color: #373A3C;
   }
 
+  .btn-bookmark {
+    font-size: 16px;
+    float: left;
+    text-align: center;
+    vertical-align:
+  }
   .ep-desc {
     direction: rtl;
     font-size: 85%;
@@ -151,7 +153,9 @@
     object-fit: contain;
     margin-bottom: 10px;
   }
-
+  .label {
+    font-size: 12px;
+  }
   .track-row {
     font-size: 12px;
   }
@@ -164,13 +168,6 @@
     color: #808080;
     font-weight: lighter;
     width: 20px;
-  }
-
-  .btn-bookmark {
-    border: 0;
-    background-color: transparent;
-    padding: 3px 6px 3px 6px;
-    color: #808080;
   }
 
   .glyphicon-exclamation-sign {

@@ -4,28 +4,38 @@ $(document).ready(function() {
   var endpoint = $('script[data-endpoint]').attr('data-endpoint');
 
   $.getJSON(api_for(endpoint), function(releaseObj, status) {
+
     console.log(releaseObj);
 
     var primaryImage = releaseObj.images.filter(function(img) {
       return img.type === 'primary'
     });
 
-    // Primary image (thumb)
-    $('.release-pri-image').attr('src', primaryImage[0].uri);
+    var restOfImages = releaseObj.images.filter(function(img) {
+      return img.type !== 'primary'
+    });
+
+    // Images
+    $('.release-primary-image').attr('src', primaryImage[0].uri);
 
     // Title
+    console.log(releaseObj.year);
     $('.release-title').text(releaseObj.title);
+
+    // Year
+    // ('&nbsp;&#9679;&nbsp;');
     $('.release-year').text(releaseObj.year);
 
     // Genres
     releaseObj.genres.forEach(function(g) {
-      $('<li>').text(g.genre).addClass('label label-default').appendTo('.release-genres');
+      $('<li>').append($('<span>').text(g.genre).addClass('label label-genre'))
+               .appendTo('.release-labels');
     });
-    //$('<li>').html("&#9679; " + releaseObj.year).appendTo('.release-genres');
 
     // Styles
     releaseObj.styles.forEach(function(s) {
-      $('<li>').text(s.style).appendTo('.release-styles');
+      $('<li>').append($('<span>').text(s.style).addClass('label label-style'))
+               .appendTo('.release-labels');
     });
 
     // Songs
