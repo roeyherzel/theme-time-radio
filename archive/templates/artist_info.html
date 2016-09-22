@@ -1,4 +1,6 @@
 {% extends "layout.html" %}
+{% import "macro_episodes.html" as episodes %}
+
 {% block script %}
 <script src="{{ url_for('static', filename='js/artist_info.js') }}"
         data-artist-endpoint="{{ url_for('artist_info', artist_id=artist.id) }}">
@@ -31,33 +33,7 @@
 
       <hr>
       <h4 class="sub-header">Episodes</h4>
-      <table class="table table-condensed">
-
-        <tbody class="ep-list">
-          <tr class="ep-clone">
-
-            <td class="ep-actions text-center">
-              <button type="button" name="button-ep-bookmark" class="btn btn-lg btn-default btn-ep-bookmark" data-toggle="tooltip" title="Bookmark Episode">
-                <span class="glyphicon glyphicon-star-empty"></span>
-              </button>
-            </td>
-
-            <td class="text-center">
-              <img class="ep-thumb" src="" alt="thumb">
-            </td>
-
-            <td>
-              <h5>
-                <span class="ep-title"></span>
-                <span class="ep-date label label-date"></span>
-              </h5>
-              <p class="ep-plot small"></p>
-              <ul class="list-inline ep-categories"></ul>
-            </td>
-
-          </tr>
-        </tbody>
-      </table>
+      <div class="artist-episodes">{{ episodes.list() }}</div>
 
     </div>
 
@@ -107,6 +83,7 @@
 </div>
 
 <style>
+
   .favicon {
     background-position: 0 6px;
     background-repeat: no-repeat;
@@ -150,45 +127,6 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-  }
-
-
-  .table > tbody > tr {
-    border: 1px solid rgb(221, 221, 221);
-  }
-  .table > tbody > tr > td {
-    vertical-align: middle;
-  }
-  .ep-actions {
-    border-right: 1px solid rgb(221, 221, 221);
-  }
-  .btn-ep-bookmark {
-    border-color: transparent;
-    padding: 6px;
-  }
-  .ep-card {
-    padding: 10px;
-    margin: 5px;
-  }
-  .ep-thumb {
-    width: 100px;
-    height: 100px;
-    border: 1px solid black;
-    object-fit: cover;
-  }
-  .ep-title {
-    font-weight: bold;
-  }
-  .ep-date {
-    float: right;
-  }
-  .ep-categories {
-    padding-right: 0;
-  }
-  .ep-categories > li {
-    margin-left: 5px;
-    font-weight: normal;
-    font-size: 90%;
   }
 
 </style>

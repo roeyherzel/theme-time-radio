@@ -13,11 +13,9 @@ function getDomain(url) {
 
 
 $(document).ready(function() {
-  var artist_endpint = $('script[data-artist-endpoint]').attr('data-artist-endpoint');
+  var artist_endpoint = $('script[data-artist-endpoint]').attr('data-artist-endpoint');
 
-  $.getJSON(api_for(artist_endpint), function(artistData, status) {
-
-    console.log(artistData);
+  $.getJSON(api_for(artist_endpoint), function(artistData, status) {
 
     var images = artistData.images,
         pri_image;
@@ -69,7 +67,7 @@ $(document).ready(function() {
         release_card = $('.release-card')
     $('.release-card').remove()
 
-    $.getJSON(api_for(artist_endpint + '/releases'), function(data, status) {
+    $.getJSON(api_for(artist_endpoint + '/releases'), function(data, status) {
 
       data.forEach(function(release, index) {
         console.log(release);
@@ -87,49 +85,8 @@ $(document).ready(function() {
 
         $(release_clone).appendTo(group)
       });
-    });
+    }); // artist/releases ajax
 
-    $.getJSON(api_for(artist_endpint + '/episodes'), function(data, status) {
-
-      var ep_row = $('.ep-clone');
-      $('.ep-clone').remove();
-
-      data.forEach(function(episodeData, index) {
-        console.log(episodeData);
-        var ep_clone = $(ep_row).clone(),
-            ep_pub_date;
-
-        $(ep_clone).find('.ep-title')
-                   .html(make_link(episodeData.resource_path, episodeData.title));
-
-        $(ep_clone).find('.ep-plot')
-                   .text(episodeData.plot);
-
-        $(ep_clone).find('.ep-thumb')
-                   .attr('src', episodeData.thumb)
-                   .wrap(make_link(episodeData.resource_path));
-
-        // date
-        $(ep_clone).find('.ep-date').text(str_to_date(episodeData.date_pub));
-
-        // guest as category
-        if (episodeData.guest) {
-          $(ep_clone).find('.ep-categories').append(
-            $('<li>').text(episodeData.guest).addClass('label label-guest')
-          );
-        }
-        // categories
-        episodeData.categories.forEach(function(cat) {
-          $(ep_clone).find('.ep-categories').append(
-            $('<li>').text(cat.category).addClass('label label-category')
-          );
-        });
-
-        $(ep_clone).appendTo('.ep-list');
-
-      });
-
-    });
-
-  });
+  }); // artist ajax
+  showEpisodesList(artist_endpoint + '/episodes');
 });

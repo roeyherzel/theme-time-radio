@@ -25,7 +25,8 @@
 .label {
   font-weight: normal;
   color: black;
-  font-size: 100%;
+  font-size: 0.9em;
+
 }
 .label-year,
 .label-date {

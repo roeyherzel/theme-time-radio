@@ -1,0 +1,45 @@
+{% macro list() -%}
+<table class="table table-condensed table-bordered table-hover">
+
+  <tbody class="ep-list">
+    <tr class="ep-card">
+
+      <td class="text-center ep-bookmark">
+        <button type="button" name="button" class="btn btn-lg btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Episode">
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
+      </td>
+
+      <td class="text-center">
+        <img class="ep-thumb" src="" alt="thumb">
+      </td>
+
+      <td>
+        <h5>
+          <span class="ep-title"></span>
+        </h5>
+        <p class="ep-plot small"></p>
+        <ul class="list-inline ep-categories">
+          <li><span class="ep-date label label-date"></span></li>
+        </ul>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+
+<style>
+  .label {
+    font-size: 0.9em;
+  }
+  .ep-thumb {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    object-fit: cover;
+  }
+  .ep-title {
+    font-weight: bold;
+  }
+</style>
+{%- endmacro %}

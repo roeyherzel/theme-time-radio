@@ -63,7 +63,6 @@ var showReleaseInfo = function(releasePath, options) {
       $('.release-title').text(releaseObj.title);
     }
 
-
     // Year
     // ('&nbsp;&#9679;&nbsp;');
     $('.release-year').text(releaseObj.year);
