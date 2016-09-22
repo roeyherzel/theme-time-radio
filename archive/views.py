@@ -22,9 +22,7 @@ def nl2br(eval_ctx, value):
 @app.route('/songs/<string:song_id>')
 def song_info(song_id):
     song = Songs.query.get(song_id)
-    image = song.release.images.filter_by(type='primary').one()
-
-    return render_template('song_info.html', song=song, image=image)
+    return render_template('song_info.html', song=song)
 
 
 @app.route('/releases/<int:release_id>')

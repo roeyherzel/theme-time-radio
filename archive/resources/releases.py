@@ -4,7 +4,7 @@ from archive.common.schemas import ReleaseSchema, ArtistSchema
 from flask_restful import Resource, marshal_with
 
 
-class Release(Resource):
+class ReleaseApi(Resource):
 
     @marshal_with(ReleaseSchema)
     def get(self, release_id=None):
@@ -16,7 +16,7 @@ class Release(Resource):
                                  .order_by(Releases.title).all()
 
 
-class ReleasesArtists(Resource):
+class ReleasesArtistsApi(Resource):
 
     @marshal_with(ArtistSchema)
     def get(self, release_id):

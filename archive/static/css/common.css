@@ -8,7 +8,7 @@
 .table > thead > tr > th {
   font-weight: lighter;
   font-size: 85%;
-  color: #808080;
+  color: #777777;
   border-bottom: 1px solid rgb(221, 221, 221);
   padding: 4px;
 }
@@ -46,13 +46,22 @@
 }
 
 .btn-bookmark {
-  border: 0;
   background-color: transparent;
-  padding: 3px 6px 3px 6px;
+  border: 0;
+  padding: 0;
   color: #808080;
+}
+.btn-heading {
+  font-size: 65%;
+  vertical-align: text-top;
 }
 
 .tooltip-inner {
   white-space: pre;
   max-width: none;
+}
+
+.resource-title {
+  margin-top: 2px;
+  margin-bottom: 5px;
 }

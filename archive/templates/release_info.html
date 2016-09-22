@@ -11,17 +11,24 @@
   <div class="row">
     <div class="col-md-3">
       <img class="img-responsive center-block img-rounded release-primary-image" src="" alt="image">
+      <hr class="hr-thin">
+
       <div class="release-images">
 
       </div>
     </div>
     <div class="col-md-7">
 
-      <h3 class="release-title"></h3>
-      <div>
+      <h3 class="resource-title">
+        <span class="release-title"></span>
+        <button type="button" name="button" class="btn btn-bookmark btn-heading" data-toggle="tooltip" title="Bookmark Release">
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
+      </h3>
+      <h4>
         <ul class="list-inline release-artists">
         </ul>
-      </div>
+      </h4>
       <hr class="hr-thin">
       <div>
         <ul class="list-inline release-labels">
@@ -34,14 +41,14 @@
         <thead>
           <th>#</th>
           <th>SONG</th>
-          <th>TIME</th>
+          <th class="text-center">TIME</th>
           <th class="text-center"><span class="glyphicon glyphicon-bookmark"></span></th>
         </thead>
         <tbody class="song-list">
           <tr class="song-row">
             <td class="song-position"></td>
             <td class="song-title"></td>
-            <td class="song-duration"></td>
+            <td class="song-duration text-center"></td>
             <td class="text-center">
               <button type="button" name="button" class="btn btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Song">
                 <span class="glyphicon glyphicon-star-empty"></span>
@@ -57,17 +64,8 @@
 </div>
 
 <style>
-  .release-title {
-    font-weight: 500;
-    margin-top: 2px;
-    margin-bottom: 5px;
-  }
-  .release-artists {
-    font-size: 18px;
-  }
   .release-labels > li {
     font-size: 14px;
   }
-
 </style>
 {% endblock %}

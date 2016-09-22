@@ -1,4 +1,4 @@
-from archive.models import db
+from archive.models import db, Artists
 from archive.models import CRUD
 
 
@@ -12,11 +12,11 @@ class Releases(db.Model, CRUD):
         return '<Release ({}) - {}>'.format(self.id, self.title)
 
 
-class ReleaseArtists(db.Model, CRUD):
-    release_id = db.Column(db.Integer, db.ForeignKey('release_id'), primary_key=True)
-    release = db.relationship('Releases', backref=db.backref('artists'), lazy='dynamic')
-    artist_id = db.Column(db.Integer, db.ForeignKey('artist_id'), primary_key=True)
-    artist = db.relationship('Artists', backref=db.backref('releases'), lazy='dynamic')
+class ReleasesArtists(db.Model, CRUD):
+    release_id = db.Column(db.Integer, db.ForeignKey('releases.id'), primary_key=True)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), unique=True)
+    release = db.relationship('Releases', backref=db.backref('artists', lazy='dynamic'))
+    artist = db.relationship('Artists', backref=db.backref('releases', lazy='dynamic'))
 
 
 class ReleasesGenres(db.Model, CRUD):

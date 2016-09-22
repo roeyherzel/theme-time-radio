@@ -22,6 +22,7 @@ SongSchema = {
     'position': fields.String,
     'type': fields.String,
     'duration': fields.String,
+    'release_path': fields.FormattedString("releases/{release_id}"),
 }
 
 

@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block script %}
 <script src="{{ url_for('static', filename='js/song_info.js') }}"
-        data-endpoint="{{ url_for('song_info', song_id=song.id) }}">
+        data-song-endpoint="{{ url_for('song_info', song_id=song.id) }}"
+        data-release-endpoint="{{ url_for('release_info', release_id=song.release_id) }}">
 </script>
 {% endblock %}
 
@@ -10,19 +11,25 @@
 
   <div class="row">
     <div class="col-md-3">
-      <img class="img-responsive center-block img-rounded release-primary-image" src="{{ image.uri }}" alt="image">
-      <div class="release-images">
-
-      </div>
+      <img class="img-responsive center-block img-rounded release-primary-image" src="" alt="image">
+      <hr class="hr-thin">
     </div>
     <div class="col-md-7">
 
-      <h3 class="song-title">{{ song.title }}</h3>
-      <div>
-        <ul class="list-inline song-artists">
-          <li>{{ }}</li>
+      <h3 class="resource-title">
+        <span class="song-title">{{ song.title }}</span>
+        <button type="button" name="button" class="btn btn-bookmark btn-heading" data-toggle="tooltip" title="Bookmark Song">
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
+      </h3>
+      <p class="song-duration text-muted">({{ song.duration }})</p>
+
+      <h4 class="release-title"></h4>
+      <h4>
+        <ul class="list-inline release-artists">
         </ul>
-      </div>
+      </h4>
+
       <hr class="hr-thin">
       <div>
         <ul class="list-inline release-labels">
@@ -31,26 +38,6 @@
 
       </div>
 
-      <table class="table table-condensed">
-        <thead>
-          <th>#</th>
-          <th>SONG</th>
-          <th>TIME</th>
-          <th class="text-center"><span class="glyphicon glyphicon-bookmark"></span></th>
-        </thead>
-        <tbody class="song-list">
-          <tr class="song-row">
-            <td class="song-position"></td>
-            <td class="song-title"></td>
-            <td class="song-duration"></td>
-            <td class="text-center">
-              <button type="button" name="button" class="btn btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Song">
-                <span class="glyphicon glyphicon-star-empty"></span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
   </div>
@@ -58,13 +45,9 @@
 </div>
 
 <style>
-  .release-title {
-    font-weight: 500;
+  .song-title {
     margin-top: 2px;
     margin-bottom: 5px;
-  }
-  .release-artists {
-    font-size: 18px;
   }
   .release-labels > li {
     font-size: 14px;

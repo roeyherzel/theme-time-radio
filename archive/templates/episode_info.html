@@ -28,12 +28,12 @@
     </div>
 
     <div class="col-md-9">
-      <button type="button" name="button-ep-bookmark" class="btn btn-bookmark" data-toggle="tooltip" title="Bookmark Episode">
-        <span class="glyphicon glyphicon-star-empty"></span>
-      </button>
 
       <h3 class="media-heading page-header">
         <span class="ep-title">{{ ep.title }}</span>
+        <button type="button" name="button" class="btn btn-bookmark btn-heading" data-toggle="tooltip" title="Bookmark Episode">
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
       </h3>
 
       <div class="btn-toolbar" role="toolbar" aria-label="...">
@@ -109,6 +109,9 @@
 </div>
 
 <style>
+  .btn-toolbar {
+    margin: 15px 0 20px 0;
+  }
   .badge-tag {
     padding: 3px 5px 3px 5px;
     border-style: hidden;
@@ -133,12 +136,6 @@
     color: #373A3C;
   }
 
-  .btn-bookmark {
-    font-size: 16px;
-    float: left;
-    text-align: center;
-    vertical-align:
-  }
   .ep-desc {
     direction: rtl;
     font-size: 85%;

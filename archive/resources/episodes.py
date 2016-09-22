@@ -7,7 +7,7 @@ from flask_restful import Resource, reqparse, marshal_with
 from sqlalchemy import desc
 
 
-class Episode(Resource):
+class EpisodeApi(Resource):
 
     @marshal_with(EpisodeSchema)
     def get(self, episode_id=None):
@@ -22,7 +22,7 @@ class Episode(Resource):
             return limit_api_results(Episodes.query.order_by(desc(Episodes.date_pub)), args.get('limit')).all()
 
 
-class Tracklist(Resource):
+class TracklistApi(Resource):
 
     @marshal_with(EpisodeTracklistScheam)
     def get(self, episode_id):
