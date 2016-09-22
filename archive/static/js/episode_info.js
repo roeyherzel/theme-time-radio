@@ -21,12 +21,21 @@ var showTagInfo = function(trackSelector, resourceSelector) {
 var default_track_thumb = '/static/images/default-cd.png';
 var default_artist_thumb = '/static/images/default-artist.png';
 
-var setResourceThumb = function(trackSelector, field, defaultThumb) {
+var setResourceThumb = function(trackSelector, resource) {
+  var defaultThumb = default_track_thumb,
+      field = 'title',
+      imgClass = 'img-rounded';
+
+  if (resource == 'artist') {
+    field = 'name';
+    imgClass = 'img-circle';
+  }
+
   return function(data) {
     $(trackSelector).find('.track-thumb > img')
                     .attr({'src': data.thumb || defaultThumb, 'title': data[field]})
                     .wrap(make_link(data.resource_path))
-                    .removeClass('track-default-thumb');
+                    .addClass(imgClass);
   };
 };
 
@@ -46,9 +55,6 @@ $(document).ready(function() {
     $(".track-row").remove();
 
     playlist.forEach(function(currentTrack, index) {
-
-      console.log(currentTrack, currentTrack.tags_status[0]);
-
 
       var trackSelector = '#track_' + currentTrack.id,
           trackTagStatus = currentTrack.tags_status[0],
@@ -73,10 +79,10 @@ $(document).ready(function() {
 
       } else {
         if (trackTagStatus['release'] === 'matched') {
-          $.getJSON(api_for(currentTrack.tags_release[0].resource_path), setResourceThumb(trackSelector, 'title', default_track_thumb));
+          $.getJSON(api_for(currentTrack.tags_release[0].resource_path), setResourceThumb(trackSelector, 'release'));
 
         } else if (trackTagStatus['artist'] === 'matched') {
-          $.getJSON(api_for(currentTrack.tags_artist[0].resource_path), setResourceThumb(trackSelector, 'name', default_artist_thumb));
+          $.getJSON(api_for(currentTrack.tags_artist[0].resource_path), setResourceThumb(trackSelector, 'artist'));
 
         } else {
           $(trackClone).find('.track-thumb > img').attr('src', default_track_thumb);

@@ -13,12 +13,17 @@
 
   <div class="row">
     <div class="col-md-8">
-      <h1 class="page-header artist-name"></h1>
+      <h1 class="page-header">
+        <span class="artist-name"></span>
+        <button type="button" name="button" class="btn btn-bookmark btn-heading" data-toggle="tooltip" title="Bookmark Artist">
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
+      </h1>
 
-      <h4 class="sub-header">Top Songs</h4>
+      <h3>Top Songs</h3>
 
       <hr>
-      <h4 class="sub-header">Albums</h4>
+      <h3>Albums</h3>
       <div class="row release-list">
 
         <div class="col-md-4 release-card">
@@ -32,7 +37,7 @@
       </div>
 
       <hr>
-      <h4 class="sub-header">Episodes</h4>
+      <h3>Episodes</h3>
       <div class="artist-episodes">{{ episodes.list() }}</div>
 
     </div>
@@ -96,12 +101,7 @@
   h1 {
     padding-bottom: 10px;
   }
-  .page-header {
-    font-weight: bold;
-  }
-  .sub-header {
-    font-weight: bold;
-  }
+
   .artist-image {
     margin-top: 20px;
   }
@@ -109,6 +109,9 @@
     font-size: 90%;
   }
 
+  .release-list {
+    margin-top: 20px;
+  }
   .release-thumb {
     width: 160px;
     height: 160px;

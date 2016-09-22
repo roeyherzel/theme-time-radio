@@ -25,8 +25,10 @@ api.add_resource(ArtistsEpisodesApi, '/api/artists/<int:artist_id>/episodes', en
 # Release
 api.add_resource(ReleaseApi, '/api/releases', '/api/releases/<int:release_id>', endpoint='releases_api')
 api.add_resource(ReleasesArtistsApi, '/api/releases/<int:release_id>/artists', endpoint='release_artists_api')
+api.add_resource(ReleasesEpisodesApi, '/api/releases/<int:release_id>/episodes', endpoint='releases_episodes_api')
 
 # Song
 api.add_resource(SongApi, '/api/songs/<string:song_id>', endpoint='songs_api')
+api.add_resource(SongsEpisodesApi, '/api/songs/<string:song_id>/episodes', endpoint='songs_episodes_api')
 
 import archive.views

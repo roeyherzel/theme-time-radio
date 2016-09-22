@@ -5,5 +5,7 @@ $(document).ready(function() {
       release_endpoint = $('script[data-release-endpoint]').attr('data-release-endpoint');
 
   showReleaseInfo(release_endpoint, { showTracklist: false, linkReleaseTitle: true });
+  showEpisodesList(song_endpoint + '/episodes');
 
+  $('[data-toggle="tooltip"]').tooltip();
 });

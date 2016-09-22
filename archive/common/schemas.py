@@ -23,6 +23,7 @@ SongSchema = {
     'type': fields.String,
     'duration': fields.String,
     'release_path': fields.FormattedString("releases/{release_id}"),
+    'tracks': fields.List(fields.Nested({'track_id': fields.Integer})),
 }
 
 
@@ -93,6 +94,7 @@ TrackSchema = {
     'tags_release': fields.List(fields.Nested(TrackReleaseSchema)),
     'tags_artist': fields.List(fields.Nested(TrackArtistSchema)),
 }
+
 
 EpisodeSchema = {
     'resource_path': fields.FormattedString("episodes/{id}"),

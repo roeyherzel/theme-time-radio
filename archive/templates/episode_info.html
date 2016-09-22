@@ -10,9 +10,33 @@
 
   <div class="row">
     <div class="col-md-3">
-      <img class="img-responsive center-block ep-thumb img-rounded" alt="pic" src="{{ ep.thumb }}">
+      <img class="img-responsive center-block ep-thumb" alt="pic" src="{{ ep.thumb }}">
       <hr class="hr-thin">
-      <ul class="list-inline text-center">
+
+      <div class="buttons text-center">
+        <a href="{{ ep.podcast_url }}" target="_blank" class="btn btn-sm btn-default" data-toggle="tooltip" title="Play Episode">
+          <span class="glyphicon glyphicon-play"></span>
+        </a>
+
+        <button type="button" name="button-ep-played" class="btn btn-sm btn-default" data-toggle="tooltip" title="Mark as Unplayed">
+          <span class="glyphicon glyphicon-headphones">&nbsp;</span><span class="glyphicon glyphicon-ok"></span>
+        </button>
+      </div>
+
+      <hr class="hr-thin">
+      <p class="ep-desc">{{ ep.description | nl2br }}</p>
+    </div>
+
+    <div class="col-md-9">
+
+      <h2 class="resource-title">
+        <span class="ep-title">{{ ep.title }}</span>
+        <button type="button" name="button" class="btn btn-bookmark btn-heading" data-toggle="tooltip" title="Bookmark Episode">
+          <span class="glyphicon glyphicon-star-empty"></span>
+        </button>
+      </h2>
+      <hr class="hr-thin">
+      <ul class="list-inline">
         <li><span class="label label-date" id="epDate" data-toggle="tooltip" title="Aired On">{{ ep.date_pub }}</span></li>
 
         {% if ep.guest %}
@@ -24,32 +48,9 @@
         {% endfor %}
       </ul>
       <hr class="hr-thin">
-      <p class="ep-desc">{{ ep.description | nl2br }}</p>
-    </div>
 
-    <div class="col-md-9">
+      <h3>Tracklist</h3>
 
-      <h3 class="media-heading page-header">
-        <span class="ep-title">{{ ep.title }}</span>
-        <button type="button" name="button" class="btn btn-bookmark btn-heading" data-toggle="tooltip" title="Bookmark Episode">
-          <span class="glyphicon glyphicon-star-empty"></span>
-        </button>
-      </h3>
-
-      <div class="btn-toolbar" role="toolbar" aria-label="...">
-        <div class="btn-group" role="group" aria-label="...">
-          <a href="{{ ep.podcast_url }}" target="_blank" class="btn btn-sm btn-default" data-toggle="tooltip" title="Play Episode">
-            <span class="glyphicon glyphicon-play"></span>
-          </a>
-        </div>
-        <div class="btn-group" role="group" aria-label="...">
-          <button type="button" name="button-ep-played" class="btn btn-sm btn-default" data-toggle="tooltip" title="Mark as Unplayed">
-            <span class="glyphicon glyphicon-headphones">&nbsp;</span><span class="glyphicon glyphicon-ok"></span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Table -->
       <table class="table table-condensed">
         <thead>
           <tr>
@@ -150,9 +151,9 @@
     object-fit: contain;
     margin-bottom: 10px;
   }
-  
+
   .track-row {
-    font-size: 12px;
+    font-size: 14px;
   }
   .track-thumb > a > img,
   .track-thumb > img {

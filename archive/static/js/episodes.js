@@ -7,7 +7,6 @@ function showEpisodesList(episodes_endpoint) {
     $('.ep-card').remove();
 
     data.forEach(function(episodeData, index) {
-      console.log(episodeData);
 
       var ep_clone = $(ep_row).clone(),
           ep_pub_date;

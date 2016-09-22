@@ -1,4 +1,6 @@
 {% extends "layout.html" %}
+{% import "macro_episodes.html" as episodes %}
+
 {% block script %}
 <script src="{{ url_for('static', filename='js/song_info.js') }}"
         data-song-endpoint="{{ url_for('song_info', song_id=song.id) }}"
@@ -10,34 +12,40 @@
 <div class="container-fluid">
 
   <div class="row">
+
     <div class="col-md-3">
       <img class="img-responsive center-block img-rounded release-primary-image" src="" alt="image">
       <hr class="hr-thin">
     </div>
+
     <div class="col-md-7">
 
-      <h3 class="resource-title">
-        <span class="song-title">{{ song.title }}</span>
+      <h2 class="resource-title">
+        <span class="song-title strong">{{ song.title }}</span>
         <button type="button" name="button" class="btn btn-bookmark btn-heading" data-toggle="tooltip" title="Bookmark Song">
           <span class="glyphicon glyphicon-star-empty"></span>
         </button>
-      </h3>
-      <p class="song-duration text-muted">({{ song.duration }})</p>
+      </h2>
 
       <h4 class="release-title"></h4>
+
       <h4>
-        <ul class="list-inline release-artists">
-        </ul>
+        <ul class="list-inline release-artists"></ul>
       </h4>
+
 
       <hr class="hr-thin">
       <div>
         <ul class="list-inline release-labels">
           <li><span class="label label-default label-year release-year"></span></li>
         </ul>
-
       </div>
+      <hr class="hr-thin">
 
+      <h3>Episodes</h3>
+      <div class="songs-episodes">
+        {{ episodes.list() }}
+      </div>
     </div>
 
   </div>
@@ -45,6 +53,14 @@
 </div>
 
 <style>
+  .heading-table > tbody > tr {
+    padding: 0;
+  }
+  .heading-table >
+  .lead-heading {
+    font-size: 14px;
+    padding-right: 10px;
+  }
   .song-title {
     margin-top: 2px;
     margin-bottom: 5px;

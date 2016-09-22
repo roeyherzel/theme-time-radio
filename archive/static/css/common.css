@@ -1,4 +1,11 @@
 
+.page-header,
+.sub-header {
+  font-weight: bold;
+}
+.strong {
+  font-weight: bold;
+}
 .table {
   margin: 20px 0 20px 0;
 }
@@ -43,7 +50,7 @@
   background-color: #80D8FF;
 }
 .label-style {
-  background-color: #A7FFEB
+  background-color: #A7FFEB;
 }
 
 .btn-bookmark {
@@ -53,7 +60,7 @@
   color: #808080;
 }
 .btn-heading {
-  font-size: 65%;
+  font-size: 75%;
   vertical-align: text-top;
 }
 

@@ -1,5 +1,5 @@
 from archive.models import *
-from archive.common.schemas import ReleaseSchema, ArtistSchema
+from archive.common.schemas import ReleaseSchema, ArtistSchema, EpisodeSchema
 
 from flask_restful import Resource, marshal_with
 
@@ -25,3 +25,14 @@ class ReleasesArtistsApi(Resource):
                             .filter(TracksReleases.release_id == release_id) \
                             .filter(TracksArtists.status == Status.getIdByName('matched')) \
                             .all()
+
+
+class ReleasesEpisodesApi(Resource):
+
+    @marshal_with(EpisodeSchema)
+    def get(self, release_id):
+        return Episodes.query.join(Tracks, (Tracks.episode_id == Episodes.id)) \
+                             .join(TracksReleases, TracksReleases.track_id == Tracks.id) \
+                             .filter(TracksReleases.release_id == release_id) \
+                             .filter(TracksReleases.status == Status.getIdByName('matched')) \
+                             .all()
