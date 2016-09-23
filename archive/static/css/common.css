@@ -1,4 +1,22 @@
 
+body {
+  //font-family: "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
+  font-family: BentonSansRE, Verdana, sans-serif;
+  //font-family: "Roboto Condensed", "Droid Sans", arial, sans-serif;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+  color: #373A3C;
+}
+.container-fluid {
+  margin-right: 150px;
+  margin-left: 150px;
+}
+
 .page-header,
 .sub-header {
   font-weight: bold;
@@ -26,6 +44,7 @@
   border-bottom: 1px solid rgb(221, 221, 221);
   vertical-align: middle;
   top: 0;
+  //font-size: 13px;
 }
 
 .box {

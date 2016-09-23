@@ -31,46 +31,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <style>
-  body {
-    //font-family: "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
-    font-family: BentonSansRE, Verdana, sans-serif;
-    //font-family: "Roboto Condensed", "Droid Sans", arial, sans-serif;
-  }
 
-  .navbar-brand {
-    font-weight: bold;
-  }
-  .navbar-default .navbar-brand,
-  .navbar-default .navbar-nav > li > a {
-    color: #373A3C;
-  }
-  .page-content {
-    color: #000000;
-  }
-  .container-fluid {
-    margin: 0 40px 0 40px;
-  }
-  .btn-circle {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    font-size: 14px;
-    background-color: #3884FE;
-    border-style: hidden;
-    border-radius: 15px;
-    border-color: #373A3C;
-    color: #FFF;
-    padding: 6px 0;
-    margin-left: 8px;
-  }
-  .btn-ep-option {
-    padding-right: 1px;
-  }
-  .btn-ep-plus {
-    padding: 5px 1px 6px 3px;
-  }
-  </style>
+  {% block style %}{% endblock %}
+
   <body>
 
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -120,9 +83,9 @@
       </div>
     </nav>
 
-    <div class="page-content">
-      {% block body %} {% endblock %}
-    </div>
+
+    {% block jumbo %}{% endblock %}
+    {% block content %}{% endblock %}
 
 
     <!-- Bootstrap core JavaScript

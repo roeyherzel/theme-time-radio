@@ -1,15 +1,14 @@
 {% extends "layout.html" %}
 
 {% block script %}
-<script src="{{ url_for('static', filename='js/index.js') }}"
-        data-ep-list-uri="{{ url_for('episode_api') }}">
-</script>
+  <script src="{{ url_for('static', filename='js/index.js') }}"
+          data-ep-list-uri="{{ url_for('episode_api') }}">
+  </script>
 {% endblock %}
 
-{% block body %}
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-  <div class="container-fluid">
+
+{% block jumbo %}
+  <div class="jumbotron">
     <div class="container">
       <h1>Life<br>of<br>Others</h1>
       <h1 class="strong">Archives</h1>
@@ -17,66 +16,68 @@
       <p class="lead">Discover Music from the Podcast</p>
     </div>
   </div>
-</div>
+{% endblock %}
 
-<div class="container">
 
-  <h3>Recent Episodes</h3>
-  <hr class="hr-thin">
+{% block content %}
+  <div class="container">
 
-  <div class="row ep-latest">
-    <div class="ep-card col-md-2">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h5 class="ep-title" data-toggle="tooltip" title=""></h5>
+    <h3>Recent Episodes</h3>
+    <hr class="hr-thin">
+
+    <div class="row ep-latest">
+      <div class="ep-card col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="ep-title" data-toggle="tooltip" title=""></h5>
+          </div>
+          <div class="panel-body">
+            <img class="img-rounded text-center" alt="pic">
+          </div>
+          <div class="panel-footer ep-date small text-muted"></div>
         </div>
-        <div class="panel-body">
-          <img class="img-rounded text-center" alt="pic">
-        </div>
-        <div class="panel-footer ep-date small text-muted"></div>
       </div>
     </div>
-  </div>
 
-  <h3>Recent Artists</h3>
-  <hr class="hr-thin">
+    <h3>Recent Artists</h3>
+    <hr class="hr-thin">
+
+    <h3>Recent Releases</h3>
+    <hr class="hr-thin">
+
+  </div><!-- /.container -->
+{% endblock %}
 
 
-  <h3>Recent Releases</h3>
-  <hr class="hr-thin">
-
-
-</div><!-- /.container -->
-<style>
-  .page-content {
-    padding-top: 0;
-  }
-  img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-  }
-  .panel-heading {
-    padding: 2px 1px 1px 1px;
-  }
-  .panel-body {
-    padding: 5px 0 5px 0;
-  }
-  .panel-footer {
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-  .ep-card {
-    direction: rtl;
-    text-align: center;
-  }
-  .ep-title {
-    height: 2em;
-    overflow: hidden;
-    //white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: center;
-  }
-
-</style>
+{% block style %}
+  <style>
+    .page-content {
+      padding-top: 0;
+    }
+    img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+    .panel-heading {
+      padding: 2px 1px 1px 1px;
+    }
+    .panel-body {
+      padding: 5px 0 5px 0;
+    }
+    .panel-footer {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .ep-card {
+      direction: rtl;
+      text-align: center;
+    }
+    .ep-title {
+      height: 2em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+  </style>
 {% endblock %}

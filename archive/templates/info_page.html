@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% import "macro_episodes.html" as episodes %}
 
-{% block body %}
+{% block jumbo %}
   <div class="jumbotron">
-    <div class="container text-center-">
+    <div class="container">
 
       <div class="info-title">
         <h1 class="resource-title">
@@ -25,7 +25,10 @@
 
     </div>
   </div>
+{% endblock%}
 
+
+{% block content %}
   <div class="container-fluid">
 
     <div class="row">
@@ -33,18 +36,19 @@
         {% block info_image %}{% endblock %}
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-9">
         {% block info_data %}{% endblock %}
         {% block info_episodes %}{% endblock %}
       </div>
+    </div>
 
-    </div> <!--row-->
+  </div>
+{% endblock %}
 
-  </div> <!--container-->
 
-
+{% block style %}
   <style>
-    h4 {
+    .info-middle {
       margin-top: 4px;
       padding-left: 0.3em;
       vertical-align: top;
@@ -53,9 +57,7 @@
       margin-top: 8px;
       margin-bottom: 0;
     }
-    .jumbotron {
-      padding-bottom: 24px;
-    }
+
     .info-title > h1 {
       font-size: 56px;
       font-weight: bold;
@@ -65,7 +67,6 @@
     }
   </style>
 
-  {% block info_style %}
-  {% endblock %}
+  {% block info_style %}{% endblock %}
 
-{% endblock %} <!--body block-->
+{% endblock %}
