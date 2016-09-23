@@ -12,12 +12,14 @@
 {% endblock %}
 
 {% block info_middle %}
-  <h4>album <span class="release-title"></span></h4>
-  <h4>
-    <ul class="list-inline release-artists">
-      <li>by</li>
-    </ul>
-  </h4>
+  <div>
+    <dl class="dl-horizontal">
+      <dt>album</dt>
+      <dd class="release-title"></dd>
+      <dt>by</dt>
+      <dd class="release-artists"></dd>
+    </dl>
+  </div>
 {% endblock %}
 
 
@@ -38,9 +40,22 @@
 {% block info_data %}
 {% endblock %}
 
+
 {% block info_episodes %}
-  <h3>Episodes</h3>
-  <div class="songs-episodes">
-    {{ episodes.list() }}
-  </div>
+  {{ episodes.list() }}
+{% endblock %}
+
+
+{% block info_style %}
+<style>
+  .info-middle > div > dl > dd {
+    margin-left: 75px;
+    line-height: 20px;
+  }
+  .info-middle > div > dl > dt {
+    width: 65px;
+    line-height: 20px;
+    font-weight: normal;
+  }
+</style>
 {% endblock %}

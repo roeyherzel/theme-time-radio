@@ -34,7 +34,7 @@ def release_info(release_id):
 @app.route('/artists/<int:artist_id>')
 def artist_info(artist_id):
     artist = Artists.query.get(artist_id)
-    return render_template('artist_info.html', artist=artist)
+    return render_template('info_artist.html', artist=artist)
 
 
 @app.route('/episodes/<int:episode_id>')

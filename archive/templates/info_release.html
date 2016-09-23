@@ -12,9 +12,9 @@
 {% endblock %}
 
 {% block info_middle %}
-  <ul class="list-inline release-artists">
-    <li>by</li>
-  </ul>
+  <div class="release-artists">
+    <span>by</span>
+  </div>
 {% endblock %}
 
 
@@ -26,39 +26,44 @@
   </ul>
 {% endblock %}
 
+
 {% block info_image %}
   <img class="img-responsive center-block img-rounded release-primary-image" src="" alt="image">
 {% endblock %}
 
+
 {% block info_data %}
-  <h3 class="tracklist-title">Tracklist</h3>
-  <table class="table table-condensed">
-    <thead>
-      <th>#</th>
-      <th>SONG</th>
-      <th>APPEARENCE</th>
-      <th class="text-center"><span class="glyphicon glyphicon-bookmark"></span></th>
-      <th class="text-center">TIME</th>
-    </thead>
-    <tbody class="song-list">
-      <tr class="song-row">
-        <td class="song-position"></td>
-        <td class="song-title"></td>
-        <td class="song-play-count"></td>
-        <td class="text-center">
-          <button type="button" name="button" class="btn btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Song">
-            <span class="glyphicon glyphicon-star-empty"></span>
-          </button>
-        </td>
-        <td class="song-duration text-center"></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="box">
+    <h3 class="box-title tracklist-title">Tracklist</h3>
+    <table class="table table-condensed">
+      <thead>
+        <th>#</th>
+        <th>SONG</th>
+        <th>APPEARENCE</th>
+        <th class="text-center"><span class="glyphicon glyphicon-bookmark"></span></th>
+        <th class="text-center">TIME</th>
+      </thead>
+      <tbody class="song-list">
+        <tr class="song-row">
+          <td class="song-position"></td>
+          <td class="song-title"></td>
+          <td class="song-play-count"></td>
+          <td class="text-center">
+            <button type="button" name="button" class="btn btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Song">
+              <span class="glyphicon glyphicon-star-empty"></span>
+            </button>
+          </td>
+          <td class="song-duration text-center"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
 
+
 {% block info_episodes %}
-  <h3>Episodes</h3>
-  <div class="releases-episodes">
-    {{ episodes.list() }}
-  </div>
+  {{ episodes.list() }}
+{% endblock %}
+
+{% block info_style %}
 {% endblock %}

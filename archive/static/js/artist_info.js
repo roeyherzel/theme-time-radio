@@ -40,7 +40,7 @@ $(document).ready(function() {
     artistListedInfo(artistData.urls, '.artist-urls', 'Links:', function(url) {
 
       /* NOTE: WORKAROUND - for urls that have been filtered out by api marshal field validation */
-      if (url.attributes) {
+      if (url) {
         var website_domain = getDomain(url.url);
         var website_favicon = "url(http://grabicon.com/icon?domain=" + website_domain + "&size=16)";
 
@@ -78,7 +78,8 @@ $(document).ready(function() {
                         .wrap(make_link(release.resource_path));
 
         $(release_clone).find('.release-title')
-                        .html(make_link(release.resource_path, release.title));
+                        .text(release.title)
+                        .wrap(make_link(release.resource_path));
 
         $(release_clone).find('.release-year')
                         .text(release.year);

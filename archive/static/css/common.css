@@ -28,11 +28,20 @@
   top: 0;
 }
 
+.box {
+  box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.2);
+  padding: 20px;
+  margin-bottom: 15px;
+}
+.box-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
 .hr-dark-thin,
 .hr-dark {
   border-top-color: #373A3C;
 }
-
 .hr-dark-thin,
 .hr-thin {
   margin: 10px 0 10px 0;
@@ -44,22 +53,29 @@
   font-size: 0.9em;
 
 }
-.label-year,
+
 .label-date {
   background-color: #CFD8DC;
   color: black;
 }
+
+.label-year {
+  background-color: #27A66B;
+  color: white;
+}
 .label-guest {
-  background-color: #FFD180;
+  background-color: #EB5A46;
 }
 .label-category {
-  background-color: #CCFF90;
+  background-color: #C377E0;
+  color: white;
 }
 .label-genre {
-  background-color: #80D8FF;
+  background-color: #00AECC;
+  color: white;
 }
 .label-style {
-  background-color: #A7FFEB;
+  background-color: #FFD180;
 }
 
 .btn-bookmark {

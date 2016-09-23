@@ -1,0 +1,152 @@
+{% extends "info_page.html" %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='js/artist_info.js') }}"
+          data-artist-endpoint="{{ url_for('artist_info', artist_id=artist.id) }}">
+  </script>
+{% endblock %}
+
+
+{% block info_title %}
+  <span class="artist-name"></span>
+{% endblock %}
+
+{% block info_middle %}
+  <span>Artist</span>
+{% endblock %}
+
+
+{% block info_labels %}
+{% endblock %}
+
+
+{% block info_image %}
+  <img class="img-responsive center-block artist-image" src="" alt="image">
+  <hr class="hr-thin">
+  <div class="dl-horizontal- artist-bio">
+    <dl>
+      <div class="artist-real">
+        <dt>Real Name</dt>
+        <dd>
+          <ul class="list-unstyled"></ul>
+        </dd>
+      </div>
+      <div class="artist-aliases">
+        <dt>Aliases</dt>
+        <dd>
+          <ul class="list-unstyled"></ul>
+        </dd>
+      </div>
+      <div class="artist-urls">
+        <dt>Links</dt>
+        <dd>
+          <ul class="list-unstyled"></ul>
+        </dd>
+      </div>
+      <div class="artist-groups">
+        <dt>Member in Groups</dt>
+        <dd>
+          <ul class="list-unstyled"></ul>
+        </dd>
+      </div>
+      <div class="artist-members">
+        <dt>Group's Members</dt>
+        <dd>
+          <ul class="list-unstyled"></ul>
+        </dd>
+      </div>
+    </dl>
+  </div>
+  <hr class="hr-thin">
+  <p class="artist-profile">{{ artist.profile | nl2br }}</p>
+  <hr class="hr-thin">
+{% endblock %}
+
+
+{% block info_data %}
+  <div class="box">
+    <h3 class="box-title">Top Songs</h3>
+  </div>
+
+  <div class="box">
+    <h3 class="box-title">Albums</h3>
+
+    <div class="row release-list">
+      <div class="col-md-3 release-card text-center">
+        <div class="box">
+          <img class="release-thumb img-rounded-" src="" alt="...">
+          <div class="release-info small text-left">
+            <div class="release-title"></div>
+            <div class="release-year text-muted"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block info_episodes %}
+  {{ episodes.list() }}
+{% endblock %}
+
+
+{% block info_style %}
+<style>
+  .artist-bio > dl {
+    margin-left: 20px;
+  }
+  .artist-bio > dl > div > dt {
+    margin-bottom: 2px;
+  }
+  .artist-bio > dl > div > dd > ul > li {
+    margin-left: 20px;
+  }
+  .artist-bio {
+    font-size: 85%;
+  }
+  .artist-profile {
+    font-size: 85%;
+    margin-left: 5px;
+  }
+  .favicon {
+    background-repeat: no-repeat;
+    padding-left: 22px;
+    padding-bottom: 4px;
+    background-size: 16px;
+  }
+
+  .release-list {
+    margin: 0;
+  }
+  .release-card > .box {
+    padding: 0;
+    margin:0;
+  }
+  .release-card {
+    width: 150px;
+    height: 150px;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 30px;
+    margin-bottom: 50px;
+  }
+  .release-thumb {
+    width: 150px;
+    height: 150px;
+    object-fit: scale-down;
+  }
+  .release-info {
+    margin-top: 5px;
+    margin-left: 10px;
+    padding-bottom: 5px;
+  }
+  .release-title {
+    height: 1.5em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+</style>
+{% endblock %}

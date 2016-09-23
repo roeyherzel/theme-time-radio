@@ -1,45 +1,58 @@
+
 {% macro list() -%}
-<table class="table table-condensed table-hover">
+<div class="box">
+  <h3 class="box-title">Episodes</h3>
+  <table class="table table-condensed table-hover">
 
-  <tbody class="ep-list">
-    <tr class="ep-card">
+    <tbody class="ep-list">
+      <tr class="ep-card box">
 
-      <td class="text-center ep-bookmark">
-        <button type="button" name="button" class="btn btn-lg btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Episode">
-          <span class="glyphicon glyphicon-star-empty"></span>
-        </button>
-      </td>
+        <td class="text-center ep-bookmark">
+          <button type="button" name="button" class="btn btn-lg btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Episode">
+            <span class="glyphicon glyphicon-star-empty"></span>
+          </button>
+        </td>
 
-      <td class="text-center">
-        <img class="ep-thumb img-rounded" src="" alt="thumb">
-      </td>
+        <td class="text-center">
+          <img class="ep-thumb img-rounded" src="" alt="thumb">
+        </td>
 
-      <td>
-        <h5>
-          <span class="ep-title"></span>
-        </h5>
-        <p class="ep-plot small"></p>
-        <ul class="list-inline ep-categories">
-          <li><span class="ep-date label label-date"></span></li>
-        </ul>
-      </td>
+        <td>
+          <h5>
+            <span class="ep-title"></span>
+          </h5>
+          <p class="ep-plot small"></p>
+          <ul class="list-inline ep-categories">
+            <li><span class="ep-date label label-date"></span></li>
+          </ul>
+        </td>
 
-    </tr>
-  </tbody>
-</table>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <style>
-  .label {
-    font-size: 0.9em;
+
+  .table > .ep-list > tr > td {
+    border: 0;
+  }
+  .table > .ep-list > tr > .ep-bookmark {
+    border-right: 1px solid rgb(235, 235, 235);
   }
   .ep-thumb {
     width: 100px;
     height: 100px;
-    border: 1px solid black;
     object-fit: cover;
   }
   .ep-title {
     font-weight: bold;
+  }
+  .ep-plot {
+    margin-bottom: 5px;
+  }
+  .ep-categories > li > .label {
+    font-size: 0.8em;
   }
 </style>
 {%- endmacro %}
