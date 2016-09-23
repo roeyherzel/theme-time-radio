@@ -4,7 +4,10 @@
   font-weight: bold;
 }
 .strong {
-  font-weight: bold;
+  font-weight: bold !important;
+}
+.light {
+  font-weight: normal !important;
 }
 .table {
   margin: 20px 0 20px 0;
@@ -25,6 +28,12 @@
   top: 0;
 }
 
+.hr-dark-thin,
+.hr-dark {
+  border-top-color: #373A3C;
+}
+
+.hr-dark-thin,
 .hr-thin {
   margin: 10px 0 10px 0;
 }
@@ -60,16 +69,20 @@
   color: #808080;
 }
 .btn-heading {
-  font-size: 75%;
+  font-size: 50%;
   vertical-align: text-top;
+  float: right;
+}
+.btn-heading > .glyphicon {
+  top: 0 !important;
+}
+
+.resource-title {
+  display: inline-block;
+  margin-bottom: 0;
 }
 
 .tooltip-inner {
   white-space: pre;
   max-width: none;
-}
-
-.resource-title {
-  margin-top: 2px;
-  margin-bottom: 5px;
 }

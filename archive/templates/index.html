@@ -11,7 +11,7 @@
 <div class="jumbotron">
   <div class="container-fluid">
     <div class="container">
-      <h1>Life<br>of<br>Others<br>Archives</h1>
+      <h1>Life of Others<br>Archives</h1>
       <p class="lead text-muted">Discover Music from the Podcast</p>
     </div>
   </div>
@@ -19,19 +19,29 @@
 
 <div class="container">
 
-  <h4 class="page-header">Recent Episodes</h4>
+  <h3>Recent Episodes</h3>
+  <hr class="hr-thin">
+
   <div class="row ep-latest">
     <div class="ep-card col-md-2">
-      <img class="img-rounded"alt="pic">
-      <div class="caption">
-        <h4 class="ep-title"></h4>
+      <div class=" panel panel-default">
+        <div class="panel-heading">
+          <h5 class="ep-title" data-toggle="tooltip" title=""></h5>
+        </div>
+        <div class="panel-body">
+          <img class="img-rounded text-center" alt="pic">
+        </div>
+        <div class="panel-footer ep-date small text-muted"></div>
       </div>
     </div>
   </div>
 
-  <h4 class="page-header">Recent Artists</h4>
+  <h3>Recent Artists</h3>
+  <hr class="hr-thin">
 
-  <h4 class="page-header">Recent Releases</h4>
+
+  <h3>Recent Releases</h3>
+  <hr class="hr-thin">
 
 
 </div><!-- /.container -->
@@ -43,12 +53,28 @@
     width: 150px;
     height: 150px;
     object-fit: cover;
-    border: 1px solid #373A3C;
-
+  }
+  .panel-heading {
+    padding: 2px 1px 1px 1px;
+  }
+  .panel-body {
+    padding: 5px 0 5px 0;
+  }
+  .panel-footer {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   .ep-card {
     direction: rtl;
     text-align: center;
   }
+  .ep-title {
+    height: 2em;
+    overflow: hidden;
+    //white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+  }
+
 </style>
 {% endblock %}

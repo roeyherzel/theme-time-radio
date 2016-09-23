@@ -1,0 +1,46 @@
+{% extends "info_page.html" %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='js/song_info.js') }}"
+          data-song-endpoint="{{ url_for('song_info', song_id=song.id) }}"
+          data-release-endpoint="{{ url_for('release_info', release_id=song.release_id) }}">
+  </script>
+{% endblock %}
+
+{% block info_title %}
+  <span class="song-title">{{ song.title }}</span>
+{% endblock %}
+
+{% block info_middle %}
+  <h4>album <span class="release-title"></span></h4>
+  <h4>
+    <ul class="list-inline release-artists">
+      <li>by</li>
+    </ul>
+  </h4>
+{% endblock %}
+
+
+{% block info_labels %}
+  <ul class="list-inline release-labels">
+    <li>
+      <span class="label label-year release-year"></span>
+    </li>
+  </ul>
+{% endblock %}
+
+
+{% block info_image %}
+  <img class="img-responsive center-block img-rounded release-primary-image" src="" alt="image">
+{% endblock %}
+
+
+{% block info_data %}
+{% endblock %}
+
+{% block info_episodes %}
+  <h3>Episodes</h3>
+  <div class="songs-episodes">
+    {{ episodes.list() }}
+  </div>
+{% endblock %}

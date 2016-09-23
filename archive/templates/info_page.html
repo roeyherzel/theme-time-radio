@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% import "macro_episodes.html" as episodes %}
+
+{% block body %}
+  <div class="jumbotron">
+    <div class="container text-center-">
+
+      <div class="info-title">
+        <h1 class="resource-title">
+          {% block info_title %}{% endblock %}
+          <button type="button" name="button" class="btn btn-bookmark btn-heading" data-toggle="tooltip" title="Bookmark">
+            <span class="glyphicon glyphicon-star-empty"></span>
+          </button>
+        </h1>
+        <hr class="hr-dark-thin">
+      </div>
+
+      <h4>
+        {% block info_middle %}{% endblock %}
+      </h4>
+
+      <div class="info-labels">
+        {% block info_labels %}{% endblock %}
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-3">
+        {% block info_image %}{% endblock %}
+      </div>
+
+      <div class="col-md-8">
+        {% block info_data %}{% endblock %}
+        {% block info_episodes %}{% endblock %}
+      </div>
+
+    </div> <!--row-->
+
+  </div> <!--container-->
+
+
+  <style>
+    h4 {
+      margin-top: 4px;
+      padding-left: 0.3em;
+      vertical-align: top;
+    }
+    .hr-dark-thin {
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+    .jumbotron {
+      padding-bottom: 24px;
+    }
+    .info-title > h1 {
+      font-size: 56px;
+      font-weight: bold;
+    }
+    .info-labels {
+      display: inline-block;
+    }
+    ul .list-inline {
+      float: right;
+    }
+    .page-content {
+      padding-top: 0;
+    }
+  </style>
+
+  {% block info_style %}
+  {% endblock %}
+
+{% endblock %} <!--body block-->

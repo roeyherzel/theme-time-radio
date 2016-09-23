@@ -22,13 +22,13 @@ def nl2br(eval_ctx, value):
 @app.route('/songs/<string:song_id>')
 def song_info(song_id):
     song = Songs.query.get(song_id)
-    return render_template('song_info.html', song=song)
+    return render_template('info_song.html', song=song)
 
 
 @app.route('/releases/<int:release_id>')
 def release_info(release_id):
     release = Releases.query.get(release_id)
-    return render_template('release_info.html', release=release)
+    return render_template('info_release.html', release=release)
 
 
 @app.route('/artists/<int:artist_id>')
@@ -40,7 +40,7 @@ def artist_info(artist_id):
 @app.route('/episodes/<int:episode_id>')
 def episode_info(episode_id):
     ep = Episodes.query.get(episode_id)
-    return render_template('episode_info.html', ep=ep)
+    return render_template('info_episode.html', ep=ep)
 
 
 @app.route('/')

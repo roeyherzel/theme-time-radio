@@ -1,0 +1,64 @@
+{% extends "info_page.html" %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='js/release_info.js') }}"
+          data-endpoint="{{ url_for('release_info', release_id=release.id) }}">
+  </script>
+{% endblock %}
+
+
+{% block info_title %}
+  <span class="release-title"></span>
+{% endblock %}
+
+{% block info_middle %}
+  <ul class="list-inline release-artists">
+    <li>by</li>
+  </ul>
+{% endblock %}
+
+
+{% block info_labels %}
+  <ul class="list-inline release-labels">
+    <li>
+      <span class="label label-year release-year"></span>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block info_image %}
+  <img class="img-responsive center-block img-rounded release-primary-image" src="" alt="image">
+{% endblock %}
+
+{% block info_data %}
+  <h3 class="tracklist-title">Tracklist</h3>
+  <table class="table table-condensed">
+    <thead>
+      <th>#</th>
+      <th>SONG</th>
+      <th>APPEARENCE</th>
+      <th class="text-center"><span class="glyphicon glyphicon-bookmark"></span></th>
+      <th class="text-center">TIME</th>
+    </thead>
+    <tbody class="song-list">
+      <tr class="song-row">
+        <td class="song-position"></td>
+        <td class="song-title"></td>
+        <td class="song-play-count"></td>
+        <td class="text-center">
+          <button type="button" name="button" class="btn btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Song">
+            <span class="glyphicon glyphicon-star-empty"></span>
+          </button>
+        </td>
+        <td class="song-duration text-center"></td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block info_episodes %}
+  <h3>Episodes</h3>
+  <div class="releases-episodes">
+    {{ episodes.list() }}
+  </div>
+{% endblock %}

@@ -28,5 +28,7 @@ function capitalize(str) {
 }
 
 function str_to_date(str_date) {
-  return new Date(str_date).toDateString().split(' ').slice(1).join(' ')
+  var date = new Date(str_date).toDateString().split(' ').slice(1)
+  date[1] = date[1] + ',';
+  return date.join(' ')
 }
