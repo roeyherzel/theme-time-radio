@@ -40,49 +40,18 @@ var showResourceThumb = function(trackSelector, thumbFinder, resource) {
 };
 
 
-$(document).on('click', 'button[name="buttonTrackEdit"]', function() {
-  var trackId = $(this).attr('id');
-  showTrackEditModal(trackId);
-});
+function loadTrackList() {
 
-$(document).on('click', 'button[name="buttonSubmitMatch"]', function() {
-  var resource = $(this).attr('data-resource'),
-      matchedId = $(this).siblings().find('input.pending-radio:checked').val(),
-      trackId = $('#myModal').attr('data-track-id');
+  endpoint = $('script[data-playlist-uri]').attr('data-playlist-uri')
 
-  console.log(matchedId, resource);
-  var endpoint = 'tracks/' + trackId + '/' + 'match/' + resource;
-
-  $.ajax({
-          type    : 'POST',
-          url     : api_for(endpoint),
-          data    : {'id': matchedId},
-          success: function() {
-            showTrackEditModal(trackId);
-          },
-          error: function() {
-            console.log('ajax POST error', trackId);
-          }
-        });
-});
-
-
-$(document).ready(function() {
-
-  var playlist_uri = $('script[data-playlist-uri]').attr('data-playlist-uri'),
-      episodeDate = $('#epDate').text();
-
-  $('#epDate').text(str_to_date(episodeDate));
-
-  $.getJSON(playlist_uri, function(playlist, status) {
-
-    playlist = playlist.tracklist;
+  $.getJSON(endpoint, function(tracklist, status) {
 
     var trackCard = $(".track-row");
     $(".track-row").remove();
 
+    tracklist.tracklist.forEach(function(currentTrack, index) {
 
-    playlist.forEach(function(currentTrack, index) {
+      console.log(trackCard);
 
       var trackSelector = '#' + currentTrack.id,
           trackTagStatus = currentTrack.tags_status[0],
@@ -90,6 +59,7 @@ $(document).ready(function() {
           trackClone = $(trackCard).clone();
 
       $(trackClone).attr('id', currentTrack.id);
+
       $(trackClone).find('button[name="buttonTrackEdit"]').attr('id', currentTrack.id);
       $(trackClone).find('.track-id').text(currentTrack.id);
       $(trackClone).find('.track-pos').text(currentTrack.position);
@@ -130,6 +100,7 @@ $(document).ready(function() {
           // pending
         } else if (trackTagStatus[resource] === "pending") {
             var pending_count = currentTrack['tags_' + resource].length;
+
             $(trackSelector).find(statusSelector)
                             .addClass('glyphicon glyphicon-exclamation-sign')
                             .attr({
@@ -158,8 +129,47 @@ $(document).ready(function() {
 
     }); // forEach track
 
-  }); // playlist_uri AJAX
+  }); // AJAX tracklist
+}
 
+$(document).on('click', 'button[name="buttonTrackEdit"]', function() {
+  var trackId = $(this).attr('id');
+  showTrackEditModal(trackId);
+});
 
+$(document).on('click', 'button[name="buttonSubmitMatch"]', function() {
+  var resource = $(this).attr('data-resource'),
+      matchedId = $(this).siblings().find('input.pending-radio:checked').val(),
+      trackId = $('#myModal').attr('data-track-id'),
+      endpoint = 'tracks/' + trackId + '/' + 'match/' + resource;
+
+  console.log(matchedId, resource);
+
+  $.ajax({
+          type    : 'POST',
+          url     : api_for(endpoint),
+          data    : {'id': matchedId},
+          success: function() {
+            showTrackEditModal(trackId);
+          },
+          error: function() {
+            console.log('ajax POST error', trackId);
+          }
+        });
+});
+
+// TODO: only reload when change was made
+$('#myModal').on('hidden.bs.modal', function () {
+
+  //FIXME: need to change from clone to createElement
+ //loadTrackList();
+ location.reload();
+});
+
+$(document).ready(function() {
+
+  $('#epDate').text(str_to_date($('#epDate').text()));
+
+  loadTrackList();
 
 });
