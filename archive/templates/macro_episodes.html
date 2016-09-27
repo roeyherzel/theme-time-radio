@@ -5,7 +5,7 @@
   <table class="table table-condensed table-hover">
 
     <tbody class="ep-list">
-      <tr class="ep-card box">
+      <tr class="ep-card">
 
         <td class="text-center ep-bookmark">
           <button type="button" name="button" class="btn btn-lg btn-default btn-bookmark" data-toggle="tooltip" title="Bookmark Episode">
@@ -34,10 +34,11 @@
 
 <style>
 
-  .table > .ep-list > tr > td {
-    border: 0;
+  .table > .ep-list > tr td:first-child {
+    border-left: 1px solid rgb(235, 235, 235);
   }
-  .table > .ep-list > tr > .ep-bookmark {
+  .table > .ep-list > tr > .ep-bookmark,
+  .table > .ep-list > tr td:last-child {
     border-right: 1px solid rgb(235, 235, 235);
   }
   .ep-thumb {
