@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from archive.resources.episodes import *
+from archive.resources.tracks import *
 from archive.resources.artists import *
 from archive.resources.releases import *
 from archive.resources.songs import *
@@ -16,6 +17,10 @@ api = Api(app)
 # Episode
 api.add_resource(EpisodeApi, '/api/episodes', '/api/episodes/<int:episode_id>', endpoint='episode_api')
 api.add_resource(TracklistApi, '/api/episodes/<int:episode_id>/tracklist', endpoint='tracklist_api')
+
+# Track
+api.add_resource(TrackApi, '/api/tracks/<int:track_id>', endpoint='track_api')
+api.add_resource(TracksArtistsApi, '/api/tracks/<int:track_id>/match/artist', endpoint='tracks_artists_api')
 
 # Artist
 api.add_resource(ArtistApi, '/api/artists', '/api/artists/<int:artist_id>', endpoint='artist_api')

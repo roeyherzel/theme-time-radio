@@ -5,14 +5,14 @@ function increment_resource_status_badge(resource, status) {
   $badge.text(newVal);
 }
 
-var showTagInfo = function(trackSelector, resourceSelector) {
+var showResourceTag = function(selector, resourceFinder, resource) {
 
   return function(data) {
     var field = 'title';
-    if (resourceSelector.search('artist') > 0) {
+    if (resource === 'artist') {
       field = 'name';
     }
-    $(trackSelector).find(resourceSelector).html(
+    $(selector).find(resourceFinder).html(
       make_link(data.resource_path, data[field])
     );
   };
@@ -21,7 +21,7 @@ var showTagInfo = function(trackSelector, resourceSelector) {
 var default_track_thumb = '/static/images/default-cd.png';
 var default_artist_thumb = '/static/images/default-artist.png';
 
-var setResourceThumb = function(trackSelector, resource) {
+var showResourceThumb = function(trackSelector, thumbFinder, resource) {
   var defaultThumb = default_track_thumb,
       field = 'title',
       imgClass = 'img-rounded';
@@ -32,7 +32,7 @@ var setResourceThumb = function(trackSelector, resource) {
   }
 
   return function(data) {
-    $(trackSelector).find('.track-thumb > img')
+    $(trackSelector).find(thumbFinder)
                     .attr({'src': data.thumb || defaultThumb, 'title': data[field]})
                     .wrap(make_link(data.resource_path))
                     .addClass(imgClass);
@@ -40,12 +40,23 @@ var setResourceThumb = function(trackSelector, resource) {
 };
 
 
+$(document).on('click', 'button[name="buttonTrackEdit"]', function(){
+  var trackId = $(this).attr('id');
+  showTrackEditModal(trackId);
+});
+
+$(document).on('click', 'button[name="buttonSubmitMatch"]', function(){
+  var trackId = $(this).siblings().find('input.pending-radio:checked').val();
+  console.log(trackId);
+});
+
+
 $(document).ready(function() {
+
   var playlist_uri = $('script[data-playlist-uri]').attr('data-playlist-uri'),
       episodeDate = $('#epDate').text();
 
-  episodeDate = str_to_date(episodeDate);
-  $('#epDate').text(episodeDate);
+  $('#epDate').text(str_to_date(episodeDate));
 
   $.getJSON(playlist_uri, function(playlist, status) {
 
@@ -54,21 +65,23 @@ $(document).ready(function() {
     var trackCard = $(".track-row");
     $(".track-row").remove();
 
+
     playlist.forEach(function(currentTrack, index) {
 
-      var trackSelector = '#track_' + currentTrack.id,
+      var trackSelector = '#' + currentTrack.id,
           trackTagStatus = currentTrack.tags_status[0],
           trackTagQuery = currentTrack.tags_query[0],
           trackClone = $(trackCard).clone();
 
-      $(trackClone).attr('id', 'track_' + currentTrack.id);
+      $(trackClone).attr('id', currentTrack.id);
+      $(trackClone).find('button[name="buttonTrackEdit"]').attr('id', currentTrack.id);
       $(trackClone).find('.track-id').text(currentTrack.id);
       $(trackClone).find('.track-pos').text(currentTrack.position);
       $(trackClone).appendTo('tbody.track-list');
 
       // not resolved or type other
       if (currentTrack.resolved === false) {
-        $(trackClone).find('.track-thumb > img').attr('src', '/static/images/default-microphone.png');
+        $(trackClone).find('.track-thumb').attr('src', '/static/images/default-microphone.png');
         $(trackClone).find('.track-artist').parent().remove();
         $(trackClone).find('.track-release').parent().remove();
         $(trackClone).find('.track-song').parent().addClass('active');
@@ -78,14 +91,15 @@ $(document).ready(function() {
                      .attr('colspan', '3');
 
       } else {
+        // set row's thumbnail based on resource tag
         if (trackTagStatus['release'] === 'matched') {
-          $.getJSON(api_for(currentTrack.tags_release[0].resource_path), setResourceThumb(trackSelector, 'release'));
+          $.getJSON(api_for(currentTrack.tags_release[0].resource_path), showResourceThumb(trackSelector, '.track-thumb', 'release'));
 
         } else if (trackTagStatus['artist'] === 'matched') {
-          $.getJSON(api_for(currentTrack.tags_artist[0].resource_path), setResourceThumb(trackSelector, 'artist'));
+          $.getJSON(api_for(currentTrack.tags_artist[0].resource_path), showResourceThumb(trackSelector, '.track-thumb', 'artist'));
 
         } else {
-          $(trackClone).find('.track-thumb > img').attr('src', default_track_thumb);
+          $(trackClone).find('.track-thumb').attr('src', default_track_thumb);
         }
 
         ['song', 'artist', 'release'].forEach(function(resource, index) {
@@ -94,8 +108,7 @@ $(document).ready(function() {
 
           // matched
           if (trackTagStatus[resource] === "matched") {
-            $.getJSON(api_for(currentTrack['tags_' + resource][0].resource_path), showTagInfo(trackSelector, resourceSelector));
-            increment_resource_status_badge(resource, currentTrack[resource]);
+            $.getJSON(api_for(currentTrack['tags_' + resource][0].resource_path), showResourceTag(trackSelector, resourceSelector, resource));
 
           // pending
         } else if (trackTagStatus[resource] === "pending") {
@@ -106,11 +119,9 @@ $(document).ready(function() {
                               'data-toggle': "tooltip",
                               'title': "Pending selection...found " + pending_count + " possible " + capitalize(resource) + " tags",
                             });
-            increment_resource_status_badge(resource, currentTrack[resource]);
 
           // unmatched
           } else {
-            increment_resource_status_badge(resource, currentTrack[resource]);
             console.log(trackTagQuery[resource]);
             if (trackTagQuery[resource]) {
               $(trackSelector).find(resourceSelector).text(trackTagQuery[resource]);
@@ -124,9 +135,14 @@ $(document).ready(function() {
             }
           }
           $('[data-toggle="tooltip"]').tooltip();
-        });
-      }
-    }); // playlist callback
+        }); // forEach resource
+
+      } // is resolved
+
+    }); // forEach track
+
   }); // playlist_uri AJAX
+
+
 
 });

@@ -42,6 +42,13 @@ ArtistSchema = {
     'urls': fields.List(fields.Nested({'url': fields.String})),
 }
 
+
+ReleasesArtistsSchema = {
+    'artist_id': fields.Integer,
+    'resource_path': fields.FormattedString("artists/{artist_id}"),
+}
+
+
 ReleaseSchema = {
     'resource_path': fields.FormattedString("releases/{id}"),
     'id': fields.Integer,
@@ -52,6 +59,7 @@ ReleaseSchema = {
     'styles': fields.List(fields.Nested({'style': fields.String})),
     'images': fields.List(fields.Nested(ImageSchema)),
     'songs': fields.List(fields.Nested(SongSchema)),
+    'artists': fields.List(fields.Nested(ReleasesArtistsSchema))
 }
 
 

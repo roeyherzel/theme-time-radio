@@ -107,9 +107,12 @@ def insert_tag_status(mapper, connection, target):
     db.session.add(tag_status)
 
 
+@db.event.listens_for(TracksArtists, "after_update")
 @db.event.listens_for(TracksArtists, "after_insert")
 @db.event.listens_for(TracksReleases, "after_insert")
+@db.event.listens_for(TracksReleases, "after_update")
 @db.event.listens_for(TracksSongs, "after_insert")
+@db.event.listens_for(TracksSongs, "after_update")
 def update_resource_tag_status(mapper, connection, target):
     table = TracksTagStatus.__table__
     mapped_table_name = mapper.mapped_table.name

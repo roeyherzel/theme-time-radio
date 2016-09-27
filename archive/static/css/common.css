@@ -52,9 +52,18 @@ body {
   padding: 20px;
   margin-bottom: 15px;
 }
+
+.box-title-bordered,
 .box-title {
   margin-top: 0;
   margin-bottom: 20px;
+}
+
+.box-title-bordered {
+  padding-bottom: 10px;
+  border-bottom-color: rgb(235, 235, 235);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
 }
 
 .hr-dark-thin,
@@ -95,6 +104,21 @@ body {
 }
 .label-style {
   background-color: #FFD180;
+}
+
+.label-matched {
+  background-color: #27A66B;
+  color: white !important;
+}
+
+.label-pending {
+  background-color: #FFD180;
+  color: black !important;
+}
+
+.label-unmatched {
+    background-color: #EB5A46;
+    color: white !important;
 }
 
 .btn-bookmark {

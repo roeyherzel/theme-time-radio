@@ -1,6 +1,7 @@
 {% extends "info_page.html" %}
 
 {% block script %}
+  <script src="{{ url_for('static', filename='js/edit_track.js') }}"></script>
   <script src="{{ url_for('static', filename='js/episode_info.js') }}"
           data-playlist-uri="{{ url_for('tracklist_api', episode_id=ep.id) }}">
   </script>
@@ -64,6 +65,8 @@
           <th>SONG</th>
           <th>ARTIST</th>
           <th>ALBUM</th>
+          <th></th>
+
         </tr>
       </thead>
       <tbody class="track-list">
@@ -72,24 +75,29 @@
           <td class="text-center">
             <span class="track-pos"></span>
           </td>
-
-          <td class="track-thumb">
-            <img class="track-default-thumb img-rounded" src="", alt="thumb">
+          <td class="">
+            <img class="track-thumb track-default-thumb img-rounded" src="", alt="thumb">
           </td>
-
           <td class="track-song"></td>
           <td>
             <span class="track-artist-status"></span><span class="track-artist"></span>
           </td>
-
           <td>
             <span class="track-release-status"></span><span class="track-release"></span>
           </td>
-
+          <td class="text-center">
+            <button class="btn btn-sm btn-default" type="button" name="buttonTrackEdit">
+              <span class="glyphicon glyphicon-edit"></span>
+            </button>
+          </td>
         </tr>
+
       </tbody>
     </table>
   </div>
+
+  {% include 'edit_track.html' %}
+
 {% endblock %}
 
 
@@ -108,8 +116,11 @@
       font-size: 85%;
     }
 
-    .track-thumb > img,
-    .track-thumb > a > img {
+    .track-edit-btn {
+      border:0;
+      padding: 2px 5px 2px 5px;
+    }
+    .track-thumb {
       width: 45px;
       height: 45px;
     }
@@ -119,7 +130,8 @@
     }
 
     .glyphicon-exclamation-sign {
-      color: #EC9488;
+      //color: #EC9488;
+      color: #FFD180;
     }
     .glyphicon-question-sign {
       color: #808080;
