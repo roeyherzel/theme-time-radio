@@ -8,10 +8,16 @@ function createPendingRelease(tbody) {
 
     // Radio button
     $(document.createElement('td')).append(
-      $(document.createElement('input')).attr({'type': 'radio', 'name': 'radioPendingRelease'})
+      $(document.createElement('input')).attr({
+                                                'type': 'radio',
+                                                'name': 'radioPendingRelease',
+                                                'id': releaseData.id,
+                                                'value': releaseData.id
+                                              })
                                         .addClass('pending-radio')
-                                        .attr({'id': releaseData.id, 'value': releaseData.id})
-    ).appendTo($row);
+    )
+    .css('text-align', 'center')
+    .appendTo($row);
 
     // Thumb
     $(document.createElement('td')).append(
@@ -85,17 +91,25 @@ function createResourceInfo(selector) {
 
 function showTrackEditModal(trackId) {
 
-    console.log(trackId);
-
     $.getJSON(api_for("tracks/" + trackId), function(trackData, status) {
       console.log(trackData);
 
       var $myModal = $('#myModal');
-
       $myModal.attr('data-track-id', trackData.id);
+
       $myModal.find('.track-id').text(trackData.id);
       $myModal.find('.original-title').text(trackData.title);
-      $myModal.find('.is-resolved').text(trackData.resolved);
+      $myModal.find('.track-type').text('Song');
+
+      if (trackData.resolved === false) {
+        $myModal.find('.track-type').text('Other');
+        $myModal.find('.tag-query').hide();
+        $myModal.find('.box[id!=trackInfo]').hide();
+
+        return $myModal.modal("show");
+      }
+      $myModal.find('.tag-query').show();
+      $myModal.find('.box[id!=trackInfo]').show();
       $myModal.find('.query-song').text(trackData.tags_query[0].song);
       $myModal.find('.query-release').text(trackData.tags_query[0].release);
       $myModal.find('.query-artist').text(trackData.tags_query[0].artist);
@@ -111,7 +125,7 @@ function showTrackEditModal(trackId) {
 
         // Heading
         var $header_status = $(document.createElement("span")).text(status).css('margin-left', '10px').addClass("small label");
-            $header_title = $(document.createElement("h4")).text(resource).append($header_status);
+            $header_title = $(document.createElement("h4")).text(capitalize(resource) + ' Tag').append($header_status);
 
         $resourceBox.append($header_title);
 

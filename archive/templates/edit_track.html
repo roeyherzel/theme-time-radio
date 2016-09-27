@@ -7,33 +7,39 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title">Edit Track (<span class="track-id"></span>)</h3>
+        <h3 class="modal-title">Edit Track</h3>
       </div>
 
       <div class="modal-body">
 
-        <div class="track-info box">
+        <div class="box" id="trackInfo">
 
-          <h4 class="box-title">Info</h4>
-          <dl class="dl-horizontal-">
-            <dt>Originl Title</dt>
-            <dd class="original-title"></dd>
-            <dt>Is Song</dt>
-            <dd class="is-resolved"></dd>
-          </dl>
+          <h4 class="box-title-bordered">Info</h4>
 
-        </div>
-        <div class="track-query box">
-
-          <h4 class="box-title">Query</h4>
-          <dl class="dl-horizontal-">
-            <dt>Artist</dt>
-            <dd class="query-artist"></dd>
-            <dt>Album</dt>
-            <dd class="query-release"></dd>
-            <dt>Song</dt>
-            <dd class="query-song"></dd>
-          </dl>
+          <table>
+            <tbody>
+              <tr>
+                <td>Original Title</td>
+                <td class="well well-sm original-title hebrew"></td>
+              </tr>
+              <tr>
+                <td>Type</td>
+                <td class="well well-sm track-type"></td>
+              </tr>
+              <tr class="tag-query">
+                <td>Artist</td>
+                <td class="well well-sm query-artist">-</td>
+              </tr>
+              <tr class="tag-query">
+                <td>Album</td>
+                <td class="well well-sm query-album">-</td>
+              </tr>
+              <tr class="tag-query">
+                <td>Song</td>
+                <td class="well well-sm query-song">-</td>
+              </tr>
+            </tbody>
+          </table>
 
         </div>
 
@@ -56,3 +62,13 @@
 
   </div>
 </div>
+
+<style>
+
+
+  #trackInfo tr td:first-child {
+    text-align: right;
+    padding-right: 10px;
+  }
+
+</style>

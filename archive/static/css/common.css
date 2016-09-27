@@ -44,7 +44,15 @@ body {
   border-bottom: 1px solid rgb(221, 221, 221);
   vertical-align: middle;
   top: 0;
-  //font-size: 13px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.hebrew {
+  direction: rtl;
+  text-align: left;
 }
 
 .box {
