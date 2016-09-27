@@ -21,6 +21,8 @@ api.add_resource(TracklistApi, '/api/episodes/<int:episode_id>/tracklist', endpo
 # Track
 api.add_resource(TrackApi, '/api/tracks/<int:track_id>', endpoint='track_api')
 api.add_resource(TracksArtistsApi, '/api/tracks/<int:track_id>/match/artist', endpoint='tracks_artists_api')
+api.add_resource(TracksReleasesApi, '/api/tracks/<int:track_id>/match/release', endpoint='tracks_releases_api')
+
 
 # Artist
 api.add_resource(ArtistApi, '/api/artists', '/api/artists/<int:artist_id>', endpoint='artist_api')

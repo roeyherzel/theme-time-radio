@@ -40,14 +40,30 @@ var showResourceThumb = function(trackSelector, thumbFinder, resource) {
 };
 
 
-$(document).on('click', 'button[name="buttonTrackEdit"]', function(){
+$(document).on('click', 'button[name="buttonTrackEdit"]', function() {
   var trackId = $(this).attr('id');
   showTrackEditModal(trackId);
 });
 
-$(document).on('click', 'button[name="buttonSubmitMatch"]', function(){
-  var trackId = $(this).siblings().find('input.pending-radio:checked').val();
-  console.log(trackId);
+$(document).on('click', 'button[name="buttonSubmitMatch"]', function() {
+  var resource = $(this).attr('data-resource'),
+      matchedId = $(this).siblings().find('input.pending-radio:checked').val(),
+      trackId = $('#myModal').attr('data-track-id');
+
+  console.log(matchedId, resource);
+  var endpoint = 'tracks/' + trackId + '/' + 'match/' + resource;
+
+  $.ajax({
+          type    : 'POST',
+          url     : api_for(endpoint),
+          data    : {'id': matchedId},
+          success: function() {
+            showTrackEditModal(trackId);
+          },
+          error: function() {
+            showTrackEditModal(trackId);
+          }
+        });
 });
 
 

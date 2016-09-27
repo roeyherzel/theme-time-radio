@@ -92,6 +92,7 @@ function showTrackEditModal(trackId) {
 
       var $myModal = $('#myModal');
 
+      $myModal.attr('data-track-id', trackData.id);
       $myModal.find('.track-id').text(trackData.id);
       $myModal.find('.original-title').text(trackData.title);
       $myModal.find('.is-resolved').text(trackData.resolved);
