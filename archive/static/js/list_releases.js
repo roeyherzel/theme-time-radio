@@ -12,13 +12,8 @@ function showReleaseInfo(releasePath, options) {
 
   $.getJSON(api_for(releasePath), function(releaseObj, status) {
 
-    var primaryImage = releaseObj.images.filter(function(img) {
-      return img.type === 'primary'
-    });
-
-    var restOfImages = releaseObj.images.filter(function(img) {
-      return img.type !== 'primary'
-    });
+    var primaryImage = releaseObj.images.filter(function(img) { return img.type === 'primary' }),
+        restOfImages = releaseObj.images.filter(function(img) { return img.type !== 'primary' });
 
     // Images
     $('.release-primary-image').attr('src', primaryImage[0].uri);
@@ -68,13 +63,14 @@ function showReleaseInfo(releasePath, options) {
         $(songClone).find('.song-duration').text(currentSong.duration);
 
         if (currentSong.tracks.length > 0) {
+          // FIXME: not acurate - length also counts pending resources
           $(songClone).find('.song-play-count').text(currentSong.tracks.length);
           $(songClone).find('.song-title').html(make_link(currentSong.resource_path, currentSong.title));
         } else {
           $(songClone).find('.song-play-count').text('-').addClass('text-muted');
+          $(songClone).find('.btn-bookmark').parent().text('-').addClass('text-muted');
           $(songClone).find('.song-title').text(currentSong.title);
         }
-
         $(songClone).appendTo('tbody.song-list');
       });
     }

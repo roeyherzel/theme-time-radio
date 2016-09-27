@@ -1,36 +1,43 @@
 
+var fieldRadioButton = function(rowSelector, resourceData) {
+
+  var radioButtonAttr = {'type': 'radio', 'name': 'radioPendingRelease', 'id': resourceData.id, 'value': resourceData.id};
+  $(document.createElement('td')).append(
+    $(document.createElement('input')).attr(radioButtonAttr).addClass('pending-radio')
+  )
+  .css('text-align', 'center')
+  .appendTo($(rowSelector));
+}
+
+var fieldThumbnail = function(rowSelector, resourceData) {
+
+  var default_thumb = (resourceData.title) ? default_track_thumb : default_artist_thumb;
+  $(document.createElement('td')).append(
+    $(document.createElement('img')).addClass('pending-thumb img-rounded track-thumb')
+                                    .attr({'src': resourceData.thumb || default_thumb})
+                                    .wrap(make_link(resourceData.resource_path).attr('target', '_blank'))
+  ).appendTo($(rowSelector));
+}
+
+var fieldTitle = function(rowSelector, resourceData) {
+
+  $(document.createElement('td')).append(
+    $(document.createElement('span')).addClass('pending-title')
+                                     .html(make_link(resourceData.resource_path, resourceData.title || resourceData.name).attr('target', '_blank'))
+  ).appendTo($(rowSelector));
+}
+
 
 function createPendingRelease(tbody) {
 
-  var $row = $(document.createElement('tr')).addClass("pending-row").appendTo($(tbody))
+  var createFields = [fieldRadioButton, fieldThumbnail, fieldTitle],
+      $row = $(document.createElement('tr')).addClass("pending-row").appendTo($(tbody));
 
   return function(releaseData) {
 
-    // Radio button
-    $(document.createElement('td')).append(
-      $(document.createElement('input')).attr({
-                                                'type': 'radio',
-                                                'name': 'radioPendingRelease',
-                                                'id': releaseData.id,
-                                                'value': releaseData.id
-                                              })
-                                        .addClass('pending-radio')
-    )
-    .css('text-align', 'center')
-    .appendTo($row);
-
-    // Thumb
-    $(document.createElement('td')).append(
-      $(document.createElement('img')).addClass('pending-thumb img-rounded track-thumb')
-                                      .attr({'src': releaseData.thumb || default_track_thumb})
-                                      .wrap(make_link(releaseData.resource_path).attr('target', '_blank'))
-    ).appendTo($row);
-
-    // Title
-    $(document.createElement('td')).append(
-      $(document.createElement('span')).addClass('pending-title')
-                                       .html(make_link(releaseData.resource_path, releaseData.title).attr('target', '_blank'))
-    ).appendTo($row);
+    for(var f in createFields) {
+      createFields[f]($row, releaseData);
+    }
 
     // Artists
     // FIXME: what if there is more than 1 artist
@@ -44,40 +51,45 @@ function createPendingRelease(tbody) {
                       .html(make_link(artistData.resource_path, artistData.name, true).attr('target', '_blank'));
       });
     }
-
   };
 }
 
 
 function createPendingArtist(tbody) {
 
-  var $row = $(document.createElement('tr')).addClass("pending-row").appendTo($(tbody))
+  var createFields = [fieldRadioButton, fieldThumbnail, fieldTitle],
+      $row = $(document.createElement('tr')).addClass("pending-row").appendTo($(tbody));
 
-  return function(releaseData) {
+  return function(artistData) {
 
-    // Radio button
-    $(document.createElement('td')).append(
-      $(document.createElement('input')).attr({'type': 'radio', 'name': 'radioPendingArtist'})
-                                        .addClass('pending-radio')
-                                        .attr({'id': releaseData.id, 'value': releaseData.id})
-    ).appendTo($row);
-
-    // Thumb
-    $(document.createElement('td')).append(
-      $(document.createElement('img')).addClass('pending-thumb img-rounded track-thumb')
-                                      .attr({'src': releaseData.thumb || default_track_thumb})
-                                      .wrap(make_link(releaseData.resource_path).attr('target', '_blank'))
-    ).appendTo($row);
-
-    // Title
-    $(document.createElement('td')).append(
-      $(document.createElement('span')).addClass('pending-title')
-                                       .html(make_link(releaseData.resource_path, releaseData.name).attr('target', '_blank'))
-    ).appendTo($row);
-
+    for(var f in createFields) {
+      createFields[f]($row, artistData);
+    }
   };
 }
 
+function createPendingSong(tbody) {
+  var myFieldRadioButton = fieldRadioButton,
+      myFieldTitle = fieldTitle,
+      $row = $(document.createElement('tr')).addClass("pending-row").appendTo($(tbody));
+
+  return function(songData) {
+
+    myFieldRadioButton($row, songData);
+
+    // Position
+    $(document.createElement('td')).append(
+      $(document.createElement('span')).text(songData.position)
+    ).appendTo($row);
+
+    myFieldTitle($row, songData);
+
+    // Duration
+    $(document.createElement('td')).append(
+      $(document.createElement('span')).text(songData.duration)
+    ).appendTo($row);
+  };
+}
 
 function createResourceInfo(selector) {
   return function(resourceData) {
@@ -156,21 +168,21 @@ function showTrackEditModal(trackId) {
             trackData['tags_artist'].forEach(function(pendingResource) {
               $.getJSON(api_for(pendingResource.resource_path), createPendingArtist($tbody));
             });
+
+          } else if (resource === 'song') {
+            trackData['tags_song'].forEach(function(pendingResource) {
+              $.getJSON(api_for(pendingResource.resource_path), createPendingSong($tbody));
+            });
           }
 
           // Create submit button
-          $(document.createElement('button')).text("Submit")
+          $(document.createElement('button')).text("Match")
                                              .addClass("btn btn-default")
-                                             .attr({
-                                               'type': 'button',
-                                               'name': 'buttonSubmitMatch',
-                                               'data-resource': resource,
-                                             })
+                                             .attr({'type': 'button', 'name': 'buttonSubmitMatch', 'data-resource': resource})
                                              .appendTo($resourceBox);
         } else {
           $header_status.addClass('label-unmatched');
         }
-
 
       }); // Each resource
       $myModal.modal("show");

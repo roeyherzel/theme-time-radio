@@ -57,7 +57,7 @@
 {% block info_data %}
   <div class="box">
     <h3 class="box-title tracklist-title">Tracklist</h3>
-    <table class="table table-condensed-">
+    <table class="table table-condensed">
       <thead>
         <tr>
           <th class="text-center">#</th>
@@ -66,7 +66,6 @@
           <th>ARTIST</th>
           <th>ALBUM</th>
           <th></th>
-
         </tr>
       </thead>
       <tbody class="track-list">
@@ -75,12 +74,16 @@
           <td class="text-center">
             <span class="track-pos"></span>
           </td>
-          <td class="">
+          <td>
             <img class="track-thumb track-default-thumb img-rounded" src="", alt="thumb">
           </td>
-          <td class="track-song"></td>
+          <td class="track-title">
+            <span class="track-song-status"></span>
+            <span class="track-song"></span>
+          </td>
           <td>
-            <span class="track-artist-status"></span><span class="track-artist"></span>
+            <span class="track-artist-status"></span>
+            <span class="track-artist"></span>
           </td>
           <td>
             <span class="track-release-status"></span><span class="track-release"></span>

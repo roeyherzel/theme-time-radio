@@ -61,7 +61,7 @@ $(document).on('click', 'button[name="buttonSubmitMatch"]', function() {
             showTrackEditModal(trackId);
           },
           error: function() {
-            showTrackEditModal(trackId);
+            console.log('ajax POST error', trackId);
           }
         });
 });
@@ -100,11 +100,12 @@ $(document).ready(function() {
         $(trackClone).find('.track-thumb').attr('src', '/static/images/default-microphone.png');
         $(trackClone).find('.track-artist').parent().remove();
         $(trackClone).find('.track-release').parent().remove();
-        $(trackClone).find('.track-song').parent().addClass('active');
-        $(trackClone).find('.track-song')
+
+        $(trackClone).find('.track-title')
                      .text(currentTrack.title)
                      .css({'direction': 'rtl', 'text-align': 'left'})
-                     .attr('colspan', '3');
+                     .attr('colspan', '3')
+                     .parent().addClass('active');
 
       } else {
         // set row's thumbnail based on resource tag
