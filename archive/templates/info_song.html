@@ -14,10 +14,10 @@
 {% block info_middle %}
   <div>
     <dl class="dl-horizontal">
+      <dt>song by</dt>
+      <dd class="release-artists"></dd>
       <dt>album</dt>
       <dd class="release-title"></dd>
-      <dt>by</dt>
-      <dd class="release-artists"></dd>
     </dl>
   </div>
 {% endblock %}
@@ -48,12 +48,10 @@
 {% block info_style %}
 <style>
   .info-middle > div > dl > dd {
-    margin-left: 75px;
-    line-height: 20px;
+    margin-left: 85px;
   }
   .info-middle > div > dl > dt {
-    width: 65px;
-    line-height: 20px;
+    width: 75px;
     font-weight: normal;
   }
 </style>

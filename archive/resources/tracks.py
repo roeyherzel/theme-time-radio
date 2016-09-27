@@ -65,7 +65,7 @@ class TracksReleasesApi(Resource):
         # set matched status
         tracks_release.status = Status.getIdByName('matched')
         TracksReleases.update(tracks_release)
-        print("match - updated track_id({}) -> release_id({}): status(matched)".format(release_id, track_id))
+        print("match - updated release_id({}) -> track_id({}): status(matched)".format(track_id, release_id))
 
         # remove all pending
         TracksReleases.query.filter_by(track_id=track_id) \
@@ -78,6 +78,36 @@ class TracksReleasesApi(Resource):
 
         # Attach matched releases songs to pending track songs
         for s in Songs.query.filter_by(release_id=release_id):
+            print("match- adding song_id({}) -> track_id({}): status(pending)".format(s.id, track_id))
             TracksSongs.create(TracksSongs(track_id=track_id, song_id=s.id, status=Status.getIdByName('pending')))
 
         return release_id, 201
+
+
+class TracksSongsApi(Resource):
+
+    def post(self, track_id):
+        args = parser.parse_args()
+        song_id = args.id
+
+        try:
+            myTrack = TracksSongs.query.filter_by(track_id=track_id, song_id=song_id).one()
+
+        except NoResultFound as err:
+            msg = "didn't find pending resource with track_id({}) and song_id({})".format(track_id, song_id)
+            print("match - {}".format(msg))
+            abort(404, message=msg)
+
+        myTrack.status = Status.getIdByName('matched')
+        TracksSongs.update(myTrack)
+        print("match - updated track_id({}) -> song_id({}): status(matched)".format(song_id, track_id))
+
+        TracksSongs.query.filter_by(track_id=track_id) \
+                         .filter(TracksSongs.status != Status.getIdByName('matched')) \
+                         .delete()
+
+        print("match - deleting all other pending")
+        db.session.commit()
+        print("match - commited")
+
+        return song_id, 201
