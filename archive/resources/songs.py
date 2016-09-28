@@ -3,14 +3,14 @@ from archive.common.schemas import SongSchema, EpisodeSchema
 from flask_restful import Resource, marshal_with
 
 
-class SongApi(Resource):
+class ApiSong(Resource):
 
     @marshal_with(SongSchema)
     def get(self, song_id):
         return Songs.query.get(song_id)
 
 
-class SongsEpisodesApi(Resource):
+class ApiSongsEpisodes(Resource):
 
     @marshal_with(EpisodeSchema)
     def get(self, song_id):

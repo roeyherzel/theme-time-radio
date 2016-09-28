@@ -1,22 +1,29 @@
 from archive.models import *
 from archive.common.schemas import ReleaseSchema, ArtistSchema, EpisodeSchema
+from archive.common.utils import limit_query
 
-from flask_restful import Resource, marshal_with
+from flask_restful import Resource, marshal_with, reqparse
 
 
-class ReleaseApi(Resource):
+class ApiRelease(Resource):
 
     @marshal_with(ReleaseSchema)
     def get(self, release_id=None):
+        parser = reqparse.RequestParser()
+        parser.add_argument('limit', type=int, help="limit query results")
+        args = parser.parse_args()
+
         if release_id is not None:
             return Releases.query.get(release_id)
         else:
-            return Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
-                                 .filter(TracksReleases.status == Status.getIdByName('matched')) \
-                                 .order_by(Releases.title).all()
+            myQuery = Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
+                                    .filter(TracksReleases.status == Status.getIdByName('matched')) \
+                                    .order_by(Releases.title)
+
+            return limit_query(myQuery, args.get('limit')).all()
 
 
-class ReleasesArtistsApi(Resource):
+class ApiReleasesArtists(Resource):
 
     @marshal_with(ArtistSchema)
     def get(self, release_id):
@@ -27,7 +34,7 @@ class ReleasesArtistsApi(Resource):
                             .all()
 
 
-class ReleasesEpisodesApi(Resource):
+class ApiReleasesEpisodes(Resource):
 
     @marshal_with(EpisodeSchema)
     def get(self, release_id):

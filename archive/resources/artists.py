@@ -4,7 +4,7 @@ from archive.common.schemas import ArtistSchema, ReleaseSchema, EpisodeSchema
 from flask_restful import Resource, marshal_with
 
 
-class ArtistApi(Resource):
+class ApiArtist(Resource):
 
     @marshal_with(ArtistSchema)
     def get(self, artist_id=None):
@@ -17,7 +17,7 @@ class ArtistApi(Resource):
                                 .all()
 
 
-class ArtistsReleasesApi(Resource):
+class ApiArtistsReleases(Resource):
 
     @marshal_with(ReleaseSchema)
     def get(self, artist_id):
@@ -29,7 +29,7 @@ class ArtistsReleasesApi(Resource):
                              .all()
 
 
-class ArtistsEpisodesApi(Resource):
+class ApiArtistsEpisodes(Resource):
 
     @marshal_with(EpisodeSchema)
     def get(self, artist_id):

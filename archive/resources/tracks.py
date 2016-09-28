@@ -1,4 +1,4 @@
-from archive.common.utils import limit_api_results
+from archive.common.utils import limit_query
 from archive.common.schemas import TrackSchema
 from archive.models import *
 
@@ -8,21 +8,20 @@ from sqlalchemy import desc
 from sqlalchemy.orm.exc import NoResultFound
 
 
-class TrackApi(Resource):
+class ApiTrack(Resource):
 
     @marshal_with(TrackSchema)
     def get(self, track_id):
         return Tracks.query.get(track_id)
 
 
-parser = reqparse.RequestParser()
-parser.add_argument('id')
-
-
-class TracksArtistsApi(Resource):
+class ApiTracksArtists(Resource):
 
     def post(self, track_id):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id')
         args = parser.parse_args()
+
         artist_id = args.id
 
         try:
@@ -48,10 +47,13 @@ class TracksArtistsApi(Resource):
         return artist_id, 201
 
 
-class TracksReleasesApi(Resource):
+class ApiTracksReleases(Resource):
 
     def post(self, track_id):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id')
         args = parser.parse_args()
+
         release_id = args.id
 
         try:
@@ -84,10 +86,13 @@ class TracksReleasesApi(Resource):
         return release_id, 201
 
 
-class TracksSongsApi(Resource):
+class ApiTracksSongs(Resource):
 
     def post(self, track_id):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id')
         args = parser.parse_args()
+
         song_id = args.id
 
         try:

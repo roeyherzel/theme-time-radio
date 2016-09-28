@@ -2,7 +2,8 @@
 
 {% block script %}
   <script src="{{ url_for('static', filename='js/index.js') }}"
-          data-ep-list-uri="{{ url_for('episode_api') }}">
+          data-episode-list="{{ url_for('episode_api') }}"
+          data-top-releases="{{ url_for('top_releases_api') }}">
   </script>
 {% endblock %}
 
@@ -25,24 +26,23 @@
     <h3>Latest Episodes</h3>
     <hr class="hr-thin">
 
-    <div class="row ep-latest">
-      <div class="ep-card col-md-2">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h5 class="ep-title" data-toggle="tooltip" title=""></h5>
+    <div class="row ep-list">
+      <div class="col-md-2 ep-card text-center">
+        <div class="box">
+          <img class="ep-thumb" src="" alt="...">
+          <div class="ep-info">
+            <div class="ep-title"></div>
           </div>
-          <div class="panel-body">
-            <img class="img-rounded text-center" alt="pic">
-          </div>
-          <div class="panel-footer ep-date small text-muted"></div>
+          <div class="ep-date small text-muted"></div>
         </div>
       </div>
     </div>
 
-    <h3>Recently Played Artists</h3>
+
+    <h3>Top Played Artists</h3>
     <hr class="hr-thin">
 
-    <h3>Recently Played Albums</h3>
+    <h3>Top Played Albums</h3>
     <hr class="hr-thin">
 
   </div><!-- /.container -->
@@ -51,33 +51,45 @@
 
 {% block style %}
   <style>
-    .page-content {
-      padding-top: 0;
+    .ep-list {
+      padding: 10px 0 0 15px;
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 50px;
     }
-    img {
-      width: 150px;
+    .ep-card > .box {
+      padding: 0;
+      margin:0;
+    }
+    .ep-card {
+      width: 200px;
+      padding: 0;
+      margin-left: 0;
+      margin-right: 25px;
+      margin-bottom: 20px;
+    }
+    .ep-thumb {
+      width: 200px;
       height: 150px;
       object-fit: cover;
     }
-    .panel-heading {
-      padding: 2px 1px 1px 1px;
+    .ep-date,
+    .ep-info {
+      padding: 10px 5px 5px 10px;
+      text-align: left;
     }
-    .panel-body {
-      padding: 5px 0 5px 0;
-    }
-    .panel-footer {
+    .ep-date {
       padding-top: 5px;
-      padding-bottom: 5px;
-    }
-    .ep-card {
-      direction: rtl;
-      text-align: center;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: rgb(235, 235, 235);
     }
     .ep-title {
-      height: 2em;
+      height: 3em;
       overflow: hidden;
+      //white-space: nowrap;
       text-overflow: ellipsis;
-      text-align: center;
     }
+
   </style>
 {% endblock %}
