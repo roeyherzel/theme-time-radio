@@ -5,7 +5,7 @@ from archive.models import CRUD
 class Releases(db.Model, CRUD):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
-    thumb = db.Column(db.String())
+    thumb = db.Column(db.String(), unique=True)
     year = db.Column(db.Integer())
 
     def __repr__(self):

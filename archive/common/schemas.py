@@ -24,6 +24,14 @@ SongSchema = {
     'duration': fields.String,
     'release_path': fields.FormattedString("releases/{release_id}"),
     'tracks': fields.List(fields.Nested({'track_id': fields.Integer})),
+    'release': fields.Nested(
+        {
+            'resource_path': fields.FormattedString("releases/{id}"),
+            'id': fields.Integer,
+            'title': fields.String,
+            'thumb': fields.String,
+            'year': fields.Integer
+        })
 }
 
 

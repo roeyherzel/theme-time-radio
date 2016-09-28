@@ -2,18 +2,23 @@
 
 function createResourceThumb(args) {
 
-  console.log(args.link);
-  var img_default = '/static/images/default-cd.png',
-      img_default_artist = '/static/images/default-artist.png';
-      img_class = 'img-rounded';
+  var imgSource = args.resource_data.thumb,
+      aLink = args.resource_data.resource_path;
+
+  var imgDefault = '/static/images/default-cd.png',
+      imgArtist = '/static/images/default-artist.png';
+      imgClass = 'img-rounded';
 
   if (args.resource === 'artist') {
-    img_default = img_default_artist;
-    img_class = 'img-circle';
+    imgDefault = imgArtist;
+    imgClass = 'img-circle';
+
+  } else if (args.resource_name === 'song') {
+    imgSource = args.resource_data.release.thumb;
   }
 
-  return make_link(args.link).html(
-    $(document.createElement("img")).addClass(img_class).attr('src', args.src || img_default)
+  return make_link(aLink).html(
+    $(document.createElement("img")).addClass(imgClass).attr('src', imgSource || imgDefault)
   );
 
 }
@@ -26,7 +31,7 @@ function addRow(tbody, index, play_count, resource) {
 
     // thumb
     $(document.createElement("td")).append(
-      createResourceThumb({'src': data.thumb, 'link': data.resource_path, 'resource': resource})
+      createResourceThumb({'resource_data': data, 'resource_name': resource})
     )
     .addClass("thumb").appendTo($tr);
 
