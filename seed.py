@@ -41,11 +41,12 @@ class AddTag():
 
     def addResource(self):
         res = self.resource(**self._build_query_params(self.tag))
-        self.resource.create(res)
+        print("{} - {}".format(res, self.tag.get('thumb')))
+        self.resource.add(res)
 
     def addResourceToTrack(self):
         res = self.resource_to_track(self.track_id, self.tag['id'], Status.getIdByName(self.status))
-        self.resource_to_track.create(res)
+        self.resource_to_track.add(res)
 
     def getId(self):
         return self.tag['id']
@@ -61,27 +62,27 @@ class AddArtist(AddTag):
 
         if self.tag.get('urls') is not None:
             for url in self.tag.get('urls'):
-                ArtistsUrls.create(ArtistsUrls(artist_id=self.tag['id'], url=url))
+                ArtistsUrls.add(ArtistsUrls(artist_id=self.tag['id'], url=url))
 
         if self.tag.get('images') is not None:
             fields = ['type', 'width', 'height', 'uri', 'uri150', 'resource_url', 'artist_id']
             for img in self.tag['images']:
                 img['artist_id'] = self.tag['id']
-                ArtistsImages.create(ArtistsImages(**self._build_query_params(img, fields)))
+                ArtistsImages.add(ArtistsImages(**self._build_query_params(img, fields)))
 
         if self.tag.get('aliases') is not None:
             for a in self.tag['aliases']:
-                ArtistsAliases.create(ArtistsAliases(id=a['id'], name=a['name'], artist_id=self.tag['id']))
+                ArtistsAliases.add(ArtistsAliases(id=a['id'], name=a['name'], artist_id=self.tag['id']))
 
         if self.tag.get('groups') is not None:
             for a in self.tag['groups']:
-                ArtistsGroups.create(ArtistsGroups(id=a['id'], name=a['name'], active=a['active'],
-                                                   artist_id=self.tag['id']))
+                ArtistsGroups.add(ArtistsGroups(id=a['id'], name=a['name'], active=a['active'],
+                                                artist_id=self.tag['id']))
 
         if self.tag.get('members') is not None:
             for a in self.tag['members']:
-                ArtistsMembers.create(ArtistsMembers(id=a['id'], name=a['name'], active=a['active'],
-                                                     artist_id=self.tag['id']))
+                ArtistsMembers.add(ArtistsMembers(id=a['id'], name=a['name'], active=a['active'],
+                                                  artist_id=self.tag['id']))
 
 
 class AddRelease(AddTag):
@@ -98,29 +99,29 @@ class AddRelease(AddTag):
             for img in self.tag['images']:
                 img['release_id'] = self.tag['id']
                 res = ReleasesImages(**self._build_query_params(img, fields))
-                ReleasesImages.create(res)
+                ReleasesImages.add(res)
 
         # Genres
         if self.tag.get('genres') is not None:
             for g in self.tag['genres']:
                 res = ReleasesGenres(genre=g, release_id=self.tag['id'])
-                ReleasesGenres.create(res)
+                ReleasesGenres.add(res)
 
         # Styles
         if self.tag.get('styles') is not None:
             for g in self.tag['styles']:
                 res = ReleasesStyles(style=g, release_id=self.tag['id'])
-                ReleasesStyles.create(res)
+                ReleasesStyles.add(res)
 
         # Album Songs
         fields = ['id', 'position', 'title', 'type', 'duration', 'release_id']
         for track in self.tag['tracklist']:
-            Songs.create(Songs(**self._build_query_params(track, fields)))
+            Songs.add(Songs(**self._build_query_params(track, fields)))
 
         # Album Artists
         for artist in self.tag['artists']:
             res = AddArtist(artist, self.track_id, self.status)
-            ReleasesArtists.create(ReleasesArtists(release_id=self.getId(), artist_id=res.getId()))
+            ReleasesArtists.add(ReleasesArtists(release_id=self.getId(), artist_id=res.getId()))
 
 
 class AddSong(AddTag):
@@ -141,13 +142,13 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
-    Status.create(Status(name='matched'))
-    Status.create(Status(name='pending'))
-    Status.create(Status(name='unmatched'))
-    Status.create(Status(name='full-matched'))
-    Status.create(Status(name='half-matched'))
+    Status.add(Status(name='matched'))
+    Status.add(Status(name='pending'))
+    Status.add(Status(name='unmatched'))
+    Status.add(Status(name='full-matched'))
+    Status.add(Status(name='half-matched'))
 
-    for ep in json_data['episodes']:    # [1:2]:
+    for ep in json_data['episodes']:    #[0:1]:
 
         new_episode = Episodes(id=ep['id'],
                                title=ep['title'],
@@ -158,10 +159,10 @@ with app.app_context():
                                podcast=ep['podcast_link'],
                                thumb=ep['image']['src']
                                )
-        Episodes.create(new_episode)
+        Episodes.add(new_episode)
 
         for cat in ep['categories']:
-            EpisodesCategories.create(EpisodesCategories(category=cat, episode_id=ep['id']))
+            EpisodesCategories.add(EpisodesCategories(category=cat, episode_id=ep['id']))
 
         print("AddEpisode ({}) - {}".format(new_episode.id, ep['title']))
 
@@ -171,9 +172,9 @@ with app.app_context():
                                position=track['position'],
                                resolved=track['resolved']
                                )
-            Tracks.create(new_track)
+            Tracks.add(new_track)
 
-            TracksTagQuery.create(
+            TracksTagQuery.add(
                 TracksTagQuery(
                     track_id=new_track.id,
                     song=track['query']['song'],
