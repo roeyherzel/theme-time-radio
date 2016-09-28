@@ -9,13 +9,6 @@ class get_status_name(fields.Raw):
         return Status.getNameById(getattr(obj, key))
 
 
-TopReleaseSchema = {
-    'release_id': fields.Integer,
-    'release_path': fields.FormattedString("releases/{release_id}"),
-    'play_count': fields.Integer
-}
-
-
 ImageSchema = {
     'id': fields.Integer,
     'type': fields.String,

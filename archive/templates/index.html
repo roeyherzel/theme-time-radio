@@ -2,8 +2,7 @@
 
 {% block script %}
   <script src="{{ url_for('static', filename='js/index.js') }}"
-          data-episode-list="{{ url_for('episode_api') }}"
-          data-top-releases="{{ url_for('top_releases_api') }}">
+          data-episode-list="{{ url_for('episode_api') }}">
   </script>
 {% endblock %}
 
@@ -21,14 +20,14 @@
 
 
 {% block content %}
-  <div class="container">
+  <div class="container-fluid page-content">
 
     <h3>Latest Episodes</h3>
     <hr class="hr-thin">
 
     <div class="row ep-list">
-      <div class="col-md-2 ep-card text-center">
-        <div class="box">
+      <div class="col-md-2 ep-card">
+        <div class="box text-center">
           <img class="ep-thumb" src="" alt="...">
           <div class="ep-info">
             <div class="ep-title"></div>
@@ -38,12 +37,54 @@
       </div>
     </div>
 
-
-    <h3>Top Played Artists</h3>
+    <h3>Popular</h3>
     <hr class="hr-thin">
 
-    <h3>Top Played Albums</h3>
-    <hr class="hr-thin">
+    <div class="top-list row">
+
+      <div class="col-md-4">
+        <div class="box">
+          <h4>
+            Artists<span class="glyphicon glyphicon glyphicon-cd" data-toggle="tooltip" title="Play Count"></span>
+          </h4>
+          <div class="top-artist-list">
+            <table class="table table-condensed">
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="box">
+          <h4>
+            Albums<span class="glyphicon glyphicon glyphicon-cd" data-toggle="tooltip" title="Play Count"></span>
+          </h4>
+          <div class="top-release-list">
+            <table class="table table-condensed">
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="box">
+          <h4>
+            Songs<span class="glyphicon glyphicon glyphicon-cd" data-toggle="tooltip" title="Play Count"></span>
+          </h4>
+          <div class="top-song-list">
+            <table class="table table-condensed">
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </div><!-- /.container -->
 {% endblock %}
@@ -51,22 +92,57 @@
 
 {% block style %}
   <style>
+    .page-content h3 {
+      text-align: center;
+    }
+    .page-content h4 {
+      padding-left: 6px;
+    }
+    .top-list td.title {
+      font-size: 13px;
+    }
+    .top-list td.thumb {
+      width: 65px;
+    }
+    .top-list img {
+      width: 50px;
+    }
+    .top-list td.play-count {
+      text-align: right;
+      width: 60px;
+    }
+    .top-list table {
+      margin-top: 0;
+    }
+
+
+    .top-list table td {
+      max-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-list .box {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    .top-list span.glyphicon {
+      float: right;
+      color: #1ED760;
+    }
+
     .ep-list {
-      padding: 10px 0 0 15px;
-      margin-left: 0;
-      margin-right: 0;
-      margin-bottom: 50px;
+      padding: 5px;
+      margin: 10px;
     }
     .ep-card > .box {
-      padding: 0;
-      margin:0;
-    }
-    .ep-card {
       width: 200px;
       padding: 0;
       margin-left: 0;
       margin-right: 25px;
       margin-bottom: 20px;
+      margin-top: 0;
     }
     .ep-thumb {
       width: 200px;
@@ -87,7 +163,6 @@
     .ep-title {
       height: 3em;
       overflow: hidden;
-      //white-space: nowrap;
       text-overflow: ellipsis;
     }
 

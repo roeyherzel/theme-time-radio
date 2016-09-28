@@ -29,15 +29,18 @@ api.add_resource(ApiTracksSongs, '/api/tracks/<int:track_id>/match/song', endpoi
 api.add_resource(ApiArtist, '/api/artists', '/api/artists/<int:artist_id>', endpoint='artist_api')
 api.add_resource(ApiArtistsReleases, '/api/artists/<int:artist_id>/releases', endpoint='artist_releases_api')
 api.add_resource(ApiArtistsEpisodes, '/api/artists/<int:artist_id>/episodes', endpoint='artist_episodes_api')
+api.add_resource(ApiTopArtists, '/api/artists/top', endpoint='top_artists_api')
 
 # Release
 api.add_resource(ApiRelease, '/api/releases', '/api/releases/<int:release_id>', endpoint='releases_api')
 api.add_resource(ApiReleasesArtists, '/api/releases/<int:release_id>/artists', endpoint='release_artists_api')
 api.add_resource(ApiReleasesEpisodes, '/api/releases/<int:release_id>/episodes', endpoint='releases_episodes_api')
-api.add_resource(ApiTopRelease, '/api/releases/top', endpoint='top_releases_api')
+api.add_resource(ApiTopReleases, '/api/releases/top', endpoint='top_releases_api')
 
 # Song
 api.add_resource(ApiSong, '/api/songs/<string:song_id>', endpoint='songs_api')
 api.add_resource(ApiSongsEpisodes, '/api/songs/<string:song_id>/episodes', endpoint='songs_episodes_api')
+api.add_resource(ApiTopSongs, '/api/songs/top', endpoint='top_songs_api')
+
 
 import archive.views
