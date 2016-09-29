@@ -1,5 +1,5 @@
 
-function showReleaseInfo(releasePath, options) {
+function showReleaseInfo(release_url, options) {
 
   // defaults
   var linkReleaseTitle = false,
@@ -10,7 +10,7 @@ function showReleaseInfo(releasePath, options) {
     showTracklist = options.showTracklist || showTracklist;
   }
 
-  $.getJSON(api_for(releasePath), function(releaseObj, status) {
+  $.getJSON(release_url, function(releaseObj, status) {
 
     var primaryImage = releaseObj.images.filter(function(img) { return img.type === 'primary' }),
         restOfImages = releaseObj.images.filter(function(img) { return img.type !== 'primary' });
@@ -20,7 +20,7 @@ function showReleaseInfo(releasePath, options) {
 
     // Title
     if (linkReleaseTitle) {
-      $('.release-title').html(make_link(releasePath, releaseObj.title));
+      $('.release-title').html(make_link(releaseObj.resource_path, releaseObj.title));
     } else {
       $('.release-title').text(releaseObj.title);
     }
@@ -41,7 +41,7 @@ function showReleaseInfo(releasePath, options) {
     });
 
     // Artists
-    $.getJSON(api_for(releasePath + '/artists'), function(artistList, status) {
+    $.getJSON(release_url + '/artists', function(artistList, status) {
       artistList.forEach(function(artist) {
         $('<span>').html(make_link(artist.resource_path, artist.name))
                    .appendTo('.release-artists');

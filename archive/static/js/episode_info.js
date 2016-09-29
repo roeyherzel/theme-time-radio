@@ -51,8 +51,6 @@ function loadTrackList() {
 
     tracklist.tracklist.forEach(function(currentTrack, index) {
 
-      console.log(trackCard);
-
       var trackSelector = '#' + currentTrack.id,
           trackTagStatus = currentTrack.tags_status[0],
           trackTagQuery = currentTrack.tags_query[0],
@@ -110,7 +108,7 @@ function loadTrackList() {
 
           // unmatched
           } else {
-            console.log(trackTagQuery[resource]);
+
             if (trackTagQuery[resource]) {
               $(trackSelector).find(resourceSelector).text(trackTagQuery[resource]);
             } else {
@@ -158,12 +156,11 @@ $(document).on('click', 'button[name="buttonSubmitMatch"]', function() {
         });
 });
 
-// TODO: only reload when change was made
+// TODO: don't reload if button wasn't submmited
 $('#myModal').on('hidden.bs.modal', function () {
 
-  //FIXME: need to change from clone to createElement
- //loadTrackList();
- location.reload();
+  location.reload();
+
 });
 
 $(document).ready(function() {

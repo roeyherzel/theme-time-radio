@@ -7,47 +7,56 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title">Edit Track</h3>
+        <h3 class="modal-title text-center">Edit Track</h3>
       </div>
 
       <div class="modal-body">
 
         <div class="box" id="trackInfo">
 
-          <table>
-            <tbody>
-              <tr>
-                <td>Original Title</td>
-                <td class="well well-sm original-title hebrew"></td>
-                <td style="padding: 0 10px 0 10px">Type</td>
-                <td class="well well-sm track-type"></td>
-              </tr>
+          <h5 class="box-title">Track Info</h5>
+          <hr>
+          <div class="row">
+            <div class="col-md-8">
+              <div>Original Title</div>
+              <div class="well well-sm original-title hebrew"></div>
+            </div>
+            <div class="col-md-4">
+              <div>Type</div>
+              <div class="well well-sm track-type"></div>
+            </div>
+          </div>
 
-              <tr class="tag-query">
-                <td>Artist</td>
-                <td class="well well-sm query-artist">-</td>
-              </tr>
-              <tr class="tag-query">
-                <td>Album</td>
-                <td class="well well-sm query-album">-</td>
-              </tr>
-              <tr class="tag-query">
-                <td>Song</td>
-                <td class="well well-sm query-song">-</td>
-              </tr>
-            </tbody>
-          </table>
+        </div>
+
+        <div class="box" id="trackQuery">
+          <h5 class="box-title">Tag Search Parameters</h5>
+          <hr>
+          <div class="row tag-query">
+            <div class="col-md-4">
+              <div>Artist</div>
+              <div class="well well-sm query-artist">-</div>
+            </div>
+            <div class="col-md-4">
+              <div>Album</div>
+              <div class="well well-sm query-album">-</div>
+            </div>
+            <div class="col-md-4">
+              <div>Song</div>
+              <div class="well well-sm query-song">-</div>
+            </div>
+          </div>
 
         </div>
 
         <!-- Artist Info -->
-        <div class="box" id="artistInfo">
+        <div class="box resource-info" id="artistInfo">
         </div>
         <!-- Album Info -->
-        <div class="box" id="releaseInfo">
+        <div class="box resource-info" id="releaseInfo">
         </div>
         <!-- Song Info -->
-        <div class="box" id="songInfo">
+        <div class="box resource-info" id="songInfo">
         </div>
 
       </div> <!-- modal-content-->
@@ -61,11 +70,16 @@
 </div>
 
 <style>
-
-
-  #trackInfo tr td:first-child {
-    text-align: right;
-    padding-right: 10px;
+  #trackQuery hr,
+  #trackInfo hr {
+    margin-top: 0;
   }
-
+  .modal-body .box-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .modal div.row > div > div:first-child {
+    padding-left: 2px;
+    padding-bottom: 2px;
+  }
 </style>

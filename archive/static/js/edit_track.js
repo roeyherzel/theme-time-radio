@@ -115,13 +115,13 @@ function showTrackEditModal(trackId) {
 
       if (trackData.resolved === false) {
         $myModal.find('.track-type').text('Other');
-        $myModal.find('.tag-query').hide();
-        $myModal.find('.box[id!=trackInfo]').hide();
+        $myModal.find('.resource-info').hide();
+        $myModal.find('.box[id!="trackQuery"]').hide();
 
         return $myModal.modal("show");
       }
-      $myModal.find('.tag-query').show();
-      $myModal.find('.box[id!=trackInfo]').show();
+      $myModal.find('.resource-info').show();
+      $myModal.find('.box[id!="trackQuery"]').show();
       $myModal.find('.query-song').text(trackData.tags_query[0].song);
       $myModal.find('.query-release').text(trackData.tags_query[0].release);
       $myModal.find('.query-artist').text(trackData.tags_query[0].artist);
@@ -178,7 +178,7 @@ function showTrackEditModal(trackId) {
           // Create submit button
           $(document.createElement('button')).text("Match")
                                              .addClass("btn btn-default")
-                                             .attr({'type': 'button', 'name': 'buttonSubmitMatch', 'data-resource': resource})
+                                             .attr({'type': 'submit', 'name': 'buttonSubmitMatch', 'data-resource': resource})
                                              .appendTo($resourceBox);
         } else {
           $header_status.addClass('label-unmatched');

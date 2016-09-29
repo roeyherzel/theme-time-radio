@@ -81,7 +81,7 @@ class ApiTracksReleases(Resource):
         # Attach matched releases songs to pending track songs
         for s in Songs.query.filter_by(release_id=release_id):
             print("match- adding song_id({}) -> track_id({}): status(pending)".format(s.id, track_id))
-            TracksSongs.create(TracksSongs(track_id=track_id, song_id=s.id, status=Status.getIdByName('pending')))
+            TracksSongs.add(TracksSongs(track_id=track_id, song_id=s.id, status=Status.getIdByName('pending')))
 
         return release_id, 201
 

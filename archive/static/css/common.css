@@ -1,4 +1,18 @@
 
+.not-imp,
+.label-year, .label-guest, .label-genre, .label-style, .label-category,
+.btn-bookmark,
+nav a, nav button, nav input,
+button[name="button-ep-played"] {
+  cursor: not-allowed !important;
+}
+
+nav a[href="/episodes"],
+nav a[data-toggle="dropdown"],
+a.navbar-brand {
+  cursor: auto !important;
+}
+
 body {
   //font-family: "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
   font-family: BentonSansRE, Verdana, sans-serif;
@@ -90,17 +104,13 @@ body {
 
 }
 
-.label-date {
-  background-color: #CFD8DC;
-  color: black;
-}
-
 .label-year {
   background-color: #27A66B;
   color: white;
 }
 .label-guest {
-  background-color: #EB5A46;
+  background-color: #2EBD59;
+  color: white;
 }
 .label-category {
   background-color: #C377E0;

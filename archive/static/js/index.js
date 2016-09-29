@@ -3,9 +3,8 @@
 function createResourceThumb(args) {
 
   var imgSource = args.resource_data.thumb,
-      aLink = args.resource_data.resource_path;
-
-  var imgDefault = '/static/images/default-cd.png',
+      aLink = args.resource_data.resource_path,
+      imgDefault = '/static/images/default-cd.png',
       imgArtist = '/static/images/default-artist.png';
       imgClass = 'img-rounded';
 
@@ -26,6 +25,8 @@ function createResourceThumb(args) {
 
 function addRow(tbody, index, play_count, resource) {
 
+  var titleField = (resource === 'artist') ? 'name' : 'title';
+
   return function(data, status) {
     var $tr = $(document.createElement("tr")).attr('id', "index"+index);
 
@@ -36,7 +37,10 @@ function addRow(tbody, index, play_count, resource) {
     .addClass("thumb").appendTo($tr);
 
     // title
-    $(document.createElement("td")).text(data.title || data.name).addClass("title").appendTo($tr);
+    $(document.createElement("td")).html(
+      make_link(data.resource_path, data[titleField])
+    )
+    .addClass("title").appendTo($tr);
 
     // play count
     $(document.createElement("td")).text(play_count).addClass("play-count").appendTo($tr);

@@ -2,7 +2,7 @@
 
 {% block script %}
   <script src="{{ url_for('static', filename='js/release_info.js') }}"
-          data-endpoint="{{ url_for('release_info', release_id=release.id) }}">
+          data-endpoint="{{ url_for('releases_api', release_id=release.id, _external=True) }}">
   </script>
 {% endblock %}
 

@@ -15,7 +15,7 @@ function getDomain(url) {
 $(document).ready(function() {
   var artist_endpoint = $('script[data-artist-endpoint]').attr('data-artist-endpoint');
 
-  $.getJSON(api_for(artist_endpoint), function(artistData, status) {
+  $.getJSON(artist_endpoint, function(artistData, status) {
 
     var images = artistData.images,
         pri_image;
@@ -42,7 +42,7 @@ $(document).ready(function() {
       /* NOTE: WORKAROUND - for urls that have been filtered out by api marshal field validation */
       if (url) {
         var website_domain = getDomain(url.url);
-        var website_favicon = "url(http://grabicon.com/icon?domain=" + website_domain + "&size=16)";
+        var website_favicon = "url(https://www.google.com/s2/favicons?domain=" + website_domain + ")";
 
         $('<li>').html(make_link(url.url, website_domain).attr('target', '_blank'))
                  .addClass('favicon')
@@ -67,7 +67,7 @@ $(document).ready(function() {
         release_card = $('.release-card')
     $('.release-card').remove()
 
-    $.getJSON(api_for(artist_endpoint + '/releases'), function(data, status) {
+    $.getJSON(artist_endpoint + '/releases', function(data, status) {
 
       data.forEach(function(release, index) {
         console.log(release);

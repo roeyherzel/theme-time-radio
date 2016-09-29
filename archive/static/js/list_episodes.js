@@ -1,7 +1,7 @@
 
-function showEpisodesList(episodes_endpoint) {
+function showEpisodesList(episodes_url) {
 
-  $.getJSON(api_for(episodes_endpoint), function(data, status) {
+  $.getJSON(episodes_url, function(data, status) {
 
     var ep_row = $('.ep-card');
     $('.ep-card').remove();
@@ -21,9 +21,6 @@ function showEpisodesList(episodes_endpoint) {
                  .attr('src', episodeData.thumb)
                  .wrap(make_link(episodeData.resource_path));
 
-      // date as category
-      $(ep_clone).find('.ep-date').text(str_to_date(episodeData.date_pub));
-
       // guest as category
       if (episodeData.guest) {
         $('<li>').append($('<span>').text(episodeData.guest).addClass('label label-guest'))
@@ -34,6 +31,12 @@ function showEpisodesList(episodes_endpoint) {
         $('<li>').append($('<span>').text(cat.category).addClass('label label-category'))
                  .appendTo($(ep_clone).find('.ep-categories'));
       });
+
+      // date - must be last inorder to be showen first from the right
+      $('<li>').append(
+        $('<span>').text(str_to_date(episodeData.date_pub)).addClass('label label-date')
+      )
+      .appendTo($(ep_clone).find('.ep-categories'));
 
       $(ep_clone).appendTo('.ep-list');
 

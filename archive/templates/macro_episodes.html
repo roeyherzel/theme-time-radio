@@ -1,6 +1,6 @@
 
 {% macro list() -%}
-<div class="box">
+<div class="box" id="episodesListMacro">
   <h3 class="box-title">Episodes</h3>
   <table class="table table-condensed table-hover">
 
@@ -22,8 +22,8 @@
             <span class="ep-title"></span>
           </h5>
           <p class="ep-plot small"></p>
-          <ul class="list-inline ep-categories">
-            <li><span class="ep-date label label-date"></span></li>
+          <ul class="ep-categories list-inline text-right">
+            <li><span class="ep-date label"></span></li>
           </ul>
         </td>
 
@@ -48,6 +48,15 @@
   }
   .ep-title {
     font-weight: bold;
+  }
+  .label-date {
+    //float: right;
+    border: 1px solid #333333;
+    background-color: transparent;
+    color: #333333;
+    //margin-right: 15px;
+    //font-weight: normal;
+    //font-size: 13px;
   }
   .ep-plot {
     margin-bottom: 5px;

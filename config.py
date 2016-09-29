@@ -4,6 +4,7 @@ if os.environ.get('DATABASE_URL') is not None:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 else:
     SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:password@localhost/flasker'
+    DEBUG = True
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 

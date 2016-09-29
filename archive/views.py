@@ -43,6 +43,11 @@ def episode_info(episode_id):
     return render_template('info_episode.html', ep=ep)
 
 
+@app.route('/episodes')
+def all_episodes():
+    return render_template('all_episodes.html')
+
+
 @app.route('/')
 def index():
     ep_latest = Episodes.query.order_by(Episodes.date_pub).limit(6).all()

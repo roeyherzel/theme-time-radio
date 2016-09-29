@@ -2,8 +2,8 @@
 
 {% block script %}
   <script src="{{ url_for('static', filename='js/song_info.js') }}"
-          data-song-endpoint="{{ url_for('song_info', song_id=song.id) }}"
-          data-release-endpoint="{{ url_for('release_info', release_id=song.release_id) }}">
+          data-song-endpoint="{{ url_for('songs_api', song_id=song.id, _external=True) }}"
+          data-release-endpoint="{{ url_for('releases_api', release_id=song.release_id) }}">
   </script>
 {% endblock %}
 
