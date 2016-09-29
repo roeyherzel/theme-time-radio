@@ -36,7 +36,7 @@ class AddTag():
 
     def _build_query_params(self, tag, fields=None):
         fields = fields if fields else self.fields
-        qp = dict([(i, tag[i]) for i in fields])
+        qp = dict([(i, tag.get(i)) for i in fields])
         return qp
 
     def addResource(self):

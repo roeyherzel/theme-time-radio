@@ -219,15 +219,15 @@ class Episode():
         print('=' * 50)
 
 
+ep_list = list()
 for feed in feed_files:
     data = set_args(feedparser.parse(feed).entries)
-    ep_list = list()
 
     for ep in data:
         myEpisode = Episode(ep)
         ep_list.append(myEpisode)
         print("--------------\n")
 
-    with open('db.json', 'w') as f:
-        f.write(json.dumps({'episodes': ep_list},
-                default=lambda x: x.__dict__, ensure_ascii=False))
+with open('db.json', 'w') as f:
+    f.write(json.dumps({'episodes': ep_list},
+            default=lambda x: x.__dict__, ensure_ascii=False))

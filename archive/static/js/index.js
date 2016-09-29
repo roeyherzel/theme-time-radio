@@ -8,10 +8,10 @@ function createResourceThumb(args) {
       imgArtist = '/static/images/default-artist.png';
       imgClass = 'img-rounded';
 
-  if (args.resource === 'artist') {
+  if (args.resource_name === 'artist') {
     imgDefault = imgArtist;
     imgClass = 'img-circle';
-
+  
   } else if (args.resource_name === 'song') {
     imgSource = args.resource_data.release.thumb;
   }
