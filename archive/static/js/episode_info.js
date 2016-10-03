@@ -99,6 +99,7 @@ function loadTrackList() {
         } else if (trackTagStatus[resource] === "pending") {
             var pending_count = currentTrack['tags_' + resource].length;
 
+            queryOrMissing(resource, trackTagQuery, trackSelector, resourceSelector, statusSelector);
             $(trackSelector).find(statusSelector)
                             .addClass('glyphicon glyphicon-exclamation-sign')
                             .attr({
@@ -108,17 +109,8 @@ function loadTrackList() {
 
           // unmatched
           } else {
+            queryOrMissing(resource, trackTagQuery, trackSelector, resourceSelector, statusSelector);
 
-            if (trackTagQuery[resource]) {
-              $(trackSelector).find(resourceSelector).text(trackTagQuery[resource]);
-            } else {
-              $(trackSelector).find(statusSelector)
-                              .addClass('glyphicon glyphicon-question-sign')
-                              .attr({
-                                'data-toggle': "tooltip", 'title': "Missing " + capitalize(resource) + " Information"
-                              });
-
-            }
           }
           $('[data-toggle="tooltip"]').tooltip();
         }); // forEach resource
@@ -130,6 +122,18 @@ function loadTrackList() {
   }); // AJAX tracklist
 }
 
+function queryOrMissing(resource, trackTagQuery, trackSelector, resourceSelector) {
+  if (trackTagQuery[resource]) {
+    $(trackSelector).find(resourceSelector).text(trackTagQuery[resource]);
+  } else {
+    $(trackSelector).find(resourceSelector).text("-").css('font-style', 'italic').addClass('text-muted');
+    /*$(trackSelector).find(resourceSelector)
+                    .addClass('glyphicon glyphicon-question-sign')
+                    .attr({
+                      'data-toggle': "tooltip", 'title': "Missing " + capitalize(resource) + " Information"
+                    });*/
+  }
+}
 $(document).on('click', 'button[name="buttonTrackEdit"]', function() {
   var trackId = $(this).attr('id');
   showTrackEditModal(trackId);
