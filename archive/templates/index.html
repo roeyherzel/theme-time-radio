@@ -22,69 +22,77 @@
 {% block content %}
   <div class="container-fluid page-content">
 
-    <h3>Latest Episodes</h3>
-    <hr class="hr-thin">
-
-    <div class="row ep-list">
-      <div class="col-md-2 ep-card">
-        <div class="box text-center">
+    <h3>
+      <span class="strong">Recent Episodes</span>
+      <a class="see-all" href="/episodes">See All</a>
+    </h3>
+<!--    <hr class="hr-thin">
+-->
+    <div class="row ep-list box">
+      <div class="col-lg-2 ep-card">
+        <div class="text-center">
           <img class="ep-thumb" src="" alt="...">
           <div class="ep-info">
+            <div class="ep-date text-muted"></div>
             <div class="ep-title"></div>
           </div>
-          <div class="ep-date small text-muted"></div>
         </div>
       </div>
     </div>
 
-    <h3>Popular Music</h3>
-    <hr class="hr-thin">
+    <hr>
+    <h3>
+      <span class="strong">Top Artists</span>
+      <a class="see-all not-imp" href="/artists">See All</a>
+    </h3>
 
-    <div class="top-list row">
-
-      <div class="col-md-4">
-        <div class="box">
-          <h4>
-            Artists<span class="glyphicon glyphicon glyphicon-cd" data-toggle="tooltip" title="Play Count"></span>
-          </h4>
-          <div class="top-artist-list">
-            <table class="table table-condensed">
-              <tbody>
-              </tbody>
-            </table>
+    <div class="row text-center top-artist-list box">
+      <div class="col-md-2 top-card">
+        <div class="text-center">
+          <img class="img-circle" src="" alt="...">
+          <div class="top-info">
+            <div class="top-title"></div>
           </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="box">
-          <h4>
-            Albums<span class="glyphicon glyphicon glyphicon-cd" data-toggle="tooltip" title="Play Count"></span>
-          </h4>
-          <div class="top-release-list">
-            <table class="table table-condensed">
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="box">
-          <h4>
-            Songs<span class="glyphicon glyphicon glyphicon-cd" data-toggle="tooltip" title="Play Count"></span>
-          </h4>
-          <div class="top-song-list">
-            <table class="table table-condensed">
-              <tbody>
-              </tbody>
-            </table>
-          </div>
+          <div class="top-count small text-muted"></div>
         </div>
       </div>
     </div>
 
+    <hr>
+    <h3>
+      <span class="strong">Top Albums</span>
+      <a class="see-all not-imp" href="/albums">See All</a>
+    </h3>
+
+    <div class="row text-center top-release-list box">
+      <div class="col-md-2 top-card">
+        <div class="text-center">
+          <img class="img-rounded" src="" alt="...">
+          <div class="top-info">
+            <div class="top-title"></div>
+          </div>
+          <div class="top-count small text-muted"></div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <h3>
+      <span class="strong">Top Songs</span>
+      <a class="see-all not-imp" href="/songs">See All</a>
+    </h3>
+
+    <div class="row text-center top-song-list box">
+      <div class="col-md-2 top-card">
+        <div class="text-center">
+          <img class="img-thumbnail" src="" alt="...">
+          <div class="top-info">
+            <div class="top-title"></div>
+          </div>
+          <div class="top-count small text-muted"></div>
+        </div>
+      </div>
+    </div>
 
   </div><!-- /.container -->
 {% endblock %}
@@ -92,77 +100,53 @@
 
 {% block style %}
   <style>
-    .page-content {
-      margin-left: 40px;
-      margin-right: 40px;
-    }
-    .page-content h3 {
-      text-align: center;
-    }
     .page-content h4 {
       padding-left: 6px;
     }
-    .top-list td.title {
+    .top-card div.top-title {
       font-size: 13px;
-    }
-    .top-list td.thumb {
-      width: 65px;
-    }
-    .top-list img {
-      width: 50px;
-    }
-    .top-list td.play-count {
-      text-align: right;
-      width: 60px;
-    }
-    .top-list table {
-      margin-top: 0;
-    }
-
-
-    .top-list table td {
-      max-width: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
-    .top-list .box {
-      margin-left: 5px;
-      margin-right: 5px;
+    .top-card img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
     }
-    .top-list span.glyphicon {
+
+    .top-card span.glyphicon {
       float: right;
       color: #1ED760;
     }
 
+    .see-all {
+      float: right;
+      font-size: 60%;
+      line-height: 36px;
+    }
+
     .ep-list {
-      padding: 5px;
-      margin: 10px;
+      padding-right: 0;
+      padding-left: 0;
     }
-    .ep-card > .box {
-      width: 200px;
-      padding: 0;
-      margin-left: 0;
-      margin-right: 25px;
-      margin-bottom: 20px;
-      margin-top: 0;
-    }
+
     .ep-thumb {
-      width: 200px;
-      height: 150px;
+      height: 130px;
+      width: 160px;
       object-fit: cover;
     }
-    .ep-date,
+
     .ep-info {
       padding: 10px 5px 5px 10px;
       text-align: left;
     }
     .ep-date {
-      padding-top: 5px;
-      border-top-width: 1px;
-      border-top-style: solid;
-      border-top-color: rgb(235, 235, 235);
+      padding: 0 0 5px 0;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: rgb(235, 235, 235);
+      font-size: 10px;
     }
     .ep-title {
       height: 3em;
@@ -170,5 +154,9 @@
       text-overflow: ellipsis;
     }
 
+    .top-title {
+      padding-top: 5px;
+      text-align: center;
+    }
   </style>
 {% endblock %}

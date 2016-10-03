@@ -30,7 +30,8 @@ SongSchema = {
             'id': fields.Integer,
             'title': fields.String,
             'thumb': fields.String,
-            'year': fields.Integer
+            'year': fields.Integer,
+            'images': fields.List(fields.Nested(ImageSchema)),
         })
 }
 

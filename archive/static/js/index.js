@@ -1,52 +1,26 @@
 
+var imgDefault = '/static/images/default-cd.png',
+    imgDefaultArtist = '/static/images/default-artist.png';
 
-function createResourceThumb(args) {
+function getResourceThumb(args) {
 
-  var imgSource = args.resource_data.thumb,
-      aLink = args.resource_data.resource_path,
-      imgDefault = '/static/images/default-cd.png',
-      imgArtist = '/static/images/default-artist.png';
-      imgClass = 'img-rounded';
+  var images, imagesPri, imgSource;
 
-  if (args.resource_name === 'artist') {
-    imgDefault = imgArtist;
-    imgClass = 'img-circle';
-  
-  } else if (args.resource_name === 'song') {
-    imgSource = args.resource_data.release.thumb;
+  console.log(args.resource_data.release);
+  images = (args.resource_name !== 'song') ? args.resource_data.images : args.resource_data.release.images;
+
+  if (images) {
+    imagesPri = images.filter(function(img) {
+      return img.type === 'primary';
+    });
+    images = (imagesPri.length !== 0) ? imagesPri : images;
+    imgSource = images[0].uri;
+
+  } else {
+    imgSource = (args.resource_name === 'artist') ? imgDefaultArtist : imgDefault;
   }
 
-  return make_link(aLink).html(
-    $(document.createElement("img")).addClass(imgClass).attr('src', imgSource || imgDefault)
-  );
-
-}
-
-
-function addRow(tbody, index, play_count, resource) {
-
-  var titleField = (resource === 'artist') ? 'name' : 'title';
-
-  return function(data, status) {
-    var $tr = $(document.createElement("tr")).attr('id', "index"+index);
-
-    // thumb
-    $(document.createElement("td")).append(
-      createResourceThumb({'resource_data': data, 'resource_name': resource})
-    )
-    .addClass("thumb").appendTo($tr);
-
-    // title
-    $(document.createElement("td")).html(
-      make_link(data.resource_path, data[titleField])
-    )
-    .addClass("title").appendTo($tr);
-
-    // play count
-    $(document.createElement("td")).text(play_count).addClass("play-count").appendTo($tr);
-
-    $tr.appendTo($(tbody));
-  }
+  return imgSource;
 }
 
 
@@ -77,35 +51,57 @@ $(document).ready(function() {
 
   });
 
-  // Top Artists
-  $.getJSON(api_for("/artists/top"), {'limit': 5}, function(topArtists, status) {
 
-    $tbody = $('.top-artist-list tbody');
+  $.getJSON(api_for("/artists/top"), {'limit': 6}, function(topResource, status) {
+    var resource = 'artist',
+        $topResourceList = $('.top-artist-list'),
+        $resourceCardDiv = $topResourceList.find('.top-card');
 
-    for(var i = 0; i < topArtists.length ; i++) {
-      $.getJSON(api_for(topArtists[i].artist_path), addRow($tbody, i, topArtists[i].play_count, 'artist'));
-    }
-  });
+    $topResourceList.find('.top-card').remove();
 
-  // Top Releases
-  $.getJSON(api_for("/releases/top"), {'limit': 5}, function(topReleases, status) {
-
-    $tbody = $('.top-release-list tbody');
-
-    for(var i = 0; i < topReleases.length ; i++) {
-      $.getJSON(api_for(topReleases[i].release_path), addRow($tbody, i, topReleases[i].play_count, 'release'));
-    }
-  });
-
-  // Top Songs
-  $.getJSON(api_for("/songs/top"), {'limit': 5}, function(topSongs, status) {
-
-    $tbody = $('.top-song-list tbody');
-
-    for(var i = 0; i < topSongs.length ; i++) {
-      $.getJSON(api_for(topSongs[i].song_path), addRow($tbody, i, topSongs[i].play_count, 'song'));
+    for(var i = 0; i < topResource.length; i++) {
+      addTopResource(resource, topResource[i], $resourceCardDiv, $topResourceList)
     }
 
   });
 
+  $.getJSON(api_for("/releases/top"), {'limit': 6}, function(topResource, status) {
+    var resource = 'release',
+        $topResourceList = $('.top-release-list'),
+        $resourceCardDiv = $topResourceList.find('.top-card');
+
+    $topResourceList.find('.top-card').remove();
+
+    for(var i = 0; i < topResource.length; i++) {
+      addTopResource(resource, topResource[i], $resourceCardDiv, $topResourceList)
+    }
+
+  });
+
+  $.getJSON(api_for("/songs/top"), {'limit': 6}, function(topResource, status) {
+    var resource = 'song',
+        $topResourceList = $('.top-song-list'),
+        $resourceCardDiv = $topResourceList.find('.top-card');
+
+    $topResourceList.find('.top-card').remove();
+
+    for(var i = 0; i < topResource.length; i++) {
+      addTopResource(resource, topResource[i], $resourceCardDiv, $topResourceList)
+    }
+
+  });
 });
+
+
+function addTopResource(resource, topResource, $resourceCardDiv, $topResourceList) {
+  var data = topResource[resource],
+      playCount = topResource['play_count'],
+      $resourceClone = $resourceCardDiv.clone();
+
+      $resourceClone.find('img').attr('src', getResourceThumb({'resource_data': data, 'resource_name': resource}))
+                            .wrap(make_link(data.resource_path));
+
+      $resourceClone.find('.top-title').html(make_link(data.resource_path, data.title || data.name));
+      $resourceClone.find('.top-count').text(playCount);
+      $resourceClone.appendTo($topResourceList);
+}
