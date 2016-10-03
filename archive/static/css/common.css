@@ -17,6 +17,11 @@ body {
   //font-family: "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
   font-family: BentonSansRE, Verdana, sans-serif;
   //font-family: "Roboto Condensed", "Droid Sans", arial, sans-serif;
+  padding-top: 0 !important;
+}
+
+.navbar {
+  margin-bottom: 0px;
 }
 
 .navbar-brand {
