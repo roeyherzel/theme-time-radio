@@ -10,11 +10,20 @@
 {% block jumbo %}
   <div class="jumbotron">
     <div class="container">
-      <h1>Life<br>of<br>Others</h1>
-      <h1 class="strong">Archives</h1>
-      <hr class="hr-dark-thin">
-      <p class="lead">Discover Music from the Podcast</p>
+      <div class="row">
+
+        <div class="col-md-4 ">
+          <h1>Life<br>of<br>Others</h1>
+          <h1 class="strong">Archives</h1>
+          <hr class="hr-dark-thin">
+          <p class="lead">Discover Music from the Podcast</p>
+        </div>
+        <div class="col-md-8 text-right">
+          <img src="/static/images/henry-in-library-wono.jpg" alt="" />
+        </div>
+      </div>
     </div>
+
   </div>
 {% endblock %}
 
@@ -53,7 +62,9 @@
           <div class="top-info">
             <div class="top-title"></div>
           </div>
-          <div class="top-count small text-muted"></div>
+          <div>
+            <span class="top-count small text-muted"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -100,9 +111,17 @@
 
 {% block style %}
   <style>
-    .page-content h4 {
-      padding-left: 6px;
+    .jumbotron img {
+      width: 700px;
     }
+    .jumbotron > .row {
+      //margin-left: 50px;
+      //margin-right: 20px;
+    }
+    .page-content h3 {
+        margin-top: 30px;
+    }
+
     .top-card div.top-title {
       font-size: 13px;
       white-space: nowrap;
@@ -154,6 +173,9 @@
       text-overflow: ellipsis;
     }
 
+    .box {
+      margin-bottom: 40px !important;
+    }
     .top-title {
       padding-top: 5px;
       text-align: center;
