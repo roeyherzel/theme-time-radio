@@ -36,6 +36,7 @@ class ApiArtistsSongs(Resource):
                           .join(TracksArtists, (TracksArtists.track_id == TracksSongs.track_id)) \
                           .filter(TracksArtists.artist_id == artist_id) \
                           .filter(TracksSongs.status == Status.getIdByName('matched')) \
+                          .order_by(Songs.release_id) \
                           .all()
 
 

@@ -64,7 +64,18 @@ $(document).ready(function() {
     var $songsUl = $('.song-list');
 
     data.forEach(function(songData) {
-      $(document.createElement('li')).html(make_link(songData.resource_path, songData.title)).appendTo($songsUl);
+      $(document.createElement('li'))
+      .append(
+        $(document.createElement('span')).html(make_link(songData.release.resource_path, songData.release.title).addClass("text-muted"))
+      )
+      .append(
+        $(document.createElement('span')).text(" / ")
+      )
+      .append(
+        $(document.createElement('span')).html(make_link(songData.resource_path, songData.title))
+      )
+      .appendTo($songsUl);
+
     });
   });
 

@@ -75,6 +75,6 @@ function addTopResource(resource, topResource, $resourceCardDiv, $topResourceLis
                             .wrap(make_link(data.resource_path));
 
       $resourceClone.find('.top-title').html(make_link(data.resource_path, data.title || data.name));
-      $resourceClone.find('.top-count').text(playCount);
+      //$resourceClone.find('.top-count').text(playCount);
       $resourceClone.appendTo($topResourceList);
 }

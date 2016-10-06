@@ -66,13 +66,7 @@
 
 {% block info_data %}
   <div class="box">
-    <h3 class="box-title">Songs</h3>
-    <ul class="song-list"></ul>
-  </div>
-
-  <div class="box">
-    <h3 class="box-title">Albums</h3>
-
+    <h3 class="box-title page-header">Albums</h3>
     <div class="row release-list">
       <div class="col-md-3 release-card text-center">
         <div class="box">
@@ -86,6 +80,12 @@
     </div>
 
   </div>
+
+  <div class="box">
+    <h3 class="box-title page-header">Songs</h3>
+    <ul class="song-list"></ul>
+  </div>
+
 {% endblock %}
 
 
@@ -132,7 +132,7 @@
     padding: 0;
     margin-left: 0;
     margin-right: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 70px;
   }
   .release-thumb {
     width: 150px;
@@ -150,6 +150,5 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-
 </style>
 {% endblock %}
