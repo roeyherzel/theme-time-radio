@@ -28,6 +28,7 @@ api.add_resource(ApiTracksSongs, '/api/tracks/<int:track_id>/match/song', endpoi
 # Artist
 api.add_resource(ApiArtist, '/api/artists', '/api/artists/<int:artist_id>', endpoint='artist_api')
 api.add_resource(ApiArtistsReleases, '/api/artists/<int:artist_id>/releases', endpoint='artist_releases_api')
+api.add_resource(ApiArtistsSongs, '/api/artists/<int:artist_id>/songs', endpoint='artist_songs_api')
 api.add_resource(ApiArtistsEpisodes, '/api/artists/<int:artist_id>/episodes', endpoint='artist_episodes_api')
 api.add_resource(ApiTopArtists, '/api/artists/top', endpoint='top_artists_api')
 

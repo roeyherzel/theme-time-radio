@@ -1,5 +1,5 @@
 from archive.models import *
-from archive.common.schemas import ArtistSchema, ReleaseSchema, EpisodeSchema
+from archive.common.schemas import ArtistSchema, ReleaseSchema, SongSchema, EpisodeSchema
 
 from flask_restful import Resource, marshal_with
 
@@ -21,12 +21,22 @@ class ApiArtistsReleases(Resource):
 
     @marshal_with(ReleaseSchema)
     def get(self, artist_id):
-        # TODO: add distinct - list seems to be uniqe but it won't hurt to add 'distinct'
         return Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
                              .join(TracksArtists, (TracksArtists.track_id == TracksReleases.track_id)) \
                              .filter(TracksArtists.artist_id == artist_id) \
                              .filter(TracksReleases.status == Status.getIdByName('matched')) \
                              .all()
+
+
+class ApiArtistsSongs(Resource):
+
+    @marshal_with(SongSchema)
+    def get(self, artist_id):
+        return Songs.query.join(TracksSongs, (TracksSongs.song_id == Songs.id)) \
+                          .join(TracksArtists, (TracksArtists.track_id == TracksSongs.track_id)) \
+                          .filter(TracksArtists.artist_id == artist_id) \
+                          .filter(TracksSongs.status == Status.getIdByName('matched')) \
+                          .all()
 
 
 class ApiArtistsEpisodes(Resource):

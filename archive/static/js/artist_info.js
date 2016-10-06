@@ -17,14 +17,8 @@ $(document).ready(function() {
 
   $.getJSON(artist_endpoint, function(artistData, status) {
 
-    var images = artistData.images,
-        pri_image;
-
-    // Primary Image
-    pri_image = images.find(function(i) { return i.type === 'primary'}) ||
-                images.find(function(i) { return i.type === 'secondary'});
-
-    $('.artist-image').attr('src', pri_image ? pri_image.uri : '/static/images/default-artist.png');
+    // Image
+    $('.artist-image').attr('src', getResourceThumb({'resource_data': artistData, 'resource_name': 'artist'}));
     $('.artist-name').text(artistData.name);
 
     // Real Name
@@ -61,33 +55,44 @@ $(document).ready(function() {
                .appendTo('.artist-groups ul');
     });
 
-
-    // Albums
-    var group = $('.release-list'),
-        release_card = $('.release-card')
-    $('.release-card').remove()
-
-    $.getJSON(artist_endpoint + '/releases', function(data, status) {
-
-      data.forEach(function(release, index) {
-        console.log(release);
-        var release_clone = $(release_card).clone()
-
-        $(release_clone).find('img')
-                        .attr('src', release.thumb || '/static/images/default-release.png')
-                        .wrap(make_link(release.resource_path));
-
-        $(release_clone).find('.release-title')
-                        .text(release.title)
-                        .wrap(make_link(release.resource_path));
-
-        $(release_clone).find('.release-year')
-                        .text(release.year);
-
-        $(release_clone).appendTo(group)
-      });
-    }); // artist/releases ajax
-
   }); // artist ajax
+
+
+  // Songs
+  $.getJSON(artist_endpoint + '/songs', function(data, status) {
+
+    var $songsUl = $('.song-list');
+
+    data.forEach(function(songData) {
+      $(document.createElement('li')).html(make_link(songData.resource_path, songData.title)).appendTo($songsUl);
+    });
+  });
+
+  // Albums
+  $.getJSON(artist_endpoint + '/releases', function(data, status) {
+
+    var $releasesDiv = $('.release-list'),
+        $releaseBox = $('.release-card');
+
+    $('.release-card').remove();
+
+    data.forEach(function(releaseData, index) {
+      var $releaseBoxClone = $releaseBox.clone();
+
+      $releaseBoxClone.find('img')
+                      .attr('src', getResourceThumb({'resource_data': releaseData, 'resource_name': 'release'}))
+                      .wrap(make_link(releaseData.resource_path));
+
+      $releaseBoxClone.find('.release-title')
+                      .text(releaseData.title)
+                      .wrap(make_link(releaseData.resource_path));
+
+      $releaseBoxClone.find('.release-year')
+                      .text(releaseData.year);
+
+      $releaseBoxClone.appendTo($releasesDiv);
+    });
+  });
+
   showEpisodesList(artist_endpoint + '/episodes');
 });

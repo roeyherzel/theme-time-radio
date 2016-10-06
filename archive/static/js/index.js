@@ -1,34 +1,7 @@
 
-var imgDefault = '/static/images/default-cd.png',
-    imgDefaultArtist = '/static/images/default-artist.png';
-
-function getResourceThumb(args) {
-
-  var images, imagesPri, imgSource;
-
-  console.log(args.resource_data.release);
-  images = (args.resource_name !== 'song') ? args.resource_data.images : args.resource_data.release.images;
-
-  if (images) {
-    imagesPri = images.filter(function(img) {
-      return img.type === 'primary';
-    });
-    images = (imagesPri.length !== 0) ? imagesPri : images;
-    imgSource = images[0].uri;
-
-  } else {
-    imgSource = (args.resource_name === 'artist') ? imgDefaultArtist : imgDefault;
-  }
-
-  return imgSource;
-}
-
-
 $(document).ready(function() {
-  var endpoint_ep_list = $('script[data-episode-list]').attr('data-episode-list');
-
   // Latest Episodes
-  $.getJSON(endpoint_ep_list, {'limit': 6}, function(episodes, status) {
+  $.getJSON(api_for("/episodes"), {'limit': 6}, function(episodes, status) {
 
     var ep_card = $('.ep-card'),
         group = $('.ep-list');
