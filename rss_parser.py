@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/local/bin/python3.5
 
 import feedparser
 from bs4 import BeautifulSoup
@@ -13,50 +13,62 @@ Episodes starts at: data.entries[1]
 
 
 class Track(object):
-    def __init__(self, data, track_type):
-        self.track_type = track_type
-        self.artist, self.album, self.song = '', '', ''
-        self.title = data.encode('utf-8')
+    def __init__(self, data, position):
+        self.artist, self.album, self.song = None, None, None
+        self.type = "talk" if data.name == 'p' else "song"
+        self.title = data.get_text()
+        self.position = position
 
-        if track_type == "song":
-            res = self.title.split(b':\xc2\xa0')
+        if self.type == "song":
+            res = self.title.split(u':\xa0')    # whitespace
             if len(res) == 2:
                 self.artist, self.song = res
             else:
-                res = self.title.decode('utf-8').split(u': ')
-                self.artist = res[0].encode('utf-8')
-                self.song = res[1].encode('utf-8')
+                res = self.title.split(u': ')
+                self.artist, self.song = res    # NOTE: this one could raise assert
 
     def __str__(self):
-        if self.track_type == 'song':
-            msg = "{} / {}".format(self.track_type, self.artist, self.song)
-            return "<track ({}) - {} / {}>".format(self.track_type, self.artist, self.song)
+        if self.type == 'song':
+            msg = "{} / {}".format(self.type, self.artist, self.song)
+            return "<track_{} ({}) - {} / {}>".format(self.position, self.type, self.artist, self.song)
         else:
-            return "<track ({}) - {}>".format(self.track_type, self.title)
+            return "<track_{} ({}) - {}>".format(self.position, self.type, self.title)
 
 
 class Episode(object):
     def __init__(self, data):
         self.title = data.title
         self.published_date = data.published_parsed
+        self.description = data.summary
+        self.image = None
+
         self.tags = [t['term'] for t in data.tags]
         self.id = int(re.sub(r'http://www\.themetimeradio\.com/\?p=(.*?)$', r'\1', data.id))
-        self.description = data.summary
         self.media_link = list(filter(lambda x: x.type == 'audio/mpeg', data.links))[0].href
 
-        soup = BeautifulSoup(data.content[0].value, 'html.parser')
-        episode_image = soup.img.attrs['src']
+        # parse html content using 'lxml' because it's faster
+        soup = BeautifulSoup(data.content[0].value, 'lxml')
 
+        # cleanup
+        for s in soup.find_all('script'):
+            s.parent.extract()
+
+        # extract image, and some more cleanup
+        for i in soup.find_all('p'):
+            if i.get_text() == "The Singers and Songs":
+                self.image = i.img.attrs['src']
+                i.extract()
+
+            elif i.get_text().startswith("Read Fred Bal’s Annotations") or i.get_text() == u'\xa0':    # whitespace
+                i.extract()
+
+        # tracklist
         self.tracklist = list()
         tmp_tracklist = soup.find_all(['p', 'li'])
-
-        position = 0
+        position = 1
         for t in tmp_tracklist:
-            if t.name == 'p' and t.text.encode('utf-8').startswith(b'\xe2\x80\x9c'):
-                self.tracklist.append(Track(t.text, 'talk'))
-
-            elif t.name == 'li':
-                self.tracklist.append(Track(t.text, 'song'))
+            self.tracklist.append(Track(t, position))
+            position += 1
 
     def __str__(self):
         return "<episode {} - {}>".format(self.id, self.title)
@@ -64,8 +76,8 @@ class Episode(object):
 
 feedfile = "theme_time_radio_hour.rss"
 data = feedparser.parse(feedfile)
-episode_data = data.entries[1]
 
+episode_data = data.entries[1]
 myEpisode = Episode(episode_data)
 
 print(myEpisode)
