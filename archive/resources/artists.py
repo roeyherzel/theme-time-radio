@@ -1,5 +1,5 @@
 from archive.models import *
-from archive.common.schemas import ArtistSchema, ReleaseSchema, SongSchema, EpisodeSchema
+from archive.common.schemas import ArtistSchema, AlbumSchema, SongSchema, EpisodeSchema
 
 from flask_restful import Resource, marshal_with
 
@@ -17,14 +17,14 @@ class ApiArtist(Resource):
                                 .all()
 
 
-class ApiArtistsReleases(Resource):
+class ApiArtistsAlbums(Resource):
 
-    @marshal_with(ReleaseSchema)
+    @marshal_with(AlbumSchema)
     def get(self, artist_id):
-        return Releases.query.join(TracksReleases, (TracksReleases.release_id == Releases.id)) \
-                             .join(TracksArtists, (TracksArtists.track_id == TracksReleases.track_id)) \
+        return Albums.query.join(TracksAlbums, (TracksAlbums.album_id == Albums.id)) \
+                             .join(TracksArtists, (TracksArtists.track_id == TracksAlbums.track_id)) \
                              .filter(TracksArtists.artist_id == artist_id) \
-                             .filter(TracksReleases.status == Status.getIdByName('matched')) \
+                             .filter(TracksAlbums.status == Status.getIdByName('matched')) \
                              .all()
 
 
@@ -36,7 +36,7 @@ class ApiArtistsSongs(Resource):
                           .join(TracksArtists, (TracksArtists.track_id == TracksSongs.track_id)) \
                           .filter(TracksArtists.artist_id == artist_id) \
                           .filter(TracksSongs.status == Status.getIdByName('matched')) \
-                          .order_by(Songs.release_id) \
+                          .order_by(Songs.album_id) \
                           .all()
 
 

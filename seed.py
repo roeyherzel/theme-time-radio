@@ -85,48 +85,48 @@ class AddArtist(AddTag):
                                                   artist_id=self.tag['id']))
 
 
-class AddRelease(AddTag):
-    def __init__(self, release, track_id, status):
+class AddAlbum(AddTag):
+    def __init__(self, album, track_id, status):
         self.fields = ['id', 'title', 'thumb', 'year']
-        self.resource = Releases
-        self.resource_to_track = TracksReleases
+        self.resource = Albums
+        self.resource_to_track = TracksAlbums
 
-        super().__init__(release, track_id, status)
+        super().__init__(album, track_id, status)
 
         # Images
         if self.tag.get('images') is not None:
-            fields = ['type', 'width', 'height', 'uri', 'uri150', 'resource_url', 'release_id']
+            fields = ['type', 'width', 'height', 'uri', 'uri150', 'resource_url', 'album_id']
             for img in self.tag['images']:
-                img['release_id'] = self.tag['id']
-                res = ReleasesImages(**self._build_query_params(img, fields))
-                ReleasesImages.add(res)
+                img['album_id'] = self.tag['id']
+                res = AlbumsImages(**self._build_query_params(img, fields))
+                AlbumsImages.add(res)
 
         # Genres
         if self.tag.get('genres') is not None:
             for g in self.tag['genres']:
-                res = ReleasesGenres(genre=g, release_id=self.tag['id'])
-                ReleasesGenres.add(res)
+                res = AlbumsGenres(genre=g, album_id=self.tag['id'])
+                AlbumsGenres.add(res)
 
         # Styles
         if self.tag.get('styles') is not None:
             for g in self.tag['styles']:
-                res = ReleasesStyles(style=g, release_id=self.tag['id'])
-                ReleasesStyles.add(res)
+                res = AlbumsStyles(style=g, album_id=self.tag['id'])
+                AlbumsStyles.add(res)
 
         # Album Songs
-        fields = ['id', 'position', 'title', 'type', 'duration', 'release_id']
+        fields = ['id', 'position', 'title', 'type', 'duration', 'album_id']
         for track in self.tag['tracklist']:
             Songs.add(Songs(**self._build_query_params(track, fields)))
 
         # Album Artists
         for artist in self.tag['artists']:
             res = AddArtist(artist, self.track_id, self.status)
-            ReleasesArtists.add(ReleasesArtists(release_id=self.getId(), artist_id=res.getId()))
+            AlbumsArtists.add(AlbumsArtists(album_id=self.getId(), artist_id=res.getId()))
 
 
 class AddSong(AddTag):
     def __init__(self, song, track_id, status):
-        self.fields = ['id', 'position', 'title', 'type', 'duration', 'release_id']
+        self.fields = ['id', 'position', 'title', 'type', 'duration', 'album_id']
         self.resource = Songs
         self.resource_to_track = TracksSongs
 
@@ -170,7 +170,7 @@ with app.app_context():
             new_track = Tracks(episode_id=new_episode.id,
                                title=track['title'],
                                position=track['position'],
-                               resolved=track['resolved']
+                               type=track['type']
                                )
             Tracks.add(new_track)
 
@@ -178,11 +178,11 @@ with app.app_context():
                 TracksTagQuery(
                     track_id=new_track.id,
                     song=track['query']['song'],
-                    release=track['query']['release'],
+                    album=track['query']['album'],
                     artist=track['query']['artist']
                 )
             )
 
             addResourceResults(AddArtist, track['tag']['artist'], new_track.id)
-            addResourceResults(AddRelease, track['tag']['release'], new_track.id)
+            addResourceResults(AddAlbum, track['tag']['album'], new_track.id)
             addResourceResults(AddSong, track['tag']['song'], new_track.id)

@@ -14,9 +14,6 @@ function showEpisodesList(episodes_url) {
       $(ep_clone).find('.ep-title')
                  .html(make_link(episodeData.resource_path, episodeData.title));
 
-      $(ep_clone).find('.ep-plot')
-                 .text(episodeData.plot);
-
       $(ep_clone).find('.ep-thumb')
                  .attr('src', episodeData.thumb)
                  .wrap(make_link(episodeData.resource_path));

@@ -63,11 +63,11 @@ function loadTrackList() {
       $(trackClone).find('.track-pos').text(currentTrack.position);
       $(trackClone).appendTo('tbody.track-list');
 
-      // not resolved or type other
-      if (currentTrack.resolved === false) {
+      // not type or type other
+      if (currentTrack.type === 'talk') {
         $(trackClone).find('.track-thumb').attr('src', '/static/images/default-microphone.png');
         $(trackClone).find('.track-artist').parent().remove();
-        $(trackClone).find('.track-release').parent().remove();
+        $(trackClone).find('.track-album').parent().remove();
 
         $(trackClone).find('.track-title')
                      .text(currentTrack.title)
@@ -77,8 +77,8 @@ function loadTrackList() {
 
       } else {
         // set row's thumbnail based on resource tag
-        if (trackTagStatus['release'] === 'matched') {
-          $.getJSON(api_for(currentTrack.tags_release[0].resource_path), showResourceThumb(trackSelector, '.track-thumb', 'release'));
+        if (trackTagStatus['album'] === 'matched') {
+          $.getJSON(api_for(currentTrack.tags_album[0].resource_path), showResourceThumb(trackSelector, '.track-thumb', 'album'));
 
         } else if (trackTagStatus['artist'] === 'matched') {
           $.getJSON(api_for(currentTrack.tags_artist[0].resource_path), showResourceThumb(trackSelector, '.track-thumb', 'artist'));
@@ -87,7 +87,7 @@ function loadTrackList() {
           $(trackClone).find('.track-thumb').attr('src', default_track_thumb);
         }
 
-        ['song', 'artist', 'release'].forEach(function(resource, index) {
+        ['song', 'artist', 'album'].forEach(function(resource, index) {
           var resourceSelector = '.track-' + resource;
               statusSelector = resourceSelector + '-status';
 
@@ -115,7 +115,7 @@ function loadTrackList() {
           $('[data-toggle="tooltip"]').tooltip();
         }); // forEach resource
 
-      } // is resolved
+      } // is type
 
     }); // forEach track
 

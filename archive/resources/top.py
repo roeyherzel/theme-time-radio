@@ -4,15 +4,15 @@ from archive.common.utils import limit_query
 from flask_restful import Resource, marshal_with, reqparse, fields
 from sqlalchemy import desc, func
 
-from archive.common.schemas import ArtistSchema, ReleaseSchema, SongSchema
+from archive.common.schemas import ArtistSchema, AlbumSchema, SongSchema
 
 TopArtistSchema = {
     'artist': fields.Nested(ArtistSchema),
     'play_count': fields.Integer
 }
 
-TopReleaseSchema = {
-    'release': fields.Nested(ReleaseSchema),
+TopAlbumSchema = {
+    'album': fields.Nested(AlbumSchema),
     'play_count': fields.Integer
 }
 
@@ -41,22 +41,22 @@ class ApiTopArtists(Resource):
         return myQuery
 
 
-class ApiTopReleases(Resource):
+class ApiTopAlbums(Resource):
 
-    @marshal_with(TopReleaseSchema)
-    def get(self, release_id=None):
+    @marshal_with(TopAlbumSchema)
+    def get(self, album_id=None):
         parser = reqparse.RequestParser()
         parser.add_argument('limit', type=int, help="limit query results")
         args = parser.parse_args()
 
-        myQuery = db.session.query(Releases, func.count(Releases.id).label('play_count')) \
-                            .join(TracksReleases, (Releases.id == TracksReleases.release_id)) \
-                            .filter(TracksReleases.status == Status.getIdByName('matched')) \
-                            .group_by(Releases.id) \
-                            .order_by(func.count(Releases.id).desc())
+        myQuery = db.session.query(Albums, func.count(Albums.id).label('play_count')) \
+                            .join(TracksAlbums, (Albums.id == TracksAlbums.album_id)) \
+                            .filter(TracksAlbums.status == Status.getIdByName('matched')) \
+                            .group_by(Albums.id) \
+                            .order_by(func.count(Albums.id).desc())
 
         myQuery = limit_query(myQuery, args.get('limit')).all()
-        myQuery = [dict({'release': i[0], 'play_count': i[1]}) for i in myQuery]
+        myQuery = [dict({'album': i[0], 'play_count': i[1]}) for i in myQuery]
         return myQuery
 
 

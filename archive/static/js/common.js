@@ -42,7 +42,7 @@ function getResourceThumb(args) {
 
   var images, imagesPri, imgSource;
 
-  images = (args.resource_name !== 'song') ? args.resource_data.images : args.resource_data.release.images;
+  images = (args.resource_name !== 'song') ? args.resource_data.images : args.resource_data.album.images;
 
   if (images) {
     imagesPri = images.filter(function(img) {

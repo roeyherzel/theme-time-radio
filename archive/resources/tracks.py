@@ -47,43 +47,43 @@ class ApiTracksArtists(Resource):
         return artist_id, 201
 
 
-class ApiTracksReleases(Resource):
+class ApiTracksAlbums(Resource):
 
     def post(self, track_id):
         parser = reqparse.RequestParser()
         parser.add_argument('id')
         args = parser.parse_args()
 
-        release_id = args.id
+        album_id = args.id
 
         try:
-            tracks_release = TracksReleases.query.filter_by(track_id=track_id, release_id=release_id).one()
+            tracks_album = TracksAlbums.query.filter_by(track_id=track_id, album_id=album_id).one()
 
         except NoResultFound as err:
-            msg = "didn't find pending resource with track_id({}) and release_id({})".format(track_id, release_id)
+            msg = "didn't find pending resource with track_id({}) and album_id({})".format(track_id, album_id)
             print("match - {}".format(msg))
             abort(404, message=msg)
 
         # set matched status
-        tracks_release.status = Status.getIdByName('matched')
-        TracksReleases.update(tracks_release)
-        print("match - updated release_id({}) -> track_id({}): status(matched)".format(track_id, release_id))
+        tracks_album.status = Status.getIdByName('matched')
+        TracksAlbums.update(tracks_album)
+        print("match - updated album_id({}) -> track_id({}): status(matched)".format(track_id, album_id))
 
         # remove all pending
-        TracksReleases.query.filter_by(track_id=track_id) \
-                            .filter(TracksReleases.status != Status.getIdByName('matched')) \
+        TracksAlbums.query.filter_by(track_id=track_id) \
+                            .filter(TracksAlbums.status != Status.getIdByName('matched')) \
                             .delete()
 
         print("match - deleting all other pending")
         db.session.commit()
         print("match - commited")
 
-        # Attach matched releases songs to pending track songs
-        for s in Songs.query.filter_by(release_id=release_id):
+        # Attach matched albums songs to pending track songs
+        for s in Songs.query.filter_by(album_id=album_id):
             print("match- adding song_id({}) -> track_id({}): status(pending)".format(s.id, track_id))
             TracksSongs.add(TracksSongs(track_id=track_id, song_id=s.id, status=Status.getIdByName('pending')))
 
-        return release_id, 201
+        return album_id, 201
 
 
 class ApiTracksSongs(Resource):

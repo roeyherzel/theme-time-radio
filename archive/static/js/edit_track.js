@@ -1,7 +1,7 @@
 
 var fieldRadioButton = function(rowSelector, resourceData) {
 
-  var radioButtonAttr = {'type': 'radio', 'name': 'radioPendingRelease', 'id': resourceData.id, 'value': resourceData.id};
+  var radioButtonAttr = {'type': 'radio', 'name': 'radioPendingAlbum', 'id': resourceData.id, 'value': resourceData.id};
   $(document.createElement('td')).append(
     $(document.createElement('input')).attr(radioButtonAttr).addClass('pending-radio')
   )
@@ -28,26 +28,26 @@ var fieldTitle = function(rowSelector, resourceData) {
 }
 
 
-function createPendingRelease(tbody) {
+function createPendingAlbum(tbody) {
 
   var createFields = [fieldRadioButton, fieldThumbnail, fieldTitle],
       $row = $(document.createElement('tr')).addClass("pending-row").appendTo($(tbody));
 
-  return function(releaseData) {
+  return function(albumData) {
 
     for(var f in createFields) {
-      createFields[f]($row, releaseData);
+      createFields[f]($row, albumData);
     }
 
     // Artists
     // FIXME: what if there is more than 1 artist
     $(document.createElement('td')).append(
-      $(document.createElement('span')).addClass('pending-release-artist')
+      $(document.createElement('span')).addClass('pending-album-artist')
     ).appendTo($row);
 
-    if (releaseData.artists.length > 0) {
-      $.getJSON(api_for(releaseData.artists[0].resource_path), function(artistData, status) {
-        $row.find('.pending-release-artist')
+    if (albumData.artists.length > 0) {
+      $.getJSON(api_for(albumData.artists[0].resource_path), function(artistData, status) {
+        $row.find('.pending-album-artist')
                       .html(make_link(artistData.resource_path, artistData.name, true).attr('target', '_blank'));
       });
     }
@@ -113,7 +113,7 @@ function showTrackEditModal(trackId) {
       $myModal.find('.original-title').text(trackData.title);
       $myModal.find('.track-type').text('Song');
 
-      if (trackData.resolved === false) {
+      if (trackData.type === 'talk') {
         $myModal.find('.track-type').text('Other');
         $myModal.find('.resource-info').hide();
         $myModal.find('.box[id!="trackQuery"]').hide();
@@ -123,11 +123,11 @@ function showTrackEditModal(trackId) {
       $myModal.find('.resource-info').show();
       $myModal.find('.box[id!="trackQuery"]').show();
       $myModal.find('.query-song').text(trackData.tags_query[0].song);
-      $myModal.find('.query-release').text(trackData.tags_query[0].release);
+      $myModal.find('.query-album').text(trackData.tags_query[0].album);
       $myModal.find('.query-artist').text(trackData.tags_query[0].artist);
 
       // Resources
-      ['song', 'artist', 'release'].forEach(function(resource) {
+      ['song', 'artist', 'album'].forEach(function(resource) {
 
         var $resourceBox = $myModal.find('#' + resource + 'Info'),
             status = trackData.tags_status[0][resource];
@@ -159,9 +159,9 @@ function showTrackEditModal(trackId) {
                                             .appendTo($resourceBox);
 
           // Create rows for pending resources
-          if (resource === 'release') {
-            trackData['tags_release'].forEach(function(pendingResource) {
-              $.getJSON(api_for(pendingResource.resource_path), createPendingRelease($tbody));
+          if (resource === 'album') {
+            trackData['tags_album'].forEach(function(pendingResource) {
+              $.getJSON(api_for(pendingResource.resource_path), createPendingAlbum($tbody));
             });
 
           } else if (resource === 'artist') {

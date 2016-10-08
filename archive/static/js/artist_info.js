@@ -66,7 +66,7 @@ $(document).ready(function() {
     data.forEach(function(songData) {
       $(document.createElement('li'))
       .append(
-        $(document.createElement('span')).html(make_link(songData.release.resource_path, songData.release.title).addClass("text-muted"))
+        $(document.createElement('span')).html(make_link(songData.album.resource_path, songData.album.title).addClass("text-muted"))
       )
       .append(
         $(document.createElement('span')).text(" / ")
@@ -80,28 +80,28 @@ $(document).ready(function() {
   });
 
   // Albums
-  $.getJSON(artist_endpoint + '/releases', function(data, status) {
+  $.getJSON(artist_endpoint + '/albums', function(data, status) {
 
-    var $releasesDiv = $('.release-list'),
-        $releaseBox = $('.release-card');
+    var $albumsDiv = $('.album-list'),
+        $albumBox = $('.album-card');
 
-    $('.release-card').remove();
+    $('.album-card').remove();
 
-    data.forEach(function(releaseData, index) {
-      var $releaseBoxClone = $releaseBox.clone();
+    data.forEach(function(albumData, index) {
+      var $albumBoxClone = $albumBox.clone();
 
-      $releaseBoxClone.find('img')
-                      .attr('src', getResourceThumb({'resource_data': releaseData, 'resource_name': 'release'}))
-                      .wrap(make_link(releaseData.resource_path));
+      $albumBoxClone.find('img')
+                      .attr('src', getResourceThumb({'resource_data': albumData, 'resource_name': 'album'}))
+                      .wrap(make_link(albumData.resource_path));
 
-      $releaseBoxClone.find('.release-title')
-                      .text(releaseData.title)
-                      .wrap(make_link(releaseData.resource_path));
+      $albumBoxClone.find('.album-title')
+                      .text(albumData.title)
+                      .wrap(make_link(albumData.resource_path));
 
-      $releaseBoxClone.find('.release-year')
-                      .text(releaseData.year);
+      $albumBoxClone.find('.album-year')
+                      .text(albumData.year);
 
-      $releaseBoxClone.appendTo($releasesDiv);
+      $albumBoxClone.appendTo($albumsDiv);
     });
   });
 

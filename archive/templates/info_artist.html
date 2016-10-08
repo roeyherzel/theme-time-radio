@@ -67,13 +67,13 @@
 {% block info_data %}
   <div class="box">
     <h3 class="box-title page-header">Albums</h3>
-    <div class="row release-list">
-      <div class="col-md-3 release-card text-center">
+    <div class="row album-list">
+      <div class="col-md-3 album-card text-center">
         <div class="box">
-          <img class="release-thumb" src="" alt="...">
-          <div class="release-info small text-left">
-            <div class="release-title"></div>
-            <div class="release-year text-muted"></div>
+          <img class="album-thumb" src="" alt="...">
+          <div class="album-info small text-left">
+            <div class="album-title"></div>
+            <div class="album-year text-muted"></div>
           </div>
         </div>
       </div>
@@ -119,14 +119,14 @@
     background-size: 16px;
   }
 
-  .release-list {
+  .album-list {
     margin: 0;
   }
-  .release-card > .box {
+  .album-card > .box {
     padding: 0;
     margin:0;
   }
-  .release-card {
+  .album-card {
     width: 150px;
     height: 150px;
     padding: 0;
@@ -134,17 +134,17 @@
     margin-right: 30px;
     margin-bottom: 70px;
   }
-  .release-thumb {
+  .album-thumb {
     width: 150px;
     height: 150px;
     object-fit: cover;
   }
-  .release-info {
+  .album-info {
     margin-top: 8px;
     margin-left: 10px;
     padding-bottom: 5px;
   }
-  .release-title {
+  .album-title {
     height: 1.5em;
     overflow: hidden;
     white-space: nowrap;

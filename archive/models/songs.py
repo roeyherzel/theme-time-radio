@@ -8,8 +8,8 @@ class Songs(db.Model, CRUD):
     position = db.Column(db.String())
     type = db.Column(db.String())
     duration = db.Column(db.String())
-    release_id = db.Column(db.Integer, db.ForeignKey('releases.id'))
-    release = db.relationship('Releases', backref=db.backref('songs', lazy='dynamic'))
+    album_id = db.Column(db.Integer, db.ForeignKey('albums.id'))
+    album = db.relationship('Albums', backref=db.backref('songs', lazy='dynamic'))
 
     def __repr__(self):
         return '<Song ({}) - {}>'.format(self.id, self.title)

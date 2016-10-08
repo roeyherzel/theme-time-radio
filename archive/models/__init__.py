@@ -8,7 +8,7 @@ db = SQLAlchemy()
 from archive.models.common import *
 
 from archive.models.artists import *
-from archive.models.releases import *
+from archive.models.albums import *
 from archive.models.songs import *
 
 from archive.models.episodes import *

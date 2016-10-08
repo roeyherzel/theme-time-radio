@@ -25,10 +25,10 @@ def song_info(song_id):
     return render_template('info_song.html', song=song)
 
 
-@app.route('/releases/<int:release_id>')
-def release_info(release_id):
-    release = Releases.query.get(release_id)
-    return render_template('info_release.html', release=release)
+@app.route('/albums/<int:album_id>')
+def album_info(album_id):
+    album = Albums.query.get(album_id)
+    return render_template('info_album.html', album=album)
 
 
 @app.route('/artists/<int:artist_id>')

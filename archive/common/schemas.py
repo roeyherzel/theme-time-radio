@@ -22,11 +22,11 @@ SongSchema = {
     'position': fields.String,
     'type': fields.String,
     'duration': fields.String,
-    'release_path': fields.FormattedString("releases/{release_id}"),
+    'album_path': fields.FormattedString("albums/{album_id}"),
     'tracks': fields.List(fields.Nested({'track_id': fields.Integer})),
-    'release': fields.Nested(
+    'album': fields.Nested(
         {
-            'resource_path': fields.FormattedString("releases/{id}"),
+            'resource_path': fields.FormattedString("albums/{id}"),
             'id': fields.Integer,
             'title': fields.String,
             'thumb': fields.String,
@@ -52,14 +52,14 @@ ArtistSchema = {
 }
 
 
-ReleasesArtistsSchema = {
+AlbumsArtistsSchema = {
     'artist_id': fields.Integer,
     'resource_path': fields.FormattedString("artists/{artist_id}"),
 }
 
 
-ReleaseSchema = {
-    'resource_path': fields.FormattedString("releases/{id}"),
+AlbumSchema = {
+    'resource_path': fields.FormattedString("albums/{id}"),
     'id': fields.Integer,
     'title': fields.String,
     'thumb': fields.String,
@@ -68,20 +68,20 @@ ReleaseSchema = {
     'styles': fields.List(fields.Nested({'style': fields.String})),
     'images': fields.List(fields.Nested(ImageSchema)),
     'songs': fields.List(fields.Nested(SongSchema)),
-    'artists': fields.List(fields.Nested(ReleasesArtistsSchema))
+    'artists': fields.List(fields.Nested(AlbumsArtistsSchema))
 }
 
 
 TrackTagStatusSchema = {
     'song': get_status_name,
-    'release': get_status_name,
+    'album': get_status_name,
     'artist': get_status_name,
     'aggregated': get_status_name,
 }
 
 TrackTagQuerySchema = {
     'song': fields.String,
-    'release': fields.String,
+    'album': fields.String,
     'artist': fields.String,
 }
 
@@ -89,9 +89,9 @@ TrackSongsSchema = {
     'song_id': fields.String,
     'resource_path': fields.FormattedString("songs/{song_id}"),
 }
-TrackReleaseSchema = {
-    'release_id': fields.Integer,
-    'resource_path': fields.FormattedString("releases/{release_id}"),
+TrackAlbumSchema = {
+    'album_id': fields.Integer,
+    'resource_path': fields.FormattedString("albums/{album_id}"),
 }
 TrackArtistSchema = {
     'artist_id': fields.Integer,
@@ -102,13 +102,13 @@ TrackSchema = {
     'id': fields.Integer,
     'title': fields.String,
     'position': fields.Integer,
-    'resolved': fields.Boolean,
+    'type': fields.String,
     'episode_id': fields.Integer,
     'tags_query': fields.List(fields.Nested(TrackTagQuerySchema)),
     'tags_status': fields.List(fields.Nested(TrackTagStatusSchema)),  # NOTE: need to remove the list, but make it work
 
     'tags_song': fields.List(fields.Nested(TrackSongsSchema)),
-    'tags_release': fields.List(fields.Nested(TrackReleaseSchema)),
+    'tags_album': fields.List(fields.Nested(TrackAlbumSchema)),
     'tags_artist': fields.List(fields.Nested(TrackArtistSchema)),
 }
 
@@ -117,7 +117,6 @@ EpisodeSchema = {
     'resource_path': fields.FormattedString("episodes/{id}"),
     'id': fields.Integer,
     'title': fields.String,
-    'plot': fields.String,
     'description': fields.String,
     'guest': fields.String,
     'date_pub': fields.DateTime,

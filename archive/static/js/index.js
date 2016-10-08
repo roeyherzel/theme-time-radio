@@ -38,9 +38,9 @@ $(document).ready(function() {
 
   });
 
-  $.getJSON(api_for("/releases/top"), {'limit': 6}, function(topResource, status) {
-    var resource = 'release',
-        $topResourceList = $('.top-release-list'),
+  $.getJSON(api_for("/albums/top"), {'limit': 6}, function(topResource, status) {
+    var resource = 'album',
+        $topResourceList = $('.top-album-list'),
         $resourceCardDiv = $topResourceList.find('.top-card');
 
     $topResourceList.find('.top-card').remove();
