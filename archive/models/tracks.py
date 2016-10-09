@@ -19,7 +19,7 @@ class TracksTagQuery(db.Model, CRUD):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
     track = db.relationship('Tracks', backref=db.backref('tags_query', lazy='dynamic'), cascade='delete')
     song = db.Column(db.String())
-    album = db.Column(db.String())
+    # album = db.Column(db.String())
     artist = db.Column(db.String())
 
 
@@ -59,6 +59,7 @@ class TracksArtists(db.Model, CRUD):
         return '<TracksArtists track({}) - artist({})>'.format(self.track_id, self.artist_id)
 
 
+# FIXME: UNneeded - REMOVE!!
 class TracksAlbums(db.Model, CRUD):
     __tablename__ = 'tracks_albums'
 

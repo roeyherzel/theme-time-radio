@@ -12,6 +12,8 @@ from archive.models import *
 import sqlalchemy
 from datetime import datetime
 
+import spotify_tagger as spotify
+
 
 def strptime(timestap_list):
     timestamp_str = ' '.join([str(i) for i in timestap_list[0:6]])
@@ -26,19 +28,37 @@ class TrackParser(object):
         self.position = position
 
         if self.type == "song":
-            res = self.title.split(u':\xa0')    # whitespace
-            if len(res) == 2:
-                self.artist, self.song = res
-            else:
-                res = self.title.split(u': ')
-                self.artist, self.song = res    # NOTE: this one could raise assert
+            # Parse Track
+            try:
+                self.artist, self.song = self.title.split(u':\xa0')    # whitespace
+            except ValueError:
+                try:
+                    self.artist, self.song = self.title.split(u': ')
+                except ValueError:
+                    try:
+                        self.artist, self.song = self.title.split(u':')
+                    except ValueError:
+                        try:
+                            self.artist, self.song = self.title.split(u'–')
+                        except ValueError:
+                            try:
+                                self.artist, self.song = self.title.split(u';')
+                            except ValueError:
+                                """ if artists is empty, means parsing failed """
+                                print("Error didn't extract artist from track: '{}'".format(self.title))
+                                self.song = self.title
+
+            # Spotify Match
+            self.spotifyData = spotify.searchTrack(song=self.song, artist=self.artist)
+            if self.spotifyData:
+                print(self.spotifyData.song.id)
 
     def __str__(self):
+        msg = "<track_{} ({})".format(self.position, self.type)
         if self.type == 'song':
-            msg = "{} / {}".format(self.type, self.artist, self.song)
-            return "<track_{} ({}) - {} / {}>".format(self.position, self.type, self.artist, self.song)
+            return "{} - {} / {}>".format(msg, self.artist, self.song)
         else:
-            return "<track_{} ({}) - {}>".format(self.position, self.type, self.title)
+            return "{} - {}>".format(msg, self.title)
 
     def props_for_db(self):
         return {
@@ -67,12 +87,13 @@ class EpisodeParser(object):
             s.parent.extract()
 
         # extract image, and some more cleanup
+        # self.image = soup.img.attrs['src']
+
         for i in soup.find_all('p'):
             if i.get_text() == "The Singers and Songs":
-                self.image = i.img.attrs['src']
                 i.extract()
 
-            elif i.get_text().startswith("Read Fred Bal’s Annotations") or i.get_text() == u'\xa0':    # whitespace
+            elif i.get_text().startswith("Read Fred Bal’s Annotations"):
                 i.extract()
 
         # tracklist
@@ -80,8 +101,10 @@ class EpisodeParser(object):
         tmp_tracklist = soup.find_all(['p', 'li'])
         position = 1
         for t in tmp_tracklist:
-            self.tracklist.append(TrackParser(t, position))
-            position += 1
+
+            if not (t.get_text() == u'\xa0' or t.get_text() == ''):
+                self.tracklist.append(TrackParser(t, position))
+                position += 1
 
     def __str__(self):
         return "<episode {} - {}>".format(self.id, self.title)
@@ -101,15 +124,7 @@ Show's info/description: data.entries[0]
 Episodes starts at: data.entries[1]
 """
 feedfile = "theme_time_radio_hour.rss"
-data = feedparser.parse(feedfile)
-
-episode_data = data.entries[1]
-myEpisode = EpisodeParser(episode_data)
-
-print(myEpisode)
-for i in myEpisode.tracklist:
-    print(i)
-
+feeddata = feedparser.parse(feedfile)
 
 """ Seeding episodes & tracks to the database """
 with app.app_context():
@@ -120,15 +135,24 @@ with app.app_context():
     Status.add(Status(name='pending'))
     Status.add(Status(name='unmatched'))
 
-    newEpisode = Episodes(**myEpisode.props_for_db())
-    Episodes.add(newEpisode)
+    for episode_data in feeddata.entries[1:]:
+        myEpisode = EpisodeParser(episode_data)
 
-    for tag in myEpisode.tags:
-        EpisodesCategories.add(EpisodesCategories(category=tag, episode_id=myEpisode.id))
+        # print(myEpisode)
+        # for i in myEpisode.tracklist:
+        #    print(i)
 
-    for myTrack in myEpisode.tracklist:
-        newTrack = Tracks(episode_id=newEpisode.id, **myTrack.props_for_db())
-        Tracks.add(newTrack)
-        TracksTagQuery.add(
-            TracksTagQuery(track_id=newTrack.id, song=myTrack.song, artist=myTrack.artist)
-        )
+        newEpisode = Episodes(**myEpisode.props_for_db())
+        Episodes.add(newEpisode)
+
+        for tag in myEpisode.tags:
+            EpisodesCategories.add(EpisodesCategories(category=tag, episode_id=myEpisode.id))
+
+        for myTrack in myEpisode.tracklist:
+            newTrack = Tracks(episode_id=newEpisode.id, **myTrack.props_for_db())
+            Tracks.add(newTrack)
+
+            # TODO: maybe move song/artist to tracks table
+            TracksTagQuery.add(
+                TracksTagQuery(track_id=newTrack.id, song=myTrack.song, artist=myTrack.artist)
+            )
