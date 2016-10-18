@@ -26,9 +26,9 @@
       </li>
     {% endif %}
 
-    {% for c in ep.categories %}
+    {% for c in ep.tags %}
       <li>
-        <span class="label label-category" data-toggle="tooltip" title="Category">{{ c.category }}</span>
+        <span class="label label-tag" data-toggle="tooltip" title="Tag">{{ c.tag }}</span>
       </li>
     {% endfor %}
   </ul>

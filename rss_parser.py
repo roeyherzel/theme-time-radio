@@ -50,8 +50,6 @@ class TrackParser(object):
 
             # Spotify Match
             self.spotifyData = spotify.searchTrack(song=self.song, artist=self.artist)
-            if self.spotifyData:
-                print(self.spotifyData.song.id)
 
     def __str__(self):
         msg = "<track_{} ({})".format(self.position, self.type)
@@ -135,10 +133,11 @@ with app.app_context():
     Status.add(Status(name='pending'))
     Status.add(Status(name='unmatched'))
 
-    for episode_data in feeddata.entries[1:]:
+    # for episode_data in feeddata.entries[1:]:
+    for episode_data in feeddata.entries[1:5]:
         myEpisode = EpisodeParser(episode_data)
 
-        # print(myEpisode)
+        print(myEpisode)
         # for i in myEpisode.tracklist:
         #    print(i)
 
@@ -146,7 +145,7 @@ with app.app_context():
         Episodes.add(newEpisode)
 
         for tag in myEpisode.tags:
-            EpisodesCategories.add(EpisodesCategories(category=tag, episode_id=myEpisode.id))
+            EpisodesTags.add(EpisodesTags(tag=tag, episode_id=myEpisode.id))
 
         for myTrack in myEpisode.tracklist:
             newTrack = Tracks(episode_id=newEpisode.id, **myTrack.props_for_db())

@@ -7,7 +7,6 @@ class Episodes(db.Model, CRUD):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
     description = db.Column(db.Unicode())
-    guest = db.Column(db.String())
     date_pub = db.Column(db.DateTime)
     podcast_url = db.Column(db.String())
     thumb = db.Column(db.String())
@@ -16,7 +15,7 @@ class Episodes(db.Model, CRUD):
         return '<Episode ({}) - {}>'.format(self.id, self.title)
 
 
-class EpisodesCategories(db.Model, CRUD):
-    category = db.Column(db.String(), primary_key=True)
+class EpisodesTags(db.Model, CRUD):
+    tag = db.Column(db.String(), primary_key=True)
     episode_id = db.Column(db.Integer, db.ForeignKey('episodes.id'), primary_key=True)
-    episodes = db.relationship('Episodes', backref=db.backref('categories', lazy='dynamic'))
+    episodes = db.relationship('Episodes', backref=db.backref('tags', lazy='dynamic'))

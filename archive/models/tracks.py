@@ -4,6 +4,9 @@ from archive.models import *
 class Tracks(db.Model, CRUD):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
+    song = db.Column(db.String())
+    album = db.Column(db.String())
+    artist = db.Column(db.String())
     position = db.Column(db.Integer)
     type = db.Column(db.String)
     episode_id = db.Column(db.Integer, db.ForeignKey('episodes.id'))
@@ -11,16 +14,6 @@ class Tracks(db.Model, CRUD):
 
     def __repr__(self):
         return '<Track ({}) - {}>'.format(self.id, self.title)
-
-
-class TracksTagQuery(db.Model, CRUD):
-    __tablename__ = 'tracks_tag_query'
-
-    track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
-    track = db.relationship('Tracks', backref=db.backref('tags_query', lazy='dynamic'), cascade='delete')
-    song = db.Column(db.String())
-    # album = db.Column(db.String())
-    artist = db.Column(db.String())
 
 
 class TracksTagStatus(db.Model):

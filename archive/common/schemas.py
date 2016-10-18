@@ -123,7 +123,7 @@ EpisodeSchema = {
     'date_add': fields.DateTime,
     'podcast_url': fields.String,
     'thumb': fields.String,
-    'categories': fields.List(fields.Nested({'category': fields.String})),
+    'tags': fields.List(fields.Nested({'tag': fields.String})),
 }
 
 

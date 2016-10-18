@@ -18,22 +18,22 @@ function showEpisodesList(episodes_url) {
                  .attr('src', episodeData.thumb)
                  .wrap(make_link(episodeData.resource_path));
 
-      // guest as category
+      // guest as tag
       if (episodeData.guest) {
         $('<li>').append($('<span>').text(episodeData.guest).addClass('label label-guest'))
-                 .appendTo($(ep_clone).find('.ep-categories'));
+                 .appendTo($(ep_clone).find('.ep-tags'));
       }
-      // categories
-      episodeData.categories.forEach(function(cat) {
-        $('<li>').append($('<span>').text(cat.category).addClass('label label-category'))
-                 .appendTo($(ep_clone).find('.ep-categories'));
+      // tags
+      episodeData.tags.forEach(function(cat) {
+        $('<li>').append($('<span>').text(cat.tag).addClass('label label-tag'))
+                 .appendTo($(ep_clone).find('.ep-tags'));
       });
 
       // date - must be last inorder to be showen first from the right
       $('<li>').append(
         $('<span>').text(str_to_date(episodeData.date_pub)).addClass('label label-date')
       )
-      .appendTo($(ep_clone).find('.ep-categories'));
+      .appendTo($(ep_clone).find('.ep-tags'));
 
       $(ep_clone).appendTo('.ep-list');
 

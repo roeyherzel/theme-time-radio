@@ -1,6 +1,6 @@
 
 .not-imp,
-.label-year, .label-guest, .label-genre, .label-style, .label-category,
+.label-year, .label-guest, .label-genre, .label-style, .label-tag,
 .btn-bookmark,
 nav a, nav button, nav input,
 button[name="button-ep-played"] {
@@ -113,7 +113,7 @@ body {
   background-color: #2EBD59;
   color: white;
 }
-.label-category {
+.label-tag {
   background-color: #C377E0;
   color: white;
 }

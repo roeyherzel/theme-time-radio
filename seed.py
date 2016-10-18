@@ -161,8 +161,8 @@ with app.app_context():
                                )
         Episodes.add(new_episode)
 
-        for cat in ep['categories']:
-            EpisodesCategories.add(EpisodesCategories(category=cat, episode_id=ep['id']))
+        for cat in ep['tags']:
+            EpisodesTags.add(EpisodesTags(tag=cat, episode_id=ep['id']))
 
         print("AddEpisode ({}) - {}".format(new_episode.id, ep['title']))
 
