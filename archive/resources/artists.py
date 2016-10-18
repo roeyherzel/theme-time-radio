@@ -17,17 +17,6 @@ class ApiArtist(Resource):
                                 .all()
 
 
-class ApiArtistsAlbums(Resource):
-
-    @marshal_with(AlbumSchema)
-    def get(self, artist_id):
-        return Albums.query.join(TracksAlbums, (TracksAlbums.album_id == Albums.id)) \
-                             .join(TracksArtists, (TracksArtists.track_id == TracksAlbums.track_id)) \
-                             .filter(TracksArtists.artist_id == artist_id) \
-                             .filter(TracksAlbums.status == Status.getIdByName('matched')) \
-                             .all()
-
-
 class ApiArtistsSongs(Resource):
 
     @marshal_with(SongSchema)

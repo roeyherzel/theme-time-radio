@@ -41,25 +41,6 @@ class ApiTopArtists(Resource):
         return myQuery
 
 
-class ApiTopAlbums(Resource):
-
-    @marshal_with(TopAlbumSchema)
-    def get(self, album_id=None):
-        parser = reqparse.RequestParser()
-        parser.add_argument('limit', type=int, help="limit query results")
-        args = parser.parse_args()
-
-        myQuery = db.session.query(Albums, func.count(Albums.id).label('play_count')) \
-                            .join(TracksAlbums, (Albums.id == TracksAlbums.album_id)) \
-                            .filter(TracksAlbums.status == Status.getIdByName('matched')) \
-                            .group_by(Albums.id) \
-                            .order_by(func.count(Albums.id).desc())
-
-        myQuery = limit_query(myQuery, args.get('limit')).all()
-        myQuery = [dict({'album': i[0], 'play_count': i[1]}) for i in myQuery]
-        return myQuery
-
-
 class ApiTopSongs(Resource):
 
     @marshal_with(TopSongSchema)
