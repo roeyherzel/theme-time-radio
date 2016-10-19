@@ -5,13 +5,13 @@ from datetime import datetime
 
 class EpisodesActions():
     def add(newEpisode, tags=None):
-        Mixin.add(newEpisode)
+        Mixin.create(newEpisode)
         if tags:
             if type(tags) is not list:
                 raise TypeError("tags must be list")
             else:
                 for tag in tags:
-                    Mixin.add(EpisodesTags(tag=tag, episode_id=newEpisode.id))
+                    Mixin.create(EpisodesTags(tag=tag, episode_id=newEpisode.id))
 
 
 class Episodes(db.Model, EpisodesActions):
@@ -23,7 +23,7 @@ class Episodes(db.Model, EpisodesActions):
     image = db.Column(db.String())
 
     def __repr__(self):
-        return '<Episode ({}) - {}>'.format(self.id, self.title)
+        return '<Episode ({}): {}>'.format(self.id, self.title)
 
 
 class EpisodesTags(db.Model):

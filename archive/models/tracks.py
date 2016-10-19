@@ -4,13 +4,13 @@ from archive.models.mixin import Mixin
 
 class TracksActions():
     def add(newTrack, tags=None):
-        Mixin.add(newTrack)
+        Mixin.create(newTrack)
         if tags:
             if type(tags) is not list:
                 raise TypeError("tags must be list")
             else:
                 for tag in tags:
-                    Mixin.add(TracksTags(tag=tag, track_id=newTrack.id))
+                    Mixin.create(TracksTags(tag=tag, track_id=newTrack.id))
 
 
 class TracksTags(db.Model):
@@ -30,4 +30,4 @@ class Tracks(db.Model, TracksActions):
     resolved = db.Column(db.Boolean)
 
     def __repr__(self):
-        return '<Track ({}) - {}>'.format(self.id, self.title)
+        return '<Track ({}): {}>'.format(self.id, self.title)

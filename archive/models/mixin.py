@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 
 class Mixin():
 
-    def add(resource):
+    def create(resource):
         db.session.add(resource)
         status = 'add'
         try:
@@ -12,8 +12,7 @@ class Mixin():
 
         except IntegrityError as err:
             db.session.rollback()
-            # print("create-rollback: {}, {}".format(err.orig.diag.message_primary, err.orig.diag.message_info))
-            print("add-rollback: {}".format(err))
+            print("rollback: {}, {}".format(err.orig.diag.message_primary, err.orig.diag.message_detail))
             status = 'rollback'
 
         db.session.commit()

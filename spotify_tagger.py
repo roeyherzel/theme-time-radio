@@ -22,17 +22,15 @@ def search(query):
 
 
 def searchTrack(song, artist):
-    query = 'track:{} artist:{}'.format(song, artist)
     # search track
-    items = search(query)
-    if len(items) > 0:
-        collectSpotifyData(items[0], 'track')
+    results = search('track:{} artist:{}'.format(song, artist))
+    if len(results) > 0:
+        collectSpotifyData(results[0], 'track')
     else:
         # search artist
-        query = 'artist:{}'.format(artist, 'artist')
-        items = search(query)
-        if len(items) > 0:
-            collectSpotifyData(items[0], 'artist')
+        results = search('artist:{}'.format(artist))
+        if len(results) > 0:
+            collectSpotifyData(results[0], 'artist')
         else:
             print("Error...didn't find track for: {} / {}".format(song, artist))
 
@@ -40,67 +38,61 @@ def searchTrack(song, artist):
 def collectSpotifyData(item, match_type):
     if match_type == 'track':
         # TODO: handle multiple artists
-        myArtist = Artist(item['artists'][0])
-        myAlbum = Album(item['album'])
-        mySong = Song(item)
-        print("SpotifyData: {} {} {}".format(mySong, myArtist, myAlbum))
-        myArtist.add()
-        myAlbum.add()
-        mySong.add()
+        CollectArtistData(item['artists'][0])
+        CollectAlbumData(item['album'])
+        CollectSongData(item)
     else:
-        myArtist = Artist(item)
-        myArtist.add()
-        print("SpotifyData: {}".format(myArtist))
+        CollectArtistData(item)
 
 
 class BaseResource(object):
-    def __init__(self, item):
-        self.id = item['id']
-        self.name = item['name']
-        self.url = item['href']
-        self.type = item['type']
+    def __init__(self, data):
+        self.id = data['id']
+        self.name = data['name']
+        self.url = data['href']
+        self.type = data['type']
+
+        self.myModel = self.Model(spotify_id=self.id, name=self.name, endpoint_url=self.url)
+        print(self.myModel)
 
     def __str__(self):
         return "<{}: {}>".format(self.__class__.__name__, self.name)
 
-    def add(self):
-        self.dbAddObj = self.DbClass(spotify_id=self.id, name=self.name, endpoint_url=self.url)
+    def addImage(self, images):
+        image = images[0]
+        models.Images.create(models.Images(**image))
+        self.myModel.image = image['url']
 
 
-class Artist(BaseResource):
+class CollectArtistData(BaseResource):
     def __init__(self, data):
-        self.DbClass = models.SpotifyArtists
+        self.Model = models.SpotifyArtists
         super().__init__(data)
+        if not data.get('images'):
+            data = spotify.artist(self.id)
 
-    def add(self):
-        super().add()
-        self.DbClass.add(self.dbAddObj)
+        self.addImage(data['images'])
+        self.Model.create(self.myModel)
 
 
-class Album(BaseResource):
+class CollectAlbumData(BaseResource):
     def __init__(self, data):
-        self.DbClass = models.SpotifyAlbums
+        self.Model = models.SpotifyAlbums
         super().__init__(data)
-
-    def add(self):
-        super().add()
-        self.DbClass.add(self.dbAddObj)
+        self.addImage(data['images'])
+        self.Model.create(self.myModel)
 
 
-class Song(BaseResource):
+class CollectSongData(BaseResource):
     def __init__(self, data):
-        self.DbClass = models.SpotifySongs
-        self.preview_url = data['preview_url']
-        super().__init__(data)
+        self.Model = models.SpotifySongs
         self.external_ids = data.get('external_ids', None)  # only relevant for song
-
-    def add(self):
-        super().add()
-        self.dbAddObj.preview_url = self.preview_url
-        self.DbClass.add(self.dbAddObj)
+        super().__init__(data)
+        self.myModel.preview_url = data['preview_url']
+        self.addImage(data['album']['images'])
+        self.Model.create(self.myModel)
 
 
 with app.app_context():
     for myTrack in models.Tracks.query.filter_by(resolved=True).limit(10):
-        # print(myTrack)
         searchTrack(song=myTrack.song, artist=myTrack.artist)
