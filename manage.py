@@ -12,9 +12,8 @@ def hello():
 
 
 @manager.command
-def seed():
-    import seed
-
+def seed_episodes():
+    import wiki_parser
 
 if __name__ == "__main__":
     manager.run()

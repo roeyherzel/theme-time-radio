@@ -1,13 +1,6 @@
 from flask_restful import fields
 from flask import url_for
 
-from archive.models import Status
-
-
-class get_status_name(fields.Raw):
-    def output(self, key, obj):
-        return Status.getNameById(getattr(obj, key))
-
 
 ImageSchema = {
     'id': fields.Integer,
@@ -73,10 +66,6 @@ AlbumSchema = {
 
 
 TrackTagStatusSchema = {
-    'song': get_status_name,
-    'album': get_status_name,
-    'artist': get_status_name,
-    'aggregated': get_status_name,
 }
 
 TrackTagQuerySchema = {

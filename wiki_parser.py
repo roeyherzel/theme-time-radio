@@ -2,8 +2,7 @@ import wikipedia
 import re
 from pprint import pprint
 
-from archive import app
-from archive.models import *
+from archive import app, models
 
 
 prs_section = re.compile(r"^===\s(?P<section>.*?)\s===$")
@@ -15,11 +14,13 @@ class TrackParser(object):
     def __init__(self, track, position):
         self.title = track
         self.position = position
-        self.song, self.artist, self.year, self.resolved = None, None, None, False
+        self.song, self.artist, self.year, self.tags = None, None, None, None
+        self.resolved = False
         res = prs_track.search(self.title)
         if res:
             self.song, self.artist, self.year = res.groups()
             self.resolved = True
+            self.tags = [self.year]
 
     def __str__(self):
         if self.resolved:
@@ -29,13 +30,10 @@ class TrackParser(object):
         else:
             return "<Track({}) - title:[{}]>".format(self.position, self.title.encode("utf-8"))
 
-    def props_for_db(self):
+    def dict(self):
         return {
-            'title': self.title,
-            'song': self.song,
-            'artist': self.artist,
-            'position': self.position,
-            'type': 'song'  # FIXME
+            'title': self.title, 'song': self.song, 'artist': self.artist,
+            'position': self.position, 'resolved': self.resolved,
         }
 
 
@@ -58,11 +56,8 @@ class EpisodeParser(object):
     def __str__(self):
         return "<Episode({}) - title:[{}]>".format(self.id, self.title)
 
-    def props_for_db(self):
-        return {
-            'id': self.id,
-            'title': self.title,
-        }
+    def dict(self):
+        return {'id': self.id, 'title': self.title}
 
 
 page = "Theme Time Radio Hour (season 1)"
@@ -72,23 +67,16 @@ sections = [prs_section.findall(line)[0] for line in wiki_page.content.split("\n
 
 """ Seeding episodes & tracks to the database """
 with app.app_context():
-    db.drop_all()
-    db.create_all()
+    models.db.drop_all()
+    models.db.create_all()
 
-    Status.add(Status(name='matched'))
-    Status.add(Status(name='pending'))
-    Status.add(Status(name='unmatched'))
-
-    for s in sections:
-        myEpisode = EpisodeParser(s, wiki_page, ["season 1"])
-        print(myEpisode)
+    for section in sections:
+        parsedEpisode = EpisodeParser(section, wiki_page, ["season 1"])
+        print(parsedEpisode)
         print("=" * 100)
-        newEpisode = Episodes(**myEpisode.props_for_db())
-        Episodes.add(newEpisode)
+        newEpisode = models.Episodes(**parsedEpisode.dict())
+        models.Episodes.add(newEpisode, tags=parsedEpisode.tags)
 
-        for tag in myEpisode.tags:
-            EpisodesTags.add(EpisodesTags(tag=tag, episode_id=myEpisode.id))
-
-        for myTrack in myEpisode.tracklist:
-            newTrack = Tracks(episode_id=newEpisode.id, **myTrack.props_for_db())
-            Tracks.add(newTrack)
+        for parsedTrack in parsedEpisode.tracklist:
+            newTrack = models.Tracks(episode_id=newEpisode.id, **parsedTrack.dict())
+            models.Tracks.add(newTrack, tags=parsedTrack.tags)
