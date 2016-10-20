@@ -1,50 +1,9 @@
 from archive.models.podcast import Episodes
 from archive.common.utils import limit_query
+from archive.resources.schemas import EpisodeSchema, EpisodesTracklistSchema
 
-from flask import url_for
-from flask_restful import Resource, reqparse, marshal_with, fields
+from flask_restful import Resource, reqparse, marshal_with
 from sqlalchemy import desc
-
-
-class UrlField(fields.Raw):
-    def output(self, key, obj):
-        return url_for(self.attribute, episode_id=obj.id, _external=True)
-
-SpotifyDataSchema = {
-    'song_data': fields.Nested({
-        'id': fields.String,
-        'name': fields.String,
-    }),
-    'artist_id': fields.String
-}
-
-SpotifyResouceSchema = {
-    'id': fields.String,
-    'name': fields.String,
-}
-
-TrackSchema = {
-    'id': fields.Integer,
-    'resolved': fields.Boolean,
-    'title': fields.String,
-    'parsed_song': fields.String,
-    'parsed_artist': fields.String,
-    'position': fields.Integer,
-    'tags': fields.List(fields.Nested({'tag': fields.String})),
-    'spotify_song': fields.Nested(SpotifyResouceSchema)
-}
-
-EpisodeSchema = {
-    'view_url': UrlField(attribute="episodes_info"),
-    'api_url': UrlField(attribute="episodes_api"),
-    'id': fields.Integer,
-    'title': fields.String,
-    'tags': fields.List(fields.Nested({'tag': fields.String})),
-}
-
-EpisodesTracklistSchema = {
-    'tracklist': fields.List(fields.Nested(TrackSchema))
-}
 
 
 class EpisodesAPI(Resource):

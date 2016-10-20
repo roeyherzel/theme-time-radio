@@ -1,4 +1,5 @@
 from archive.models import db
+from archive.models.podcast import Tracks
 from archive.models.mixin import Mixin
 
 
@@ -44,13 +45,14 @@ class SpotifyArtists(db.Model, Mixin):
 
 class TracksSpotifyData(db.Model, Mixin):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
-    track = db.relationship('Tracks', backref=db.backref('spotify_data', uselist=False))
+    song_id = db.Column(db.String, db.ForeignKey('spotify_songs.id'), primary_key=True)
+    album_id = db.Column(db.String, db.ForeignKey('spotify_albums.id'), primary_key=True)
+    artist_id = db.Column(db.String, db.ForeignKey('spotify_artists.id'), primary_key=True)
 
-    song_id = db.Column(db.String, db.ForeignKey('spotify_songs.id'))
-    song_data = db.relationship('SpotifySongs', uselist=False)
+    track_song = db.relationship('Tracks', backref=db.backref('spotify_song', uselist=False))
+    track_album = db.relationship('Tracks', backref=db.backref('spotify_album', uselist=False))
+    track_artist = db.relationship('Tracks', backref=db.backref('spotify_artist', uselist=False))
 
-    album_id = db.Column(db.String, db.ForeignKey('spotify_albums.id'))
-    album_data = db.relationship('SpotifyAlbums', uselist=False)
-
-    artist_id = db.Column(db.String, db.ForeignKey('spotify_artists.id'))
-    artist_data = db.relationship('SpotifyArtists', uselist=False)
+    song = db.relationship('SpotifySongs', backref=db.backref('tracks', lazy='dynamic'))
+    album = db.relationship('SpotifyAlbums', backref=db.backref('tracks', lazy='dynamic'))
+    artist = db.relationship('SpotifyArtists', backref=db.backref('tracks', lazy='dynamic'))

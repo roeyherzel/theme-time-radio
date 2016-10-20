@@ -19,7 +19,9 @@
         {{#each tracklist}}
           <tr>
             <td>{{position}}</td>
+            <td>{{spotify_song.song.id}}</td>
             <td>{{parsed_song}}</td>
+            <td>{{spotify_artist.artist.id}}</td>
             <td>{{parsed_artist}}</td>
             <td>
               {{#each tags }}
