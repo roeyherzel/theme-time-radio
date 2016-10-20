@@ -19,21 +19,31 @@ print(len(episodes_urls.keys()))
 episode_id = 2
 
 
-def get_episode_image(episodeObj):
+def get_episode_data(episodeObj):
     tth = requests.get(episodes_urls.get(episodeObj.id))
     soup = BeautifulSoup(tth.text, 'html.parser')
     try:
+        # get image
         image = [i for i in soup.find_all('img') if image_url_prefix in i['src']][0]
         myImage = models.Images(url=image['src'], width=image['width'], height=image['height'])
         models.Images.create(myImage)
         episodeObj.image = myImage.url
         models.Episodes.update(episodeObj)
-        print(image['src'])
+
     except IndexError:
         pass
 
+    # get description
+    episodeObj.description = soup.p.text
+
+    # get media
+    episodeObj.media = soup.find("input", attrs={'id': 'podPressPlayerSpace_1_OrigURL'})['value']
+
+    # update
+    models.Episodes.update(episodeObj)
+
 
 with app.app_context():
-    for myEpisode in models.Episodes.query.order_by(models.Episodes.id).limit(2).all():
+    for myEpisode in models.Episodes.query.order_by(models.Episodes.id).all():
         print("\n" + str(myEpisode))
-        get_episode_image(myEpisode)
+        get_episode_data(myEpisode)
