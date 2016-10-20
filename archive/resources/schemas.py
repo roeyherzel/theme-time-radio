@@ -10,6 +10,7 @@ class UrlField(fields.Raw):
 SpotifyResourceSchema = {
     'id': fields.String,
     'name': fields.String,
+    'url': fields.String,
 }
 
 EpisodeSchema = {

@@ -19,10 +19,20 @@
         {{#each tracklist}}
           <tr>
             <td>{{position}}</td>
-            <td>{{spotify_song.song.id}}</td>
-            <td>{{parsed_song}}</td>
-            <td>{{spotify_artist.artist.id}}</td>
-            <td>{{parsed_artist}}</td>
+            <td>
+              {{# if spotify_song.song.url }}
+                <a href={{spotify_song.song.url}}>{{parsed_song}}</a>
+              {{else}}
+                {{parsed_song}}
+              {{/if}}
+            </td>
+            <td>
+              {{# if spotify_artist.artist.url}}
+                <a href={{spotify_artist.artist.url}}>{{parsed_artist}}</a>
+              {{else}}
+                {{parsed_artist}}
+              {{/if}}
+            </td>
             <td>
               {{#each tags }}
                 <span>{{tag}} <span>
