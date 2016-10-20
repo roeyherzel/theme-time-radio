@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Episodes</h2>
+    <div class="episodes_placeholder"></div>
+
+{% endblock %}
+
+{% block script %}
+  {% raw %}
+  <script id="episodes-template" type="text/x-handlebars-template">
+
+    {{#each episode}}
+    <a href="{{view_url}}">
+      <h3>Episode {{id}}: {{title}}</h3>
+    </a>
+    {{/each}}
+
+  </script>
+  {% endraw %}
+
+  <script type="text/javascript">
+    $(function() {
+
+      // API Call
+      $.getJSON("/api/episodes", function(data, status) {
+
+
+        // Grab the template script
+        var source = $("#episodes-template").html();
+
+        // Compile the template
+        var template = Handlebars.compile(source);
+        var context = {episode: data};
+        var compiledHtml = template(context);
+
+        // Add compiled html to page
+        $(".episodes_placeholder").html(compiledHtml);
+
+      });
+
+    });
+  </script>
+{% endblock %}

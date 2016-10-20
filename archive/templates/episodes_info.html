@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Episode {{episode.id}}: {{episode.title}}</h3>
+  <hr>
+  <div class="tracklist_placeholder"></div>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript">
+    var $EPISODE_ID = {{ episode.id|tojson|safe }};
+  </script>
+
+
+  {% raw %}
+  <script id="tracklist-template" type="text/x-handlebars-template">
+
+    <table class="table">
+      <tbody>
+        {{#each tracklist}}
+          <tr>
+            <td>{{position}}</td>
+            <td>{{parsed_song}}</td>
+            <td>{{parsed_artist}}</td>
+            <td>
+              {{#each tags }}
+                <span>{{tag}} <span>
+              {{/each}}
+            </td>
+          </tr>
+        {{/each}}
+    </table>
+
+  </script>
+  {% endraw %}
+
+  <script type="text/javascript">
+    $(function() {
+
+      console.log($EPISODE_ID);
+
+      // API Call
+      $.getJSON("/api/episodes/" + $EPISODE_ID + "/tracklist", function(data, status) {
+
+        console.log(data);
+        var source = $("#tracklist-template").html();
+        var template = Handlebars.compile(source);
+        var compiledHtml = template(data);
+        $(".tracklist_placeholder").html(compiledHtml);
+
+      });
+
+    });
+  </script>
+{% endblock %}

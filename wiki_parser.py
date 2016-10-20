@@ -32,7 +32,7 @@ class TrackParser(object):
 
     def dict(self):
         return {
-            'title': self.title, 'song': self.song, 'artist': self.artist,
+            'title': self.title, 'parsed_song': self.song, 'parsed_artist': self.artist,
             'position': self.position, 'resolved': self.resolved,
         }
 

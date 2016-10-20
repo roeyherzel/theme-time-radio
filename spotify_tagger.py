@@ -56,7 +56,7 @@ class BaseResource(object):
         self.name = data['name']
         self.url = data['href']
         self.type = data['type']
-        self.myModel = self.Model(spotify_id=self.id, name=self.name, endpoint_url=self.url)
+        self.myModel = self.Model(id=self.id, name=self.name, url=self.url)
         print(self.myModel)
 
     def __str__(self):
@@ -104,4 +104,4 @@ class CollectSongData(BaseResource):
 
 with app.app_context():
     for myTrack in models.Tracks.query.filter_by(resolved=True).limit(10):
-        searchTrack(song=myTrack.song, artist=myTrack.artist, track_id=myTrack.id)
+        searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)

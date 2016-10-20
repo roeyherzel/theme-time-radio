@@ -86,36 +86,3 @@ TrackArtistSchema = {
     'artist_id': fields.Integer,
     'resource_path': fields.FormattedString("artists/{artist_id}"),
 }
-
-TrackSchema = {
-    'id': fields.Integer,
-    'title': fields.String,
-    'position': fields.Integer,
-    'type': fields.String,
-    'episode_id': fields.Integer,
-    'tags_query': fields.List(fields.Nested(TrackTagQuerySchema)),
-    'tags_status': fields.List(fields.Nested(TrackTagStatusSchema)),  # NOTE: need to remove the list, but make it work
-
-    'tags_song': fields.List(fields.Nested(TrackSongsSchema)),
-    'tags_album': fields.List(fields.Nested(TrackAlbumSchema)),
-    'tags_artist': fields.List(fields.Nested(TrackArtistSchema)),
-}
-
-
-EpisodeSchema = {
-    'resource_path': fields.FormattedString("episodes/{id}"),
-    'id': fields.Integer,
-    'title': fields.String,
-    'description': fields.String,
-    'guest': fields.String,
-    'date_pub': fields.DateTime,
-    'date_add': fields.DateTime,
-    'podcast_url': fields.String,
-    'thumb': fields.String,
-    'tags': fields.List(fields.Nested({'tag': fields.String})),
-}
-
-
-EpisodeTracklistScheam = {
-    'tracklist': fields.List(fields.Nested(TrackSchema))
-}

@@ -7,5 +7,4 @@ db = SQLAlchemy()
 
 from archive.models.common import *
 from archive.models.spotify import *
-from archive.models.episodes import *
-from archive.models.tracks import *
+from archive.models.podcast import *
