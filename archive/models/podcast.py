@@ -1,5 +1,5 @@
 from archive.models import db
-from archive.models.mixin import Mixin
+from archive.models.common import Mixin, Images
 from datetime import datetime
 
 
@@ -10,7 +10,7 @@ class Episodes(db.Model, Mixin):
     description = db.Column(db.Unicode())
     aired = db.Column(db.String())
     media = db.Column(db.String())
-    image = db.Column(db.String())
+    image = db.Column(db.String(), db.ForeignKey('images.url'))
 
     def __repr__(self):
         return '<Episode ({}): {}>'.format(self.id, self.title)

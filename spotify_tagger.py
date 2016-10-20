@@ -108,6 +108,6 @@ class CollectSongData(BaseResource):
 
 with app.app_context():
     models.TracksSpotifyData.query.delete()
-    for myTrack in models.Tracks.query.filter_by(resolved=True).limit(100):
+    for myTrack in models.Tracks.query.filter_by(resolved=True).limit(50):
         print("\n" + str(myTrack))
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)
