@@ -30,6 +30,7 @@ def searchTrack(song, artist, track_id):
         # search artist
         results = search('artist:{}'.format(artist))
         if len(results) > 0:
+            print("ONLY ARTIST")
             collectSpotifyData(results[0], 'artist', track_id)
         else:
             print("Error...didn't find track for: {} / {}".format(song, artist))
@@ -103,5 +104,7 @@ class CollectSongData(BaseResource):
 
 
 with app.app_context():
+    models.TracksSpotifyData.query.delete()
     for myTrack in models.Tracks.query.filter_by(resolved=True).limit(10):
+        print("\n" + str(myTrack))
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)
