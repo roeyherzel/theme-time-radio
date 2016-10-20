@@ -3,22 +3,12 @@ from archive.models.mixin import Mixin
 from datetime import datetime
 
 
-class EpisodesActions():
-    def add(newEpisode, tags=None):
-        Mixin.create(newEpisode)
-        if tags:
-            if type(tags) is not list:
-                raise TypeError("tags must be list")
-            else:
-                for tag in tags:
-                    Mixin.create(EpisodesTags(tag=tag, episode_id=newEpisode.id))
-
-
-class Episodes(db.Model, EpisodesActions):
+class Episodes(db.Model, Mixin):
     id = db.Column(db.Integer, primary_key=True)
+    season = db.Column(db.Integer)
     title = db.Column(db.String())
     description = db.Column(db.Unicode())
-    date_pub = db.Column(db.DateTime)
+    aired = db.Column(db.String())
     media = db.Column(db.String())
     image = db.Column(db.String())
 
@@ -26,30 +16,13 @@ class Episodes(db.Model, EpisodesActions):
         return '<Episode ({}): {}>'.format(self.id, self.title)
 
 
-class EpisodesTags(db.Model):
+class EpisodesTags(db.Model, Mixin):
     tag = db.Column(db.String(), primary_key=True)
     episode_id = db.Column(db.Integer, db.ForeignKey('episodes.id'), primary_key=True)
     episode = db.relationship('Episodes', backref=db.backref('tags', lazy='dynamic'))
 
 
-class TracksActions():
-    def add(newTrack, tags=None):
-        Mixin.create(newTrack)
-        if tags:
-            if type(tags) is not list:
-                raise TypeError("tags must be list")
-            else:
-                for tag in tags:
-                    Mixin.create(TracksTags(tag=tag, track_id=newTrack.id))
-
-
-class TracksTags(db.Model):
-    tag = db.Column(db.String(), primary_key=True)
-    track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
-    track = db.relationship('Tracks', backref=db.backref('tags', lazy='dynamic'))
-
-
-class Tracks(db.Model, TracksActions):
+class Tracks(db.Model, Mixin):
     id = db.Column(db.Integer, primary_key=True)
     episode_id = db.Column(db.Integer, db.ForeignKey('episodes.id'))
     episode = db.relationship('Episodes', backref=db.backref('tracklist', lazy='dynamic'))
@@ -61,3 +34,9 @@ class Tracks(db.Model, TracksActions):
 
     def __repr__(self):
         return '<Track ({}): {}>'.format(self.id, self.title)
+
+
+class TracksTags(db.Model, Mixin):
+    tag = db.Column(db.String(), primary_key=True)
+    track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
+    track = db.relationship('Tracks', backref=db.backref('tags', lazy='dynamic'))

@@ -24,11 +24,11 @@ class TrackParser(object):
 
     def __str__(self):
         if self.resolved:
-            return "<Track({}) - song:[{}] artist:[{}] year:[{}]>".format(
+            return "<TrackParser ({}) - song:[{}] artist:[{}] year:[{}]>".format(
                 self.position, self.song, self.artist, self.year
             )
         else:
-            return "<Track({}) - title:[{}]>".format(self.position, self.title.encode("utf-8"))
+            return "<TrackParser ({}) - title:[{}]>".format(self.position, self.title.encode("utf-8"))
 
     def dict(self):
         return {
@@ -38,11 +38,11 @@ class TrackParser(object):
 
 
 class EpisodeParser(object):
-    def __init__(self, ep_section, wikiPage, tags):
-        self.section = ep_section
-        self.tags = tags
+    def __init__(self, section, wikiPage, season):
+        self.section = section
+        self.season = season
         self.id, self.title, self.tracklist = None, None, None
-        res = prs_episode.search(ep_section)
+        res = prs_episode.search(section)
         if res:
             self.id, self.title = res.groups()
         else:
@@ -50,19 +50,20 @@ class EpisodeParser(object):
             return None
 
         tracklist = wikiPage.section(self.section).split("\n")
-        self.date_aired = tracklist.pop(0)
+        self.aired = tracklist.pop(0)
         self.tracklist = [TrackParser(tracklist[i], i + 1) for i in range(0, len(tracklist))]
 
     def __str__(self):
-        return "<Episode({}) - title:[{}]>".format(self.id, self.title)
+        return "<EpisodeParser ({}/{}) - title:[{}]>".format(self.season, self.id, self.title)
 
     def dict(self):
-        return {'id': self.id, 'title': self.title}
+        return {'id': self.id, 'title': self.title, 'season': self.season, 'aired': self.aired}
 
 
 page = "Theme Time Radio Hour (season 1)"
-wiki_page = wikipedia.page(page)
-sections = [prs_section.findall(line)[0] for line in wiki_page.content.split("\n") if line.startswith("===")]
+season = 1
+wikiPage = wikipedia.page(page)
+sections = [prs_section.findall(line)[0] for line in wikiPage.content.split("\n") if line.startswith("===")]
 
 
 """ Seeding episodes & tracks to the database """
@@ -71,12 +72,12 @@ with app.app_context():
     models.db.create_all()
 
     for section in sections:
-        parsedEpisode = EpisodeParser(section, wiki_page, ["season 1"])
+        parsedEpisode = EpisodeParser(section, wikiPage, season)
         print(parsedEpisode)
         print("=" * 100)
         newEpisode = models.Episodes(**parsedEpisode.dict())
-        models.Episodes.add(newEpisode, tags=parsedEpisode.tags)
+        models.Episodes.create(newEpisode)
 
         for parsedTrack in parsedEpisode.tracklist:
             newTrack = models.Tracks(episode_id=newEpisode.id, **parsedTrack.dict())
-            models.Tracks.add(newTrack, tags=parsedTrack.tags)
+            models.Tracks.create(newTrack)

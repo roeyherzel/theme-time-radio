@@ -64,7 +64,10 @@ class BaseResource(object):
         return "<{}: {}>".format(self.__class__.__name__, self.name)
 
     def addImage(self, images):
-        image = images[0]
+        try:
+            image = images[0]
+        except IndexError:
+            return
         models.Images.create(models.Images(**image))
         self.myModel.image = image['url']
 
@@ -105,6 +108,6 @@ class CollectSongData(BaseResource):
 
 with app.app_context():
     models.TracksSpotifyData.query.delete()
-    for myTrack in models.Tracks.query.filter_by(resolved=True).limit(10):
+    for myTrack in models.Tracks.query.filter_by(resolved=True).limit(100):
         print("\n" + str(myTrack))
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)
