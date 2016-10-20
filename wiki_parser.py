@@ -14,13 +14,12 @@ class TrackParser(object):
     def __init__(self, track, position):
         self.title = track
         self.position = position
-        self.song, self.artist, self.year, self.tags = None, None, None, None
+        self.song, self.artist, self.year = None, None, None
         self.resolved = False
         res = prs_track.search(self.title)
         if res:
             self.song, self.artist, self.year = res.groups()
             self.resolved = True
-            self.tags = [self.year]
 
     def __str__(self):
         if self.resolved:
@@ -33,7 +32,7 @@ class TrackParser(object):
     def dict(self):
         return {
             'title': self.title, 'parsed_song': self.song, 'parsed_artist': self.artist,
-            'position': self.position, 'resolved': self.resolved,
+            'year': self.year, 'position': self.position, 'resolved': self.resolved,
         }
 
 

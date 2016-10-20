@@ -30,6 +30,7 @@ class Tracks(db.Model, Mixin):
     parsed_song = db.Column(db.String())
     parsed_artist = db.Column(db.String())
     position = db.Column(db.Integer)
+    year = db.Column(db.Integer)
     resolved = db.Column(db.Boolean)
 
     def __repr__(self):
