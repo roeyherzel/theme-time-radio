@@ -17,7 +17,7 @@ class EpisodesAPI(Resource):
         if episode_id is not None:
             return Episodes.query.get(episode_id)
         else:
-            return limit_query(Episodes.query.order_by(desc(Episodes.date_pub)), args.get('limit')).all()
+            return limit_query(Episodes.query.order_by(Episodes.id), args.get('limit')).all()
 
 
 class EpisodesTracklistAPI(Resource):

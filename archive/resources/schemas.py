@@ -18,6 +18,8 @@ EpisodeSchema = {
     'api_url': UrlField(attribute="episodes_api"),
     'id': fields.Integer,
     'title': fields.String,
+    'season': fields.Integer,
+    'image': fields.String,
     'tags': fields.List(fields.Nested({'tag': fields.String})),
 }
 

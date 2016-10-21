@@ -16,7 +16,6 @@ episodes_urls = [a.get('href') for a in soup_all.find_all('a') if a.get('href', 
 episodes_urls = dict([(int(parse_id.search(url).group(1)), url) for url in episodes_urls])
 
 print(len(episodes_urls.keys()))
-episode_id = 2
 
 
 def get_episode_data(episodeObj):
@@ -35,10 +34,8 @@ def get_episode_data(episodeObj):
 
     # get description
     episodeObj.description = soup.p.text
-
     # get media
     episodeObj.media = soup.find("input", attrs={'id': 'podPressPlayerSpace_1_OrigURL'})['value']
-
     # update
     models.Episodes.update(episodeObj)
 

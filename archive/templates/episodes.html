@@ -1,7 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Episodes</h2>
-    <div class="episodes_placeholder"></div>
+  <div class="row">
+    <div class="col-md-2 sidebar">
+      <ul class="nav nav-pills nav-stacked">
+        <li role="presentation" class="dropdown active">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Episodes <span class="caret"></span> </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Season 1</a></li>
+            <li><a href="#">Season 2</a></li>
+            <li><a href="#">Season 3</a></li>
+          </ul>
+        </li>
+        <li role="presentation"><a href="#">Artists</a></li>
+        <li role="presentation"><a href="#">Albums</a></li>
+        <li role="presentation"><a href="#">Songs</a></li>
+        <li role="presentation"><a href="#">Genres</a></li>
+        <li role="presentation"><a href="#">Decades</a></li>
+      </ul>
+    </div>
+    <div class="col-md-10 thumbs">
+      <div class="episodes_placeholder row">
+      </div>
+    </div>
+  </div>
+
 
 {% endblock %}
 
@@ -10,9 +32,12 @@
   <script id="episodes-template" type="text/x-handlebars-template">
 
     {{#each episode}}
-    <a href="{{view_url}}">
-      <h3>Episode {{id}}: {{title}}</h3>
-    </a>
+      <div class="episode_card col-md-3">
+        <a href="{{view_url}}">
+          <div class="title">{{id}}. {{title}}</div>
+          <img src={{image}}>
+        </a>
+      </div>
     {{/each}}
 
   </script>
@@ -22,8 +47,7 @@
     $(function() {
 
       // API Call
-      $.getJSON("/api/episodes", function(data, status) {
-
+      $.getJSON("/api/episodes", {'limit': 15}, function(data, status) {
 
         // Grab the template script
         var source = $("#episodes-template").html();
@@ -40,4 +64,17 @@
 
     });
   </script>
+{% endblock %}
+
+{% block style %}
+  <style>
+    .episode_card {
+      margin-top: 10px;
+    }
+    img {
+      width: 230px;
+      height: 150px;
+      object-fit: cover;
+    }
+  </style>
 {% endblock %}
