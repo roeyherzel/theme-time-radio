@@ -12,14 +12,13 @@
     <title>Theme Time Radio Tapes</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
 
     <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='css/jumbotron.css') }}" rel="stylesheet">
-    <link href="jumbotron.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jumbotron.css') }}" >
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]
@@ -30,6 +29,10 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    {% block style %}
+    {% endblock %}
+
   </head>
 
   <body>
@@ -83,18 +86,18 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/handlebars-v4.0.5.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/jquery-3.1.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/underscore-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/js/handlebars-v4.0.5.js') }}"></script>
     <script src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+
+    {% block script %}
+    {% endblock %}
+
   </body>
 
-  {% block script %}
-  {% endblock %}
 
-  {% block style %}
-  {% endblock %}
 
 </html>

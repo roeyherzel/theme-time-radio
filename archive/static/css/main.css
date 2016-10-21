@@ -1,0 +1,9 @@
+
+.episode_card {
+  margin-top: 10px;
+}
+img {
+  width: 230px;
+  height: 150px;
+  object-fit: cover;
+}

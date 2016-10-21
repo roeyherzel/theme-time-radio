@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+
 {% block content %}
   <div class="row">
     <div class="col-md-2 sidebar">
@@ -23,58 +24,12 @@
       </div>
     </div>
   </div>
-
-
-{% endblock %}
-
-{% block script %}
-  {% raw %}
-  <script id="episodes-template" type="text/x-handlebars-template">
-
-    {{#each episode}}
-      <div class="episode_card col-md-3">
-        <a href="{{view_url}}">
-          <div class="title">{{id}}. {{title}}</div>
-          <img src={{image}}>
-        </a>
-      </div>
-    {{/each}}
-
-  </script>
-  {% endraw %}
-
-  <script type="text/javascript">
-    $(function() {
-
-      // API Call
-      $.getJSON("/api/episodes", {'limit': 15}, function(data, status) {
-
-        // Grab the template script
-        var source = $("#episodes-template").html();
-
-        // Compile the template
-        var template = Handlebars.compile(source);
-        var context = {episode: data};
-        var compiledHtml = template(context);
-
-        // Add compiled html to page
-        $(".episodes_placeholder").html(compiledHtml);
-
-      });
-
-    });
-  </script>
 {% endblock %}
 
 {% block style %}
-  <style>
-    .episode_card {
-      margin-top: 10px;
-    }
-    img {
-      width: 230px;
-      height: 150px;
-      object-fit: cover;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}
