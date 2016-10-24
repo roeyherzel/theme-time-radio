@@ -1,0 +1,58 @@
+{% extends "layout.html.jinja" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+
+
+      <div class="row">
+
+
+        <div class="col-md-4">
+          <div class="title-path lead text-muted">
+            <span>Season {{episode.season}} / Episode {{episode.id}}:</span>
+            <h2 class="title">{{episode.title}}</h2>
+            <span>{{episode.aired}}</span>
+          </div>
+          <audio controls src="{{episode.media}}"></audio>
+        </div>
+        <div class="col-md-4">
+          <img class="img-responsive center-block" src="{{episode.image}}" alt="">
+        </div>
+        <div class="col-md-4">
+          <blockquote>
+            <p>{{episode.description | nl2br}}</p>
+            <footer>Bob Dylan</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h3 class="page-header">Playlist</h3>
+        <div class="tracklist_placeholder"></div>
+      </div>
+      <div class="col-md-4 text-center">
+        <h3 class="page-header">Play on Spotify</h3>
+        <iframe id="spotifyPlayer" src="" frameborder="0" allowtransparency="true" width="300" height="580"></iframe>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/episode_info.css') }}">
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript">
+    var $EPISODE_ID = {{ episode.id|tojson|safe }},
+        $EPISODE_TITLE = {{ episode.title|tojson|safe }};
+  </script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='js/tracklist.js') }}"></script>
+{% endblock %}

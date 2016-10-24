@@ -22,9 +22,9 @@ def nl2br(eval_ctx, value):
 @app.route('/episodes/<int:episode_id>')
 def episodes_info(episode_id):
     ep = Episodes.query.get(episode_id)
-    return render_template('episodes_info.html', episode=ep)
+    return render_template('episodes_info.html.jinja', episode=ep)
 
 
 @app.route('/')
-def episodes():
-    return render_template('episodes.html')
+def index():
+    return render_template('index.html.jinja')

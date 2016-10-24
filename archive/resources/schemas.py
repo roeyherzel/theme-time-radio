@@ -30,7 +30,7 @@ TrackSchema = {
     'parsed_song': fields.String,
     'parsed_artist': fields.String,
     'position': fields.Integer,
-    'tags': fields.List(fields.Nested({'tag': fields.String})),
+    'year': fields.Integer,
     'spotify_song': fields.Nested({'song': fields.Nested(SpotifyResourceSchema)}),
     'spotify_album': fields.Nested({'album': fields.Nested(SpotifyResourceSchema)}),
     'spotify_artist': fields.Nested({'artist': fields.Nested(SpotifyResourceSchema)}),

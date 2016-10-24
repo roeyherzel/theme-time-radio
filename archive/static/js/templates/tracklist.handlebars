@@ -1,0 +1,40 @@
+<table class="table table-responsive table-condensed">
+  <thead>
+
+    <th>#</th>
+    <th>SONG</th>
+    <th>ARTIST</th>
+    <th>YEAR</th>
+    <th class="text-center">PREVIEW</th>
+  </thead>
+  <tbody>
+    {{#each tracklist}}
+      <tr>
+        <td>{{position}}</td>
+        <td>
+          {{# if spotify_song.song.id }}
+            <a href={{spotify_song.song.url}}>{{parsed_song}}</a>
+          {{else}}
+            {{parsed_song}}
+          {{/if}}
+        </td>
+        <td>
+          {{# if spotify_artist.artist.id}}
+            <a href={{spotify_artist.artist.url}}>{{parsed_artist}}</a>
+          {{else}}
+            {{parsed_artist}}
+          {{/if}}
+        </td>
+        <td>
+          {{year}}
+        </td>
+        <td class="text-center">
+          {{# if spotify_song.song.id }}
+            <span class="glyphicon glyphicon-play-circle"></span>
+          {{else}}
+            <span class="glyphicon glyphicon-question-sign"></span>
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+</table>
