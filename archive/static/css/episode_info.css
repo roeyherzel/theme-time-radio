@@ -16,7 +16,7 @@ td {
   color: #333333;
 }
 blockquote {
-  margin-top: 10px;
+//  margin-top: 10px;
   border-left-color: #FFFFFF;
 }
 .description {
@@ -24,4 +24,13 @@ blockquote {
 }
 .glyphicon {
   font-size: 20px;
+}
+
+.preview:hover {
+  cursor: pointer;
+}
+
+.glyphicon-pause,
+.green {
+  color: #1FC159;
 }

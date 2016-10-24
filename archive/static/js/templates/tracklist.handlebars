@@ -1,6 +1,5 @@
 <table class="table table-responsive table-condensed">
-  <thead>
-
+  <thead class="green">
     <th>#</th>
     <th>SONG</th>
     <th>ARTIST</th>
@@ -30,7 +29,7 @@
         </td>
         <td class="text-center">
           {{# if spotify_song.song.id }}
-            <span class="glyphicon glyphicon-play-circle"></span>
+            <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.song.preview_url}}"></span>
           {{else}}
             <span class="glyphicon glyphicon-question-sign"></span>
           {{/if}}

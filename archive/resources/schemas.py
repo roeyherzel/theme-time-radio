@@ -11,6 +11,7 @@ SpotifyResourceSchema = {
     'id': fields.String,
     'name': fields.String,
     'url': fields.String,
+    'preview_url': fields.String
 }
 
 EpisodeSchema = {

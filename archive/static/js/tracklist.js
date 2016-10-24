@@ -2,26 +2,70 @@
 $(function() {
   $.getJSON("/api/episodes/" + $EPISODE_ID + "/tracklist", function(data, status) {
 
-    console.log(data.tracklist.length);
     var tracksOnSpotify = _.filter(data.tracklist, function(track) { return track.spotify_song.song.id !== null }),
         trackIds = _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
 
-    var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset";
-    var spotifyPlaySettings = "&theme=white";
-    var playlistTitle =  "Episode " + $EPISODE_ID + " - " + $EPISODE_TITLE;
-    var playlistTracks = trackIds.join(',');
-
-    var spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlaySettings;
+    var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset",
+        spotifyPlaySettings = "&theme=white",
+        playlistTitle =  "Episode " + $EPISODE_ID + " - " + $EPISODE_TITLE,
+        playlistTracks = trackIds.join(','),
+        spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlaySettings;
 
     $("#spotifyPlayer").attr('src', spotifyPlayerUri);
 
-
     getTemplateAjax('tracklist.handlebars', function(template) {
-
       console.log(data);
-      $('.tracklist_placeholder').html(template(data));
+      $('#tracklistPlaceholder').html(template(data));
     });
 
   });
 
+});
+
+// audioObject is set globaly so we could pause previous tracks
+var audioObject = null,
+  playingCssClass = "playing",
+  playGlyph = "glyphicon-play-circle",
+  pauseGlyph = "glyphicon-pause";
+
+
+function audioControl(action, target, audio) {
+  if (action === "play") {
+    audioObject.play();
+    $(target).addClass(playingCssClass).removeClass(playGlyph).addClass(pauseGlyph);
+
+  } else if (action === "pause") {
+    audioObject.pause();
+    $(target).removeClass(playingCssClass).removeClass(pauseGlyph).addClass(playGlyph);
+  }
+
+}
+
+document.getElementById("tracklistPlaceholder").addEventListener("click", function(e) {
+    var target = e.target;
+
+    if (target !== null && target.classList.contains("preview")) {
+      var previewUrl = target.attributes.previewUrl.value;
+      console.log(previewUrl);
+
+      // target already playing
+      if (target.classList.contains(playingCssClass)) {
+        audioControl("pause", target, audioObject);
+
+      } else {
+        // previous (other) target is playing
+        if (audioObject) {
+          audioControl("pause", document.getElementsByClassName(playingCssClass), audioObject);
+        }
+        // play target
+        audioObject = new Audio(previewUrl);
+        audioControl("play", target, audioObject);
+
+        // pause ended target
+        audioObject.addEventListener('ended', function () {
+          audioControl("pause", target, audioObject);
+        });
+      }
+
+    }
 });
