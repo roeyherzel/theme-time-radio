@@ -38,17 +38,18 @@ def searchTrack(song, artist, track_id):
 
 def collectSpotifyData(data, match_type, track_id):
     if match_type == 'track':
-        # TODO: handle multiple artists
-        myTracksData = models.TracksSpotifyData(
-            track_id=track_id,
-            artist_id=CollectArtistData(data['artists'][0]).id,
-            album_id=CollectAlbumData(data['album']).id,
-            song_id=CollectSongData(data).id
-        )
-    else:
-        myTracksData = models.TracksSpotifyData(track_id=track_id, artist_id=CollectArtistData(data).id)
+        mySong = models.TracksSpotifySongs(track_id=track_id, song_id=CollectSongData(data).id)
+        models.Mixin.create(mySong)
+        print(mySong)
 
-    models.TracksSpotifyData.create(myTracksData)
+        for artist in data['artists']:
+            myArtist = models.TracksSpotifyArtists(track_id=track_id, artist_id=CollectArtistData(artist).id)
+            models.Mixin.create(myArtist)
+            print(myArtist)
+    else:
+        myArtist = models.TracksSpotifyArtists(track_id=track_id, artist_id=CollectArtistData(data).id)
+        models.Mixin.create(myArtist)
+        print(myArtist)
 
 
 class BaseResource(object):
@@ -58,7 +59,6 @@ class BaseResource(object):
         self.url = data['href']
         self.type = data['type']
         self.myModel = self.Model(id=self.id, name=self.name, url=self.url)
-        print(self.myModel)
 
     def __str__(self):
         return "<{}: {}>".format(self.__class__.__name__, self.name)
@@ -68,11 +68,12 @@ class BaseResource(object):
             image = images[0]
         except IndexError:
             return
-        models.Images.create(models.Images(**image))
+        models.Mixin.create(models.Images(**image))
         self.myModel.image = image['url']
 
     def create(self):
-        self.Model.create(self.myModel)
+        models.Mixin.create(self.myModel)
+        print(self.myModel, end='\n')
 
 
 class CollectArtistData(BaseResource):
@@ -102,12 +103,15 @@ class CollectSongData(BaseResource):
         self.Model = models.SpotifySongs
         super().__init__(data)
         self.myModel.preview_url = data['preview_url']
-        self.addImage(data['album']['images'])
+        self.myModel.album_id = CollectAlbumData(data['album']).id
         self.create()
 
 
 with app.app_context():
-    models.TracksSpotifyData.query.delete()
+    models.TracksSpotifySongs.query.delete()
+    models.TracksSpotifyArtists.query.delete()
+    models.db.session.commit()
+
     for myTrack in models.Tracks.query.filter_by(resolved=True).limit(50):
         print("\n" + str(myTrack))
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)

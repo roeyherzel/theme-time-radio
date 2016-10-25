@@ -16,30 +16,26 @@
           {{#each tracklist}}
             <tr>
               {{# if episode }}
-                <td>{{episode.season}} / {{episode.id}}</td>
+                <td>{{episode.season}} / {{episode.id}} / {{position}}</td>
               {{else}}
                 <td>{{position}}</td>
               {{/if}}
               <td>
-                {{# if spotify_song.song.id }}
-                  <a href={{spotify_song.song.url}}>{{parsed_song}}</a>
+                {{# if spotify_song.data.id }}
+                  <a href={{spotify_song.data.url}}>{{parsed_song}}</a>
                 {{else}}
                   {{parsed_song}}
                 {{/if}}
               </td>
               <td>
-                {{# if spotify_artist.artist.id}}
-                  <a href=/artists/{{spotify_artist.artist.id}}>{{parsed_artist}}</a>
-                {{else}}
-                  {{parsed_artist}}
-                {{/if}}
+                {{# artistName spotify_artists parsed_artist}}{{/artistName}}
               </td>
               <td>
                 {{year}}
               </td>
               <td class="text-center">
-                {{# if spotify_song.song.id }}
-                  <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.song.preview_url}}"></span>
+                {{# if spotify_song.data.id }}
+                  <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.data.preview_url}}"></span>
                 {{else}}
                   <span class="glyphicon glyphicon-question-sign"></span>
                 {{/if}}

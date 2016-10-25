@@ -1,4 +1,4 @@
-from archive.models.spotify import SpotifyArtists, TracksSpotifyData
+from archive.models.spotify import SpotifyArtists, TracksSpotifyArtists
 from archive.models.podcast import Tracks
 from archive.common.utils import limit_query
 from archive.resources.schemas import SpotifyResourceSchema, PlaylistSchema
@@ -25,8 +25,8 @@ class ArtistsTracksAPI(Resource):
 
     @marshal_with(PlaylistSchema)
     def get(self, artist_id):
-        tracks = Tracks.query.join(TracksSpotifyData, (Tracks.id == TracksSpotifyData.track_id)) \
-                       .filter(TracksSpotifyData.artist_id == artist_id) \
+        tracks = Tracks.query.join(TracksSpotifyArtists, (Tracks.id == TracksSpotifyArtists.track_id)) \
+                       .filter(TracksSpotifyArtists.artist_id == artist_id) \
                        .all()
 
         return {'tracklist': tracks}
