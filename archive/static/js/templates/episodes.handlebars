@@ -2,12 +2,12 @@
 <div class="row text-center">
   {{#each episode}}
     <div class="episode_card col-md-3">
-      <a href="{{view_url}}">
+      <a href="{{view}}">
         <img class="img-rounded" src={{image}}>
       </a>
       <div class="episode_title text-left">
         <div class="small text-muted">Episode {{id}}:</div>
-        <a class="lead" href="{{view_url}}">{{title}}</a>
+        <a class="lead" href="{{view}}">{{title}}</a>
       </div>
     </div>
   {{/each}}

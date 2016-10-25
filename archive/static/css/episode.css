@@ -1,0 +1,20 @@
+
+td {
+  vertical-align: middle;
+}
+
+.title-path {
+  margin: 10px 0 10px 0;
+  border-bottom: 1px solid #777777;
+  font-size: 18px;
+}
+.title {
+  margin-top: 10px;
+  color: #333333;
+}
+blockquote {
+  border-left-color: 0;
+}
+blockquote > p > em {
+  font-size: 16px;
+}

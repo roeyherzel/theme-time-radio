@@ -7,11 +7,23 @@ body {
     color: #333;
 }
 
-
 .logo {
   background-image: url('/static/images/walkman-black-x32.png');
   background-repeat: no-repeat;
   background-size: 32px;
   background-position: left center;
   padding-left: 40px;
+}
+
+.preview:hover {
+  cursor: pointer;
+}
+
+.glyphicon {
+  font-size: 20px;
+}
+
+.glyphicon-pause,
+.green {
+  color: #1FC159;
 }

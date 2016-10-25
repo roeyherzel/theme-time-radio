@@ -1,26 +1,20 @@
 
-$(function() {
-  $.getJSON("/api/episodes/" + $EPISODE_ID + "/tracklist", function(data, status) {
 
-    var tracksOnSpotify = _.filter(data.tracklist, function(track) { return track.spotify_song.song.id !== null }),
-        trackIds = _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
+// create embeded Spotify playlist from tracklist API
+function createSpotifyPlayer(tracklist, title) {
+  console.log(tracklist);
+  var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.song.id !== null }),
+      trackIds = _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
 
-    var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset",
-        spotifyPlaySettings = "&theme=white",
-        playlistTitle =  "Episode " + $EPISODE_ID + " - " + $EPISODE_TITLE,
-        playlistTracks = trackIds.join(','),
-        spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlaySettings;
+  var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset",
+      spotifyPlaySettings = "&theme=white",
+      playlistTitle =  title || "Playlist",
+      playlistTracks = trackIds.join(','),
+      spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlaySettings;
 
-    $("#spotifyPlayer").attr('src', spotifyPlayerUri);
+  $("#spotifyPlayer").attr('src', spotifyPlayerUri);
+}
 
-    getTemplateAjax('tracklist.handlebars', function(template) {
-      console.log(data);
-      $('#tracklistPlaceholder').html(template(data));
-    });
-
-  });
-
-});
 
 // audioObject is set globaly so we could pause previous tracks
 var audioObject = null,
@@ -41,6 +35,7 @@ function audioControl(action, target, audio) {
 
 }
 
+// Events controling song preview
 document.getElementById("tracklistPlaceholder").addEventListener("click", function(e) {
     var target = e.target;
 

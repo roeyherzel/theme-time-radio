@@ -1,6 +1,6 @@
 from archive.models.podcast import Episodes
 from archive.common.utils import limit_query
-from archive.resources.schemas import EpisodeSchema, EpisodesTracklistSchema
+from archive.resources.schemas import EpisodeSchema, TracklistSchema
 
 from flask_restful import Resource, reqparse, marshal_with
 from sqlalchemy import desc
@@ -22,6 +22,6 @@ class EpisodesAPI(Resource):
 
 class EpisodesTracklistAPI(Resource):
 
-    @marshal_with(EpisodesTracklistSchema)
+    @marshal_with(TracklistSchema)
     def get(self, episode_id):
         return Episodes.query.get(episode_id)

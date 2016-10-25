@@ -2,22 +2,18 @@ from flask import url_for
 from flask_restful import fields
 
 
-class UrlField(fields.Raw):
-    def output(self, key, obj):
-        return url_for(self.attribute, episode_id=obj.id, _external=True)
-
-
 SpotifyResourceSchema = {
     'id': fields.String,
     'name': fields.String,
     'url': fields.String,
-    'preview_url': fields.String
+    'preview_url': fields.String,
+    'image': fields.String
 }
 
 EpisodeSchema = {
-    'view_url': UrlField(attribute="episodes_info"),
-    'api_url': UrlField(attribute="episodes_api"),
     'id': fields.Integer,
+    'view': fields.FormattedString("episodes/{id}"),
+    'api': fields.FormattedString("api/episodes/{id}"),
     'title': fields.String,
     'season': fields.Integer,
     'image': fields.String,
@@ -38,6 +34,6 @@ TrackSchema = {
 }
 
 
-EpisodesTracklistSchema = {
+TracklistSchema = {
     'tracklist': fields.List(fields.Nested(TrackSchema))
 }
