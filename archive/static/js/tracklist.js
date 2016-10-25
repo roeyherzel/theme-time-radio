@@ -6,12 +6,17 @@ function createSpotifyPlayer(tracklist, title) {
       trackIds = _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
 
   var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset",
-      spotifyPlaySettings = "&theme=white",
+      spotifyPlaySettings = "&theme=white&view=list",
       playlistTitle =  title || "Playlist",
       playlistTracks = trackIds.join(','),
       spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlaySettings;
 
-  $("#spotifyPlayer").attr('src', spotifyPlayerUri);
+
+  var $iframe = $(document.createElement("iframe"));
+  console.log($iframe);
+  $("#spotifyPlayer").html(
+    $iframe.attr({src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: "300", height: "380"})
+  );
 }
 
 

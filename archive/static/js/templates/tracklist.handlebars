@@ -1,58 +1,53 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
-      <div>
-        <table class="table table-responsive table-condensed">
-          <thead class="green">
-            <th>#</th>
-            <th>SONG</th>
-            <th>ARTIST</th>
-            <th>YEAR</th>
-            <th class="text-center">PREVIEW</th>
-          </thead>
-          <tbody>
-            {{#each tracklist}}
-              <tr>
-                {{# if episode }}
-                  <td>Season {{episode.season}} / Episode {{episode.id}}</td>
+<div class="row">
+  <div class="col-md-4">
+    <div id="spotifyPlayer"></div>
+  </div>
+  <div class="col-md-8">
+    <div>
+      <table class="table table-responsive table-condensed">
+        <thead class="green">
+          <th>#</th>
+          <th>SONG</th>
+          <th>ARTIST</th>
+          <th>YEAR</th>
+          <th class="text-center">PREVIEW</th>
+        </thead>
+        <tbody>
+          {{#each tracklist}}
+            <tr>
+              {{# if episode }}
+                <td>Season {{episode.season}} / Episode {{episode.id}}</td>
+              {{else}}
+                <td>{{position}}</td>
+              {{/if}}
+              <td>
+                {{# if spotify_song.song.id }}
+                  <a href={{spotify_song.song.url}}>{{parsed_song}}</a>
                 {{else}}
-                  <td>{{position}}</td>
+                  {{parsed_song}}
                 {{/if}}
-                <td>
-                  {{# if spotify_song.song.id }}
-                    <a href={{spotify_song.song.url}}>{{parsed_song}}</a>
-                  {{else}}
-                    {{parsed_song}}
-                  {{/if}}
-                </td>
-                <td>
-                  {{# if spotify_artist.artist.id}}
-                    <a href=/artists/{{spotify_artist.artist.id}}>{{parsed_artist}}</a>
-                  {{else}}
-                    {{parsed_artist}}
-                  {{/if}}
-                </td>
-                <td>
-                  {{year}}
-                </td>
-                <td class="text-center">
-                  {{# if spotify_song.song.id }}
-                    <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.song.preview_url}}"></span>
-                  {{else}}
-                    <span class="glyphicon glyphicon-question-sign"></span>
-                  {{/if}}
-                </td>
-              </tr>
-            {{/each}}
-        </table>
-      </div>
-    </div>
-    <div class="col-md-4 text-center">
-      <div class="play-on-spotify"></div>
-      <img class="play-on-spotify" src="/static/images/Spotify_Logo_RGB_Green.png" alt="" />
-      <iframe id="spotifyPlayer" src="" frameborder="0" allowtransparency="true" width="300" height="380"></iframe>
-
+              </td>
+              <td>
+                {{# if spotify_artist.artist.id}}
+                  <a href=/artists/{{spotify_artist.artist.id}}>{{parsed_artist}}</a>
+                {{else}}
+                  {{parsed_artist}}
+                {{/if}}
+              </td>
+              <td>
+                {{year}}
+              </td>
+              <td class="text-center">
+                {{# if spotify_song.song.id }}
+                  <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.song.preview_url}}"></span>
+                {{else}}
+                  <span class="glyphicon glyphicon-question-sign"></span>
+                {{/if}}
+              </td>
+            </tr>
+          {{/each}}
+      </table>
     </div>
   </div>
+
 </div>

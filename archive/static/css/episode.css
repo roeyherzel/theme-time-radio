@@ -3,20 +3,31 @@ td {
   vertical-align: middle;
 }
 
-.title-path {
-  margin: 10px 0 10px 0;
+.hr-dark {
   border-bottom: 1px solid #777777;
+  margin-top: 10px;
+}
+
+.jumbo-header {
+  margin: 10px 0 10px 0;
   font-size: 18px;
+  display: inline-block;
 }
 .title {
   margin-top: 10px;
   color: #333333;
 }
+audio {
+  margin-top: 10px;
+}
 blockquote {
-  margin-top: 25px;
-  border-left-color: 0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-left-width: thin;
+  border-left-color: #777777;
+  float: right;
 }
 blockquote p {
-  font-size: 16px;
+  font-size: 16px !important;
   font-style: italic;
 }
