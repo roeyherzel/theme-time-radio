@@ -34,6 +34,16 @@ TrackSchema = {
 }
 
 
+PlaylistTrackSchema = {
+    'episode': fields.Nested(EpisodeSchema)
+}
+PlaylistTrackSchema.update(TrackSchema)
+
+
 TracklistSchema = {
     'tracklist': fields.List(fields.Nested(TrackSchema))
+}
+
+PlaylistSchema = {
+    'tracklist': fields.List(fields.Nested(PlaylistTrackSchema))
 }

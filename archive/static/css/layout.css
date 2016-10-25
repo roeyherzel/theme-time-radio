@@ -15,6 +15,11 @@ body {
   padding-left: 40px;
 }
 
+.play-on-spotify {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
 .preview:hover {
   cursor: pointer;
 }
@@ -25,5 +30,10 @@ body {
 
 .glyphicon-pause,
 .green {
-  color: #1FC159;
+  color: #1ED760;
+}
+
+.container-fluid {
+  margin-left: 100px;
+  margin-right: 100px;
 }

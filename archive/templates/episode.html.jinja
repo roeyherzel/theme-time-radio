@@ -4,27 +4,29 @@
   <div class="jumbotron">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <img class="img-responsive center-block-" src="{{episode.image}}" alt="">
         </div>
 
-        <div class="col-md-5">
-          <div class="title-path lead text-muted">
-            <span>Season {{episode.season}} / Episode {{episode.id}}:</span>
-            <h2 class="title">{{episode.title}}</h2>
-            <span>{{episode.aired}}</span>
-          </div>
-          <audio controls src="{{episode.media}}"></audio>
-        </div>
-
-        <div class="col-md-4">
+        <div class="col-md-6">
           <blockquote>
-            <p><em>{{episode.description | nl2br}}&hellip;</em></p>
+            <p>{{episode.description | nl2br}}&hellip;</p>
             <footer><cite>Bob Dylan</cite></footer>
           </blockquote>
         </div>
+
       </div>
+
+      <div class="title-path lead text-muted">
+        <span>Season {{episode.season}} / Episode {{episode.id}}</span>
+        <h2 class="title">{{episode.title}}</h2>
+        <span>{{episode.aired}}</span>
+      </div>
+      <audio controls src="{{episode.media}}"></audio>
     </div>
+
+  </div>
+
   </div>
 
   <div id="tracklistPlaceholder"></div>

@@ -2,7 +2,6 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <h3 class="page-header">Playlist</h3>
       <div>
         <table class="table table-responsive table-condensed">
           <thead class="green">
@@ -15,7 +14,11 @@
           <tbody>
             {{#each tracklist}}
               <tr>
-                <td>{{position}}</td>
+                {{# if episode }}
+                  <td>Season {{episode.season}} / Episode {{episode.id}}</td>
+                {{else}}
+                  <td>{{position}}</td>
+                {{/if}}
                 <td>
                   {{# if spotify_song.song.id }}
                     <a href={{spotify_song.song.url}}>{{parsed_song}}</a>
@@ -46,8 +49,10 @@
       </div>
     </div>
     <div class="col-md-4 text-center">
-      <h3 class="page-header">Stream on Spotify</h3>
-      <iframe id="spotifyPlayer" src="" frameborder="0" allowtransparency="true" width="300" height="580"></iframe>
+      <div class="play-on-spotify"></div>
+      <img class="play-on-spotify" src="/static/images/Spotify_Logo_RGB_Green.png" alt="" />
+      <iframe id="spotifyPlayer" src="" frameborder="0" allowtransparency="true" width="300" height="380"></iframe>
+
     </div>
   </div>
 </div>

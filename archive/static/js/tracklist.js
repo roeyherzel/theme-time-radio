@@ -2,7 +2,6 @@
 
 // create embeded Spotify playlist from tracklist API
 function createSpotifyPlayer(tracklist, title) {
-  console.log(tracklist);
   var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.song.id !== null }),
       trackIds = _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
 
@@ -32,7 +31,6 @@ function audioControl(action, target, audio) {
     audioObject.pause();
     $(target).removeClass(playingCssClass).removeClass(pauseGlyph).addClass(playGlyph);
   }
-
 }
 
 // Events controling song preview
@@ -41,7 +39,6 @@ document.getElementById("tracklistPlaceholder").addEventListener("click", functi
 
     if (target !== null && target.classList.contains("preview")) {
       var previewUrl = target.attributes.previewUrl.value;
-      console.log(previewUrl);
 
       // target already playing
       if (target.classList.contains(playingCssClass)) {

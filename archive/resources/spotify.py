@@ -1,7 +1,7 @@
 from archive.models.spotify import SpotifyArtists, TracksSpotifyData
 from archive.models.podcast import Tracks
 from archive.common.utils import limit_query
-from archive.resources.schemas import SpotifyResourceSchema, TracklistSchema
+from archive.resources.schemas import SpotifyResourceSchema, PlaylistSchema
 
 from flask_restful import Resource, reqparse, marshal_with
 from sqlalchemy import desc
@@ -23,7 +23,7 @@ class ArtistsAPI(Resource):
 
 class ArtistsTracksAPI(Resource):
 
-    @marshal_with(TracklistSchema)
+    @marshal_with(PlaylistSchema)
     def get(self, artist_id):
         tracks = Tracks.query.join(TracksSpotifyData, (Tracks.id == TracksSpotifyData.track_id)) \
                        .filter(TracksSpotifyData.artist_id == artist_id) \
