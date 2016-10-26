@@ -18,20 +18,21 @@ Handlebars.registerHelper('artistName', function(spotify_artists, parsed_artist,
 
 
 // create embeded Spotify playlist from tracklist API
-function createSpotifyPlayer(tracklist, title) {
+function createSpotifyPlayer(tracklist, title, viewType) {
+  if (viewType == undefined) {
+    viewType = "list";
+  }
   var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.data.id !== null }),
       trackIds = _.map(tracksOnSpotify, function(track) { return track.spotify_song.data.id });
 
   var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset",
-      spotifyPlaySettings = "&theme=white&view=list",
+      spotifyPlaySettings = "&theme=white&view=" + viewType,
       playlistTitle =  title || "Playlist",
       playlistTracks = trackIds.join(','),
       spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlaySettings;
 
 
   var $iframe = $(document.createElement("iframe"));
-  console.log($iframe);
-
   $("#spotifyPlayer").html(
     $iframe.attr({src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: "300", height: "380"})
   );

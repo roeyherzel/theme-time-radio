@@ -3,16 +3,18 @@
 {% block content %}
   <div class="jumbotron">
     <div class="container text-center">
+
+      <!--<hr class="hr-dark">-->
+      <img src="{{ url_for('static', filename='images/cassette3.png') }}" alt="" />
       <h1>Theme Time Tapes</h1>
       <p class="lead"> Discover Music from Bob Dylan's Podcast: Theme Time Radio Hour</p>
-      <img src="{{ url_for('static', filename='images/cassette3.png') }}" alt="" />
 
-      <div class="panel panel-default">
-        <ul class="nav nav-pills nav-justified">
-          <li class="active"><a data-toggle="pill" href="#podcast">Podcast</a></li>
-          <li><a data-toggle="pill" href="#artists">Artists</a></li>
-          <li><a data-toggle="pill" href="#albums">Albums</a></li>
-          <li><a data-toggle="pill" href="#songs">Songs</a></li>
+      <div>
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a data-toggle="tab" href="#podcast">Podcast</a></li>
+          <li><a data-toggle="tab" href="#artists">Artists</a></li>
+          <li><a data-toggle="tab" href="#albums">Albums</a></li>
+          <li><a data-toggle="tab" href="#songs">Songs</a></li>
         </ul>
       </div>
 
@@ -23,7 +25,7 @@
 
     <div class="tab-content">
       <div id="podcast" class="tab-pane fade in active">
-        <h3>Season 1</h3>
+        <h3 class="page-header">Season 1</h3>
         <div class="episodes_placeholder"></div>
       </div>
       <div id="artists" class="tab-pane fade">

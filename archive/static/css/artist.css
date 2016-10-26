@@ -1,4 +1,27 @@
-img {
-  margin-top: 40px;
+#artistImage img {
   width: 300px;
 }
+
+#artistBio {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+#similarArtist
+  img {
+    width: 100px;
+    margin-bottom: 5px;
+  }
+  li {
+    margin-right: 20px;
+  }
+  h3 {
+    margin-top: 10;
+    margin-bottom: 10px;
+  }
+  .artist-name {
+    white-space: nowrap;
+    width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

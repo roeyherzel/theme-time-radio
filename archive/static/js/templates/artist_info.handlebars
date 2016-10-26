@@ -1,0 +1,34 @@
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-8">
+        <h2>{{artist.name}}</h2>
+        <div id="artistBio">
+          {{# nl2br artist.bio.summary}}{{/nl2br}}
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <img id="artistImage" class="img-responsive img-circle center-block" src={{# lastFmImage artist.image "extralarge"}}{{/lastFmImage}} alt="" />
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div id="similarArtist" class="col-md-12">
+        <h3>Similar Artists</h3>
+
+        <ul class="list-inline">
+          {{#each artist.similar.artist}}
+            <li class="text-center">
+              <img class="img-circle img-responsive center-block" src={{# lastFmImage image "large"}}{{/lastFmImage}} alt="" />
+              <div class="artist-name">{{name}}</div>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

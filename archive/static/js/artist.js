@@ -1,8 +1,19 @@
 
+
+// helper for LastFM images
+Handlebars.registerHelper('lastFmImage', function(imageArr, size, options) {
+  if (typeof(size) !== "string") {
+    console.error("size is missing, must be String", typeof(size));
+  }
+  return _.findWhere(imageArr, {'size': size})["#text"];
+});
+
 $(function() {
   getArtistInfo($ARTIST_NAME, function(artistInfo) {
-    console.log(artistInfo.artist.bio.summary);
-    $("#artistBio").html(artistInfo.artist.bio.summary.nl2br());
+
+    getTemplateAjax('artist_info.handlebars', function(template) {
+      $('#artistInfoPlaceholder').html(template(artistInfo));
+    });
   });
 });
 
@@ -11,7 +22,7 @@ $(function() {
 
     getTemplateAjax('tracklist.handlebars', function(template) {
       $('#tracklistPlaceholder').html(template(tracklist));
-      createSpotifyPlayer(tracklist, $ARTIST_NAME);
+      createSpotifyPlayer(tracklist, $ARTIST_NAME, "coverart");
 
     });
   });
