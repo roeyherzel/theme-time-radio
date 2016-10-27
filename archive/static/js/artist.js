@@ -21,21 +21,13 @@ $(function() {
       getTemplateAjax('artist_info.handlebars', function(template) {
         $('#artistInfoPlaceholder').html(template(artistInfo));
 
-        $.getJSON("https://api.spotify.com/v1/artists/" + $ARTIST_ID + "/top-tracks?country=US", function(data, status) {
-
-          var topSongsIds = _.map(data.tracks, function(track) { return track.id });
-          createSpotifyPlayer(topSongsIds, {location: "#topTracksPlayer", title: 'Top Songs', view: 'list'});
-        });
+        $('#topTracksPlayer').attr('src', "https://embed.spotify.com/?uri=spotify%3Aartist%3A" + $ARTIST_ID + "&theme=white");
       });
     });
 
   });
 });
 
-
-$(function() {
-
-});
 
 $(function() {
   $.getJSON("/api/artists/" + $ARTIST_ID + "/tracklist", function(tracklist, status) {
