@@ -25,16 +25,27 @@ function createSpotifyPlayer(tracklist, title, viewType) {
   var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.data.id !== null }),
       trackIds = _.map(tracksOnSpotify, function(track) { return track.spotify_song.data.id });
 
+  var size = {width: "300", height: "380", theme: "white", view: viewType};
+
+  if (trackIds.length === 1) {
+    size.width = "300";
+    size.height = "80";
+    size.theme = "black";
+    size.view = "list";
+  }
+
   var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset",
-      spotifyPlaySettings = "&theme=white&view=" + viewType,
-      playlistTitle =  title || "Playlist",
+      spotifyPlaySettings = "&theme=" + size.theme + "&view=" + size.view,
+      playlistTitle = "Playlist",
       playlistTracks = trackIds.join(','),
       spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlaySettings;
 
 
+
   var $iframe = $(document.createElement("iframe"));
   $("#spotifyPlayer").html(
-    $iframe.attr({src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: "300", height: "380"})
+    $iframe.attr(
+      {src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: size.width, height: size.height})
   );
 }
 

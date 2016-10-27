@@ -12,6 +12,12 @@ SpotifySongSchema = {
     'album': fields.Nested(SpotifyResourceSchema),
     'preview_url': fields.String,
 }
+SpotifyArtistSchema = {
+    'view': fields.FormattedString("artists/{id}"),
+    'lastfm_name': fields.String
+}
+
+SpotifyArtistSchema.update(SpotifyResourceSchema)
 SpotifySongSchema.update(SpotifyResourceSchema)
 
 
@@ -34,7 +40,7 @@ TrackSchema = {
     'position': fields.Integer,
     'year': fields.Integer,
     'spotify_song': fields.Nested({'data': fields.Nested(SpotifySongSchema)}),
-    'spotify_artists': fields.Nested({'data': fields.Nested(SpotifyResourceSchema)}),
+    'spotify_artists': fields.Nested({'data': fields.Nested(SpotifyArtistSchema)}),
 }
 
 

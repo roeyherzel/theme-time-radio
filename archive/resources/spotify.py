@@ -1,7 +1,7 @@
 from archive.models.spotify import SpotifyArtists, TracksSpotifyArtists
 from archive.models.podcast import Tracks
 from archive.common.utils import limit_query
-from archive.resources.schemas import SpotifyResourceSchema, PlaylistSchema
+from archive.resources.schemas import SpotifyArtistSchema, PlaylistSchema
 
 from flask_restful import Resource, reqparse, marshal_with, fields
 from sqlalchemy import desc
@@ -9,7 +9,7 @@ from sqlalchemy import desc
 
 class ArtistsAPI(Resource):
 
-    @marshal_with(SpotifyResourceSchema)
+    @marshal_with(SpotifyArtistSchema)
     def get(self, artist_id=None):
         parser = reqparse.RequestParser()
         parser.add_argument('limit', type=str, help="limit query results")

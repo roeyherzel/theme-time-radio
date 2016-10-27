@@ -1,10 +1,9 @@
 
 <div class="jumbotron">
   <div class="container">
+    <h1>{{artist.name}}</h1>
     <div class="row">
-
       <div class="col-md-8">
-        <h1>{{artist.name}}</h1>
         <div id="artistBio">
           {{# nl2br artist.bio.summary}}{{/nl2br}}
         </div>
@@ -20,19 +19,22 @@
 
 <div class="jumbotron" id="similarArtist">
   <div class="container">
-    <div>
-      <h2>Similar Artists</h2>
-
-      <ul class="list-inline text-center">
-        {{#each artist.similar.artist}}
-          <li class="text-center">
-            <a href="/artists/{{name}}">
-              <img class="img-circle img-responsive center-block" src={{# lastFmImage image "large"}}{{/lastFmImage}} alt="" />
-              <div class="artist-name">{{name}}</div>
-            </a>
-          </li>
-        {{/each}}
-      </ul>
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Similar Artists <small>from the show</small></h2>
+      </div>
+      <div class="col-md-8">
+        <ul class="list-inline text-center-">
+          {{#each artist.similar.artist}}
+            <li class="text-center">
+              <a href="/artists/{{name}}">
+                <img class="img-circle img-responsive center-block" src={{# lastFmImage image "large"}}{{/lastFmImage}} alt="" />
+                <div class="artist-name">{{name}}</div>
+              </a>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
     </div>
   </div>
 </div>

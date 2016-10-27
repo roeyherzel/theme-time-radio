@@ -24,6 +24,10 @@
   margin-top: 60px;
 }
 
+.nav-tabs a {
+  font-size: 16px;
+}
+
 .episode_card {
   margin-top: 10px;
   margin-bottom: 10px;

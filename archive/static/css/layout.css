@@ -23,11 +23,11 @@ th {
   vertical-align: middle;
 }
 
-h2 {
+h2, h3, h4 {
   font-weight: 300;
 }
 small {
-  font-weight: 300 !important;
+  font-weight: 100 !important;
 }
 
 .play-on-spotify {

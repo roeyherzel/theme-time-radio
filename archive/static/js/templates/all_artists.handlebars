@@ -1,0 +1,18 @@
+
+<div class="group">
+
+  {{#each artists as |group|}}
+    <h2 class="page-header">{{@key}}</h2>
+    <div class="row">
+
+      {{#each group as |artist|}}
+        <div class="artist_card col-md-3">
+          <div class="artist_title text-left">
+            <a href="{{artist.view}}">{{artist.name}}</a>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+  {{/each}}
+</div>

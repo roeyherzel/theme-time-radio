@@ -26,19 +26,29 @@
   padding-bottom: 0;
 }
 
+#similarArtist .similar-inline {
+  display: inline-flex;
+}
 #similarArtist  a {
   color: white;
   font-weight: 300;
   font-size: 18px;
 }
-#similarArtist h2 {
-  margin-bottom: 0;
-}
 
-#similarArtist ul {
+#similarArtist h2 {
   margin-bottom: 20px;
 }
 
+#similarArtist small {
+  color: #EEEEEE !important;
+}
+
+#similarArtist ul {
+  margin-bottom: 15px;
+}
+#similarArtist li {
+  margin-top: 20px;
+}
 #similarArtist img {
   width: 100px;
   margin-bottom: 5px;
