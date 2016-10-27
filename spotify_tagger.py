@@ -48,7 +48,7 @@ def collectSpotifyData(data, match_type, track_id):
         models.Mixin.create(mySong)
         print(mySong)
 
-        for artist in data['artists']:
+        for artist in data['album']['artists']:
             myArtist = models.TracksSpotifyArtists(track_id=track_id, artist_id=CollectArtistData(artist).id)
             models.Mixin.create(myArtist)
             print(myArtist)
@@ -106,6 +106,6 @@ with app.app_context():
     models.TracksSpotifyArtists.query.delete()
     models.db.session.commit()
 
-    for myTrack in models.Tracks.query.filter_by(resolved=True).limit(50):
+    for myTrack in models.Tracks.query.filter_by(resolved=True):  # .limit(50):
         print("\n" + str(myTrack))
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)

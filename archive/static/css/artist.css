@@ -4,50 +4,40 @@
 }
 
 .jumbotron {
+  padding-top: 50px;
   margin-bottom: 0;
+
+}
+h1 {
+  padding-top: 25px;
 }
 
 #artistBio {
   font-size: 16px;
 }
 
-.artist-name {
-  white-space: nowrap;
-  width: 140px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+#topTracks {
+  background-color: #FAD165;
+  padding-top: 0;
 }
-
 
 #similarArtist {
   background-color: #2BB673;
-  color: white;
   padding-top: 0;
-  padding-bottom: 0;
 }
 
-#similarArtist .similar-inline {
-  display: inline-flex;
-}
 #similarArtist  a {
   color: white;
   font-weight: 300;
   font-size: 18px;
 }
 
-#similarArtist h2 {
-  margin-bottom: 20px;
-}
-
-#similarArtist small {
-  color: #EEEEEE !important;
-}
-
 #similarArtist ul {
-  margin-bottom: 15px;
+  margin: 0;
 }
 #similarArtist li {
-  margin-top: 20px;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 #similarArtist img {
   width: 100px;

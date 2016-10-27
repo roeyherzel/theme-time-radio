@@ -23,6 +23,10 @@ th {
   vertical-align: middle;
 }
 
+.sub-header {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 h2, h3, h4 {
   font-weight: 300;
 }

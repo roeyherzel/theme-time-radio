@@ -4,7 +4,7 @@ $(function() {
 
     getTemplateAjax('tracklist.handlebars', function(template) {
       $('#tracklistPlaceholder').html(template(tracklist));
-      createSpotifyPlayer(tracklist, "Episode " + $EPISODE_ID + " - " + $EPISODE_TITLE);
+      createSpotifyPlayer(tracklistToSpotifySongIds(tracklist), {title: "Episode " + $EPISODE_ID + " - " + $EPISODE_TITLE});
     });
 
   });

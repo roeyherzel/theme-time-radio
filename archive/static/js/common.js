@@ -27,8 +27,6 @@ function getTemplateAjax(path, callback) {
 
 
 function getArtistInfo(artistName, callback) {
-  console.log("getArtistInfo: " + artistName);
-
   $.get({
     url: 'http://ws.audioscrobbler.com/2.0/',
     cache: false,
@@ -39,7 +37,6 @@ function getArtistInfo(artistName, callback) {
       'artist': artistName,
     },
     success: function(artistInfo) {
-      console.log(artistInfo);
       if (callback) callback(artistInfo);
     }
   });

@@ -17,36 +17,46 @@ Handlebars.registerHelper('artistName', function(spotify_artists, parsed_artist,
 });
 
 
+// convert list of tracks from episodes to list of spotify song ids
+function tracklistToSpotifySongIds(tracklist) {
+  var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.data.id !== null });
+  return _.map(tracksOnSpotify, function(track) { return track.spotify_song.data.id });
+}
+
+
 // create embeded Spotify playlist from tracklist API
-function createSpotifyPlayer(tracklist, title, viewType) {
-  if (viewType == undefined) {
-    viewType = "list";
+function createSpotifyPlayer(spotifySongIds, options) {
+
+  var defaults = {
+      width: "330",
+      height: "380",
+      theme: "white",
+      view: "list",
+      location: "#spotifyPlayer",
+      title: "Playlist"
+  };
+
+  var settings = _.defaults(options, defaults);
+
+  if (spotifySongIds.length <= 1) {
+    settings.height = "80";
+    settings.theme = "black";
+    settings.view = "list";
   }
-  var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.data.id !== null }),
-      trackIds = _.map(tracksOnSpotify, function(track) { return track.spotify_song.data.id });
 
-  var size = {width: "300", height: "380", theme: "white", view: viewType};
-
-  if (trackIds.length === 1) {
-    size.width = "300";
-    size.height = "80";
-    size.theme = "black";
-    size.view = "list";
-  }
-
+  // TODO: don't show player if there are no songs.
   var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset",
-      spotifyPlaySettings = "&theme=" + size.theme + "&view=" + size.view,
-      playlistTitle = "Playlist",
-      playlistTracks = trackIds.join(','),
-      spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlaySettings;
+      spotifyPlayerSettings = "&theme=" + settings.theme + "&view=" + settings.view,
+      playlistTitle = defaults.title,
+      playlistTracks = spotifySongIds.join(','),
+      spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlayerSettings;
 
-
-
-  var $iframe = $(document.createElement("iframe"));
-  $("#spotifyPlayer").html(
-    $iframe.attr(
-      {src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: size.width, height: size.height})
+  console.log(settings);
+  $(settings.location).html(
+    $(document.createElement("iframe")).attr(
+      {src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: settings.width, height: settings.height})
   );
+
 }
 
 
