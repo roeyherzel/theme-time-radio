@@ -24,6 +24,8 @@ def nl2br(eval_ctx, value):
 @app.route('/artists/<string:artist_id>')
 def artist_view(artist_id):
     res = SpotifyArtists.query.get(artist_id)
+    if res is None:
+        res = SpotifyArtists.query.filter(SpotifyArtists.lastfm_name == artist_id).one()
     return render_template('artist.html.jinja', artist=res)
 
 

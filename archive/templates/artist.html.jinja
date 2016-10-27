@@ -18,7 +18,8 @@
 {% block script %}
   <script type="text/javascript">
     var $ARTIST_ID = {{ artist.id|tojson|safe }},
-        $ARTIST_NAME = {{ artist.name|tojson|safe }};
+        $ARTIST_NAME = {{ artist.name|tojson|safe }},
+        $LASTFM_ID = {{ artist.lastfm_name|tojson|safe }};
 
   </script>
 

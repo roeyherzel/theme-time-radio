@@ -1,6 +1,15 @@
 from archive.models import db
-from archive.models.common import Mixin, Images
+from archive.models.common import Mixin
 from datetime import datetime
+
+
+class Images(db.Model, Mixin):
+    url = db.Column(db.String, primary_key=True)
+    width = db.Column(db.Integer)
+    height = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Image ({}): {}>'.format(self.id, self.url)
 
 
 class Episodes(db.Model, Mixin):

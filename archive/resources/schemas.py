@@ -6,7 +6,6 @@ SpotifyResourceSchema = {
     'id': fields.String,
     'name': fields.String,
     'url': fields.String,
-    'image': fields.String
 }
 
 SpotifySongSchema = {

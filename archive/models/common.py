@@ -28,12 +28,3 @@ class Mixin():
     def merge(resource):
         db.session.merge(resource)
         db.session.commit()
-
-
-class Images(db.Model, Mixin):
-    url = db.Column(db.String, primary_key=True)
-    width = db.Column(db.Integer)
-    height = db.Column(db.Integer)
-
-    def __repr__(self):
-        return '<Image ({}): {}>'.format(self.id, self.url)

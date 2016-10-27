@@ -1,4 +1,5 @@
 import spotipy
+import pylast
 import sys
 import time
 from pprint import pprint
@@ -6,6 +7,11 @@ from pprint import pprint
 from archive import app, models
 
 spotify = spotipy.Spotify()
+
+API_KEY = "aa570c383c5f26de24d4e2c7fd182c8e"
+API_SECRET = "3b70ec5f61f6557930bab54d89f72a21"
+
+lastFM = pylast.LastFMNetwork(api_key=API_KEY, api_secret=API_SECRET)
 
 
 def search(query):
@@ -63,14 +69,6 @@ class BaseResource(object):
     def __str__(self):
         return "<{}: {}>".format(self.__class__.__name__, self.name)
 
-    def addImage(self, images):
-        try:
-            image = images[0]
-        except IndexError:
-            return
-        models.Mixin.create(models.Images(**image))
-        self.myModel.image = image['url']
-
     def create(self):
         models.Mixin.create(self.myModel)
         print(self.myModel, end='\n')
@@ -80,10 +78,7 @@ class CollectArtistData(BaseResource):
     def __init__(self, data):
         self.Model = models.SpotifyArtists
         super().__init__(data)
-        if not data.get('images'):
-            data = spotify.artist(self.id)
-
-        self.addImage(data['images'])
+        self.myModel.lastfm_name = lastFM.get_artist(self.myModel.name).get_name()
         self.create()
 
     def __repr__(self):
@@ -94,7 +89,6 @@ class CollectAlbumData(BaseResource):
     def __init__(self, data):
         self.Model = models.SpotifyAlbums
         super().__init__(data)
-        self.addImage(data['images'])
         self.create()
 
 
@@ -112,7 +106,6 @@ with app.app_context():
     models.TracksSpotifyArtists.query.delete()
     models.db.session.commit()
 
-    # for myTrack in models.Tracks.query.filter_by(resolved=True):
     for myTrack in models.Tracks.query.filter_by(resolved=True).limit(50):
         print("\n" + str(myTrack))
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)

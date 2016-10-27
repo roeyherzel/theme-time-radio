@@ -8,12 +8,23 @@ Handlebars.registerHelper('lastFmImage', function(imageArr, size, options) {
   return _.findWhere(imageArr, {'size': size})["#text"];
 });
 
-$(function() {
-  getArtistInfo($ARTIST_NAME, function(artistInfo) {
 
-    getTemplateAjax('artist_info.handlebars', function(template) {
-      $('#artistInfoPlaceholder').html(template(artistInfo));
+$(function() {
+  getArtistInfo($LASTFM_ID, function(artistInfo) {
+
+
+    $.get("/api/lastfm/artists", function(allArtists, status) {
+
+      // filter similar artist to only artists that appears on the show
+      artistInfo.artist.similar.artist = _.filter(artistInfo.artist.similar.artist, function(simiArtist) {
+        return _.contains(allArtists.data, simiArtist.name);
+      });
+
+      getTemplateAjax('artist_info.handlebars', function(template) {
+        $('#artistInfoPlaceholder').html(template(artistInfo));
+      });
     });
+
   });
 });
 

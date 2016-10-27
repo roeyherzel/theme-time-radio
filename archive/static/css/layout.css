@@ -15,8 +15,19 @@ body {
   padding-left: 40px;
 }
 
-.table>tbody>tr>td {
+th {
+  font-weight: 400;
+}
+
+.table > tbody > tr > td {
   vertical-align: middle;
+}
+
+h2 {
+  font-weight: 300;
+}
+small {
+  font-weight: 300 !important;
 }
 
 .play-on-spotify {

@@ -75,8 +75,8 @@ with app.app_context():
         print(parsedEpisode)
         print("=" * 100)
         newEpisode = models.Episodes(**parsedEpisode.dict())
-        models.Episodes.create(newEpisode)
+        models.Mixin.create(newEpisode)
 
         for parsedTrack in parsedEpisode.tracklist:
             newTrack = models.Tracks(episode_id=newEpisode.id, **parsedTrack.dict())
-            models.Tracks.create(newTrack)
+            models.Mixin.create(newTrack)

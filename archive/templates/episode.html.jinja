@@ -4,7 +4,7 @@
   <div class="jumbotron">
     <div class="container">
       <div class="row">
-        <div class="col-md-8 hr-dark-">
+        <div class="col-md-4">
 
           <div class="jumbo-header lead text-muted">
             <div>Season {{episode.season}} / Episode {{episode.id}}</div>
@@ -12,14 +12,16 @@
             <div>{{episode.aired}}</div>
             <audio controls src="{{episode.media}}"></audio>
           </div>
+        </div>
 
+        <div class="col-md-5">
           <blockquote class="text-muted">
             <p>"{{episode.description | nl2br}}&hellip;"</p>
             <footer><cite>Bob Dylan</cite></footer>
           </blockquote>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
           <img class="img-responsive center-block" src="{{episode.image}}" alt="">
         </div>
       </div>
@@ -32,8 +34,6 @@
     <h2 class="page-header">Episode's Playlist</h2>
     <div id="tracklistPlaceholder"></div>
   </div>
-
-
 
 {% endblock %}
 

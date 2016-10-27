@@ -1,27 +1,45 @@
+
 #artistImage img {
   width: 300px;
 }
 
-#artistBio {
-  font-size: 18px;
-  font-weight: 300;
+.jumbotron {
+  margin-bottom: 0;
 }
 
-#similarArtist
-  img {
-    width: 100px;
-    margin-bottom: 5px;
-  }
-  li {
-    margin-right: 20px;
-  }
-  h3 {
-    margin-top: 10;
-    margin-bottom: 10px;
-  }
-  .artist-name {
-    white-space: nowrap;
-    width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+#artistBio {
+  font-size: 16px;
+}
+
+.artist-name {
+  white-space: nowrap;
+  width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+#similarArtist {
+  background-color: #2BB673;
+  color: white;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#similarArtist  a {
+  color: white;
+  font-weight: 300;
+  font-size: 18px;
+}
+#similarArtist h2 {
+  margin-bottom: 0;
+}
+
+#similarArtist ul {
+  margin-bottom: 20px;
+}
+
+#similarArtist img {
+  width: 100px;
+  margin-bottom: 5px;
+}
