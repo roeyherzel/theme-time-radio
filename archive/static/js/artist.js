@@ -1,14 +1,4 @@
 
-
-// helper for LastFM images
-Handlebars.registerHelper('lastFmImage', function(imageArr, size, options) {
-  if (typeof(size) !== "string") {
-    console.error("size is missing, must be String", typeof(size));
-  }
-  return _.findWhere(imageArr, {'size': size})["#text"];
-});
-
-
 $(function() {
   getArtistInfo($LASTFM_ID, function(artistInfo) {
 

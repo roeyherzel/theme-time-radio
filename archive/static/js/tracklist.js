@@ -1,22 +1,4 @@
 
-// helper for artists name
-Handlebars.registerHelper('artistName', function(spotify_artists, parsed_artist, options) {
-  if (spotify_artists.length === 0) {
-    return parsed_artist;
-
-  } else if (spotify_artists.length === 1) {
-    return "<a href=/artists/" + spotify_artists[0].data.id + ">" + spotify_artists[0].data.name + "</a>";
-
-  } else if (spotify_artists.length > 1) {
-    var artists = [];
-    for(var i=0, l=spotify_artists.length; i<l; i++) {
-      artists.push("<a href=/artists/" + spotify_artists[i].data.id + ">" + spotify_artists[i].data.name + "</a>");
-    }
-    return artists.join('&#44;&#32;');  // comma;space
-  }
-});
-
-
 // convert list of tracks from episodes to list of spotify song ids
 function tracklistToSpotifySongIds(tracklist) {
   var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.data.id !== null });
@@ -26,7 +8,6 @@ function tracklistToSpotifySongIds(tracklist) {
 
 // create embeded Spotify playlist from tracklist API
 function createSpotifyPlayer(spotifySongIds, options) {
-
   var defaults = {
       width: "330",
       height: "380",

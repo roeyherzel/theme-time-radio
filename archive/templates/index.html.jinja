@@ -4,7 +4,6 @@
   <div class="jumbotron">
     <div class="container text-center">
 
-      <!--<hr class="hr-dark">-->
       <img src="{{ url_for('static', filename='images/cassette3.png') }}" alt="" />
       <h1>Theme Time Radio Tapes</h1>
       <p class="lead"> Discover Music from Bob Dylan's Podcast: Theme Time Radio Hour</p>
@@ -41,10 +40,33 @@
   </div> <!-- /container -->
 {% endblock %}
 
+
 {% block style %}
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
 {% endblock %}
 
+
 {% block script %}
-  <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script type="text/javascript">
+
+  $(function() {
+    $.getJSON("/api/episodes", function(data, status) {
+
+      getTemplateAjax('all_episodes.handlebars', function(template) {
+        var context = {episodes: data};
+        $('#allEpisodesPlaceholder').html(template(context));
+      });
+    });
+
+    $.getJSON("/api/artists", function(data, status) {
+      var groupedArtists = _.groupBy(data, function(artist) { return artist.name[0]});
+
+      getTemplateAjax('all_artists.handlebars', function(template) {
+        var context = {artists: groupedArtists};
+        $('#allArtistsPlaceholder').append(template(context));
+      });
+    });
+
+  });
+  </script>
 {% endblock %}

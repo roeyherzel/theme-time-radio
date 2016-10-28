@@ -1,5 +1,5 @@
 from archive.models import db
-from archive.models.podcast import Tracks
+from archive.models.podcast import Tracks, Images
 from archive.models.common import Mixin
 
 

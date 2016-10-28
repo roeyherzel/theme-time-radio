@@ -3,12 +3,6 @@ String.prototype.nl2br = function() {
   return this.replace(/\n/g,"<br>");
 }
 
-// helper for LastFM images
-Handlebars.registerHelper('nl2br', function(string, options) {
-  return string.replace(/\n/g,"<br>");
-});
-
-
 function getTemplateAjax(path, callback) {
   var source;
   var template;
@@ -24,7 +18,6 @@ function getTemplateAjax(path, callback) {
     }
   });
 }
-
 
 function getArtistInfo(artistName, callback) {
   $.get({
