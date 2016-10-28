@@ -31,7 +31,7 @@ def artist_view(artist_id):
 
 @app.route('/artists')
 def all_artists_view():
-    return render_template('artists.html.jinja')
+    return render_template('all_artists.html.jinja')
 
 
 @app.route('/episodes/<int:episode_id>')

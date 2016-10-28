@@ -1,35 +1,57 @@
 
-#artistImage img {
-  width: 300px;
-}
-
-.jumbotron {
-  padding-top: 50px;
-  margin-bottom: 0;
-
-}
 h1 {
   padding-top: 25px;
 }
 
+.jumbotron {
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+.sub-header {
+  margin-top: 0;
+}
+
 #artistBio {
+  font-size: 16px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#artistBio img {
+  width: 300px;
+}
+
+#songsPlayed {
+  background-color: #FAD165;
+}
+#songsPlayed div.tracklist {
+  background-color: #EEEEEE;
+  border-radius: 8px;
+  padding: 5px;
+  margin-top: 2px;
+  font-weight: 300;
+}
+#songsPlayed td {
   font-size: 16px;
 }
 
 #topTracks {
-  background-color: #FAD165;
-  padding-top: 0;
+  background-color: #EEEEEE;
 }
 
 #similarArtist {
   background-color: #2BB673;
-  padding-top: 0;
 }
-
+#similarArtist .sub-header {
+  margin-bottom: 10px;
+}
 #similarArtist  a {
   color: white;
-  font-weight: 300;
   font-size: 18px;
+  font-weight: 300;
 }
 
 #similarArtist ul {

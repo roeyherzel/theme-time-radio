@@ -1,33 +1,32 @@
 
-<div class="jumbotron">
+<div class="jumbotron" id="artistBio">
   <div class="container">
     <div class="row">
       <div class="col-md-8">
 
         <h1>{{artist.name}}</h1>
-        <div id="artistBio">
+        <div>
           {{# nl2br artist.bio.summary}}{{/nl2br}}
         </div>
       </div>
       <div class="col-md-4">
         <div class="text-center">
-          <img id="artistImage" class="img-responsive img-circle center-block" src="{{# lastFmImage artist.image 'extralarge'}}{{/lastFmImage}}" alt="" />
+          <img class="img-responsive img-circle center-block" src="{{# lastFmImage artist.image 'extralarge'}}{{/lastFmImage}}" alt="" />
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="jumbotron" id="topTracks">
-  <div class="container text-center">
-    <h2 class="sub-header">Top Tracks <small>on Spotify</small></h2>
-    <iframe id="topTracksPlayer" src="" width="500" height="400" frameborder="0" allowtransparency="true"></iframe>
+<div class="jumbotron", id="songsPlayed">
+  <div class="container">
+    <h2 class="sub-header">Songs Played <small>on the show</small></h2>
+    <div id="tracklistPlaceholder"></div>
   </div>
 </div>
 
 <div class="jumbotron" id="similarArtist">
   <div class="container">
-
     <h2 class="sub-header">Similar Artists <small>from the show</small></h2>
     <ul class="list-inline text-center">
       {{#each artist.similar.artist}}
@@ -39,6 +38,23 @@
         </li>
       {{/each}}
     </ul>
+  </div>
+</div>
 
+<div class="jumbotron" id="topTracks">
+  <div class="container">
+    <h2 class="sub-header">Top Tracks <small>on Spotify</small></h2>
+    <div class="text-center">
+      <iframe id="topTracksPlayer" src="" width="400" height="540" frameborder="0" allowtransparency="true"></iframe>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-8 text-center">
+
+      </div>
+    </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 body {
   padding-top: 50px;
-  padding-bottom: 20px;
+  //padding-bottom: 20px;
 }
 
 .navbar-default .navbar-brand {
@@ -19,14 +19,18 @@ th {
   font-weight: 400;
 }
 
+.table {
+  margin-bottom: 0;
+}
 .table > tbody > tr > td {
   vertical-align: middle;
 }
 
 .sub-header {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
 }
+
 h2, h3, h4 {
   font-weight: 300;
 }
