@@ -1,0 +1,40 @@
+{% extends "layout.html.jinja" %}
+
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container text-center">
+      <img src="{{ url_for('static', filename='images/cassette3.png') }}" alt="" />
+      <h1>Episodes</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="allEpisodesPlaceholder"></div>
+  </div>
+{% endblock %}
+
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/all_episodes.css') }}">
+{% endblock %}
+
+
+{% block script %}
+  <script type="text/javascript">
+
+  $(function() {
+    // nav bar active
+    $('ul.nav > li:has(a[href="/episodes"])').addClass("active");
+
+    $.getJSON("/api/episodes", function(data, status) {
+
+      getTemplateAjax('all_episodes.handlebars', function(template) {
+        var context = {episodes: data};
+        $('#allEpisodesPlaceholder').html(template(context));
+      });
+    });
+  });
+
+  </script>
+{% endblock %}

@@ -16,16 +16,18 @@
 
 
 {% block style %}
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
   <style>
     .jumbotron h1 {
       font-size: 90px;
     }
-    .jumbotron p {
-      font-size: 21px;
+    .jumbotron img {
+      width: 350px;
+      height: auto;
+      margin-top: 20px;
+      margin-bottom: 0;
     }
     .jumbotron {
-      background-color: #FAD165;
+      background-color: #2BB673;
       padding-bottom: 20px;
     }
   </style>
@@ -36,6 +38,9 @@
   <script type="text/javascript">
 
   $(function() {
+    // nav bar active
+    $('ul.nav > li:has(a[href="/artists"])').addClass("active");
+
     $.getJSON("/api/artists", function(data, status) {
       var groupedArtists = _.groupBy(data, function(artist) { return artist.name[0]});
 

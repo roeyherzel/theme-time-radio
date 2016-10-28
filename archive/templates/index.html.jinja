@@ -8,36 +8,12 @@
       <h1>Theme Time Radio Tapes</h1>
       <p class="lead"> Discover Music from Bob Dylan's Podcast: Theme Time Radio Hour</p>
 
-      <div>
-        <ul class="nav nav-tabs nav-justified">
-          <li class="active"><a data-toggle="tab" href="#podcastPan">Podcast</a></li>
-          <li><a data-toggle="tab" href="#artistsPan">Artists</a></li>
-          <li><a data-toggle="tab" href="#albumsPan">Albums</a></li>
-          <li><a data-toggle="tab" href="#songsPan">Songs</a></li>
-        </ul>
-      </div>
-
     </div>
   </div>
 
   <div class="container">
 
-    <div class="tab-content">
-      <div id="podcastPan" class="tab-pane fade in active">
-        <h3 class="page-header">Season 1</h3>
-        <div id="allEpisodesPlaceholder"></div>
-      </div>
-      <div id="artistsPan" class="tab-pane fade">
-        <div id="allArtistsPlaceholder"></div>
-      </div>
-      <div id="albumsPan" class="tab-pane fade">
-        <h3 class="page-header">Albums</h3>
-      </div>
-      <div id="songs" class="tab-pane fade">
-        <h3 class="page-header">Songs</h3>
-      </div>
-    </div>
-  </div> <!-- /container -->
+  </div>
 
 
   <div class="container">
@@ -50,31 +26,11 @@
 
 
 {% block style %}
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
 
 {% block script %}
   <script type="text/javascript">
-
-  $(function() {
-    $.getJSON("/api/episodes", function(data, status) {
-
-      getTemplateAjax('all_episodes.handlebars', function(template) {
-        var context = {episodes: data};
-        $('#allEpisodesPlaceholder').html(template(context));
-      });
-    });
-
-    $.getJSON("/api/artists", function(data, status) {
-      var groupedArtists = _.groupBy(data, function(artist) { return artist.name[0]});
-
-      getTemplateAjax('all_artists.handlebars', function(template) {
-        var context = {artists: groupedArtists};
-        $('#allArtistsPlaceholder').append(template(context));
-      });
-    });
-
-  });
   </script>
 {% endblock %}

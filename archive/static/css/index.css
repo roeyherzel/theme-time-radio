@@ -1,0 +1,21 @@
+
+.jumbotron {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.jumbotron img {
+  width: 350px;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+.jumbotron h1 {
+  font-weight: bold;
+}
+.jumbotron p {
+  font-size: 24px;
+  font-weight: 300;
+}
+.lead {
+    color: #2BB673;
+}

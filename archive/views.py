@@ -40,6 +40,11 @@ def episode_view(episode_id):
     return render_template('episode.html.jinja', episode=res)
 
 
+@app.route('/episodes')
+def all_episodes_view():
+    return render_template('all_episodes.html.jinja')
+
+
 @app.route('/')
 def index():
     return render_template('index.html.jinja')
