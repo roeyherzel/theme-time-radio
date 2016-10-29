@@ -50,23 +50,28 @@ h1 {
 
 #similarArtist {
   background-color: #2BB673;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 #similarArtist .sub-header {
   margin-bottom: 10px;
 }
+#similarArtist small {
+  color: white !important;
+}
 #similarArtist  a {
-  color: white;
-  font-size: 18px;
+  color: #EEEEEE;
+  font-size: 14px;
   font-weight: 300;
   letter-spacing: 1px;
 }
 
 #similarArtist ul {
   margin: 0;
+  padding-left: 40px;
 }
 #similarArtist li {
   margin-right: 20px;
-  margin-left: 20px;
 }
 #similarArtist img {
   width: 100px;
