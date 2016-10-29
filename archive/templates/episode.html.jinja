@@ -54,6 +54,7 @@
         $EPISODE_TITLE = {{ episode.title|tojson|safe }};
   </script>
 
-  <script type="text/javascript" src="{{ url_for('static', filename='js/tracklist.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/episode.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/tracklist.js') }}"></script>
+
 {% endblock %}

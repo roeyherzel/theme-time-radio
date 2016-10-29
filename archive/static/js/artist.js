@@ -14,7 +14,6 @@ $(function() {
 
         $('#artistInfoPlaceholder').html(template(artistInfo));
 
-                                        https://embed.spotify.com/follow/1/?uri=spotify:artist:1v
         $('#followArtist').attr('src', "https://embed.spotify.com/follow/1/?uri=spotify:artist:" + $ARTIST_ID + "&size=basic&theme=light")
         $('#topTracksPlayer').attr('src', "https://embed.spotify.com/?uri=spotify%3Aartist%3A" + $ARTIST_ID + "&theme=white");
 

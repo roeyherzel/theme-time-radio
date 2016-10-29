@@ -16,7 +16,6 @@ function createSpotifyPlayer(spotifySongIds, options) {
       location: "#spotifyPlayer",
       title: "Playlist"
   };
-
   var settings = _.defaults(options, defaults);
 
   if (spotifySongIds.length <= 1) {
@@ -33,11 +32,39 @@ function createSpotifyPlayer(spotifySongIds, options) {
       spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlayerSettings;
 
   console.log(settings);
+
   $(settings.location).html(
     $(document.createElement("iframe")).attr(
       {src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: settings.width, height: settings.height})
   );
 
+  // Events controling song preview
+  console.log($('#tracklistPlaceholder'));
+  document.getElementById("tracklistPlaceholder").addEventListener("click", function(e) {
+      var target = e.target;
+      if (target !== null && target.classList.contains("preview")) {
+        var previewUrl = target.attributes.previewUrl.value;
+
+        // target already playing
+        if (target.classList.contains(playingCssClass)) {
+          audioControl("pause", target, audioObject);
+
+        } else {
+          // previous (other) target is playing
+          if (audioObject) {
+            audioControl("pause", document.getElementsByClassName(playingCssClass), audioObject);
+          }
+          // play target
+          audioObject = new Audio(previewUrl);
+          audioControl("play", target, audioObject);
+
+          // pause ended target
+          audioObject.addEventListener('ended', function () {
+            audioControl("pause", target, audioObject);
+          });
+        }
+      }
+  });
 }
 
 
@@ -58,32 +85,3 @@ function audioControl(action, target, audio) {
     $(target).removeClass(playingCssClass).removeClass(pauseGlyph).addClass(playGlyph);
   }
 }
-
-// Events controling song preview
-document.getElementById("tracklistPlaceholder").addEventListener("click", function(e) {
-    var target = e.target;
-
-    if (target !== null && target.classList.contains("preview")) {
-      var previewUrl = target.attributes.previewUrl.value;
-
-      // target already playing
-      if (target.classList.contains(playingCssClass)) {
-        audioControl("pause", target, audioObject);
-
-      } else {
-        // previous (other) target is playing
-        if (audioObject) {
-          audioControl("pause", document.getElementsByClassName(playingCssClass), audioObject);
-        }
-        // play target
-        audioObject = new Audio(previewUrl);
-        audioControl("play", target, audioObject);
-
-        // pause ended target
-        audioObject.addEventListener('ended', function () {
-          audioControl("pause", target, audioObject);
-        });
-      }
-
-    }
-});

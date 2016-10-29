@@ -25,6 +25,11 @@ h1 {
   margin-bottom: 10px;
 }
 
+#followArtist {
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
 #songsPlayed {
   background-color: #FAD165;
 }
