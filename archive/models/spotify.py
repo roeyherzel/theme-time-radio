@@ -5,7 +5,7 @@ from archive.models.common import Mixin
 
 class SpotifySongs(db.Model, Mixin):
     id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String, unique=True)
+    name = db.Column(db.String, nullable=False)
     url = db.Column(db.String)
     preview_url = db.Column(db.String)
     album_id = db.Column(db.String, db.ForeignKey('spotify_albums.id'))
@@ -18,7 +18,7 @@ class SpotifySongs(db.Model, Mixin):
 # 1:1 album - song
 class SpotifyAlbums(db.Model, Mixin):
     id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String, unique=True)
+    name = db.Column(db.String, nullable=False, unique=True)
     url = db.Column(db.String)
 
     def __repr__(self):
@@ -27,12 +27,19 @@ class SpotifyAlbums(db.Model, Mixin):
 
 class SpotifyArtists(db.Model, Mixin):
     id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String, unique=True)
+    name = db.Column(db.String, nullable=False, unique=True)
     url = db.Column(db.String)
     lastfm_name = db.Column(db.String)
+    lastfm_image = db.Column(db.String, db.ForeignKey(Images.url))
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)
+
+
+class ArtistsTags(db.Model, Mixin):
+    tag = db.Column(db.String(), primary_key=True)
+    artist_id = db.Column(db.String, db.ForeignKey('spotify_artists.id'), primary_key=True)
+    artists = db.relationship('SpotifyArtists', backref=db.backref('tags', lazy='dynamic'))
 
 
 # 1:1 track - song
