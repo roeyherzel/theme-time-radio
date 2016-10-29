@@ -30,15 +30,3 @@ Handlebars.registerHelper('lastFmImage', function(imageArr, size, options) {
   }
   return _.findWhere(imageArr, {'size': size})["#text"];
 });
-
-
-// helper for geting artist image from LastFM and returning image url
-Handlebars.registerHelper('getArtistImageUrl', function(artistName, size, options) {
-
-  return '#'
-    /*getArtistInfo(artistName, function(artistInfo) {
-        console.log(artistName);
-        return _.findWhere(artistInfo.artist.image, {'size': size})["#text"];
-      });*/
-
-});

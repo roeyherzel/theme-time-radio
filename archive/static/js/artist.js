@@ -9,10 +9,15 @@ $(function() {
         return _.contains(allArtists.data, simiArtist.name);
       });
 
+      artistInfo['artist_id'] = $ARTIST_ID;
       getTemplateAjax('artist_info.handlebars', function(template) {
 
         $('#artistInfoPlaceholder').html(template(artistInfo));
+
+                                        https://embed.spotify.com/follow/1/?uri=spotify:artist:1v
+        $('#followArtist').attr('src', "https://embed.spotify.com/follow/1/?uri=spotify:artist:" + $ARTIST_ID + "&size=basic&theme=light")
         $('#topTracksPlayer').attr('src', "https://embed.spotify.com/?uri=spotify%3Aartist%3A" + $ARTIST_ID + "&theme=white");
+
 
         $.getJSON("/api/artists/" + $ARTIST_ID + "/tracklist", function(tracklist, status) {
 
