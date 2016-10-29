@@ -34,7 +34,7 @@ class LastFMArtist(object):
         self.found = True
 
     def getImage(self):
-        res = [image['#text'] for image in self.data['image'] if image['size'] == 'medium']
+        res = [image['#text'] for image in self.data['image'] if image['size'] == 'large']
         if res:
             return res[0]
         else:

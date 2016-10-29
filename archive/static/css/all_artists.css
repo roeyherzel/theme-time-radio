@@ -1,0 +1,39 @@
+
+.jumbotron h1 {
+  font-size: 90px;
+  color: white;
+}
+.jumbotron img {
+  width: 350px;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 0;
+  background-color: aqua;
+  padding: 10px;
+  border-radius: 8px;
+}
+.jumbotron {
+  background-color: #333333;
+  padding-bottom: 20px;
+}
+
+
+#allArtistsPlaceholder img {
+  width: 100px;
+  border: 1px solid #EEEEEE;
+}
+#allArtistsPlaceholder div.artist-card {
+  margin-bottom: 20px;
+}
+#allArtistsPlaceholder div.col-md-8 {
+  padding-left: 0;
+}
+#allArtistsPlaceholder div.artist-name {
+  padding-top: 32px;
+  font-weight: 300;
+  font-size: 18px;
+  width: 230px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -4,7 +4,7 @@
 {% block content %}
   <div class="jumbotron">
     <div class="container text-center">
-      <img src="{{ url_for('static', filename='images/cassette3.png') }}" alt="" />
+      <img class="center-block" src="{{ url_for('static', filename='images/cassette3.png') }}" alt="" />
       <h1>Artists</h1>
     </div>
   </div>
@@ -16,25 +16,7 @@
 
 
 {% block style %}
-  <style>
-    .jumbotron h1 {
-      font-size: 90px;
-      color: white;
-    }
-    .jumbotron img {
-      width: 350px;
-      height: auto;
-      margin-top: 20px;
-      margin-bottom: 0;
-      background-color: aqua;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .jumbotron {
-      background-color: #333333;
-      padding-bottom: 20px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/all_artists.css') }}">
 {% endblock %}
 
 
