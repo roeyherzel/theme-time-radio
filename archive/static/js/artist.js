@@ -22,6 +22,7 @@ $(function() {
 
           getTemplateAjax('tracklist.handlebars', function(template) {
 
+            console.log(tracklist);
             $('#tracklistPlaceholder').html(template(tracklist));
             createSpotifyPlayer(tracklistToSpotifySongIds(tracklist), {view: "coverart"});
           });

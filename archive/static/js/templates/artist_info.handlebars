@@ -7,9 +7,7 @@
         <h1>{{artist.name}}</h1>
         <div>
           {{#nl2br artist.bio.summary}}{{/nl2br}}
-
         </div>
-
       </div>
       <div class="col-md-4">
         <div class="text-center">
@@ -29,39 +27,53 @@
 <div class="jumbotron", id="songsPlayed">
   <div class="container">
     <h2 class="sub-header">Songs Played <small>on the show</small></h2>
-    <div id="tracklistPlaceholder"></div>
-  </div>
-</div>
-
-<div class="jumbotron" id="similarArtist">
-  <div class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-4">
-        <h2 class="sub-header">Similar Artists <small>from the show</small></h2>
+        <div id="spotifyPlayer" class=""></div>
       </div>
-
       <div class="col-md-8">
-        <ul class="list-inline">
-          {{#each artist.similar.artist}}
-            <li class="text-center">
-              <a href="/artists/{{name}}">
-                <img class="img-circle img-responsive center-block" src={{# lastFmImage image "large"}}{{/lastFmImage}} alt="" />
-                <div class="artist-name">{{name}}</div>
-              </a>
-            </li>
-          {{/each}}
-        </ul>
+        <div id="tracklistPlaceholder"></div>
       </div>
     </div>
 
+
   </div>
 </div>
+
+{{#if artist.similar.artist}}
+  <div class="jumbotron" id="similarArtist">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h2 class="sub-header">Similar Artists <small>from the show</small></h2>
+        </div>
+        <div class="col-md-8">
+            <ul class="list-inline">
+              {{#each artist.similar.artist}}
+                <li class="text-center">
+                  <a href="/artists/{{name}}">
+                    <img class="img-circle img-responsive center-block" src={{# lastFmImage image "large"}}{{/lastFmImage}} alt="" />
+                    <div class="artist-name">{{name}}</div>
+                  </a>
+                </li>
+              {{/each}}
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
 
 <div class="jumbotron" id="topTracks">
   <div class="container">
     <h2 class="sub-header">Top Tracks <small>on Spotify</small></h2>
-    <div class="text-center">
-      <iframe id="topTracksPlayer" src="" width="400" height="540" frameborder="0" allowtransparency="true"></iframe>
+    <div class="row">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-8">
+        <iframe id="topTracksPlayer" src="" width="400" height="540" frameborder="0" allowtransparency="true"></iframe>
+      </div>
     </div>
   </div>
 </div>

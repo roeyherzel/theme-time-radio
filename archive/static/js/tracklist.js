@@ -9,7 +9,7 @@ function tracklistToSpotifySongIds(tracklist) {
 // create embeded Spotify playlist from tracklist API
 function createSpotifyPlayer(spotifySongIds, options) {
   var defaults = {
-      width: "330",
+      width: "300",
       height: "380",
       theme: "white",
       view: "list",

@@ -6,12 +6,19 @@ h1 {
 .jumbotron {
   margin-bottom: 0;
   padding-top: 0;
-  padding-bottom: 30px;
   padding-top: 30px;
+  padding-bottom: 50px;
 }
 
 .sub-header {
   margin-top: 0;
+}
+
+h2 small {
+  font-weight: 200;
+}
+#similarArtist small {
+  color: #EEEEEE;
 }
 
 #artistBio {
@@ -32,16 +39,22 @@ h1 {
 
 #songsPlayed {
   background-color: #FAD165;
+  padding-bottom: 80px;
 }
 #songsPlayed div.tracklist {
   background-color: #EEEEEE;
-  border-radius: 8px;
-  padding: 5px;
-  margin-top: 2px;
+  padding: 5px 10px 8px 10px;
   font-weight: 300;
 }
 #songsPlayed td {
   font-size: 16px;
+}
+#songsPlayed tr {
+  text-align: left;
+}
+#songsPlayed div.tracklist,
+#songsPlayed iframe {
+  border-radius: 8px;
 }
 
 #topTracks {
@@ -50,17 +63,13 @@ h1 {
 
 #similarArtist {
   background-color: #2BB673;
-  padding-top: 20px;
   padding-bottom: 20px;
 }
 #similarArtist .sub-header {
   margin-bottom: 10px;
 }
-#similarArtist small {
-  color: white !important;
-}
 #similarArtist  a {
-  color: #EEEEEE;
+  color: white;
   font-size: 14px;
   font-weight: 300;
   letter-spacing: 1px;
@@ -68,10 +77,9 @@ h1 {
 
 #similarArtist ul {
   margin: 0;
-  padding-left: 40px;
 }
 #similarArtist li {
-  margin-right: 20px;
+  margin-right: 50px;
 }
 #similarArtist img {
   width: 100px;

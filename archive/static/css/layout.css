@@ -1,6 +1,5 @@
 body {
   padding-top: 50px;
-  //padding-bottom: 20px;
 }
 
 .navbar-default .navbar-brand {
@@ -35,8 +34,8 @@ th {
 h2, h3, h4 {
   font-weight: 300;
 }
-small {
-  font-weight: 100 !important;
+h2 small {
+  font-weight: 100;
 }
 
 .play-on-spotify {

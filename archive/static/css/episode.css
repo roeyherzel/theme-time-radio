@@ -1,19 +1,27 @@
 
 .jumbo-header {
-  margin: 10px 0 10px 0;
-  font-size: 18px;
   display: inline-block;
 }
 
-#episodeInfo {
-  padding-top: 20px;
-  padding-left: 20px;
+.lead {
+  font-size: 18px;
 }
 
-.title {
+.aired {
+  font-weight: 300;
+  font-size: 12px;
+  //text-align: center;
+}
+
+#episodeInfo img {
   margin-top: 10px;
+  margin-bottom: 5px;
+}
+#episodeInfo h1 {
+  margin-top: 0;
   color: #333333;
 }
+
 audio {
   margin-top: 10px;
 }
