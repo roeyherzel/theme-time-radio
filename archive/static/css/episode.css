@@ -10,11 +10,12 @@
 .aired {
   font-weight: 300;
   font-size: 12px;
-  //text-align: center;
 }
 
+#episodeInfo {
+  margin-bottom: 0
+}
 #episodeInfo img {
-  margin-top: 10px;
   margin-bottom: 5px;
 }
 #episodeInfo h1 {
