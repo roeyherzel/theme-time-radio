@@ -2,7 +2,7 @@ from flask import jsonify, render_template, request, send_file
 
 from archive import app
 from archive.models.podcast import Episodes
-from archive.models.spotify import SpotifyArtists
+from archive.models.spotify import Artists
 
 import re
 from jinja2 import evalcontextfilter, Markup, escape
@@ -23,9 +23,9 @@ def nl2br(eval_ctx, value):
 
 @app.route('/artists/<string:artist_id>')
 def artist_view(artist_id):
-    res = SpotifyArtists.query.get(artist_id)
+    res = Artists.query.get(artist_id)
     if res is None:
-        res = SpotifyArtists.query.filter(SpotifyArtists.lastfm_name == artist_id).one()
+        res = Artists.query.filter(Artists.lastfm_name == artist_id).one()
     return render_template('artist.html.jinja', artist=res)
 
 

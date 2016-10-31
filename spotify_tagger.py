@@ -44,7 +44,7 @@ class LastFMArtist(object):
         return self.data['name']
 
     def getTags(self):
-        return [tag['name'].lower() for tag in self.data['tags']['tag']]
+        return [tag['name'] for tag in self.data['tags']['tag']]
 
 
 spotify = spotipy.Spotify()
@@ -80,17 +80,17 @@ def searchTrack(song, artist, track_id):
 
 def collectSpotifyData(data, match_type, track_id):
     if match_type == 'track':
-        mySong = models.TracksSpotifySongs(track_id=track_id, song_id=CollectSongData(data).id)
+        mySong = models.TracksSongs(track_id=track_id, song_id=CollectSongData(data).id)
         models.Mixin.create(mySong)
         print(mySong)
 
         # NOTE: data['artists'] had too many artists
         for artist in data['album']['artists']:
-            myArtist = models.TracksSpotifyArtists(track_id=track_id, artist_id=CollectArtistData(artist).id)
+            myArtist = models.TracksArtists(track_id=track_id, artist_id=CollectArtistData(artist).id)
             models.Mixin.create(myArtist)
             print(myArtist)
     else:
-        myArtist = models.TracksSpotifyArtists(track_id=track_id, artist_id=CollectArtistData(data).id)
+        myArtist = models.TracksArtists(track_id=track_id, artist_id=CollectArtistData(data).id)
         models.Mixin.create(myArtist)
         print(myArtist)
 
@@ -113,8 +113,9 @@ class BaseResource(object):
 
 class CollectArtistData(BaseResource):
     def __init__(self, data):
-        self.Model = models.SpotifyArtists
+        self.Model = models.Artists
         super().__init__(data)
+
         artistInfo = LastFMArtist(self.myModel.name)
         if artistInfo.found:
             image = artistInfo.getImage()
@@ -123,9 +124,11 @@ class CollectArtistData(BaseResource):
             self.myModel.lastfm_image = image
 
         self.create()
+
         if artistInfo.found:
             for tag in artistInfo.getTags():
-                models.Mixin.create(models.ArtistsTags(tag=tag, artist_id=self.myModel.id))
+                models.Mixin.create(models.spotify.Tags(name=tag))
+                models.Mixin.create(models.ArtistsTags(tag_id=models.Tags.getId(tag), artist_id=self.myModel.id))
 
     def __repr__(self):
         return self.id
@@ -133,14 +136,14 @@ class CollectArtistData(BaseResource):
 
 class CollectAlbumData(BaseResource):
     def __init__(self, data):
-        self.Model = models.SpotifyAlbums
+        self.Model = models.Albums
         super().__init__(data)
         self.create()
 
 
 class CollectSongData(BaseResource):
     def __init__(self, data):
-        self.Model = models.SpotifySongs
+        self.Model = models.Songs
         super().__init__(data)
         self.myModel.preview_url = data['preview_url']
         self.myModel.album_id = CollectAlbumData(data['album']).id
@@ -149,13 +152,13 @@ class CollectSongData(BaseResource):
 
 with app.app_context():
     models.ArtistsTags.query.delete()
-    models.TracksSpotifySongs.query.delete()
-    models.TracksSpotifyArtists.query.delete()
-    models.SpotifySongs.query.delete()
-    models.SpotifyAlbums.query.delete()
-    models.SpotifyArtists.query.delete()
+    models.TracksSongs.query.delete()
+    models.TracksArtists.query.delete()
+    models.Songs.query.delete()
+    models.Albums.query.delete()
+    models.Artists.query.delete()
     models.db.session.commit()
 
-    for myTrack in models.Tracks.query.filter_by(resolved=True):    # .limit(5):
+    for myTrack in models.Tracks.query.filter_by(resolved=True).limit(15):
         print("\n" + str(myTrack))
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)

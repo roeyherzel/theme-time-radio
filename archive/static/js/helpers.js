@@ -7,16 +7,18 @@ Handlebars.registerHelper('nl2br', function(string, options) {
 
 // helper for artists name
 Handlebars.registerHelper('artistName', function(spotify_artists, parsed_artist, options) {
+  console.log(spotify_artists);
+  
   if (spotify_artists.length === 0) {
     return parsed_artist;
 
   } else if (spotify_artists.length === 1) {
-    return "<a href=/artists/" + spotify_artists[0].data.id + ">" + spotify_artists[0].data.name + "</a>";
+    return "<a href=/artists/" + spotify_artists[0].artist.id + ">" + spotify_artists[0].artist.name + "</a>";
 
   } else if (spotify_artists.length > 1) {
     var artists = [];
     for(var i=0, l=spotify_artists.length; i<l; i++) {
-      artists.push("<a href=/artists/" + spotify_artists[i].data.id + ">" + spotify_artists[i].data.name + "</a>");
+      artists.push("<a href=/artists/" + spotify_artists[i].artist.id + ">" + spotify_artists[i].artist.name + "</a>");
     }
     return artists.join('&#44;&#32;');  // comma;space
   }

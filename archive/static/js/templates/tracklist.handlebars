@@ -18,8 +18,8 @@
             <td>{{position}}</td>
           {{/if}}
           <td>
-            {{# if spotify_song.data.id }}
-              {{spotify_song.data.name}}
+            {{# if spotify_song.song.id }}
+              {{spotify_song.song.name}}
             {{else}}
               {{parsed_song}}
             {{/if}}
@@ -31,8 +31,8 @@
             {{year}}
           </td>
           <td class="text-center">
-            {{# if spotify_song.data.id }}
-              <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.data.preview_url}}"></span>
+            {{# if spotify_song.song.id }}
+              <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.song.preview_url}}"></span>
             {{else}}
               <span class="glyphicon glyphicon-question-sign"></span>
             {{/if}}

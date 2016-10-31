@@ -1,8 +1,8 @@
 
 // convert list of tracks from episodes to list of spotify song ids
-function tracklistToSpotifySongIds(tracklist) {
-  var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.data.id !== null });
-  return _.map(tracksOnSpotify, function(track) { return track.spotify_song.data.id });
+function tracklistToSongIds(tracklist) {
+  var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.song.id !== null });
+  return _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
 }
 
 
@@ -31,15 +31,12 @@ function createSpotifyPlayer(spotifySongIds, options) {
       playlistTracks = spotifySongIds.join(','),
       spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlayerSettings;
 
-  console.log(settings);
-
   $(settings.location).html(
     $(document.createElement("iframe")).attr(
       {src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: settings.width, height: settings.height})
   );
 
   // Events controling song preview
-  console.log($('#tracklistPlaceholder'));
   document.getElementById("tracklistPlaceholder").addEventListener("click", function(e) {
       var target = e.target;
       if (target !== null && target.classList.contains("preview")) {

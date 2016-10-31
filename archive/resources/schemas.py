@@ -2,59 +2,84 @@ from flask import url_for
 from flask_restful import fields
 
 
-SpotifyResourceSchema = {
-    'id': fields.String,
-    'name': fields.String,
-    'url': fields.String,
-}
-
-SpotifySongSchema = {
-    'album': fields.Nested(SpotifyResourceSchema),
-    'preview_url': fields.String,
-}
-SpotifyArtistSchema = {
-    'view': fields.FormattedString("artists/{id}"),
-    'lastfm_name': fields.String,
-    'lastfm_image': fields.String,
-}
-
-SpotifyArtistSchema.update(SpotifyResourceSchema)
-SpotifySongSchema.update(SpotifyResourceSchema)
+class Base(object):
+    @property
+    def as_dict(self):
+        return self.__dict__
 
 
-EpisodeSchema = {
-    'id': fields.Integer,
-    'view': fields.FormattedString("episodes/{id}"),
-    'api': fields.FormattedString("api/episodes/{id}"),
-    'title': fields.String,
-    'season': fields.Integer,
-    'image': fields.String,
-    'tags': fields.List(fields.Nested({'tag': fields.String})),
-}
-
-TrackSchema = {
-    'id': fields.Integer,
-    'resolved': fields.Boolean,
-    'title': fields.String,
-    'parsed_song': fields.String,
-    'parsed_artist': fields.String,
-    'position': fields.Integer,
-    'year': fields.Integer,
-    'spotify_song': fields.Nested({'data': fields.Nested(SpotifySongSchema)}),
-    'spotify_artists': fields.Nested({'data': fields.Nested(SpotifyArtistSchema)}),
-}
+class Tags(Base):
+    def __init__(self):
+        self.id = fields.Integer
+        self.name = fields.String
+        self.type = fields.String
 
 
-PlaylistTrackSchema = {
-    'episode': fields.Nested(EpisodeSchema)
-}
-PlaylistTrackSchema.update(TrackSchema)
+class ArtistTags(Base):
+    def __init__(self):
+        self.tags = fields.Nested({'tag': fields.Nested(Tags().as_dict)})
 
 
-TracklistSchema = {
-    'tracklist': fields.List(fields.Nested(TrackSchema))
-}
+class SpotifyResource(Base):
+    def __init__(self):
+        self.id = fields.String
+        self.name = fields.String
+        self.url = fields.String
 
-PlaylistSchema = {
-    'tracklist': fields.List(fields.Nested(PlaylistTrackSchema))
-}
+
+class Artist(SpotifyResource):
+    def __init__(self):
+        super().__init__()
+        self.view = fields.FormattedString("artists/{id}")
+        self.lastfm_name = fields.String
+        self.lastfm_image = fields.String
+
+
+class Album(SpotifyResource):
+    def __init__(self):
+        super().__init__()
+
+
+class Song(SpotifyResource):
+    def __init__(self):
+        super().__init__()
+        self.preview_url = fields.String
+        # self.album = Album().as_dict
+
+
+class Episode(Base):
+    def __init__(self):
+        self.id = fields.Integer
+        self.view = fields.FormattedString("episodes/{id}")
+        self.api = fields.FormattedString("api/episodes/{id}")
+        self.title = fields.String
+        self.season = fields.Integer
+        self.image = fields.String
+
+
+class Track(Base):
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            self.__setattr__(k, v)
+
+        self.id = fields.Integer
+        self.resolved = fields.Boolean
+        self.title = fields.String
+        self.parsed_song = fields.String
+        self.parsed_artist = fields.String
+        self.position = fields.Integer
+        self.year = fields.Integer
+        self.spotify_song = fields.Nested({'song': fields.Nested(Song().as_dict)})
+        self.spotify_artists = fields.Nested({'artist': fields.Nested(Artist().as_dict)})
+
+
+class EpisodeTracklist(Base):
+    def __init__(self):
+        myTrack = Track().as_dict
+        self.tracklist = fields.List(fields.Nested(myTrack))
+
+
+class ArtistTracklist(Base):
+    def __init__(self):
+        myTrack = Track(episode=fields.Nested(Episode().as_dict)).as_dict
+        self.tracklist = fields.List(fields.Nested(myTrack))
