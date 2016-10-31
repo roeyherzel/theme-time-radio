@@ -69,8 +69,8 @@ class Track(Base):
         self.parsed_artist = fields.String
         self.position = fields.Integer
         self.year = fields.Integer
+        self.spotify_artists = fields.List(fields.Nested({'artist': fields.Nested(Artist().as_dict)}))
         self.spotify_song = fields.Nested({'song': fields.Nested(Song().as_dict)})
-        self.spotify_artists = fields.Nested({'artist': fields.Nested(Artist().as_dict)})
 
 
 class EpisodeTracklist(Base):

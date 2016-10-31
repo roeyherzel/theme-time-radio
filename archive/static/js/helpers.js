@@ -7,8 +7,7 @@ Handlebars.registerHelper('nl2br', function(string, options) {
 
 // helper for artists name
 Handlebars.registerHelper('artistName', function(spotify_artists, parsed_artist, options) {
-  console.log(spotify_artists);
-  
+
   if (spotify_artists.length === 0) {
     return parsed_artist;
 

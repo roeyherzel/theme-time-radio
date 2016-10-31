@@ -53,7 +53,7 @@ class Artists(db.Model, Mixin):
 class ArtistsTags(db.Model, Mixin):
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
     artist_id = db.Column(db.String, db.ForeignKey('artists.id'), primary_key=True)
-    artists = db.relationship('Artists', backref=db.backref('tags'))
+    artists = db.relationship('Artists', backref=db.backref('tags', lazy='dynamic'))
     tag = db.relationship('Tags', backref=db.backref('artists', lazy='dynamic'))
 
     def __repr__(self):
@@ -75,7 +75,7 @@ class TracksSongs(db.Model, Mixin):
 class TracksArtists(db.Model, Mixin):
     track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), primary_key=True)
     artist_id = db.Column(db.String, db.ForeignKey('artists.id'), primary_key=True)
-    tracks = db.relationship('Tracks', backref=db.backref('spotify_artists'))
+    tracks = db.relationship('Tracks', backref=db.backref('spotify_artists', lazy='dynamic'))
     artist = db.relationship('Artists', backref=db.backref('artists_tracks', lazy='dynamic'))
 
     def __repr__(self):
