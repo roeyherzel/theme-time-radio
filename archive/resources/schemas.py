@@ -15,7 +15,7 @@ SpotifySongSchema = {
 SpotifyArtistSchema = {
     'view': fields.FormattedString("artists/{id}"),
     'lastfm_name': fields.String,
-    'lastfm_image': fields.String
+    'lastfm_image': fields.String,
 }
 
 SpotifyArtistSchema.update(SpotifyResourceSchema)

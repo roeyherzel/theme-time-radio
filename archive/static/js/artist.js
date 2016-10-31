@@ -1,5 +1,5 @@
 
-$(function() {
+$(document).ready(function() {
   getArtistInfo($LASTFM_ID, function(artistInfo) {
 
     $.get("/api/lastfm/artists", function(allArtists, status) {
@@ -14,22 +14,17 @@ $(function() {
 
         $('#artistInfoPlaceholder').html(template(artistInfo));
 
-        $('#followArtist').attr('src', "https://embed.spotify.com/follow/1/?uri=spotify:artist:" + $ARTIST_ID + "&size=basic&theme=light")
         $('#topTracksPlayer').attr('src', "https://embed.spotify.com/?uri=spotify%3Aartist%3A" + $ARTIST_ID + "&theme=white");
-
 
         $.getJSON("/api/artists/" + $ARTIST_ID + "/tracklist", function(tracklist, status) {
 
           getTemplateAjax('tracklist.handlebars', function(template) {
 
-            console.log(tracklist);
             $('#tracklistPlaceholder').html(template(tracklist));
             createSpotifyPlayer(tracklistToSpotifySongIds(tracklist), {view: "coverart"});
           });
         });
-
       });
     });
-
   });
 });

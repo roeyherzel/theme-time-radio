@@ -1,10 +1,10 @@
-body {
-  padding-top: 50px;
-}
 
+.navbar {
+  margin-bottom: 0;
+}
 .navbar-default .navbar-brand {
-  //color: #333;
-  font-size: 16px;
+  color: #333;
+  font-size: 14px;
 }
 
 .logo {

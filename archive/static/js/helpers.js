@@ -30,3 +30,16 @@ Handlebars.registerHelper('lastFmImage', function(imageArr, size, options) {
   }
   return _.findWhere(imageArr, {'size': size})["#text"];
 });
+
+
+// helper for generating artist groups index
+Handlebars.registerHelper('indexGroups', function(artists, options) {
+  var groups = _.map(Object.keys(artists), function(g) {
+    return `<a href=#${g}>${g}</a>`;
+  });
+
+  var groupsLinks = groups.join(" | "),
+      nav = `<nav>${groupsLinks}</nav>`;
+
+  return nav;
+});

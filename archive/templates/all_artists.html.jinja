@@ -23,17 +23,12 @@
 {% block script %}
   <script type="text/javascript">
 
-  $(function() {
+  $(document).ready(function() {
     // nav bar active
     $('ul.nav > li:has(a[href="/artists"])').addClass("active");
 
     $.getJSON("/api/artists", function(data, status) {
       var groupedArtists = _.groupBy(data, function(artist) { return artist.name[0]});
-
-      getArtistInfo(groupedArtists.A[2].lastfm_name, function(artistInfo) {
-        console.log(artistInfo.artist.image);
-      });
-      //console.log(groupedArtists.A[2]);
 
       getTemplateAjax('all_artists.handlebars', function(template) {
         var context = {artists: groupedArtists};

@@ -1,11 +1,11 @@
 
-<div class="jumbotron" id="artistBio">
+<div class="jumbotron" id="artistInfo">
   <div class="container">
 
     <div class="row">
       <div class="col-md-8">
         <h1>{{artist.name}}</h1>
-        <div>
+        <div id="artistBio">
           {{#nl2br artist.bio.summary}}{{/nl2br}}
         </div>
       </div>
@@ -16,10 +16,7 @@
       </div>
     </div>
 
-    <div class="row">
-
-      <!--<a href="#topTracks" class="btn btn-info" role="button">Top Tracks</a>-->
-    </div>
+    <!--<a href="#topTracks" class="btn btn-info" role="button">Top Tracks</a>-->
 
   </div>
 </div>

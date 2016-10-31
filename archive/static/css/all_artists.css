@@ -1,10 +1,11 @@
 
 .jumbotron h1 {
-  font-size: 90px;
+  font-size: 70px;
   color: white;
+  margin-top: 10px;
 }
 .jumbotron img {
-  width: 350px;
+  width: 300px;
   height: auto;
   margin-top: 20px;
   margin-bottom: 0;
@@ -17,7 +18,19 @@
   padding-bottom: 20px;
 }
 
+.groups-index a {
+  padding: 2px;
+}
 
+.page-header {
+  text-align: right;
+  font-weight: bold;
+  padding-right: 10px;
+}
+
+.media-heading {
+  margin-top: 10px;
+}
 #allArtistsPlaceholder img {
   width: 100px;
   border: 1px solid #EEEEEE;

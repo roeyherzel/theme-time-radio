@@ -21,15 +21,18 @@ h2 small {
   color: #EEEEEE;
 }
 
-#artistBio {
+#artistInfo {
   font-size: 16px;
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
-#artistBio img {
+#artistInfo img {
   width: 300px;
   margin-bottom: 10px;
+}
+#artistInfo #artistBio {
+  margin-bottom: 20px;
 }
 
 #followArtist {
@@ -80,6 +83,7 @@ h2 small {
 }
 #similarArtist li {
   margin-right: 50px;
+  margin-bottom: 10px;
 }
 #similarArtist img {
   width: 100px;

@@ -1,10 +1,11 @@
 
 
 .jumbotron h1 {
-  font-size: 90px;
+  font-size: 70px;
+  margin-top: 10px;
 }
 .jumbotron img {
-  width: 350px;
+  width: 300px;
   height: auto;
   margin-top: 20px;
   margin-bottom: 0;
