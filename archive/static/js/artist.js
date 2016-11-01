@@ -26,7 +26,7 @@ $(document).ready(function() {
 
               var context = {tracklist: tracklist.tracklist, episodes: true};
               $('#tracklistPlaceholder').html(template(context));
-              createSpotifyPlayer(tracklistToSongIds(tracklist), { title: $ARTIST_NAME, view: "coverart" });
+              createSpotifyPlayer(tracklistToSongIds(tracklist), { title: $ARTIST_NAME + ' Playlist', view: "coverart" });
             });
           });
         });
