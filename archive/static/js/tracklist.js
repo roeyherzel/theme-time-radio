@@ -23,7 +23,7 @@ function createSpotifyPlayer(spotifySongIds, options) {
     settings.height = "80";
     settings.theme = "black";
     settings.view = "list";
-    settings.title = "Song Not Found";
+    settings.title = "Song is not on Spotify";
   }
   settings.title = settings.title.replace(/\s/g, "%20");
 

@@ -1,7 +1,9 @@
 <div class="tracklist">
   <table class="table table-responsive table-condensed">
     <thead class="green">
-      <th>#</th>
+      {{#unless episodes}}
+        <th>#</th>
+      {{/unless}}
       <th>SONG</th>
       <th>ARTIST</th>
       <th>YEAR</th>
@@ -10,7 +12,9 @@
     <tbody>
       {{#each tracklist}}
         <tr>
-          <td>{{position}}</td>
+          {{#unless episode.id}}
+            <td>{{position}}</td>
+          {{/unless}}
           <td>
             {{#getSongTitle spotify_song parsed_song episode.id}}{{/getSongTitle}}
           </td>

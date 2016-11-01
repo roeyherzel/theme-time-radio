@@ -6,10 +6,8 @@
 }
 .jumbotron img {
   width: 300px;
-  height: auto;
-  margin-top: 20px;
   margin-bottom: 0;
-  background-color: aqua;
+  background-color: #00FFFF;
   padding: 10px;
   border-radius: 8px;
 }

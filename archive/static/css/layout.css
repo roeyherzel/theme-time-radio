@@ -31,8 +31,9 @@ th {
   margin: 40px 0 20px;
 }
 
+
 body {
-  font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 h2, h3, h4 {
   font-weight: 300;
@@ -45,12 +46,15 @@ h2 small {
 div.tracklist {
   border-radius: 8px;
   background-color: #FFFFFF;
-  padding: 5px 10px 8px 10px;
-  font-size: 14px;
-  font-weight: 300;
+  padding: 5px 10px 5px 10px;
 }
 div.tracklist tr {
   text-align: left;
+}
+div.tracklist td {
+  font-size: 14px;
+  font-weight: 300;
+  font-family: Helvetica;
 }
 
 .play-on-spotify {

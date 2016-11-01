@@ -13,7 +13,9 @@
 }
 
 #episodeInfo {
-  margin-bottom: 0
+  background-color: #9FC6E7;
+  margin-bottom: 0;
+
 }
 #episodeInfo img {
   margin-bottom: 5px;
@@ -33,11 +35,10 @@ blockquote {
   border-left-color: #777777;
 }
 blockquote p {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 #episodePlaylist {
-  background-color: #FAD165;
   padding-top: 0;
   padding-bottom: 80px;
   margin-bottom: 0;
