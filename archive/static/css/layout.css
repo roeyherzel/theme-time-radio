@@ -31,11 +31,26 @@ th {
   margin: 40px 0 20px;
 }
 
+body {
+  font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 h2, h3, h4 {
   font-weight: 300;
 }
 h2 small {
   font-weight: 100;
+}
+
+/* playlist/tracklist Related */
+div.tracklist {
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  padding: 5px 10px 8px 10px;
+  font-size: 14px;
+  font-weight: 300;
+}
+div.tracklist tr {
+  text-align: left;
 }
 
 .play-on-spotify {
@@ -49,16 +64,22 @@ h2 small {
 
 .glyphicon {
   font-size: 20px;
+  line-height: inherit
+}
+.glyphicon-question-sign {
+  font-size: 18px;
 }
 
-.glyphicon-pause,
-.green {
+.red, .glyphicon-pause {
+  color: #D9534F;
+}
+
+.green, .glyphicon-play-circle {
   color: #1DB954;
 }
 
-.container-fluid {
-  margin-left: 100px;
-  margin-right: 100px;
+.blue, .glyphicon-question-sign {
+  color: #4986E7;
 }
 
 .page-header-dark{

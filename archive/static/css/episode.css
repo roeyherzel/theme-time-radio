@@ -35,3 +35,10 @@ blockquote {
 blockquote p {
   font-size: 18px !important;
 }
+
+#episodePlaylist {
+  background-color: #FAD165;
+  padding-top: 0;
+  padding-bottom: 80px;
+  margin-bottom: 0;
+}

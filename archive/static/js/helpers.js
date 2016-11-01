@@ -6,23 +6,26 @@ Handlebars.registerHelper('nl2br', function(string, options) {
 
 
 // helper for artists name
-Handlebars.registerHelper('artistName', function(spotify_artists, parsed_artist, options) {
+Handlebars.registerHelper('getArtistTitle', function(spotify_artists, parsed_artist, options) {
 
-  if (spotify_artists.length === 0) {
+  if (spotify_artists.length > 0) {
+    return _.map(spotify_artists, function(a) { return `<a href="/artists/${a.artist.id}">${a.artist.name}</a>` })
+            .join('&#44;&#32;');  // comma;space;
+  } else {
     return parsed_artist;
-
-  } else if (spotify_artists.length === 1) {
-    return "<a href=/artists/" + spotify_artists[0].artist.id + ">" + spotify_artists[0].artist.name + "</a>";
-
-  } else if (spotify_artists.length > 1) {
-    var artists = [];
-    for(var i=0, l=spotify_artists.length; i<l; i++) {
-      artists.push("<a href=/artists/" + spotify_artists[i].artist.id + ">" + spotify_artists[i].artist.name + "</a>");
-    }
-    return artists.join('&#44;&#32;');  // comma;space
   }
 });
 
+// helper for song name
+Handlebars.registerHelper('getSongTitle', function(spotify_song, parsed_song, episode_id, options) {
+
+  var songName = (spotify_song.song.id) ? spotify_song.song.name : parsed_song;
+
+  if (typeof(episode_id) === typeof(Number())) {
+    songName = `<a href="/episodes/${episode_id}">${songName}</a>`;
+  }
+  return songName;
+});
 
 // helper for LastFM images
 Handlebars.registerHelper('lastFmImage', function(imageArr, size, options) {

@@ -12,17 +12,11 @@ $(document).ready(function() {
           return _.contains(allArtists, simiArtist.name);
         });
 
-        //lastfmData['artist_id'] = $ARTIST_ID;
-
 
         getTemplateAjax('artist_info.handlebars', function(template) {
 
           var context = {spotify: spotifyData, lastfm: lastfmData};
-
-          console.log(context);
-
           $('#artistInfoPlaceholder').html(template(context));
-
           $('#topTracksPlayer').attr('src', "https://embed.spotify.com/?uri=spotify%3Aartist%3A" + $ARTIST_ID + "&theme=white");
 
 
@@ -30,8 +24,9 @@ $(document).ready(function() {
 
             getTemplateAjax('tracklist.handlebars', function(template) {
 
-              $('#tracklistPlaceholder').html(template(tracklist));
-              createSpotifyPlayer(tracklistToSongIds(tracklist), {view: "coverart"});
+              var context = {tracklist: tracklist.tracklist, episodes: true};
+              $('#tracklistPlaceholder').html(template(context));
+              createSpotifyPlayer(tracklistToSongIds(tracklist), { title: $ARTIST_NAME, view: "coverart" });
             });
           });
         });

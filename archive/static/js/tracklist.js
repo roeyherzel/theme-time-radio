@@ -8,36 +8,58 @@ function tracklistToSongIds(tracklist) {
 
 // create embeded Spotify playlist from tracklist API
 function createSpotifyPlayer(spotifySongIds, options) {
-  var defaults = {
-      width: "300",
-      height: "380",
-      theme: "white",
-      view: "list",
-      location: "#spotifyPlayer",
-      title: "Playlist"
-  };
-  var settings = _.defaults(options, defaults);
+  var spotifySongIds = spotifySongIds.join(','),
+      defaults = {
+        width: "300",
+        height: "380",
+        theme: "white",
+        view: "list",
+        location: "#spotifyPlayer",
+        title: "Playlist"
+      },
+      settings = _.defaults(options, defaults);
 
-  if (spotifySongIds.length <= 1) {
+  if (spotifySongIds.length < 1) {
     settings.height = "80";
     settings.theme = "black";
     settings.view = "list";
+    settings.title = "Song Not Found";
   }
+  settings.title = settings.title.replace(/\s/g, "%20");
 
-  // TODO: don't show player if there are no songs.
-  var spotifyPlayerPrefix = "https://embed.spotify.com/?uri=spotify:trackset",
-      spotifyPlayerSettings = "&theme=" + settings.theme + "&view=" + settings.view,
-      playlistTitle = defaults.title,
-      playlistTracks = spotifySongIds.join(','),
-      spotifyPlayerUri = spotifyPlayerPrefix + ":" + playlistTitle + ":" + playlistTracks + spotifyPlayerSettings;
+  var spotifyPlayerSrc = `https://embed.spotify.com/?uri=spotify:trackset:${settings.title}:${spotifySongIds}&theme=${settings.theme}&view=${settings.view}`;
 
   $(settings.location).html(
     $(document.createElement("iframe")).attr(
-      {src: spotifyPlayerUri, frameborder: "0", allowtransparency: "true", width: settings.width, height: settings.height})
+      { src: spotifyPlayerSrc, frameborder: "0", allowtransparency: "true", width: settings.width, height: settings.height })
   );
 
-  // Events controling song preview
-  document.getElementById("tracklistPlaceholder").addEventListener("click", function(e) {
+  enableAudioEvents("tracklistPlaceholder");
+
+}
+
+
+// audioObject is set globaly so we could pause previous tracks
+var audioObject = null,
+  playingCssClass = "playing",
+  playGlyph = "glyphicon-play-circle",
+  pauseGlyph = "glyphicon-pause";
+
+
+function audioControl(action, target, audio) {
+  if (action === "play") {
+    audioObject.play();
+    $(target).addClass(playingCssClass).removeClass(playGlyph).addClass(pauseGlyph);
+
+  } else if (action === "pause") {
+    audioObject.pause();
+    $(target).removeClass(playingCssClass).removeClass(pauseGlyph).addClass(playGlyph);
+  }
+}
+
+// Events controling song preview
+function enableAudioEvents(placeholder) {
+  document.getElementById(placeholder).addEventListener("click", function(e) {
       var target = e.target;
       if (target !== null && target.classList.contains("preview")) {
         var previewUrl = target.attributes.previewUrl.value;
@@ -62,23 +84,4 @@ function createSpotifyPlayer(spotifySongIds, options) {
         }
       }
   });
-}
-
-
-// audioObject is set globaly so we could pause previous tracks
-var audioObject = null,
-  playingCssClass = "playing",
-  playGlyph = "glyphicon-play-circle",
-  pauseGlyph = "glyphicon-pause";
-
-
-function audioControl(action, target, audio) {
-  if (action === "play") {
-    audioObject.play();
-    $(target).addClass(playingCssClass).removeClass(playGlyph).addClass(pauseGlyph);
-
-  } else if (action === "pause") {
-    audioObject.pause();
-    $(target).removeClass(playingCssClass).removeClass(pauseGlyph).addClass(playGlyph);
-  }
 }

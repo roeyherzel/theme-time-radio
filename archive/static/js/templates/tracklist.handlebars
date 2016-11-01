@@ -10,22 +10,12 @@
     <tbody>
       {{#each tracklist}}
         <tr>
-          {{# if episode }}
-            <td>
-              <a href="/episodes/{{episode.id}}">{{episode.id}}</a>
-            </td>
-          {{else}}
-            <td>{{position}}</td>
-          {{/if}}
+          <td>{{position}}</td>
           <td>
-            {{# if spotify_song.song.id }}
-              {{spotify_song.song.name}}
-            {{else}}
-              {{parsed_song}}
-            {{/if}}
+            {{#getSongTitle spotify_song parsed_song episode.id}}{{/getSongTitle}}
           </td>
           <td>
-            {{# artistName spotify_artists parsed_artist}}{{/artistName}}
+            {{#getArtistTitle spotify_artists parsed_artist}}{{/getArtistTitle}}
           </td>
           <td>
             {{year}}
