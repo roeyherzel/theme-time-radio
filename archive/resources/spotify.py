@@ -46,6 +46,7 @@ class TagsAPI(Resource):
         artist_id = args.get('artist_id')
 
         if artist_id is not None:
+            print(schemas.ArtistTags().as_dict)
             return marshal(spotify.Artists.query.get(artist_id), schemas.ArtistTags().as_dict)
 
         return marshal(spotify.Tags.query.all(), schemas.Tags().as_dict)

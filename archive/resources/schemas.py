@@ -8,6 +8,12 @@ class Base(object):
         return self.__dict__
 
 
+class SpotifyResource(Base):
+    def __init__(self):
+        self.id = fields.String
+        self.name = fields.String
+
+
 class Tags(Base):
     def __init__(self):
         self.id = fields.Integer
@@ -15,16 +21,10 @@ class Tags(Base):
         self.type = fields.String
 
 
-class ArtistTags(Base):
+class ArtistTags(SpotifyResource):
     def __init__(self):
-        self.tags = fields.Nested({'tag': fields.Nested(Tags().as_dict)})
-
-
-class SpotifyResource(Base):
-    def __init__(self):
-        self.id = fields.String
-        self.name = fields.String
-        self.url = fields.String
+        super().__init__()
+        self.tags = fields.List(fields.Nested({'tag': fields.Nested(Tags().as_dict)}))
 
 
 class Artist(SpotifyResource):

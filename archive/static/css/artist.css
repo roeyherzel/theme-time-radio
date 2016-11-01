@@ -6,19 +6,11 @@ h1 {
 .jumbotron {
   margin-bottom: 0;
   padding-top: 0;
-  padding-top: 30px;
   padding-bottom: 50px;
-}
-
-.sub-header {
-  margin-top: 0;
 }
 
 h2 small {
   font-weight: 200;
-}
-#similarArtist small {
-  color: #EEEEEE;
 }
 
 #artistInfo {
@@ -28,16 +20,23 @@ h2 small {
 }
 
 #artistInfo img {
-  width: 300px;
-  margin-bottom: 10px;
+  //width: 300px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 #artistInfo #artistBio {
   margin-bottom: 20px;
 }
 
-#followArtist {
-  padding-top: 20px;
-  margin-top: 20px;
+#artistTags {
+  border-top: 1px solid #ddd;
+}
+#artistTags li {
+  text-transform: capitalize;
+  letter-spacing: 1px;
+}
+#artistTags .label {
+  font-weight: 300;
 }
 
 #songsPlayed {
@@ -60,33 +59,20 @@ h2 small {
   border-radius: 8px;
 }
 
-#topTracks {
-  background-color: #EEEEEE;
+#topTracksPlayer, #spotifyPlayer {
+  padding-left: 20px;
 }
 
-#similarArtist {
-  background-color: #2BB673;
-  padding-bottom: 20px;
-}
-#similarArtist .sub-header {
-  margin-bottom: 10px;
-}
 #similarArtist  a {
-  color: white;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
-  letter-spacing: 1px;
 }
 
-#similarArtist ul {
-  margin: 0;
-}
 #similarArtist li {
   margin-right: 50px;
   margin-bottom: 10px;
 }
 #similarArtist img {
-  width: 100px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  width: 150px;
+  padding: 5px;
 }

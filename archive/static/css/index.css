@@ -1,7 +1,8 @@
 
 .jumbotron {
   margin-bottom: 0;
-  padding-bottom: 0;
+  background-color: #2BB673;
+  color: white;
 }
 .jumbotron img {
   width: 350px;
@@ -18,5 +19,6 @@
   font-weight: 300;
 }
 .lead {
-    color: #2BB673;
+    color: white;
+    padding-left: 20px;
 }
