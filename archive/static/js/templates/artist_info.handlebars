@@ -7,17 +7,15 @@
         <div id="artistBio">
           {{#nl2br lastfm.artist.bio.summary}}{{/nl2br}}
         </div>
-        {{#if spotify.tags}}
-          <div id="artistTags">
-            <ul class="list-inline">
-              {{#each spotify.tags}}
-                <li>
-                  <h5><span class="label label-danger">{{tag.name}}</span></h5>
-                </li>
-              {{/each}}
-            </ul>
-          </div>
-        {{/if}}
+        <div id="artistTags">
+          <ul class="list-inline">
+            {{#each spotify.tags}}
+              <li>
+                <h5><span class="label label-danger">{{tag.name}}</span></h5>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
       </div>
       <div class="col-md-4">
         <div class="text-center">
@@ -59,7 +57,7 @@
       </div>
       {{#if lastfm.artist.similar.artist}}
         <div class="col-md-7" id="similarArtist">
-          <h2 class="sub-header text-center">Similar Artists <small>from the show</small></h2>
+          <h2 class="sub-header text-center">Similar Artists <small>on the show</small></h2>
 
           <ul class="list-inline text-center">
             {{#each lastfm.artist.similar.artist}}

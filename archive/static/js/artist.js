@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-  $.getJSON("/api/tags", {artist_id: $ARTIST_ID}, function(spotifyData, status) {
+  $.getJSON("/api/artists/" + $ARTIST_ID + "/tags", function(spotifyData, status) {
 
     getArtistInfo($LASTFM_ID, function(lastfmData) {
 
@@ -17,16 +17,16 @@ $(document).ready(function() {
 
           var context = {spotify: spotifyData, lastfm: lastfmData};
           $('#artistInfoPlaceholder').html(template(context));
+
+          // TODO: move to helper
           $('#topTracksPlayer').attr('src', "https://embed.spotify.com/?uri=spotify%3Aartist%3A" + $ARTIST_ID + "&theme=white");
 
-
-          $.getJSON("/api/artists/" + $ARTIST_ID + "/tracklist", function(tracklist, status) {
+          $.getJSON("/api/artists/" + $ARTIST_ID + "/tracklist", function(data, status) {
 
             getTemplateAjax('tracklist.handlebars', function(template) {
 
-              var context = {tracklist: tracklist.tracklist, episodes: true};
-              $('#tracklistPlaceholder').html(template(context));
-              createSpotifyPlayer(tracklistToSongIds(tracklist), { title: $ARTIST_NAME + ' Playlist', view: "coverart" });
+              var context = {tracklist: data.tracklist, episodes: true};
+              launchSpotifyPlayer(data.tracklist, template(context), { title: $ARTIST_NAME + ' Playlist', view: "coverart" });
             });
           });
         });

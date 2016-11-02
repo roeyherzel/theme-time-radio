@@ -1,0 +1,17 @@
+
+
+{{#each tags as |group|}}
+  <div class="row" id="{{@key}}">
+    <div class="col-md-12">
+      <h2 class="page-header">{{@key}}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    {{#each group as |tag|}}
+      <div class="col-md-6">
+        <a href="#" class="btn btn-default" role="button">{{tag.name}}</a>
+      </div>
+    {{/each}}
+  </div>
+{{/each}}

@@ -1,14 +1,19 @@
 
 // convert list of tracks from episodes to list of spotify song ids
 function tracklistToSongIds(tracklist) {
-  var tracksOnSpotify = _.filter(tracklist.tracklist, function(track) { return track.spotify_song.song.id !== null });
-  return _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
+  var tracksOnSpotify = _.filter(tracklist, function(track) { return track.spotify_song.song.id !== null });
+  tracksOnSpotify = _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
+
+  console.log(tracksOnSpotify);
+  return tracksOnSpotify;
 }
 
 
 // create embeded Spotify playlist from tracklist API
 function createSpotifyPlayer(spotifySongIds, options) {
-  var spotifySongIds = spotifySongIds.join(','),
+
+  var spotifySongIds = (typeof(spotifySongIds) === typeof(Array())) ? spotifySongIds.join(',') : String(),
+      options =  (typeof(options) === typeof(Object())) ? options : Object(),
       defaults = {
         width: "300",
         height: "380",
@@ -34,16 +39,22 @@ function createSpotifyPlayer(spotifySongIds, options) {
       { src: spotifyPlayerSrc, frameborder: "0", allowtransparency: "true", width: settings.width, height: settings.height })
   );
 
-  enableAudioEvents("tracklistPlaceholder");
+}
 
+function launchSpotifyPlayer(trackObjs, renderedTemplate, options) {
+
+  $('#tracklistPlaceholder').html(renderedTemplate);
+
+  createSpotifyPlayer(tracklistToSongIds(trackObjs), options);
+  enableAudioEvents("tracklistPlaceholder");
 }
 
 
 // audioObject is set globaly so we could pause previous tracks
 var audioObject = null,
-  playingCssClass = "playing",
-  playGlyph = "glyphicon-play-circle",
-  pauseGlyph = "glyphicon-pause";
+    playingCssClass = "playing",
+    playGlyph = "glyphicon-play-circle",
+    pauseGlyph = "glyphicon-pause";
 
 
 function audioControl(action, target, audio) {

@@ -21,28 +21,32 @@ def nl2br(eval_ctx, value):
 
 # ----------- views ----------------
 
+@app.route('/mixtapes')
+def mixtapes_view(tag=None):
+    if tag is None:
+        return render_template('mixtapes.html.jinja')
+
+
+@app.route('/artists')
 @app.route('/artists/<string:artist_id>')
-def artist_view(artist_id):
+def artist_view(artist_id=None):
+    if artist_id is None:
+        return render_template('all_artists.html.jinja')
+
     res = Artists.query.get(artist_id)
     if res is None:
         res = Artists.query.filter(Artists.lastfm_name == artist_id).one()
     return render_template('artist.html.jinja', artist=res)
 
 
-@app.route('/artists')
-def all_artists_view():
-    return render_template('all_artists.html.jinja')
-
-
+@app.route('/episodes')
 @app.route('/episodes/<int:episode_id>')
-def episode_view(episode_id):
+def episode_view(episode_id=None):
+    if episode_id is None:
+        return render_template('all_episodes.html.jinja')
+
     res = Episodes.query.get(episode_id)
     return render_template('episode.html.jinja', episode=res)
-
-
-@app.route('/episodes')
-def all_episodes_view():
-    return render_template('all_episodes.html.jinja')
 
 
 @app.route('/')

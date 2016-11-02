@@ -7,7 +7,9 @@
 
   {{#each artists as |group|}}
     <div class="row" id="{{@key}}">
-      <h2 class="page-header">{{@key}}</h2>
+      <div class="col-md-12">
+        <h2 class="page-header">{{@key}}</h2>
+      </div>
     </div>
     <div class="row">
       {{#each group as |artist|}}

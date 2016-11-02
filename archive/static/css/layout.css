@@ -38,6 +38,10 @@ body {
 h2, h3, h4 {
   font-weight: 300;
 }
+h1 small {
+  font-weight: 100;
+  font-size: 50%;
+}
 h2 small {
   font-weight: 100;
 }

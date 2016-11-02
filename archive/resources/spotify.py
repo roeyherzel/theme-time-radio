@@ -12,6 +12,12 @@ from archive import api
 parser = reqparse.RequestParser()
 parser.add_argument('limit', type=str, help="limit query results")
 
+"""
+-----------------------------
+Artist API
+-----------------------------
+"""
+
 
 @api.resource('/api/artists', '/api/artists/<string:artist_id>')
 class ArtistsAPI(Resource):
@@ -37,19 +43,47 @@ class ArtistsTracklistAPI(Resource):
         return {'tracklist': res}
 
 
+@api.resource('/api/artists/<string:artist_id>/tags')
+class ArtistsTagsAPI(Resource):
+
+    @marshal_with(schemas.ArtistTags().as_dict)
+    def get(self, artist_id):
+        return spotify.Artists.query.get(artist_id)
+
+
+"""
+-----------------------------
+Tags/Mixtapes API
+-----------------------------
+"""
+
+
 @api.resource('/api/tags')
 class TagsAPI(Resource):
-    parser.add_argument('artist_id', type=str, help="artists tags")
 
-    def get(self, artist_id=None):
-        args = parser.parse_args()
-        artist_id = args.get('artist_id')
+    @marshal_with(schemas.Tags().as_dict)
+    def get(self):
+        return spotify.Tags.query.all()
 
-        if artist_id is not None:
-            print(schemas.ArtistTags().as_dict)
-            return marshal(spotify.Artists.query.get(artist_id), schemas.ArtistTags().as_dict)
 
-        return marshal(spotify.Tags.query.all(), schemas.Tags().as_dict)
+@api.resource('/api/tags/<string:tag_name>/tracklist')
+class TagsSongsAPI(Resource):
+
+    @marshal_with(schemas.ArtistTracklist().as_dict)
+    def get(self, tag_name):
+        res = podcast.Tracks.query.join(spotify.TracksArtists, (spotify.TracksArtists.track_id == podcast.Tracks.id)) \
+                                  .join(spotify.Artists, (spotify.Artists.id == spotify.TracksArtists.artist_id)) \
+                                  .join(spotify.ArtistsTags, (spotify.ArtistsTags.artist_id == spotify.Artists.id)) \
+                                  .filter(spotify.ArtistsTags.tag_id == spotify.Tags.getId(tag_name)) \
+                                  .all()
+
+        return {'tracklist': res}
+
+"""
+-----------------------------
+LastFM API
+-----------------------------
+"""
 
 
 # TODO: move this to ArtistsAPI with request parameter
