@@ -32,7 +32,9 @@
 
       getTemplateAjax('all_artists.handlebars', function(template) {
         var context = {artists: groupedArtists};
-        $('#allArtistsPlaceholder').append(template(context));
+        $('#allArtistsPlaceholder').html(template(context));
+
+        // TODO: display index only after images are loaded - document.getElementById("myImg").complete
       });
     });
   });
