@@ -14,17 +14,23 @@ class SpotifyResource(Base):
         self.name = fields.String
 
 
-class Tags(Base):
+class SingleTag(Base):
     def __init__(self):
         self.id = fields.Integer
         self.name = fields.String
         self.type = fields.String
 
 
+class Tags(Base):
+    def __init__(self):
+        self.tag = fields.Nested(SingleTag().as_dict)
+        self.track_count = fields.Integer
+
+
 class ArtistTags(SpotifyResource):
     def __init__(self):
         super().__init__()
-        self.tags = fields.List(fields.Nested({'tag': fields.Nested(Tags().as_dict)}))
+        self.tags = fields.List(fields.Nested({'tag': fields.Nested(SingleTag().as_dict)}))
 
 
 class Artist(SpotifyResource):

@@ -1,5 +1,4 @@
 
-
 {{#each tags as |group|}}
   <div class="row" id="{{@key}}">
     <div class="col-md-12">
@@ -10,7 +9,8 @@
   <div class="row">
     {{#each group as |tag|}}
       <div class="col-md-6">
-        <a href="#" class="btn btn-default" role="button">{{tag.name}}</a>
+        <!--<a href="#" tag-name="{{tag.tag.name}}" class="btn btn-default" role="button"><span class="badge">{{tag.track_count}}</span>&nbsp;&nbsp;{{tag.tag.name}}</a>-->
+        <button type="button" class="btn btn-default" tag-name="{{tag.tag.name}}">{{tag.tag.name}}&nbsp;&nbsp;<span class="badge">{{tag.track_count}}</span></button>
       </div>
     {{/each}}
   </div>

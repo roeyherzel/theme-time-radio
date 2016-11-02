@@ -1,22 +1,17 @@
 
-from archive.models import spotify, podcast
+from archive.models import spotify, podcast, db
 from archive.common.utils import limit_query
 from archive.resources import schemas
 
 from flask_restful import Resource, reqparse, marshal, marshal_with, marshal_with_field, fields
-from sqlalchemy import desc
+from sqlalchemy import desc, distinct, func
 
 from archive import api
 
 
 parser = reqparse.RequestParser()
 parser.add_argument('limit', type=str, help="limit query results")
-
-"""
------------------------------
-Artist API
------------------------------
-"""
+parser.add_argument('all', default=False, type=bool, help="disables filtering")
 
 
 @api.resource('/api/artists', '/api/artists/<string:artist_id>')
@@ -51,33 +46,44 @@ class ArtistsTagsAPI(Resource):
         return spotify.Artists.query.get(artist_id)
 
 
-"""
------------------------------
-Tags/Mixtapes API
------------------------------
-"""
-
-
 @api.resource('/api/tags')
 class TagsAPI(Resource):
 
     @marshal_with(schemas.Tags().as_dict)
     def get(self):
-        return spotify.Tags.query.all()
+        args = parser.parse_args()
+
+        if args.get('all') is True:
+            return spotify.Tags.query.all()
+
+        res = db.session.query(spotify.Tags, func.count(podcast.Tracks.id).label('track_count')) \
+                        .join(spotify.ArtistsTags, (spotify.ArtistsTags.tag_id == spotify.Tags.id)) \
+                        .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
+                        .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
+                        .filter(podcast.Tracks.spotify_song) \
+                        .group_by(spotify.Tags) \
+                        .all()
+
+        return [{'tag': i[0], 'track_count': i[1]} for i in res]
 
 
 @api.resource('/api/tags/<string:tag_name>/tracklist')
-class TagsSongsAPI(Resource):
+class TagsTracksAPI(Resource):
 
     @marshal_with(schemas.ArtistTracklist().as_dict)
     def get(self, tag_name):
+
+        args = parser.parse_args()
+
         res = podcast.Tracks.query.join(spotify.TracksArtists, (spotify.TracksArtists.track_id == podcast.Tracks.id)) \
                                   .join(spotify.Artists, (spotify.Artists.id == spotify.TracksArtists.artist_id)) \
                                   .join(spotify.ArtistsTags, (spotify.ArtistsTags.artist_id == spotify.Artists.id)) \
-                                  .filter(spotify.ArtistsTags.tag_id == spotify.Tags.getId(tag_name)) \
-                                  .all()
+                                  .filter(spotify.ArtistsTags.tag_id == spotify.Tags.getId(tag_name))
 
-        return {'tracklist': res}
+        if args.get('all') is not True:
+            res = res.filter(podcast.Tracks.spotify_song)
+
+        return {'tracklist': res.all()}
 
 """
 -----------------------------

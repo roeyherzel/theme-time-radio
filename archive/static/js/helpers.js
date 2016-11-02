@@ -37,8 +37,8 @@ Handlebars.registerHelper('lastFmImage', function(imageArr, size, options) {
 
 
 // helper for generating artist groups index
-Handlebars.registerHelper('indexGroups', function(artists, options) {
-  var groups = _.map(Object.keys(artists), function(g) {
+Handlebars.registerHelper('indexGroups', function(groups, options) {
+  groups = _.map(Object.keys(groups), function(g) {
     return `<a href=#${g}>${g}</a>`;
   });
 

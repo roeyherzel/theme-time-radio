@@ -1,32 +1,40 @@
 
 
-.jumbotron h1 {
-  font-size: 70px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+h1#tapeName {
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-transform: capitalize;
 }
 img {
-  width: 320px;
-  margin-top: 40px;
-  margin-bottom: 10px;
+  max-width: 350px;
+  margin-bottom: 20px;
 }
 .jumbotron {
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   margin-bottom: 0;
 }
 
+div#tapeWiki {
+  font-family: Helvetica;
+  font-weight: 300;
+  font-size: 16px;
+}
+
 #mixTapesList {
-  max-height: 700px;
+  padding-left: 5px;
+  max-height: 530px;
   width: auto;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding: 10px;
 }
-#mixTapesList a {
+#mixTapesList button {
   text-transform: capitalize;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  font-weight: 300;
+  font-family: Helvetica;
+  border-radius: 20px;
 }
 
 #spotifyPlayer {
-  margin-top: 20px;
+  margin-top: 48px;
 }
