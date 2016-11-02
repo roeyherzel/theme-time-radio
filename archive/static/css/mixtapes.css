@@ -1,7 +1,7 @@
 
 
 h1#tapeName {
-  margin-top: 0;
+  margin-top: 20px;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
@@ -12,6 +12,7 @@ img {
 .jumbotron {
   padding-bottom: 40px;
   margin-bottom: 0;
+  background-color: #9FC6E7;
 }
 
 div#tapeWiki {
