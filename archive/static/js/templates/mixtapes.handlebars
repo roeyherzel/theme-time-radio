@@ -9,7 +9,9 @@
   <div class="row">
     {{#each group as |tag|}}
       <div class="col-md-6">
-        <button type="button" class="btn btn-default" tag-name="{{tag.tag.name}}">{{tag.tag.name}}&nbsp;&nbsp;<span class="badge">{{tag.track_count}}</span></button>
+        <a href="#" class="btn btn-default" role="button"tag-name="{{tag.tag.name}}">
+          {{tag.tag.name}}&nbsp;&nbsp;<span class="badge">{{tag.track_count}}</span>
+        </a>
       </div>
     {{/each}}
   </div>

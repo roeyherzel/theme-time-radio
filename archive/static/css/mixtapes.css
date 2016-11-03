@@ -28,12 +28,15 @@ div#tapeWiki {
   overflow-y: scroll;
   overflow-x: hidden;
 }
-#mixTapesList button {
+#mixTapesList a {
   text-transform: capitalize;
   margin-bottom: 6px;
   font-weight: 300;
   font-family: Helvetica;
   border-radius: 20px;
+}
+.badge {
+  font-weight: 400;
 }
 
 #spotifyPlayer {
