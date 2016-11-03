@@ -7,11 +7,11 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-md-4 text-center">
+      <div class="col-md-5 text-center">
         <h1>Mixtapes</h1>
         <img class="center-block" src="{{ url_for('static', filename='images/cassette.png') }}" alt="" />
       </div>
-      <div class="col-md-8">
+      <div class="col-md-7">
         <div id="mixtapePlaceholder"></div>
         <h3 id="mixtapeHint" class="text-center text-muted">pick a Tape from the list <span class="glyphicon glyphicon-circle-arrow-up"></span></h3>
       </div>
@@ -20,24 +20,18 @@
 </div>
 
 
-
 <div class="jumbotron" id="jumboTapeData">
   <div class="container">
-
     <div class="row">
-
-      <div class="col-md-4 text-center">
+      <div class="col-md-5 text-center">
         <div id="spotifyPlayer"></div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-7">
         <h1 id="tapeName"></h1>
-
         <div id="tapeWiki"></div>
         <div id="tapeArtists"></div>
       </div>
-
     </div>
-
   </div>
 </div>
 
@@ -50,6 +44,9 @@
 
 
 {% block script %}
+  <script type="text/javascript">
+    $USER_TAPE = {{tape_name|tojson|safe}};
+  </script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/tracklist.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/mixtapes.js') }}"></script>
 {% endblock %}

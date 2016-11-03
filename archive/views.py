@@ -22,9 +22,9 @@ def nl2br(eval_ctx, value):
 # ----------- views ----------------
 
 @app.route('/mixtapes')
-def mixtapes_view(tag=None):
-    if tag is None:
-        return render_template('mixtapes.html.jinja')
+@app.route('/mixtapes/<string:tape_name>')
+def mixtapes_view(tape_name=None):
+    return render_template('mixtapes.html.jinja', tape_name=tape_name)
 
 
 @app.route('/artists')

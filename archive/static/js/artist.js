@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-  $.getJSON("/api/artists/" + $ARTIST_ID + "/tags", function(spotifyData, status) {
+  $.getJSON("/api/artists/" + $ARTIST_ID + "/tags", function(artistTags, status) {
 
     getArtistInfo($LASTFM_ID, function(lastfmData) {
 
@@ -15,7 +15,7 @@ $(document).ready(function() {
 
         getTemplateAjax('artist.handlebars', function(template) {
 
-          var context = {spotify: spotifyData, lastfm: lastfmData};
+          var context = {tags: artistTags, lastfm: lastfmData};
           $('#artistInfoPlaceholder').html(template(context));
 
           // TODO: move to helper

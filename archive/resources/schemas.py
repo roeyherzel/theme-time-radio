@@ -14,29 +14,29 @@ class SpotifyResource(Base):
         self.name = fields.String
 
 
-class SingleTag(Base):
+class Tags(Base):
     def __init__(self):
         self.id = fields.Integer
         self.name = fields.String
         self.type = fields.String
 
 
-class Tags(Base):
+class TagsCount(Base):
     def __init__(self):
-        self.tag = fields.Nested(SingleTag().as_dict)
+        self.tag = fields.Nested(Tags().as_dict)
         self.track_count = fields.Integer
 
 
 class ArtistTags(SpotifyResource):
     def __init__(self):
         super().__init__()
-        self.tags = fields.List(fields.Nested({'tag': fields.Nested(SingleTag().as_dict)}))
+        self.tags = fields.List(fields.Nested({'tag': fields.Nested(Tags().as_dict)}))
 
 
 class Artist(SpotifyResource):
     def __init__(self):
         super().__init__()
-        self.view = fields.FormattedString("artists/{id}")
+        self.view = fields.FormattedString("/artists/{id}")
         self.lastfm_name = fields.String
         self.lastfm_image = fields.String
 
@@ -56,8 +56,8 @@ class Song(SpotifyResource):
 class Episode(Base):
     def __init__(self):
         self.id = fields.Integer
-        self.view = fields.FormattedString("episodes/{id}")
-        self.api = fields.FormattedString("api/episodes/{id}")
+        self.view = fields.FormattedString("/episodes/{id}")
+        self.api = fields.FormattedString("/api/episodes/{id}")
         self.title = fields.String
         self.season = fields.Integer
         self.image = fields.String

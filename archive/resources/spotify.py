@@ -41,15 +41,20 @@ class ArtistsTracklistAPI(Resource):
 @api.resource('/api/artists/<string:artist_id>/tags')
 class ArtistsTagsAPI(Resource):
 
-    @marshal_with(schemas.ArtistTags().as_dict)
+    @marshal_with(schemas.Tags().as_dict)
     def get(self, artist_id):
-        return spotify.Artists.query.get(artist_id)
+        return spotify.Tags.query.join(spotify.ArtistsTags, (spotify.ArtistsTags.tag_id == spotify.Tags.id)) \
+                                 .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
+                                 .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
+                                 .filter(spotify.ArtistsTags.artist_id == artist_id) \
+                                 .filter(podcast.Tracks.spotify_song) \
+                                 .all()
 
 
 @api.resource('/api/tags', '/api/tags/<string:tag_name>')
 class TagsAPI(Resource):
 
-    @marshal_with(schemas.Tags().as_dict)
+    @marshal_with(schemas.TagsCount().as_dict)
     def get(self, tag_name=None):
         args = parser.parse_args()
 

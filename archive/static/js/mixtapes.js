@@ -1,4 +1,47 @@
 
+
+function loadMixtape(tapeTarget) {
+
+  // check if tape exists
+  var $target = $(tapeTarget),
+      tagName = $target.attr("tag-name") || $(tapeTarget.parentElement).attr("tag-name");
+
+  if (tagName) {
+    // remove and set active
+    $("#mixtapePlaceholder").find(".active").removeClass("active");
+    $target.addClass("active");
+
+    // reove hint
+    if ($("#mixtapeHint")) {
+      $("#mixtapeHint").remove();
+    }
+    // set tape title
+    $("#tapeName").text(tagName);
+
+    // get tape description
+    getTagInfo(tagName, function(info) {
+      $("#tapeWiki").html(info.tag.wiki.summary.nl2br());
+    });
+
+    // get tape's tracklist
+    $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
+      createSpotifyPlayer(data.tracklist, {title: `${tagName} Mixtape`});
+
+      //window.location = "#tapeName";
+    });
+
+    // get tape's artists
+    $.getJSON(`/api/tags/${tagName}/artists`, function(data, artists) {
+
+      getTemplateAjax('mixtapes_artists.handlebars', function(template) {
+
+        var context = { artists: _.sortBy(data, 'name') };
+        $("#tapeArtists").html(template(context));
+      });
+    });
+  }
+}
+
 $(document).ready(function() {
   // nav bar active
   $('ul.nav > li:has(a[href="/mixtapes"])').addClass("active");
@@ -16,47 +59,20 @@ $(document).ready(function() {
         return (! _.isNaN(Number(letter))) ? "#" : letter.toUpperCase();
       });
 
+      // render mixtape cloud template
       var context = { tags: groupedTags };
       $('#mixtapePlaceholder').html(template(context));
 
+      // specific tape in url
+      if (! (_.isNull($USER_TAPE) || _.isUndefined($USER_TAPE))) {
 
-      document.getElementById('mixtapePlaceholder').addEventListener("click", function(e) {
-
-        var $target = $(e.target),
-            tagName = $target.attr("tag-name") || $(e.target.parentElement).attr("tag-name");
-
-        if (tagName) {
-          $(this).find(".active").removeClass("active");
-          $target.addClass("active");
-
-          if ($("#mixtapeHint")) {
-            $("#mixtapeHint").remove();
-          }
-
-
-          $("#tapeName").text(tagName);
-
-          getTagInfo(tagName, function(info) {
-            $("#tapeWiki").html(info.tag.wiki.summary.nl2br());
-          });
-
-          $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
-            createSpotifyPlayer(data.tracklist, {title: `${tagName} Mixtape`});
-
-            location.href = "#tapeName";
-          });
-
-          $.getJSON(`/api/tags/${tagName}/artists`, function(data, artists) {
-
-            getTemplateAjax('mixtapes_artists.handlebars', function(template) {
-
-              var context = { artists: _.sortBy(data, 'name') };
-              $("#tapeArtists").html(template(context));
-            });
-          });
+        var $tapeAnchor = $(`#mixtapeList a[tag-name='${$USER_TAPE}']`);
+        if ($tapeAnchor) {
+          loadMixtape($tapeAnchor[0]);
         }
-
-      });
+      }
+      // Event handling for clicking a tape
+      document.getElementById('mixtapePlaceholder').addEventListener("click", function(e) { loadMixtape(e.target) });
     });
   });
 });

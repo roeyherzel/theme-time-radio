@@ -9,9 +9,9 @@
         </div>
         <div id="artistTags">
           <ul class="list-inline">
-            {{#each spotify.tags}}
+            {{#each tags}}
               <li>
-                <a href="/api/tags/{{tag.name}}" class="btn btn-default" role="button">{{tag.name}}</a>
+                <a href="/mixtapes/{{name}}" class="btn btn-default" role="button">{{name}}</a>
               </li>
             {{/each}}
           </ul>

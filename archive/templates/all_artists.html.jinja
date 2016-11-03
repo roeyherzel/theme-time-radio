@@ -31,6 +31,7 @@
       var groupedArtists = _.groupBy(data, function(artist) { return artist.name[0]});
 
       getTemplateAjax('all_artists.handlebars', function(template) {
+
         var context = {artists: groupedArtists};
         $('#allArtistsPlaceholder').html(template(context));
 
