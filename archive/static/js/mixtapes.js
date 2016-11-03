@@ -17,10 +17,10 @@ $(document).ready(function() {
       });
 
       var context = { tags: groupedTags };
-      $('#mixTapesList').html(template(context));
+      $('#mixtapePlaceholder').html(template(context));
 
 
-      document.getElementById('mixTapesList').addEventListener("click", function(e) {
+      document.getElementById('mixtapePlaceholder').addEventListener("click", function(e) {
 
         var $target = $(e.target),
             tagName = $target.attr("tag-name") || $(e.target.parentElement).attr("tag-name");
@@ -37,6 +37,8 @@ $(document).ready(function() {
 
           $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
             createSpotifyPlayer(data.tracklist, {title: `${tagName} Mixtape`});
+
+            location.href = "#tapeArtists";
           });
         }
 

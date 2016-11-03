@@ -1,18 +1,29 @@
 
-
 h1#tapeName {
-  margin-top: 5px;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
-img {
-  width: 300px;
-  margin-bottom: 20px;
-}
+
 .jumbotron {
   padding-bottom: 40px;
   margin-bottom: 0;
+}
+.jumbotron h1 {
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.jumbotron img {
+  max-width: 300px;
+}
+
+#jumboTapeData {
   background-color: #9FC6E7;
+  padding-top: 65px;
+}
+#jumboTapeData h1 {
+  font-size: 52px;
+  padding: 0;
 }
 
 div#tapeWiki {
@@ -21,24 +32,32 @@ div#tapeWiki {
   font-size: 16px;
 }
 
-#mixTapesList {
-  padding-left: 5px;
-  max-height: 530px;
+#mixtapePlaceholder .panel {
+  border-radius: 20px;
+}
+#mixtapeList {
+  max-height: 160px;
   width: auto;
   overflow-y: scroll;
   overflow-x: hidden;
 }
-#mixTapesList a {
+#mixtapePlaceholder .page-header {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#mixtapePlaceholder a {
   text-transform: capitalize;
   margin-bottom: 6px;
   font-weight: 300;
   font-family: Helvetica;
   border-radius: 20px;
+  font-size: 12px;
 }
 .badge {
   font-weight: 400;
+  font-size: 10px;
 }
 
-#spotifyPlayer {
-  margin-top: 48px;
+#spotifyPlayer h3 {
+  margin-top: 0;
 }
