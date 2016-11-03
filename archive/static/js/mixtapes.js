@@ -29,6 +29,11 @@ $(document).ready(function() {
           $(this).find(".active").removeClass("active");
           $target.addClass("active");
 
+          if ($("#mixtapeHint")) {
+            $("#mixtapeHint").remove();
+          }
+
+
           $("#tapeName").text(tagName);
 
           getTagInfo(tagName, function(info) {
@@ -39,6 +44,15 @@ $(document).ready(function() {
             createSpotifyPlayer(data.tracklist, {title: `${tagName} Mixtape`});
 
             location.href = "#tapeName";
+          });
+
+          $.getJSON(`/api/tags/${tagName}/artists`, function(data, artists) {
+
+            getTemplateAjax('mixtapes_artists.handlebars', function(template) {
+
+              var context = { artists: _.sortBy(data, 'name') };
+              $("#tapeArtists").html(template(context));
+            });
           });
         }
 

@@ -30,16 +30,12 @@ h2 small {
   font-size: 16px;
 }
 
-#artistTags {
-  border-top: 1px solid #ddd;
-}
-#artistTags li {
+#artistTags a {
   text-transform: capitalize;
-  letter-spacing: 1px;
-}
-#artistTags .label {
+  margin-bottom: 6px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 300;
-  border-radius: 12px;
   font-family: Helvetica;
 }
 

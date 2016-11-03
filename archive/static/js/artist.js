@@ -13,7 +13,7 @@ $(document).ready(function() {
         });
 
 
-        getTemplateAjax('artist_info.handlebars', function(template) {
+        getTemplateAjax('artist.handlebars', function(template) {
 
           var context = {spotify: spotifyData, lastfm: lastfmData};
           $('#artistInfoPlaceholder').html(template(context));

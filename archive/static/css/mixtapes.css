@@ -5,16 +5,16 @@
   margin-bottom: 0;
 }
 .jumbotron h1 {
-  margin-top: 10px;
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
 #jumboTitle h3 {
-  margin-top: 0;
-  padding-right: 10px;
   font-weight: 100;
+  margin-top: 10px;
 }
 
-.glyphicon-circle-arrow-down {
+.glyphicon-circle-arrow-right {
   color: #333;
 }
 
@@ -26,12 +26,15 @@
   background-color: #9FC6E7;
   padding-top: 40px;
 }
+
+
 #jumboTapeData h1 {
   font-size: 52px;
   padding: 0;
 }
 
 #tapeName {
+  margin-top: 0;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
@@ -46,7 +49,7 @@ div#tapeWiki {
   border-radius: 20px;
 }
 #mixtapeList {
-  max-height: 160px;
+  max-height: 280px;
   width: auto;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -55,6 +58,17 @@ div#tapeWiki {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+#tapeArtists .page-header {
+  margin-bottom: 10px;
+}
+#tapeArtists a {
+  color: #333;
+  background-color: #eee;
+  border: 0;
+}
+
+#tapeArtists a,
 #mixtapePlaceholder a {
   text-transform: capitalize;
   margin-bottom: 6px;

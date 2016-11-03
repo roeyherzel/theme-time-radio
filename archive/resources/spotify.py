@@ -46,11 +46,11 @@ class ArtistsTagsAPI(Resource):
         return spotify.Artists.query.get(artist_id)
 
 
-@api.resource('/api/tags')
+@api.resource('/api/tags', '/api/tags/<string:tag_name>')
 class TagsAPI(Resource):
 
     @marshal_with(schemas.Tags().as_dict)
-    def get(self):
+    def get(self, tag_name=None):
         args = parser.parse_args()
 
         if args.get('all') is True:
@@ -61,10 +61,26 @@ class TagsAPI(Resource):
                         .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
                         .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
                         .filter(podcast.Tracks.spotify_song) \
-                        .group_by(spotify.Tags) \
-                        .all()
+                        .group_by(spotify.Tags)
 
-        return [{'tag': i[0], 'track_count': i[1]} for i in res]
+        if tag_name is not None:
+            res = res.filter(spotify.Tags.name == tag_name).first()
+            return {'tag': res[0], 'track_count': res[1]}
+        else:
+            res = res.all()
+            return [{'tag': i[0], 'track_count': i[1]} for i in res]
+
+
+@api.resource('/api/tags/<string:tag_name>/artists')
+class TagsArtistsAPI(Resource):
+
+    @marshal_with(schemas.Artist().as_dict)
+    def get(self, tag_name):
+
+        return spotify.Artists.query.join(spotify.ArtistsTags, spotify.ArtistsTags.artist_id == spotify.Artists.id) \
+                                    .join(spotify.Tags, (spotify.Tags.id == spotify.ArtistsTags.tag_id)) \
+                                    .filter(spotify.Tags.name == tag_name) \
+                                    .all()
 
 
 @api.resource('/api/tags/<string:tag_name>/tracklist')
@@ -72,7 +88,6 @@ class TagsTracksAPI(Resource):
 
     @marshal_with(schemas.ArtistTracklist().as_dict)
     def get(self, tag_name):
-
         args = parser.parse_args()
 
         res = podcast.Tracks.query.join(spotify.TracksArtists, (spotify.TracksArtists.track_id == podcast.Tracks.id)) \
