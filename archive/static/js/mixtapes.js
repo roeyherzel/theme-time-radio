@@ -38,7 +38,7 @@ $(document).ready(function() {
           $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
             createSpotifyPlayer(data.tracklist, {title: `${tagName} Mixtape`});
 
-            location.href = "#tapeArtists";
+            location.href = "#tapeName";
           });
         }
 
