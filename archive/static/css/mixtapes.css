@@ -1,12 +1,12 @@
 
 
 h1#tapeName {
-  margin-top: 20px;
+  margin-top: 5px;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
 img {
-  max-width: 350px;
+  width: 300px;
   margin-bottom: 20px;
 }
 .jumbotron {
