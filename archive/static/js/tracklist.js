@@ -7,8 +7,7 @@ function createSpotifyPlayer(tracklist, options) {
   var tracksOnSpotify = _.filter(tracklist, function(track) { return track.spotify_song.song.id !== null });
   tracksOnSpotify = _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
 
-  var spotifySongIds = tracksOnSpotify.join(','),
-      options =  (typeof(options) === typeof(Object())) ? options : Object(),
+  var options =  (typeof(options) === typeof(Object())) ? options : Object(),
       defaults = {
         width: "300",
         height: "380",
@@ -17,13 +16,19 @@ function createSpotifyPlayer(tracklist, options) {
         location: "#spotifyPlayer",
         title: "Playlist"
       },
-      settings = _.defaults(options, defaults);
+      settings = _.defaults(options, defaults),
+      spotifySongIds = tracksOnSpotify.join(',');
 
-  if (spotifySongIds.length < 1) {
+      console.log(tracksOnSpotify.length);
+
+  if (tracksOnSpotify.length < 2) {
     settings.height = "80";
     settings.theme = "black";
     settings.view = "list";
-    settings.title = "Song is not on Spotify";
+
+    if (tracksOnSpotify.length === 0) {
+      settings.title = "Song is not on Spotify";
+    }
   }
   settings.title = settings.title.replace(/\s/g, "%20");
 

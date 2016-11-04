@@ -26,7 +26,7 @@ $(document).ready(function() {
             getTemplateAjax('tracklist.handlebars', function(template) {
 
               var context = {tracklist: data.tracklist, episodes: true};
-              createTracklist(data.tracklist, template(context), { title: $ARTIST_NAME + ' Playlist', view: "coverart" });
+              createTracklist(data.tracklist, template(context), { title: 'Songs from the show', view: "coverart", width: "350" });
             });
           });
         });

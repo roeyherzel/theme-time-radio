@@ -15,7 +15,7 @@ function loadMixtape(tapeTarget) {
     $("#jumboTitle h1").remove();
 
     // set tape title
-    $("#tape").html(`${tagName}<small> Mixtape</small>`).addClass("page-header-dark");
+    $("#tape").html(`${tagName}<small> Mixtape</small>`);
 
     // get tape description
     getTagInfo(tagName, function(info) {
@@ -24,7 +24,7 @@ function loadMixtape(tapeTarget) {
 
     // get tape's tracklist
     $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
-      createSpotifyPlayer(data.tracklist, {title: `${tagName} Mixtape`});
+      createSpotifyPlayer(data.tracklist, {title: "Mixtape"});
     });
 
     // get tape's artists

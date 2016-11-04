@@ -17,16 +17,11 @@
   margin-top: 0;
 }
 
-.glyphicon-circle-arrow-down {
-  color: #333;
-}
-
 body {
   background-color: #eee;
 }
 
 img {
-  margin-top: 25px;
   max-width: 350px;
 }
 
@@ -60,8 +55,8 @@ div#tapeWiki {
   font-size: 16px;
 }
 
-#mixtapePlaceholder .panel {
-  border-radius: 20px;
+#mixtapePlaceholder {
+  margin-top: 5px;
 }
 #mixtapeList {
   max-height: 150px;
@@ -72,6 +67,16 @@ div#tapeWiki {
 #mixtapePlaceholder .page-header {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#mixtapePlaceholder .well {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#mixtapeHint {
+  border-top: 1px solid #fff;
+  padding-top: 10px;
+  margin: 0;
 }
 
 #tapeArtists .page-header {

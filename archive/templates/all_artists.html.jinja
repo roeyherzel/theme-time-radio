@@ -14,7 +14,7 @@
       {% for artist in artists.items %}
         <li>
           <div class="artist-card">
-            <a href="/artists/{{artist.lastfm_name}}">
+            <a href="/artists/{{artist.id}}">
               {% if artist.lastfm_image %}
                 <img class="img-circle" src="{{artist.lastfm_image}}" alt="" />
               {% else %}
