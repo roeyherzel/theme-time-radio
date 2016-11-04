@@ -14,6 +14,11 @@
   margin-bottom: 50px;
 }
 
+ul.list-inline > li {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
 .episode_card {
   margin-top: 10px;
   margin-bottom: 10px;

@@ -42,7 +42,7 @@ Handlebars.registerHelper('indexGroups', function(groups, options) {
     return `<a href=#${g}>${g}</a>`;
   });
 
-  var groupsLinks = groups.join(" | "),
+  var groupsLinks = groups.join("&nbsp;&nbsp;"),
       nav = `<nav>${groupsLinks}</nav>`;
 
   return nav;
