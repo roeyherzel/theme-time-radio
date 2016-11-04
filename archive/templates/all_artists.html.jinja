@@ -6,12 +6,18 @@
     <div class="container text-center">
       <img class="center-block" src="{{ url_for('static', filename='images/cassette.png') }}" alt="" />
       <h1>Artists</h1>
+
+      <nav>
+        {% for i in index_list %}
+          <a href="/artists/index/{{i}}">{{i}}</a>&nbsp;&nbsp;
+        {% endfor %}
+      </nav>
     </div>
   </div>
 
   <div class="container">
     <ul class="list-inline text-center" id="artistList">
-      {% for artist in artists.items %}
+      {% for artist in artists %}
         <li>
           <div class="artist-card">
             <a href="/artists/{{artist.id}}">
@@ -27,23 +33,6 @@
       {% endfor %}
     </ul>
   </div>
-
-
-  <nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-      <nav aria-label="...">
-        <ul class="pager">
-          {% if artists.has_prev %}
-            <li class="previous"><a href="{{ url_for('artist_view', page=artists.prev_num) }}">Previous</a></li>
-          {% endif %}
-
-          {% if artists.has_next %}
-            <li class="next"><a href="{{ url_for('artist_view', page=artists.next_num) }}">Next</a></li>
-          {% endif %}
-        </ul>
-      </nav>
-    </div>
-  </nav>
 
 {% endblock %}
 

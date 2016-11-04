@@ -13,7 +13,12 @@
 }
 .jumbotron {
   background-color: #333333;
+  padding-top: 30px;
   padding-bottom: 10px;
+}
+
+.jumbotron nav > a {
+  color: #EEEEEE;
 }
 
 .groups-index a {
