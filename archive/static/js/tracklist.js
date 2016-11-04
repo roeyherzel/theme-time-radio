@@ -27,7 +27,7 @@ function createSpotifyPlayer(tracklist, options) {
     settings.view = "list";
 
     if (tracksOnSpotify.length === 0) {
-      settings.title = "Song is not on Spotify";
+      settings.title = "Songs not on Spotify";
     }
   }
   settings.title = settings.title.replace(/\s/g, "%20");
