@@ -13,7 +13,7 @@
 }
 .jumbotron {
   background-color: #333333;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .groups-index a {
@@ -25,24 +25,13 @@
   margin-top: 5px;
 }
 
-.media-heading {
-  margin-top: 10px;
-}
-#allArtistsPlaceholder img {
+#artistList img {
   width: 100px;
   border: 1px solid #EEEEEE;
 }
-#allArtistsPlaceholder div.artist-card {
-  margin-bottom: 20px;
-}
-#allArtistsPlaceholder div.col-md-8 {
-  padding-left: 0;
-}
-#allArtistsPlaceholder div.artist-name {
-  padding-top: 32px;
-  font-weight: 300;
-  font-size: 18px;
-  width: 230px;
+#artistList div.artist-card {
+  margin-bottom: 30px;
+  width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

@@ -10,8 +10,41 @@
   </div>
 
   <div class="container">
-    <div id="allArtistsPlaceholder"></div>
+    <ul class="list-inline text-center" id="artistList">
+      {% for artist in artists.items %}
+        <li>
+          <div class="artist-card">
+            <a href="/artists/{{artist.lastfm_name}}">
+              {% if artist.lastfm_image %}
+                <img class="img-circle" src="{{artist.lastfm_image}}" alt="" />
+              {% else %}
+                <img class="img-circle" src="/static/images/default-artist.png" alt="" />
+              {% endif %}
+              <h4>{{artist.name}}</h4>
+            </a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
+
+
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <nav aria-label="...">
+        <ul class="pager">
+          {% if artists.has_prev %}
+            <li class="previous"><a href="{{ url_for('artist_view', page=artists.prev_num) }}"><span aria-hidden="true">&larr;</span> Older</a></li>
+          {% endif %}
+
+          {% if artists.has_next %}
+            <li class="next"><a href="{{ url_for('artist_view', page=artists.next_num) }}">Newer <span aria-hidden="true">&rarr;</span></a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </nav>
+
 {% endblock %}
 
 
@@ -26,18 +59,6 @@
   $(document).ready(function() {
     // nav bar active
     $('ul.nav > li:has(a[href="/artists"])').addClass("active");
-
-    $.getJSON("/api/artists", function(data, status) {
-      var groupedArtists = _.groupBy(data, function(artist) { return artist.name[0]});
-
-      getTemplateAjax('all_artists.handlebars', function(template) {
-
-        var context = {artists: groupedArtists};
-        $('#allArtistsPlaceholder').html(template(context));
-
-        // TODO: display index only after images are loaded - document.getElementById("myImg").complete
-      });
-    });
   });
   </script>
 

@@ -28,15 +28,17 @@ def mixtapes_view(tape_name=None):
 
 
 @app.route('/artists')
+@app.route('/artists/page/<int:page>')
 @app.route('/artists/<string:artist_id>')
-def artist_view(artist_id=None):
-    if artist_id is None:
-        return render_template('all_artists.html.jinja')
+def artist_view(page=1, artist_id=None):
+    if artist_id is not None:
+        res = Artists.query.get(artist_id)
+        if res is None:
+            res = Artists.query.filter(Artists.lastfm_name == artist_id).one()
+        return render_template('artist.html.jinja', artist=res)
 
-    res = Artists.query.get(artist_id)
-    if res is None:
-        res = Artists.query.filter(Artists.lastfm_name == artist_id).one()
-    return render_template('artist.html.jinja', artist=res)
+    artists = Artists.query.order_by(Artists.name).paginate(page, 50, False)
+    return render_template('all_artists.html.jinja', artists=artists)
 
 
 @app.route('/episodes')
