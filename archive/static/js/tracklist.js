@@ -19,8 +19,6 @@ function createSpotifyPlayer(tracklist, options) {
       settings = _.defaults(options, defaults),
       spotifySongIds = tracksOnSpotify.join(',');
 
-      console.log(tracksOnSpotify.length);
-
   if (tracksOnSpotify.length < 2) {
     settings.height = "80";
     settings.theme = "black";
@@ -48,6 +46,7 @@ function createTracklist(trackObjs, renderedTemplate, options) {
   if (document.getElementById('tracklistPlaceholder')) {
     $('#tracklistPlaceholder').html(renderedTemplate);
     enableAudioEvents("tracklistPlaceholder");
+    $('[data-toggle="tooltip"]').tooltip();
   }
 
 }
