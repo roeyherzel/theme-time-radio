@@ -9,12 +9,17 @@
   margin-bottom: 15px;
 }
 
+#jumboTitle {
+  background-color: #9FC6E7;
+  padding-left: 300px;
+  padding-right: 300px;
+}
 #jumboTitle h3 {
   font-weight: 100;
   margin-top: 10px;
 }
 
-.glyphicon-circle-arrow-right {
+.glyphicon-circle-arrow-down {
   color: #333;
 }
 
@@ -22,9 +27,12 @@
   max-width: 300px;
 }
 
+.groups-index > nav {
+  padding-bottom: 10px;
+}
+
 #jumboTapeData {
-  background-color: #9FC6E7;
-  padding-top: 40px;
+  padding-top: 60px;
 }
 
 
@@ -64,7 +72,6 @@ div#tapeWiki {
 }
 #tapeArtists a {
   color: #333;
-  background-color: #eee;
   border: 0;
 }
 

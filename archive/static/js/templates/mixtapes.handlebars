@@ -1,7 +1,7 @@
 
 
-<div class="container panel panel-default">
-  <div class="groups-index page-header text-center">
+<div class="container well">
+  <div class="groups-index text-center">
     {{#indexGroups tags}}{{/indexGroups}}
   </div>
 
@@ -9,7 +9,7 @@
     {{#each tags as |group|}}
       <h4 id="{{@key}}" class="page-header text-left">{{@key}}</h4>
 
-      <ul class="list-inline text-center">
+      <ul class="list-inline text-left">
         {{#each group as |tag|}}
           <li>
             <a href="#" class="btn btn-default" role="button" tag-name="{{tag.tag.name}}">

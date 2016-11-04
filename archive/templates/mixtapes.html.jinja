@@ -4,18 +4,11 @@
 {% block content %}
 
 <div class="jumbotron" id="jumboTitle">
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-5 text-center">
-        <h1>Mixtapes</h1>
-        <img class="center-block" src="{{ url_for('static', filename='images/cassette.png') }}" alt="" />
-      </div>
-      <div class="col-md-7">
-        <div id="mixtapePlaceholder"></div>
-        <h3 id="mixtapeHint" class="text-center text-muted">pick a Tape from the list <span class="glyphicon glyphicon-circle-arrow-up"></span></h3>
-      </div>
-    </div>
+  <div class="container text-center">
+    <img class="center-block" src="{{ url_for('static', filename='images/cassette.png') }}" alt="" />
+    <h1>Mixtapes</h1>
+    <h3 id="mixtapeHint" class="text-center">pick one <span class="glyphicon glyphicon-circle-arrow-down"></span></h3>
+    <div id="mixtapePlaceholder"></div>
   </div>
 </div>
 

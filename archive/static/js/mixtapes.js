@@ -11,10 +11,6 @@ function loadMixtape(tapeTarget) {
     $("#mixtapePlaceholder").find(".active").removeClass("active");
     $target.addClass("active");
 
-    // reove hint
-    if ($("#mixtapeHint")) {
-      $("#mixtapeHint").remove();
-    }
     // set tape title
     $("#tapeName").text(tagName);
 
@@ -27,7 +23,7 @@ function loadMixtape(tapeTarget) {
     $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
       createSpotifyPlayer(data.tracklist, {title: `${tagName} Mixtape`});
 
-      //window.location = "#tapeName";
+      window.location = "#tapeArtists";
     });
 
     // get tape's artists
