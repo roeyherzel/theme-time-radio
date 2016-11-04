@@ -47,3 +47,9 @@ Handlebars.registerHelper('indexGroups', function(groups, options) {
 
   return nav;
 });
+
+
+// helper for return length in form of badge
+Handlebars.registerHelper('badgeLength', function(data, options) {
+  return `<span class="badge">${data.length}</span>`;
+})

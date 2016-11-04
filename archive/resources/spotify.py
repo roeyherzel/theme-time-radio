@@ -84,6 +84,9 @@ class TagsArtistsAPI(Resource):
 
         return spotify.Artists.query.join(spotify.ArtistsTags, spotify.ArtistsTags.artist_id == spotify.Artists.id) \
                                     .join(spotify.Tags, (spotify.Tags.id == spotify.ArtistsTags.tag_id)) \
+                                    .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
+                                    .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
+                                    .filter(podcast.Tracks.spotify_song) \
                                     .filter(spotify.Tags.name == tag_name) \
                                     .all()
 

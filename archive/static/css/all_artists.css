@@ -36,3 +36,12 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+ul.pager {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ul.pager a {
+  font-size: 12px;
+}

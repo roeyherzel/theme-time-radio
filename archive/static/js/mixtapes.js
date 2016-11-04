@@ -11,8 +11,11 @@ function loadMixtape(tapeTarget) {
     $("#mixtapePlaceholder").find(".active").removeClass("active");
     $target.addClass("active");
 
+    // remove h1 page title
+    $("#jumboTitle h1").remove();
+
     // set tape title
-    $("#tapeName").text(tagName);
+    $("#tape").html(`${tagName}<small> Mixtape</small>`).addClass("page-header-dark");
 
     // get tape description
     getTagInfo(tagName, function(info) {
@@ -22,8 +25,6 @@ function loadMixtape(tapeTarget) {
     // get tape's tracklist
     $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
       createSpotifyPlayer(data.tracklist, {title: `${tagName} Mixtape`});
-
-      window.location = "#tapeArtists";
     });
 
     // get tape's artists
@@ -33,6 +34,9 @@ function loadMixtape(tapeTarget) {
 
         var context = { artists: _.sortBy(data, 'name') };
         $("#tapeArtists").html(template(context));
+
+        // move location
+        window.location = "#tape";
       });
     });
   }
