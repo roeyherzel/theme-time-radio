@@ -1,8 +1,6 @@
 
 <div class="container well">
-  <div class="groups-index text-center">
-    {{#indexGroups tags}}{{/indexGroups}}
-  </div>
+  <h4 id="mixtapeHint">pick a tape <span class="glyphicon glyphicon-circle-arrow-down"></span></h4>
 
   <div id="mixtapeList">
     {{#each tags as |group|}}
@@ -20,6 +18,8 @@
     {{/each}}
   </div>
 
-  <h4 id="mixtapeHint">pick a tape <span class="glyphicon glyphicon-circle-arrow-up"></span></h4>
+  <div id="mixtapesListIndex"class="text-center">
+    {{#indexGroups tags}}{{/indexGroups}}
+  </div>
 
 </div>

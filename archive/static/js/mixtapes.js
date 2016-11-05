@@ -63,6 +63,13 @@ $(document).ready(function() {
       var context = { tags: groupedTags };
       $('#mixtapePlaceholder').html(template(context));
 
+      // even handling for index anchors. fixes screen position issue
+      $("#mixtapesListIndex > nav > a").click(function(e) {
+        e.preventDefault();
+        window.location = $(e.target).attr("href");
+        window.scrollTo(0,0);
+      });
+
       // specific tape in url
       if (! (_.isNull($USER_TAPE) || _.isUndefined($USER_TAPE))) {
 
@@ -72,7 +79,7 @@ $(document).ready(function() {
         }
       }
       // Event handling for clicking a tape
-      document.getElementById('mixtapePlaceholder').addEventListener("click", function(e) { loadMixtape(e.target) });
+      $('#mixtapeList > ul > li').click(function(e) { loadMixtape(e.target) });
     });
   });
 });
