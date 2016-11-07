@@ -1,5 +1,8 @@
 
-<h2 class="page-header">Artists {{#badgeLength artists}}{{/badgeLength}}</h2>
+{{#if show_title}}
+  <h2 class="page-header">Artists {{#badgeLength artists}}{{/badgeLength}}</h2>
+{{/if}}
+
 <ul class="list-inline">
   {{#each artists}}
     <li>

@@ -2,7 +2,7 @@
 
 .jumbotron {
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
   margin-bottom: 0;
 }
 #jumboTitle h1 {
@@ -27,7 +27,7 @@ img {
 }
 
 #jumboTapeData {
-  padding-top: 60px;
+  padding-top: 30px;
 }
 
 #jumboTapeData small {
@@ -56,7 +56,7 @@ div#tapeWiki {
   margin-top: 8px;
 }
 #mixtapeList {
-  max-height: 150px;
+  max-height: 180px;
   width: auto;
   overflow-y: scroll;
   overflow-x: hidden;

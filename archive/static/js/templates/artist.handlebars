@@ -7,15 +7,6 @@
         <div id="artistBio">
           {{#nl2br lastfm.artist.bio.summary}}{{/nl2br}}
         </div>
-        <div id="artistTags">
-          <ul class="list-inline">
-            {{#each tags}}
-              <li>
-                <a href="/mixtapes/{{name}}" class="btn btn-default" role="button">{{name}}</a>
-              </li>
-            {{/each}}
-          </ul>
-        </div>
       </div>
       <div class="col-md-4">
         <div class="text-center">
@@ -29,50 +20,72 @@
 
 <div class="jumbotron", id="songsPlayed">
   <div class="container">
-    <h2 class="sub-header">Songs Played <small>on the show</small></h2>
     <div class="row">
-      <div class="col-md-5 text-center">
-        <div id="spotifyPlayer"></div>
-      </div>
-      <div class="col-md-7 text-center">
-        <div id="tracklistPlaceholder"></div>
-      </div>
-    </div>
-  </div>
-</div>
 
+      <div class="col-md-4">
+        <h2 class="page-header">Top Tracks <small>on Spotify</small></h2>
+        {{#topTracksPlayer artistInfo.id}} {{/topTracksPlayer}}
+      </div>
 
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      {{#if lastfm.artist.similar.artist}}
-        <div class="col-md-5">
-      {{else}}
-        <div class="col-md-12">
-      {{/if}}
-        <div id="topTracks">
-          <h2 class="sub-header">Top Tracks <small>on Spotify</small></h2>
-          <div class="text-center">
-            <iframe id="topTracksPlayer" src="" width="350" height="540" frameborder="0" allowtransparency="true"></iframe>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="page-header">Appearances <small>on the show</small></h2>
+            <ul class="list-unstyled" id="episodesAppear">
+              {{#each episodes}}
+                <li>
+                  <a href="{{view}}">Episode {{id}}: {{title}}</a>
+                </li>
+              {{/each}}
+            </ul>
           </div>
         </div>
-      </div>
-      {{#if lastfm.artist.similar.artist}}
-        <div class="col-md-7 text-center" id="similarArtist">
-          <h2 class="sub-header">Similar Artists <small>on the show</small></h2>
 
-          <ul class="list-inline">
-            {{#each lastfm.artist.similar.artist}}
-              <li>
-                <a href="/artists/{{name}}">
-                  <img class="img-circle img-responsive center-block" src={{# lastFmImage image "large"}}{{/lastFmImage}} alt="" />
-                  <div class="artist-name">{{name}}</div>
-                </a>
-              </li>
-            {{/each}}
-          </ul>
+        {{#if tags}}
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="page-header">Mixtapes <small>playlists</small></h2>
+              <div id="artistTags">
+                <ul class="list-inline">
+                  {{#each tags}}
+                    <li>
+                      <a href="/mixtapes/{{name}}" class="btn btn-default" role="button">{{name}}</a>
+                    </li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          </div>
         {{/if}}
       </div>
+
+      <div class="col-md-4 text-center">
+        <div class="row">
+          <h2 class="page-header">Stream Songs <small>played on the show</small></h2>
+          <div id="spotifyPlayer"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
+
+{{#if lastfm.artist.similar.artist}}
+  <div class="jumbotron">
+    <div class="container">
+      <div class="text-center" id="similarArtist">
+        <h2 class="sub-header">Similar Artists <small>from the show</small></h2>
+        <ul class="list-inline">
+          {{#each lastfm.artist.similar.artist}}
+            <li>
+              <a href="/artists/{{name}}">
+                <img class="img-circle img-responsive center-block" src={{# lastFmImage image "large"}}{{/lastFmImage}} alt="" />
+                <div class="artist-name">{{name}}</div>
+              </a>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+{{/if}}

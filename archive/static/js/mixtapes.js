@@ -11,8 +11,9 @@ function loadMixtape(tapeTarget) {
     $("#mixtapePlaceholder").find(".active").removeClass("active");
     $target.addClass("active");
 
-    // remove h1 page title
+    // remove h1&h2 page title
     $("#jumboTitle h1").remove();
+    $("#jumboTitle h2").remove();
 
     // set tape title
     $("#tape").html(`${tagName}<small> Mixtape</small>`);
@@ -30,9 +31,9 @@ function loadMixtape(tapeTarget) {
     // get tape's artists
     $.getJSON(`/api/tags/${tagName}/artists`, function(data, artists) {
 
-      getTemplateAjax('mixtapes_artists.handlebars', function(template) {
+      getTemplateAjax('tracklist_artists.handlebars', function(template) {
 
-        var context = { artists: _.sortBy(data, 'name') };
+        var context = { show_title: true, artists: _.sortBy(data, 'name') };
         $("#tapeArtists").html(template(context));
 
         // move location

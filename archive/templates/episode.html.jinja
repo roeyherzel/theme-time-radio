@@ -11,7 +11,7 @@
                 <div>Season {{episode.season}} / Episode {{episode.id}}</div>
                 <h1>{{episode.title}}</h1>
                 <div class="aired text-muted">{{episode.aired}}</div>
-                <audio controls src="{{episode.media}}"></audio>
+
               </div>
             </div>
             <div class="col-md-6">
@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <img class="img-responsive center-block" src="{{episode.image}}" alt="">
+          <img class="center-block" src="{{episode.image}}" alt="">
         </div>
       </div>
     </div>
@@ -31,15 +31,30 @@
 
   <div class="jumbotron" id="episodePlaylist">
     <div class="container">
-      <h2 class="sub-header">Episode Playlist</h2>
       <div class="row">
+
         <div class="col-md-4">
-          <div id="spotifyPlayer" class="text-center"></div>
+          <h2 class="page-header">Stream Episode Songs</h2>
+          <div id="spotifyPlayer"></div>
         </div>
-        <div class="col-md-8">
-          <div id="tracklistPlaceholder" class="text-center"></div>
+
+        <div class="col-md-4 text-center">
+          <h2 class="page-header">Discover Artists</h2>
+          <div id="tracklist_artists_placeholder"></div>
         </div>
+
+        <div class="col-md-4 text-center">
+          <h2 class="page-header">Play Episode</h2>
+          <audio controls src="{{episode.media}}"></audio>
+        </div>
+
+
+
+
+
       </div>
+      <h2 class="page-header">Full Tracklist</h2>
+      <div id="tracklistPlaceholder" class="text-center"></div>
     </div>
   </div>
 

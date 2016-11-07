@@ -1,8 +1,4 @@
 
-.jumbo-header {
-  display: inline-block;
-}
-
 .lead {
   font-size: 18px;
 }
@@ -14,6 +10,9 @@
 
 #episodeInfo {
   margin-bottom: 0;
+  background-color: #92E1C0;
+  padding-top: 50px;
+  padding-bottom: 50px;
 
 }
 #episodeInfo img {
@@ -25,7 +24,7 @@
 }
 
 audio {
-  margin-top: 10px;
+  border: 1px solid #eee;
 }
 blockquote {
   margin-top: 0;
@@ -42,4 +41,14 @@ blockquote p {
   padding-top: 0;
   padding-bottom: 80px;
   margin-bottom: 0;
+}
+
+
+#tracklist_artists_placeholder a {
+  text-transform: capitalize;
+  margin-bottom: 6px;
+  font-weight: 300;
+  font-family: Helvetica;
+  border-radius: 20px;
+  font-size: 12px;
 }

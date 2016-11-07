@@ -1,35 +1,35 @@
 <div class="tracklist">
-  <table class="table table-responsive table-condensed">
+  <table class="table table-responsive table-condensed-">
     <thead class="green">
-      {{#unless episodes}}
-        <th>#</th>
-      {{/unless}}
+      <th class="text-center">SAMPLE</th>
+      <th>#</th>
       <th>SONG</th>
       <th>ARTIST</th>
       <th>YEAR</th>
-      <th class="text-center">PREVIEW</th>
     </thead>
     <tbody>
       {{#each tracklist}}
         <tr>
-          {{#unless episode.id}}
-            <td>{{position}}</td>
-          {{/unless}}
-          <td>
-            {{#getSongTitle spotify_song parsed_song episode.id}}{{/getSongTitle}}
-          </td>
-          <td>
-            {{#getArtistTitle spotify_artists parsed_artist}}{{/getArtistTitle}}
-          </td>
-          <td>
-            {{year}}
-          </td>
           <td class="text-center">
             {{# if spotify_song.song.id }}
               <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.song.preview_url}}"></span>
             {{else}}
               <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Songs not on Spotify"></span>
             {{/if}}
+          </td>
+          <td class="text-left">{{position}}</td>
+          <td>
+            {{#if spotify_song.song.id}}
+              {{spotify_song.song.name}}
+            {{else}}
+              {{parsed_song}}
+            {{/if}}
+          </td>
+          <td>
+            {{#getArtistTitle spotify_artists parsed_artist}}{{/getArtistTitle}}
+          </td>
+          <td>
+            {{year}}
           </td>
         </tr>
       {{/each}}

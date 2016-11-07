@@ -16,16 +16,6 @@ Handlebars.registerHelper('getArtistTitle', function(spotify_artists, parsed_art
   }
 });
 
-// helper for song name
-Handlebars.registerHelper('getSongTitle', function(spotify_song, parsed_song, episode_id, options) {
-
-  var songName = (spotify_song.song.id) ? spotify_song.song.name : parsed_song;
-
-  if (typeof(episode_id) === typeof(Number())) {
-    songName = `<a href="/episodes/${episode_id}">${songName}</a>`;
-  }
-  return songName;
-});
 
 // helper for LastFM images
 Handlebars.registerHelper('lastFmImage', function(imageArr, size, options) {
@@ -53,3 +43,11 @@ Handlebars.registerHelper('indexGroups', function(groups, options) {
 Handlebars.registerHelper('badgeLength', function(data, options) {
   return `<span class="badge">${data.length}</span>`;
 })
+
+
+// helper for embeding Spotify Artist top tracks playlist
+Handlebars.registerHelper('topTracksPlayer', function(artist_id, options) {
+  console.log(artist_id);
+  var artist_src = `https://embed.spotify.com/?uri=spotify%3Aartist%3A${artist_id}&theme=white`;
+  return `<iframe src=${artist_src} width="300" height="540" frameborder="0" allowtransparency="true"></iframe>`;
+});

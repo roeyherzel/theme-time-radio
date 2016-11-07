@@ -6,8 +6,9 @@
 <div class="jumbotron" id="jumboTitle">
   <div class="container">
     <div class="row">
-      <div class="col-md-7 text-center">
+      <div class="col-md-7">
         <div id="mixtapePlaceholder"></div>
+        <h2 class="text-center">pick a tape <span class="glyphicon glyphicon-circle-arrow-up"></span></h2>
       </div>
       <div class="col-md-5 text-center">
         <img class="center-block" src="{{ url_for('static', filename='images/cassette.png') }}" alt="" />
@@ -22,11 +23,9 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-md-4 text-center">
-        <div id="spotifyPlayer" class="text-center"></div>
-
+      <div class="col-md-4">
+        <div id="spotifyPlayer"></div>
       </div>
-
       <div class="col-md-8">
         <h1 id="tape"></h1>
         <div id="tapeWiki"></div>

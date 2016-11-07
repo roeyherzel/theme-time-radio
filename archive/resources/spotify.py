@@ -27,6 +27,17 @@ class ArtistsAPI(Resource):
             return limit_query(spotify.Artists.query.order_by(spotify.Artists.name), args.get('limit')).all()
 
 
+@api.resource('/api/artists/<string:artist_id>/episodes')
+class ArtistsEpisodesAPI(Resource):
+
+    @marshal_with(schemas.Episode().as_dict)
+    def get(self, artist_id):
+        return podcast.Episodes.query.join(podcast.Tracks, podcast.Tracks.episode_id == podcast.Episodes.id) \
+                               .join(spotify.TracksArtists, spotify.TracksArtists.track_id == podcast.Tracks.id) \
+                               .filter(spotify.TracksArtists.artist_id == artist_id) \
+                               .all()
+
+
 @api.resource('/api/artists/<string:artist_id>/tracklist')
 class ArtistsTracklistAPI(Resource):
 

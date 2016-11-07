@@ -16,6 +16,7 @@ h2 small {
   font-size: 16px;
   padding-top: 50px;
   padding-bottom: 50px;
+  background-color: #FAD165;
 }
 
 #artistInfo img {
@@ -40,9 +41,16 @@ h2 small {
 }
 
 #songsPlayed {
-  background-color: #FAD165;
-  padding-bottom: 80px;
+  padding-bottom: 20px;
+  background-color: #F8F8F8;
 }
+
+#episodesAppear li {
+  font-size: 18px;
+  font-weight: 300;
+  padding-bottom: 5px;
+}
+
 
 #similarArtist  a {
   font-size: 16px;

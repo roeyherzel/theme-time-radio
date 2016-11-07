@@ -4,7 +4,6 @@ $(document).ready(function() {
   $.getJSON("/api/artists/" + $ARTIST_ID + "/tags", function(artistTags, status) {
 
     getArtistInfo($LASTFM_ID, function(lastfmData) {
-
       $.get("/api/lastfm/artists", function(allArtists, status) {
 
         // filter similar artist to only artists that appears on the show
@@ -12,21 +11,15 @@ $(document).ready(function() {
           return _.contains(allArtists, simiArtist.name);
         });
 
+        $.getJSON(`/api/artists/${$ARTIST_ID}/episodes`, function(episodes, status) {
 
-        getTemplateAjax('artist.handlebars', function(template) {
+          getTemplateAjax('artist.handlebars', function(template) {
 
-          var context = {tags: artistTags, lastfm: lastfmData};
-          $('#artistInfoPlaceholder').html(template(context));
+            var context = {episodes: episodes, tags: artistTags, lastfm: lastfmData, artistInfo: {id: $ARTIST_ID}};
+            $('#artistInfoPlaceholder').html(template(context));
 
-          // TODO: move to helper
-          $('#topTracksPlayer').attr('src', "https://embed.spotify.com/?uri=spotify%3Aartist%3A" + $ARTIST_ID + "&theme=white");
-
-          $.getJSON("/api/artists/" + $ARTIST_ID + "/tracklist", function(data, status) {
-
-            getTemplateAjax('tracklist.handlebars', function(template) {
-
-              var context = {tracklist: data.tracklist, episodes: true};
-              createTracklist(data.tracklist, template(context), { title: 'Songs from the show', view: "coverart", width: "350" });
+            $.getJSON(`/api/artists/${$ARTIST_ID}/tracklist`, function(data, status) {
+              createSpotifyPlayer(data.tracklist, { title: 'Songs played on the show' });
             });
           });
         });
