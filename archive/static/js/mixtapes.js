@@ -36,7 +36,7 @@ function loadMixtape(tapeTarget) {
         $("#tapeArtists").html(template(context));
 
         // move location
-        window.location = "#tape";
+        // window.location = "#tape";
       });
     });
   }
