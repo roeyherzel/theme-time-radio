@@ -159,6 +159,6 @@ with app.app_context():
     models.Artists.query.delete()
     models.db.session.commit()
 
-    for myTrack in models.Tracks.query.filter_by(resolved=True):    # .limit(15):
+    for myTrack in models.Tracks.query.filter_by(resolved=True).limit(50):
         print("\n" + str(myTrack))
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)

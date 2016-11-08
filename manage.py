@@ -12,7 +12,13 @@ def hello():
 
 
 @manager.command
-def seed_episodes():
+def cleardb():
+    models.db.drop_all()
+    models.db.create_all()
+
+
+@manager.command
+def load_episodes():
     import wiki_parser
 
 if __name__ == "__main__":

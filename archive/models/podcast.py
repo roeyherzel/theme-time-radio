@@ -2,6 +2,8 @@ from archive.models import db
 from archive.models.common import Mixin
 from datetime import datetime
 
+from sqlalchemy import UniqueConstraint
+
 
 class Images(db.Model, Mixin):
     url = db.Column(db.String, primary_key=True)
@@ -15,7 +17,7 @@ class Images(db.Model, Mixin):
 class Episodes(db.Model, Mixin):
     id = db.Column(db.Integer, primary_key=True)
     season = db.Column(db.Integer)
-    title = db.Column(db.String(), nullable=False)
+    title = db.Column(db.String(), nullable=False, unique=True)
     description = db.Column(db.Unicode())
     aired = db.Column(db.String())
     media = db.Column(db.String())
@@ -35,6 +37,8 @@ class Tracks(db.Model, Mixin):
     position = db.Column(db.Integer)
     year = db.Column(db.Integer)
     resolved = db.Column(db.Boolean)
+
+    UniqueConstraint(episode_id, title)
 
     def __repr__(self):
         return '<Track ({}): {}>'.format(self.id, self.title)

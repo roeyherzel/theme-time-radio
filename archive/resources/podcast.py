@@ -2,7 +2,7 @@ from archive.models import podcast
 from archive.common.utils import limit_query
 from archive.resources import schemas
 
-from flask_restful import Resource, reqparse, marshal_with
+from flask_restful import Resource, reqparse, marshal_with, abort
 from sqlalchemy import desc
 
 from archive import api
@@ -26,6 +26,10 @@ class EpisodesAPI(Resource):
 @api.resource('/api/episodes/<int:episode_id>/tracklist')
 class EpisodesTracklistAPI(Resource):
 
-    @marshal_with(schemas.EpisodeTracklist().as_dict)
+    @marshal_with(schemas.Track().as_dict)
     def get(self, episode_id):
-        return podcast.Episodes.query.get(episode_id)
+        episode = podcast.Episodes.query.get(episode_id)
+        if episode is None:
+            abort(404)
+
+        return episode.tracklist.all()

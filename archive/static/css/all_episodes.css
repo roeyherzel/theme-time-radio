@@ -3,18 +3,42 @@
 .jumbotron h1 {
   font-size: 70px;
   margin-top: 10px;
+  margin-bottom: 40px;
 }
 .jumbotron img {
   width: 300px;
   margin-bottom: 0;
 }
+.jumbotron nav > a {
+  margin-bottom: 6px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 20px;
+  font-family: Helvetica;
+  color: #333;
+  border: 0;
+}
 .jumbotron {
   background-color: #F691B2;
-  padding-bottom: 20px;
-  margin-bottom: 50px;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
-ul.list-inline > li {
+ul.nav-tabs {
+  font-weight: 300;
+  font-size: 21px;
+}
+
+ul.nav-tabs a {
+  color: #333;
+  padding-top: 5px;
+}
+
+#allEpisodes {
+  padding-top: 40px;
+}
+
+#allEpisodes ul.list-inline > li {
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 20px;
@@ -27,11 +51,16 @@ ul.list-inline > li {
   width: 200px;
   height: 120px;
   object-fit: cover;
+  border: 1px solid #eee;
 }
 .episode_title {
   margin-left: 5px;
   margin-top: 5px;
   margin-bottom: 10px;
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .episode_title .lead {
   line-height: normal;

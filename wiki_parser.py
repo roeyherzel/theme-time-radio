@@ -1,82 +1,95 @@
-import wikipedia
+import requests
+from bs4 import BeautifulSoup
 import re
-from pprint import pprint
 
 from archive import app, models
 
 
-prs_section = re.compile(r"^===\s(?P<section>.*?)\s===$")
-prs_episode = re.compile(r"^Episode\s(?P<id>\d+):\s(?P<title>.*?)$")
+"""
+    Parser for extracting all episodes from Wikipedia
+    Number of Episodes: 150
+    Season 1: 50
+    Season 2: 25
+    Season 3: 28
+
+    * Some episodes don't have tracklist like: Episode 12 Christmas & New Year
+      Resone is that those episodes are re-runs:
+      "Aired December 24, 2008 as a repeat of the Season 1 episode, which was first broadcast in December 2006."
+"""
+
+prs_episode = re.compile(r"^Episode\s(?P<id>\d+):?\s(?P<title>.*?)$")
 prs_track = re.compile(r'^\"?(?P<song>.*?)\"?\s—\s(?P<artist>.*?)\s\((?P<year>\d+)\)$')
 
 
 class TrackParser(object):
-    def __init__(self, track, position):
-        self.title = track
-        self.position = position
-        self.song, self.artist, self.year = None, None, None
+
+    def __init__(self, track_str, position):
         self.resolved = False
-        res = prs_track.search(self.title)
-        if res:
-            self.song, self.artist, self.year = res.groups()
-            self.resolved = True
+        self.song, self.artist, self.year = None, None, None
+        self.title = track_str
+        self.position = position
 
-    def __str__(self):
-        if self.resolved:
-            return "<TrackParser ({}) - song:[{}] artist:[{}] year:[{}]>".format(
-                self.position, self.song, self.artist, self.year
-            )
-        else:
-            return "<TrackParser ({}) - title:[{}]>".format(self.position, self.title.encode("utf-8"))
+        res = prs_track.search(track_str)
+        if not res:
+            return
 
-    def dict(self):
-        return {
-            'title': self.title, 'parsed_song': self.song, 'parsed_artist': self.artist,
-            'year': self.year, 'position': self.position, 'resolved': self.resolved,
-        }
+        self.resolved = True
+        self.song, self.artist, self.year = res.groups()
+
+    def dbAdd(self, episode_id):
+        models.Mixin.create(models.Tracks(episode_id=episode_id, resolved=self.resolved, position=self.position, title=self.title,
+                                          parsed_song=self.song, parsed_artist=self.artist, year=self.year))
 
 
 class EpisodeParser(object):
-    def __init__(self, section, wikiPage, season):
-        self.section = section
-        self.season = season
-        self.id, self.title, self.tracklist = None, None, None
-        res = prs_episode.search(section)
-        if res:
-            self.id, self.title = res.groups()
-        else:
-            print("Error...parsing episode section")
-            return None
 
-        tracklist = wikiPage.section(self.section).split("\n")
-        self.aired = tracklist.pop(0)
-        self.tracklist = [TrackParser(tracklist[i], i + 1) for i in range(0, len(tracklist))]
+    def __init__(self, episode_str, aired_str, track_list):
+        self.id, self.title = prs_episode.search(episode_str).groups()
+        self.aired = aired_str
+        self.tracklist = [TrackParser(track_list[t], t + 1) for t in range(len(track_list))]
 
-    def __str__(self):
-        return "<EpisodeParser ({}/{}) - title:[{}]>".format(self.season, self.id, self.title)
+    def dbAdd(self, season):
+        new = models.Episodes(title=self.title, aired=self.aired, season=season)
+        models.Mixin.create(new)
 
-    def dict(self):
-        return {'id': self.id, 'title': self.title, 'season': self.season, 'aired': self.aired}
+        for track in self.tracklist:
+            track.dbAdd(new.id)
 
 
-page = "Theme Time Radio Hour (season 1)"
-season = 1
-wikiPage = wikipedia.page(page)
-sections = [prs_section.findall(line)[0] for line in wikiPage.content.split("\n") if line.startswith("===")]
+def get_episodes_by_season(url):
+    r = requests.get(url)
+
+    if r.ok is False:
+        return None
+
+    parsed_episodes = list()
+    soup = BeautifulSoup(r.content, 'html.parser')
+
+    for ol in soup.find_all('ol'):
+
+        if ol.has_attr("class"):
+            # last ol is a reference ol
+            continue
+
+        episode_tracklist = [i.text for i in ol.findAll("li")]
+        episode_header = ol.find_previous("h3")
+        episode_airtime = episode_header.find_next("p")
+        if episode_airtime.sup:
+            episode_airtime.sup.extract()
+
+        parsed_episodes.append(EpisodeParser(episode_header.span.text, episode_airtime.text, episode_tracklist))
+
+    return parsed_episodes
 
 
-""" Seeding episodes & tracks to the database """
 with app.app_context():
-    models.db.drop_all()
-    models.db.create_all()
+    for season in [1, 2, 3]:
+        url = "https://en.wikipedia.org/wiki/Theme_Time_Radio_Hour_(season_{})".format(season)
+        episodes_data = get_episodes_by_season(url)
 
-    for section in sections:
-        parsedEpisode = EpisodeParser(section, wikiPage, season)
-        print(parsedEpisode)
-        print("=" * 100)
-        newEpisode = models.Episodes(**parsedEpisode.dict())
-        models.Mixin.create(newEpisode)
-
-        for parsedTrack in parsedEpisode.tracklist:
-            newTrack = models.Tracks(episode_id=newEpisode.id, **parsedTrack.dict())
-            models.Mixin.create(newTrack)
+        print("=" * 50)
+        print("Season {}: {} episodes".format(season, len(episodes_data)))
+        print("=" * 50)
+        for e in episodes_data:
+            print(e.title)
+            e.dbAdd(season)

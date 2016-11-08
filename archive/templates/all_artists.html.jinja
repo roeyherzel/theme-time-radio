@@ -6,7 +6,6 @@
     <div class="container text-center">
       <img class="center-block" src="{{ url_for('static', filename='images/cassette.png') }}" alt="" />
       <h1>Artists</h1>
-
       <nav>
         {% for i in index_list %}
           <a href="/artists/index/{{i}}">{{i}}</a>&nbsp;&nbsp;

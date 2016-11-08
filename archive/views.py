@@ -34,10 +34,12 @@ def mixtapes_view(tape_name=None):
 @app.route('/artists/<string:artist_id>')
 @app.route('/artists/index/<string:index>')
 def artist_view(index="A", artist_id=None):
-    if artist_id is not None:
+    if artist_id:
         res = Artists.query.get(artist_id)
+        # lookup artist by lastfm_name
         if res is None:
             res = Artists.query.filter(Artists.lastfm_name == artist_id).one()
+
         return render_template('artist.html.jinja', artist=res)
 
     index = index.upper()
@@ -54,18 +56,19 @@ def artist_view(index="A", artist_id=None):
     else:
         artists = Artists.query.order_by(Artists.name).filter(func.upper(Artists.name).startswith(index)).all()
 
-    print(artists)
     return render_template('all_artists.html.jinja', artists=artists, index_list=artists_index)
 
 
 @app.route('/episodes')
+@app.route('/episodes/season/<int:season>')
 @app.route('/episodes/<int:episode_id>')
-def episode_view(episode_id=None):
-    if episode_id is None:
-        return render_template('all_episodes.html.jinja')
+def episode_view(episode_id=None, season=1):
+    if episode_id:
+        res = Episodes.query.get(episode_id)
+        return render_template('episode.html.jinja', episode=res)
 
-    res = Episodes.query.get(episode_id)
-    return render_template('episode.html.jinja', episode=res)
+    episodes = Episodes.query.filter(Episodes.season == season).order_by(Episodes.id)
+    return render_template('all_episodes.html.jinja', episodes=episodes, season=season, seasons=[1, 2, 3])
 
 
 @app.route('/')

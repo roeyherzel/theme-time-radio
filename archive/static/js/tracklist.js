@@ -39,15 +39,17 @@ function createSpotifyPlayer(tracklist, options) {
 
 }
 
-function createTracklist(trackObjs, renderedTemplate, options) {
+function createTracklist(trackObjs, options) {
 
+  var trackObjs = _.sortBy(trackObjs, function(t) { return t.position });
   createSpotifyPlayer(trackObjs, options);
 
-  if (document.getElementById('tracklistPlaceholder')) {
-    $('#tracklistPlaceholder').html(renderedTemplate);
+  getTemplateAjax('tracklist.handlebars', function(template) {
+
+    $('#tracklistPlaceholder').html(template({tracklist: trackObjs}));
     enableAudioEvents("tracklistPlaceholder");
     $('[data-toggle="tooltip"]').tooltip();
-  }
+  });
 
 }
 
