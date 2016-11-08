@@ -4,6 +4,7 @@ import sys
 import time
 from archive import app, models
 import logging
+import json
 
 logging.getLogger("requests").setLevel(logging.WARNING)
 logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='tagging.log', level=logging.INFO)
@@ -64,7 +65,7 @@ def search(query):
     try:
         res = spotify.search(q=query, type=query_type)
 
-    except (spotipy.client.SpotifyException, requests.exceptions.ConnectionError) as err:
+    except (spotipy.client.SpotifyException, requests.exceptions.ConnectionError, json.decoder.JSONDecodeError) as err:
         logging.error(err.args)
         logging.error("%s...sleeping 2 sec", err)
         time.sleep(2)
