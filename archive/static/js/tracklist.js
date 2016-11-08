@@ -9,33 +9,25 @@ function createSpotifyPlayer(tracklist, options) {
 
   var options =  (typeof(options) === typeof(Object())) ? options : Object(),
       defaults = {
-        width: "300",
         height: "380",
-        theme: "white",
-        view: "list",
         location: "#spotifyPlayer",
         title: "Playlist"
       },
-      settings = _.defaults(options, defaults),
-      spotifySongIds = tracksOnSpotify.join(',');
+      settings = _.defaults(options, defaults);
 
-  if (tracksOnSpotify.length < 2) {
+  if (tracksOnSpotify.length === 0) {
     settings.height = "80";
-    settings.theme = "black";
-    settings.view = "list";
+    settings.title = "Song not on Spotify";
 
-    if (tracksOnSpotify.length === 0) {
-      settings.title = "Songs not on Spotify";
-    }
+  } else if (tracksOnSpotify.length === 1) {
+    settings.height = "80";
   }
   settings.title = settings.title.replace(/\s/g, "%20");
+  settings.song_ids = tracksOnSpotify.join(',');
 
-  var spotifyPlayerSrc = `https://embed.spotify.com/?uri=spotify:trackset:${settings.title}:${spotifySongIds}&theme=${settings.theme}&view=${settings.view}`;
-
-  $(settings.location).html(
-    $(document.createElement("iframe")).attr(
-      { src: spotifyPlayerSrc, frameborder: "0", allowtransparency: "true", width: settings.width, height: settings.height })
-  );
+  getTemplateAjax("tracklist_player.handlebars", function(template) {
+    $(settings.location).html(template(settings));
+  });
 
 }
 

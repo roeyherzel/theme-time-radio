@@ -1,11 +1,12 @@
 import spotipy
 import requests
-import pylast
 import sys
 import time
-from pprint import pprint
-
 from archive import app, models
+import logging
+
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='tagging.log', level=logging.INFO)
 
 
 class LastFMArtist(object):
@@ -22,8 +23,16 @@ class LastFMArtist(object):
     def __init__(self, name):
         query_params = __class__.url_params
         query_params['artist'] = name
-        self.request = requests.get(__class__.API_URL, params=query_params)
         self.found = False
+        try:
+            self.request = requests.get(__class__.API_URL, params=query_params)
+
+        except requests.exceptions.ConnectionError as err:
+            logging.error(err.args)
+            logging.error("%s...sleeping 2 sec", err)
+            time.sleep(2)
+            self.request = requests.get(__class__.API_URL, params=query_params)
+
         if not self.request.ok:
             return
         try:
@@ -55,8 +64,9 @@ def search(query):
     try:
         res = spotify.search(q=query, type=query_type)
 
-    except spotipy.client.SpotifyException as err:
-        print(err, "sleeping 2 sec")
+    except (spotipy.client.SpotifyException, requests.exceptions.ConnectionError) as err:
+        logging.error(err.args)
+        logging.error("%s...sleeping 2 sec", err)
         time.sleep(2)
         res = spotify.search(q=query, type=query_type)
 
@@ -72,43 +82,41 @@ def searchTrack(song, artist, track_id):
         # search artist
         results = search('artist:{}'.format(artist))
         if len(results) > 0:
-            print("ONLY ARTIST")
+            logging.warning("ONLY ARTIST")
             collectSpotifyData(results[0], 'artist', track_id)
         else:
-            print("Error...didn't find track for: {} / {}".format(song, artist))
+            logging.error("didn't find track for: %s / %s", song, artist)
 
 
 def collectSpotifyData(data, match_type, track_id):
     if match_type == 'track':
         mySong = models.TracksSongs(track_id=track_id, song_id=CollectSongData(data).id)
         models.Mixin.create(mySong)
-        print(mySong)
+        logging.debug(mySong)
 
-        # NOTE: data['artists'] had too many artists
         for artist in data['album']['artists']:
             myArtist = models.TracksArtists(track_id=track_id, artist_id=CollectArtistData(artist).id)
             models.Mixin.create(myArtist)
-            print(myArtist)
+            logging.debug(myArtist)
     else:
         myArtist = models.TracksArtists(track_id=track_id, artist_id=CollectArtistData(data).id)
         models.Mixin.create(myArtist)
-        print(myArtist)
+        logging.debug(myArtist)
 
 
 class BaseResource(object):
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']
-        self.url = data['href']
         self.type = data['type']
-        self.myModel = self.Model(id=self.id, name=self.name, url=self.url)
+        self.myModel = self.Model(id=self.id, name=self.name)
 
     def __str__(self):
         return "<{}: {}>".format(self.__class__.__name__, self.name)
 
     def create(self):
         models.Mixin.create(self.myModel)
-        print(self.myModel, end='\n')
+        logging.debug(self.myModel)
 
 
 class CollectArtistData(BaseResource):
@@ -118,10 +126,8 @@ class CollectArtistData(BaseResource):
 
         artistInfo = LastFMArtist(self.myModel.name)
         if artistInfo.found:
-            image = artistInfo.getImage()
-            models.Mixin.create(models.Images(url=image))
             self.myModel.lastfm_name = artistInfo.getName()
-            self.myModel.lastfm_image = image
+            self.myModel.lastfm_image = artistInfo.getImage()
 
         self.create()
 
@@ -150,15 +156,14 @@ class CollectSongData(BaseResource):
         self.create()
 
 
-with app.app_context():
-    models.ArtistsTags.query.delete()
-    models.TracksSongs.query.delete()
-    models.TracksArtists.query.delete()
-    models.Songs.query.delete()
-    models.Albums.query.delete()
-    models.Artists.query.delete()
-    models.db.session.commit()
-
-    for myTrack in models.Tracks.query.filter_by(resolved=True).limit(50):
-        print("\n" + str(myTrack))
+def trackQuerySearch(arg):
+    for myTrack in arg:
+        logging.debug(myTrack)
         searchTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)
+
+
+def db_query():
+    with app.app_context():
+        track_list = models.Tracks.query.filter(models.Tracks.spotify_artists == None, models.Tracks.resolved == True).all()
+        logging.info("Tagging #%d Tracks", len(track_list))
+        trackQuerySearch(track_list)

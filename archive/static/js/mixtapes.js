@@ -11,9 +11,8 @@ function loadMixtape(tapeTarget) {
     $("#mixtapePlaceholder").find(".active").removeClass("active");
     $target.addClass("active");
 
-    // remove h1&h2 page title
+    // remove h1 page title
     $("#jumboTitle h1").remove();
-    $("#jumboTitle h2").remove();
 
     // set tape title
     $("#tape").html(`${tagName}<small> Mixtape</small>`);

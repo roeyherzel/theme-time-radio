@@ -12,14 +12,32 @@ def hello():
 
 
 @manager.command
-def cleardb():
+def clean_db():
     models.db.drop_all()
     models.db.create_all()
 
 
 @manager.command
-def load_episodes():
+def clean_spotify():
+    models.ArtistsTags.query.delete()
+    models.TracksSongs.query.delete()
+    models.TracksArtists.query.delete()
+    models.Songs.query.delete()
+    models.Albums.query.delete()
+    models.Artists.query.delete()
+    models.db.session.commit()
+
+
+@manager.command
+def add_podcasts():
     import wiki_parser
+    import tth_parser
+
+
+@manager.command
+def add_spotify():
+    import spotify_tagger as s
+    s.db_query()
 
 if __name__ == "__main__":
     manager.run()

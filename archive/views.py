@@ -7,6 +7,9 @@ from archive.models.spotify import Artists
 
 from sqlalchemy import func
 
+
+# ----------- filters ----------------
+
 import re
 from jinja2 import evalcontextfilter, Markup, escape
 

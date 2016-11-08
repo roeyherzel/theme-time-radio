@@ -29,6 +29,19 @@
 
       <div class="col-md-4">
 
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="page-header">Appearances <small>on the show</small></h2>
+            <ul class="list-unstyled" id="episodesAppear">
+              {{#each episodes}}
+                <li>
+                  <a href="{{view}}">Episode {{id}}: {{title}}</a>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        
         {{#if tags}}
           <div class="row">
             <div class="col-md-12">
@@ -46,18 +59,7 @@
           </div>
         {{/if}}
 
-        <div class="row">
-          <div class="col-md-12">
-            <h2 class="page-header">Appearances <small>on the show</small></h2>
-            <ul class="list-unstyled" id="episodesAppear">
-              {{#each episodes}}
-                <li>
-                  <a href="{{view}}">Episode {{id}}: {{title}}</a>
-                </li>
-              {{/each}}
-            </ul>
-          </div>
-        </div>
+
 
       </div>
 

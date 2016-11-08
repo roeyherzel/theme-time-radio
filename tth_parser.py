@@ -24,10 +24,8 @@ def get_episode_data(episodeObj):
     try:
         # get image
         image = [i for i in soup.find_all('img') if image_url_prefix in i['src']][0]
-        myImage = models.Images(url=image['src'], width=image['width'], height=image['height'])
-        models.Images.create(myImage)
-        episodeObj.image = myImage.url
-        models.Episodes.update(episodeObj)
+        episodeObj.image = image['src']
+        models.Mixin.update(episodeObj)
 
     except IndexError:
         pass
@@ -37,7 +35,7 @@ def get_episode_data(episodeObj):
     # get media
     episodeObj.media = soup.find("input", attrs={'id': 'podPressPlayerSpace_1_OrigURL'})['value']
     # update
-    models.Episodes.update(episodeObj)
+    models.Mixin.update(episodeObj)
 
 
 with app.app_context():
