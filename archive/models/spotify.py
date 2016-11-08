@@ -30,7 +30,7 @@ class Songs(db.Model, Mixin):
     name = db.Column(db.String, nullable=False)
     preview_url = db.Column(db.String)
     album_id = db.Column(db.String, db.ForeignKey(Albums.id))
-    album = db.relationship('Albums', backref=db.backref('songs', lazy='dynamic'), cascade="delete")
+    album = db.relationship('Albums', backref=db.backref('songs', lazy='dynamic'))
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)
@@ -50,8 +50,8 @@ class Artists(db.Model, Mixin):
 class ArtistsTags(db.Model, Mixin):
     tag_id = db.Column(db.Integer, db.ForeignKey(Tags.id), primary_key=True)
     artist_id = db.Column(db.String, db.ForeignKey(Artists.id), primary_key=True)
-    artists = db.relationship('Artists', backref=db.backref('tags', lazy='dynamic'))    # don't delete artists if none assosiate
-    tag = db.relationship('Tags', backref=db.backref('artists', lazy='dynamic'), cascade="delete")  # delete tag if none assosiate
+    artists = db.relationship('Artists', backref=db.backref('tags', lazy='dynamic'))
+    tag = db.relationship('Tags', backref=db.backref('artists', lazy='dynamic'))
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.artist_id, self.__class__.__name__, self.tag_id)
@@ -62,7 +62,7 @@ class TracksSongs(db.Model, Mixin):
     track_id = db.Column(db.Integer, db.ForeignKey(Tracks.id), primary_key=True)
     song_id = db.Column(db.String, db.ForeignKey(Songs.id), primary_key=True)
     tracks = db.relationship('Tracks', backref=db.backref('spotify_song', uselist=False))
-    song = db.relationship('Songs', backref=db.backref('songs_tracks', lazy='dynamic'), cascade="delete")  # delete song if none assosiate
+    song = db.relationship('Songs', backref=db.backref('songs_tracks', lazy='dynamic'))
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.song_id, self.__class__.__name__, self.track_id)
@@ -73,7 +73,7 @@ class TracksArtists(db.Model, Mixin):
     track_id = db.Column(db.Integer, db.ForeignKey(Tracks.id), primary_key=True)
     artist_id = db.Column(db.String, db.ForeignKey(Artists.id), primary_key=True)
     tracks = db.relationship('Tracks', backref=db.backref('spotify_artists', lazy='dynamic'))
-    artist = db.relationship('Artists', backref=db.backref('artists_tracks', lazy='dynamic'), cascade="delete")  # delete artist if none assosiate
+    artist = db.relationship('Artists', backref=db.backref('artists_tracks', lazy='dynamic'))
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.artist_id, self.__class__.__name__, self.track_id)
