@@ -36,7 +36,7 @@ function createTracklist(trackObjs, options) {
   var trackObjs = _.sortBy(trackObjs, function(t) { return t.position });
   createSpotifyPlayer(trackObjs, options);
 
-  getTemplateAjax('tracklist.handlebars', function(template) {
+  getTemplateAjax('tracklist_table.handlebars', function(template) {
 
     $('#tracklist_placeholder').html(template({tracklist: trackObjs}));
     enableAudioEvents("tracklist_placeholder");

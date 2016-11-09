@@ -2,7 +2,7 @@ from archive.models import db
 from archive.models.common import Mixin
 from datetime import datetime
 
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import UniqueConstraint, desc
 
 
 class Episodes(db.Model, Mixin):
@@ -13,6 +13,14 @@ class Episodes(db.Model, Mixin):
     aired = db.Column(db.String)
     media = db.Column(db.String)
     image = db.Column(db.String)
+
+    @property
+    def next(self):
+        return Episodes.query.filter(Episodes.id > self.id).order_by(Episodes.id).first()
+
+    @property
+    def prev(self):
+        return Episodes.query.filter(Episodes.id < self.id).order_by(desc(Episodes.id)).first()
 
     def __repr__(self):
         return '<Episode ({}): {}>'.format(self.id, self.title)

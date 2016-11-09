@@ -18,19 +18,26 @@
             {{/if}}
           </td>
           <td class="text-left">{{position}}</td>
-          <td>
-            {{#if spotify_song.song.id}}
-              {{spotify_song.song.name}}
-            {{else}}
-              {{parsed_song}}
-            {{/if}}
-          </td>
-          <td>
-            {{#getArtistTitle spotify_artists parsed_artist}}{{/getArtistTitle}}
-          </td>
-          <td>
-            {{year}}
-          </td>
+
+          {{#if resolved}}
+            <td>
+              {{#if spotify_song.song.id}}
+                {{spotify_song.song.name}}
+              {{else}}
+                {{parsed_song}}
+              {{/if}}
+            </td>
+            <td>
+              {{#getArtistTitle spotify_artists parsed_artist}}{{/getArtistTitle}}
+            </td>
+            <td>
+              {{year}}
+            </td>
+          {{else}}
+            <td colspan="3">
+              {{title}}
+            </td>
+          {{/if}}
         </tr>
       {{/each}}
   </table>

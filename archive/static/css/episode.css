@@ -1,39 +1,60 @@
 
-.lead {
-  font-size: 18px;
+.container-fluid {
+  padding-right: 150px;
+  padding-left: 150px;
 }
 
-.aired {
+.breadcrumb {
+  font-size: 16px;
+  padding: 2px 10px;
   font-weight: 300;
-  font-size: 12px;
+  margin: 0;
+}
+.jumbotron p.aired {
+  font-size: 16px;
+}
+
+.media-object { padding-right: 20px; }
+
+ul.pager {
+  margin: 0;
+  margin-bottom: 5px;
+}
+ul.pager li > a {
+  padding: 0;
+  background-color: inherit;
+  border: 0;
+  font-size: 40px;
+  color: #333;
 }
 
 #episodeInfo {
   margin-bottom: 0;
   background-color: #92E1C0;
   padding-top: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 0;
 
 }
-#episodeInfo img {
-  margin-bottom: 5px;
-}
 #episodeInfo h1 {
-  margin-top: 0;
-  color: #333333;
+  color: #333;
 }
 
 audio {
   border: 1px solid #eee;
 }
 blockquote {
+  padding: 5px 0 0 10px;
   margin-top: 0;
   margin-bottom: 10px;
   border-left-width: thin;
   border-left-color: #777777;
 }
-blockquote p {
-  font-size: 16px !important;
+
+#episodeInfo.jumbotron p {
+  font-size: 18px;
+}
+#episodeInfo.jumbotron p.aired {
+  padding-left: 5px;
 }
 
 #episodePlaylist {

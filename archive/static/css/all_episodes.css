@@ -16,9 +16,9 @@
 
 .nav-tabs > li > a {
   border-bottom: 0;
-  color: white;
+  color: #23527c;
   font-weight: 300;
-  font-family: Helvetica;
+  font-size: 18px;
 }
 
 #allEpisodes {

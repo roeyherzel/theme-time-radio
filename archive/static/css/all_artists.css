@@ -5,11 +5,9 @@
   margin-top: 10px;
 }
 .jumbotron img {
-  width: 280px;
+  width: 300px;
   margin-bottom: 0;
-  background-color: #00FFFF;
   padding: 0;
-  border-radius: 16px;
 }
 .jumbotron {
   background-color: #333333;

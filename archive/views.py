@@ -68,7 +68,7 @@ def artist_view(index="A", artist_id=None):
 def episode_view(episode_id=None, season=1):
     if episode_id:
         res = Episodes.query.get(episode_id)
-        return render_template('episode.html.jinja', episode=res)
+        return render_template('episode.html.jinja', episode=res, prev=res.prev, next=res.next)
 
     episodes = Episodes.query.filter(Episodes.season == season).order_by(Episodes.id)
     return render_template('all_episodes.html.jinja', episodes=episodes, season=season, seasons=[1, 2, 3])
