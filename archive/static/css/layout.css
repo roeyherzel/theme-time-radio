@@ -46,7 +46,7 @@ html {
   min-height: 100%;
 }
 
-footer {
+.footer {
   padding: 20px 15px;
   color: #777;
   border-top: 1px solid #e5e5e5;
@@ -55,11 +55,11 @@ footer {
   width: 100%;
 }
 
-footer p {
+.footer p {
   margin: 0;
 }
 
-footer img {
+.footer img {
   width: 80px;
   height: auto;
 }

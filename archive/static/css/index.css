@@ -36,14 +36,12 @@ div.container > h2 > a[role="button"] {
 
 #header {
   background-color: #333;
-  padding-top: 80px;
-  padding-bottom: 110px;
+  padding-top: 100px;
+  padding-bottom: 150px;
 }
 #header img.media-object {
-  width: 300px;
+  width: 310px;
   height: auto;
-  background-color: white;
-  border-radius: 16px;
 }
 #header h1 {
   font-weight: bold;
@@ -53,13 +51,18 @@ div.container > h2 > a[role="button"] {
 #header p {
   font-size: 28px;
   font-weight: 100;
-  color: white;
+  color: #1AB068;
   padding-top: 5px;
-  padding-right: 20px;
-  text-align: right;
   margin-bottom: 20px;
   margin-top: 0px;
-  border-top: 2px solid white;
+  margin-left: 10px;
+  border-top: 1px solid white;
+}
+#header p img {
+  width: 148px;
+  height: auto;
+  padding-bottom: 5px;
+  object-fit: scale-down;
 }
 
 #featureEpisodes { background-color: white; }
