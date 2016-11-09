@@ -42,11 +42,11 @@ div.container > h2 > a[role="button"] {
 #header img.media-object {
   width: 310px;
   height: auto;
+  margin-right: 10px;
 }
 #header h1 {
   font-weight: bold;
   color: white;
-  margin-left: 10px;
 }
 #header p {
   font-size: 28px;
@@ -55,7 +55,6 @@ div.container > h2 > a[role="button"] {
   padding-top: 5px;
   margin-bottom: 20px;
   margin-top: 0px;
-  margin-left: 10px;
   border-top: 1px solid white;
 }
 #header p img {
