@@ -31,6 +31,7 @@ div.container > h2 > a[role="button"] {
   font-family: Helvetica;
   font-size: 12px;
   border: 0;
+  background-color: #eee;
 }
 
 #header {
@@ -61,6 +62,7 @@ div.container > h2 > a[role="button"] {
   border-top: 2px solid white;
 }
 
+#featureEpisodes { background-color: white; }
 #featureArtists { background-color: #FAD165; }
 #featureMixtapes { background-color: #9FC6E7; }
 
