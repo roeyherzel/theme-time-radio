@@ -9,27 +9,17 @@
   width: 300px;
   margin-bottom: 0;
 }
-.jumbotron nav > a {
-  margin-bottom: 6px;
-  margin-left: 5px;
-  margin-right: 5px;
-  border-radius: 20px;
-  font-family: Helvetica;
-  color: #333;
-  border: 0;
-}
 .jumbotron {
   background-color: #F691B2;
   padding-bottom: 0;
   margin-bottom: 0;
 }
 
-ul.nav-tabs a {
-  color: #333;
-  padding-top: 5px;
+.nav-tabs > li > a {
+  border-bottom: 0;
   color: white;
   font-weight: 300;
-  font-size: 21px;
+  font-family: Helvetica;
 }
 
 #allEpisodes {

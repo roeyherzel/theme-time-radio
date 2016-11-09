@@ -43,8 +43,8 @@ function loadMixtape(tapeTarget) {
 }
 
 $(document).ready(function() {
-  // nav bar active
-  $('ul.nav > li:has(a[href="/mixtapes"])').addClass("active");
+
+  setNavActive("/mixtapes");
 
   getTemplateAjax('mixtapes.handlebars', function(template) {
 

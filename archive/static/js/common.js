@@ -45,3 +45,7 @@ function getArtistInfo(artistName, callback) {
 function getTagInfo(tagName, callback) {
   getLastFmAjax('tag', tagName, callback);
 }
+
+function setNavActive(href) {
+  $(`ul.nav > li:has(a[href="${href}"])`).addClass("active");
+}

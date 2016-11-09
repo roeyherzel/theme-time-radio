@@ -6,16 +6,20 @@
     <div class="container text-center">
       <img class="center-block" src="{{ url_for('static', filename='images/cassette.png') }}" alt="" />
       <h1>Artists</h1>
-      <nav>
+
+      <ul class="nav nav-tabs nav-justified">
         {% for i in index_list %}
-          <a href="/artists/index/{{i}}">{{i}}</a>&nbsp;&nbsp;
+          <li role="presentation" {% if index == i %} class="active" {% endif %}>
+            <a href="/artists/index/{{i}}">{{i}}</a>
+          </li>
         {% endfor %}
-      </nav>
+      </ul>
+
     </div>
   </div>
 
-  <div class="container">
-    <ul class="list-inline text-center" id="artistList">
+  <div class="container" id="artistList">
+    <ul class="list-inline text-center">
       {% for artist in artists %}
         <li>
           <a href="/artists/{{artist.id}}">
@@ -42,10 +46,8 @@
 {% block script %}
   <script type="text/javascript">
 
-  $(document).ready(function() {
-    // nav bar active
-    $('ul.nav > li:has(a[href="/artists"])').addClass("active");
-  });
+  $(document).ready(function() { setNavActive("/artists") });
+
   </script>
 
 {% endblock %}

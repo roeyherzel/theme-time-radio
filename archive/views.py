@@ -59,7 +59,7 @@ def artist_view(index="A", artist_id=None):
     else:
         artists = Artists.query.order_by(Artists.name).filter(func.upper(Artists.name).startswith(index)).all()
 
-    return render_template('all_artists.html.jinja', artists=artists, index_list=artists_index)
+    return render_template('all_artists.html.jinja', artists=artists, index=index, index_list=artists_index)
 
 
 @app.route('/episodes')
