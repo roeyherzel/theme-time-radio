@@ -1,6 +1,5 @@
 
 from archive.models import spotify, podcast, db
-from archive.common.utils import limit_query
 from archive.resources import schemas
 
 from flask_restful import Resource, reqparse, marshal, marshal_with, marshal_with_field, fields
@@ -11,6 +10,7 @@ from archive import api
 
 parser = reqparse.RequestParser()
 parser.add_argument('limit', type=str, help="limit query results")
+parser.add_argument('random', type=str, help="limit query results")
 parser.add_argument('all', default=False, type=bool, help="disables filtering")
 
 
@@ -21,10 +21,16 @@ class ArtistsAPI(Resource):
     def get(self, artist_id=None):
         args = parser.parse_args()
 
-        if artist_id is not None:
+        if artist_id:
             return spotify.Artists.query.get(artist_id)
-        else:
-            return limit_query(spotify.Artists.query.order_by(spotify.Artists.name), args.get('limit')).all()
+
+        order = func.random() if args.get('random') else spotify.Artists.name
+
+        res = spotify.Artists.query.order_by(order)
+        if args.get('limit'):
+            res = res.limit(args.get('limit'))
+
+        return res.all()
 
 
 @api.resource('/api/artists/<string:artist_id>/episodes')
@@ -77,14 +83,18 @@ class TagsAPI(Resource):
                         .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
                         .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
                         .filter(podcast.Tracks.spotify_song) \
-                        .group_by(spotify.Tags)
+                        .group_by(spotify.Tags) \
+                        .order_by(desc('track_count'))
 
-        if tag_name is not None:
+        if tag_name:
             res = res.filter(spotify.Tags.name == tag_name).first()
             return {'tag': res[0], 'track_count': res[1]}
-        else:
-            res = res.all()
-            return [{'tag': i[0], 'track_count': i[1]} for i in res]
+
+        if args.get('limit'):
+            res = res.limit(args.get('limit'))
+
+        res = res.all()
+        return [{'tag': i[0], 'track_count': i[1]} for i in res]
 
 
 @api.resource('/api/tags/<string:tag_name>/artists')

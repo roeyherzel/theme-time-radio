@@ -52,7 +52,7 @@ div#tapeWiki {
   font-size: 16px;
 }
 
-#mixtapePlaceholder {
+#mixtape_placeholder {
   margin-top: 8px;
 }
 #mixtapeList {
@@ -61,14 +61,14 @@ div#tapeWiki {
   overflow-y: scroll;
   overflow-x: hidden;
 }
-#mixtapePlaceholder .page-header {
+#mixtape_placeholder .page-header {
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: 400;
   padding-top: 5px;
 }
 
-#mixtapePlaceholder .well {
+#mixtape_placeholder .well {
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -81,7 +81,7 @@ div#tapeWiki {
 
 }
 
-#mixtapePlaceholder #mixtapeHint {
+#mixtape_placeholder #mixtapeHint {
   border-bottom: 1px solid #fff;
   padding-bottom: 10px;
   margin: 0;
@@ -96,7 +96,7 @@ div#tapeWiki {
 }
 
 #tapeArtists a,
-#mixtapePlaceholder a {
+#mixtape_placeholder a {
   text-transform: capitalize;
   margin-bottom: 6px;
   font-weight: 300;
@@ -108,7 +108,7 @@ div#tapeWiki {
   font-weight: 400;
   background-color: #333;
 }
-#mixtapePlaceholder .badge {
+#mixtape_placeholder .badge {
   background-color: #eee;
   color: #333;
   font-size: 10px;

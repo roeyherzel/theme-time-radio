@@ -1,20 +1,40 @@
 
 .jumbotron {
+  margin-top: 0;
   margin-bottom: 0;
-  background-color: #42D692;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
-.jumbotron img {
+
+.badge {
+  font-weight: 400;
+  background-color: #eee;
+  color: #333;
+}
+
+.page-header {
+  font-size: 24px;
+}
+
+a { color: #333; }
+.small { color: #eee; }
+
+#header {
+  background-color: #42D692;
+  padding-top: 80px;
+  padding-bottom: 110px;
+}
+#header img {
   width: 300px;
   height: auto;
-  margin-top: 40px;
-  margin-bottom: 20px;
 }
-.jumbotron h1 {
+#header h1 {
   font-weight: bold;
-  font-size: 80px;
+  color: white;
+  margin-left: 20px;
 }
-.jumbotron p {
-  font-size: 28px;
+#header p {
+  font-size: 32px;
   font-weight: 300;
   background-color: #333;
   color: white;
@@ -24,10 +44,64 @@
   margin-bottom: 20px;
 }
 
-
-#spotifyLogo {
+#header #spotifyLogo {
   object-fit: scale-down;
-  width: 160px;
+  width: 180px;
   margin: 0;
   padding-bottom: 5px;
+}
+
+#featureEpisodes { background-color: #F691B2; }
+#featureArtists { background-color: #FAD165; }
+#featureMixtapes { background-color: #9FC6E7; }
+
+#featureEpisodes li {
+  margin: 10px 5px 10px 5px;
+}
+#featureEpisodes small {
+  color: #eee;
+}
+#featureEpisodes img {
+  width: 200px;
+  height: 120px;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+#featureEpisodes .episode_title {
+  margin: 5px 0 10px 5px;
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#featureArtists li {
+  margin: 10px 0 30px 0;
+}
+#featureArtists img {
+  width: 160px;
+  border: 1px solid #EEEEEE;
+}
+#featureArtists h4 {
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#featureMixtapes li {
+  margin: 10px 0 30px 0;
+}
+#featureMixtapes img {
+  width: 130px;
+}
+#featureMixtapes h4 {
+  color: white;
+  width: 200px;
+  font-size: 21px;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

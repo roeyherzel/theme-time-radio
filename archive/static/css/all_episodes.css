@@ -24,14 +24,12 @@
   margin-bottom: 0;
 }
 
-ul.nav-tabs {
-  font-weight: 300;
-  font-size: 21px;
-}
-
 ul.nav-tabs a {
   color: #333;
   padding-top: 5px;
+  color: white;
+  font-weight: 300;
+  font-size: 21px;
 }
 
 #allEpisodes {
@@ -39,29 +37,18 @@ ul.nav-tabs a {
 }
 
 #allEpisodes ul.list-inline > li {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 20px;
+  margin: 10px 5px 20px 5px;
 }
-.episode_card {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.episode_card img {
+#allEpisodes img {
   width: 200px;
   height: 120px;
   object-fit: cover;
   border: 1px solid #eee;
 }
 .episode_title {
-  margin-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  margin: 5px 0 10px 5px;
   width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-.episode_title .lead {
-  line-height: normal;
 }

@@ -38,8 +38,8 @@ function createTracklist(trackObjs, options) {
 
   getTemplateAjax('tracklist.handlebars', function(template) {
 
-    $('#tracklistPlaceholder').html(template({tracklist: trackObjs}));
-    enableAudioEvents("tracklistPlaceholder");
+    $('#tracklist_placeholder').html(template({tracklist: trackObjs}));
+    enableAudioEvents("tracklist_placeholder");
     $('[data-toggle="tooltip"]').tooltip();
   });
 

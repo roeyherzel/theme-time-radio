@@ -14,6 +14,7 @@
 .jumbotron {
   background-color: #333333;
   padding-bottom: 10px;
+  margin-bottom: 50px;
 }
 
 .jumbotron nav > a {
@@ -30,22 +31,13 @@
 }
 
 #artistList img {
-  width: 100px;
+  width: 130px;
   border: 1px solid #EEEEEE;
 }
-#artistList div.artist-card {
+#artistList h4 {
   margin-bottom: 30px;
   width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-
-ul.pager {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-ul.pager a {
-  font-size: 12px;
 }

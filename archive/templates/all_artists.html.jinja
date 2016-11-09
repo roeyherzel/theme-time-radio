@@ -18,16 +18,14 @@
     <ul class="list-inline text-center" id="artistList">
       {% for artist in artists %}
         <li>
-          <div class="artist-card">
-            <a href="/artists/{{artist.id}}">
-              {% if artist.lastfm_image %}
-                <img class="img-circle" src="{{artist.lastfm_image}}" alt="" />
-              {% else %}
-                <img class="img-circle" src="/static/images/default-artist.png" alt="" />
-              {% endif %}
-              <h4>{{artist.name}}</h4>
-            </a>
-          </div>
+          <a href="/artists/{{artist.id}}">
+            {% if artist.lastfm_image %}
+              <img class="img-circle" src="{{artist.lastfm_image}}" alt="" />
+            {% else %}
+              <img class="img-circle" src="/static/images/default-artist.png" alt="" />
+            {% endif %}
+            <h4>{{artist.name}}</h4>
+          </a>
         </li>
       {% endfor %}
     </ul>

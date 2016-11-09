@@ -16,7 +16,7 @@ $(document).ready(function() {
           getTemplateAjax('artist.handlebars', function(template) {
 
             var context = {episodes: episodes, tags: artistTags, lastfm: lastfmData, artistInfo: {id: $ARTIST_ID}};
-            $('#artistInfoPlaceholder').html(template(context));
+            $('#artistInfo_placeholder').html(template(context));
 
             $.getJSON(`/api/artists/${$ARTIST_ID}/tracklist`, function(data, status) {
               createSpotifyPlayer(data.tracklist, { title: 'Songs played on the show' });

@@ -1,5 +1,4 @@
 from archive.models import podcast
-from archive.common.utils import limit_query
 from archive.resources import schemas
 
 from flask_restful import Resource, reqparse, marshal_with, abort
@@ -17,10 +16,14 @@ class EpisodesAPI(Resource):
         parser.add_argument('limit', type=int, help="limit query results")
         args = parser.parse_args()
 
-        if episode_id is not None:
+        if episode_id:
             return podcast.Episodes.query.get(episode_id)
-        else:
-            return limit_query(podcast.Episodes.query.order_by(podcast.Episodes.id), args.get('limit')).all()
+
+        res = podcast.Episodes.query.order_by(podcast.Episodes.id)
+        if args.get('limit'):
+            res = res.limit(args.get('limit'))
+
+        return res.all()
 
 
 @api.resource('/api/episodes/<int:episode_id>/tracklist')

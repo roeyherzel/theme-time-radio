@@ -8,7 +8,7 @@ function loadMixtape(tapeTarget) {
 
   if (tagName) {
     // remove and set active
-    $("#mixtapePlaceholder").find(".active").removeClass("active");
+    $("#mixtape_placeholder").find(".active").removeClass("active");
     $target.addClass("active");
 
     // remove h1 page title
@@ -61,7 +61,7 @@ $(document).ready(function() {
 
       // render mixtape cloud template
       var context = { tags: groupedTags };
-      $('#mixtapePlaceholder').html(template(context));
+      $('#mixtape_placeholder').html(template(context));
 
       // even handling for index anchors. fixes screen position issue
       $("#mixtapesListIndex > nav > a").click(function(e) {
