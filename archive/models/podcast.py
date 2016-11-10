@@ -1,11 +1,10 @@
 from archive.models import db
-from archive.models.common import Mixin
 from datetime import datetime
 
 from sqlalchemy import UniqueConstraint, desc
 
 
-class Episodes(db.Model, Mixin):
+class Episodes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     season = db.Column(db.Integer)
     title = db.Column(db.String, nullable=False, unique=True)
@@ -26,7 +25,7 @@ class Episodes(db.Model, Mixin):
         return '<Episode ({}): {}>'.format(self.id, self.title)
 
 
-class Tracks(db.Model, Mixin):
+class Tracks(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     episode_id = db.Column(db.Integer, db.ForeignKey(Episodes.id))
     episode = db.relationship('Episodes', backref=db.backref('tracklist', lazy='dynamic'))

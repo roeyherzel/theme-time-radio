@@ -1,9 +1,4 @@
 
-.container-fluid {
-  padding-right: 150px;
-  padding-left: 150px;
-}
-
 .breadcrumb {
   font-size: 16px;
   padding: 4px 10px;
@@ -26,9 +21,6 @@ ul.pager li > a {
   background-color: inherit;
   border: 0;
   font-size: 40px;
-}
-ul.pager li > a {
-  color: #333;
 }
 
 #episodeInfo {

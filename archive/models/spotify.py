@@ -1,9 +1,8 @@
 from archive.models import db
 from archive.models.podcast import Tracks
-from archive.models.common import Mixin
 
 
-class Tags(db.Model, Mixin):
+class Tags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), unique=True)
     type = db.Column(db.String)
@@ -17,7 +16,7 @@ class Tags(db.Model, Mixin):
 
 
 # 1:1 album - song
-class Albums(db.Model, Mixin):
+class Albums(db.Model):
     id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
 
@@ -25,7 +24,7 @@ class Albums(db.Model, Mixin):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)
 
 
-class Songs(db.Model, Mixin):
+class Songs(db.Model):
     id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
     preview_url = db.Column(db.String)
@@ -36,7 +35,7 @@ class Songs(db.Model, Mixin):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)
 
 
-class Artists(db.Model, Mixin):
+class Artists(db.Model):
     id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     lastfm_name = db.Column(db.String)
@@ -47,7 +46,7 @@ class Artists(db.Model, Mixin):
 
 
 # M:M
-class ArtistsTags(db.Model, Mixin):
+class ArtistsTags(db.Model):
     tag_id = db.Column(db.Integer, db.ForeignKey(Tags.id), primary_key=True)
     artist_id = db.Column(db.String, db.ForeignKey(Artists.id), primary_key=True)
     artists = db.relationship('Artists', backref=db.backref('tags', lazy='dynamic'))
@@ -58,7 +57,7 @@ class ArtistsTags(db.Model, Mixin):
 
 
 # 1:1 track - song
-class TracksSongs(db.Model, Mixin):
+class TracksSongs(db.Model):
     track_id = db.Column(db.Integer, db.ForeignKey(Tracks.id), primary_key=True)
     song_id = db.Column(db.String, db.ForeignKey(Songs.id), primary_key=True)
     tracks = db.relationship('Tracks', backref=db.backref('spotify_song', uselist=False))
@@ -69,7 +68,7 @@ class TracksSongs(db.Model, Mixin):
 
 
 # 1:M track - artists
-class TracksArtists(db.Model, Mixin):
+class TracksArtists(db.Model):
     track_id = db.Column(db.Integer, db.ForeignKey(Tracks.id), primary_key=True)
     artist_id = db.Column(db.String, db.ForeignKey(Artists.id), primary_key=True)
     tracks = db.relationship('Tracks', backref=db.backref('spotify_artists', lazy='dynamic'))

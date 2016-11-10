@@ -31,15 +31,15 @@
       <nav>
         <ul class="pager">
           {% if prev %}
-            <li class="previous"><a href="/episodes/{{prev.id}}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+            <li class="previous"><a href="/episodes/{{prev.id}}"><span class="glyphicon glyphicon-triangle-left"></span></a></li>
           {% else %}
-            <li class="previous disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+            <li class="previous disabled"><a href="#"><span class="glyphicon glyphicon-triangle-left"></span></a></li>
           {% endif %}
 
           {% if next %}
-            <li class="next"><a href="/episodes/{{next.id}}"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+            <li class="next"><a href="/episodes/{{next.id}}"><span class="glyphicon glyphicon-triangle-right"></span></a></li>
           {% else %}
-            <li class="next disabled"><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+            <li class="next disabled"><a href="#"><span class="glyphicon glyphicon-triangle-right"></span></a></li>
           {% endif %}
         </ul>
       </nav>

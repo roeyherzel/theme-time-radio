@@ -24,7 +24,9 @@ dash_list = "[{}{}{}]".format(
     b'\xe2\x80\x93'.decode(),
     '-'
 )
-prs_track_full = re.compile(r'^\"?(?P<song>.*?)\"?\s?' + dash_list + r'\s?(?P<artist>.*?)\s?\((?P<year>\d+).*?\)')
+prs_track_full = re.compile(r'^\"?(?P<song>.*?)\"?\s' + dash_list + r'\s(?P<artist>.*?)\s?\((?P<year>\d+).*?\)')
+prs_track_full_loos_whitespace = re.compile(r'^\"?(?P<song>.*?)\"?\s?' + dash_list + r'\s?(?P<artist>.*?)\s?\((?P<year>\d+).*?\)')
+
 prs_track_no_year = re.compile(r'^\"?(?P<song>.*?)\"?\s' + dash_list + r'\s(?P<artist>.*?)$')
 
 
@@ -39,6 +41,8 @@ class TrackParser(object):
 
     def parse(self):
         res = prs_track_full.search(self.title)
+        if not res:
+            res = prs_track_full_loos_whitespace.search(self.title)
         if res:
             self.song, self.artist, self.year = res.groups()
             self.year = int('{:<04}'.format(self.year))
@@ -53,8 +57,8 @@ class TrackParser(object):
         return False
 
     def dbAdd(self, episode_id):
-        models.Mixin.create(models.Tracks(episode_id=episode_id, resolved=self.resolved, position=self.position, title=self.title,
-                                          parsed_song=self.song, parsed_artist=self.artist, year=self.year))
+        models.create(models.Tracks(episode_id=episode_id, resolved=self.resolved, position=self.position, title=self.title,
+                                    parsed_song=self.song, parsed_artist=self.artist, year=self.year))
 
 
 class EpisodeParser(object):
@@ -66,7 +70,7 @@ class EpisodeParser(object):
 
     def dbAdd(self, season):
         new = models.Episodes(title=self.title, aired=self.aired, season=season)
-        models.Mixin.create(new)
+        models.create(new)
 
         for track in self.tracklist:
             track.dbAdd(new.id)
