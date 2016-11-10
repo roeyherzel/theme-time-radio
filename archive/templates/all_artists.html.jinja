@@ -2,7 +2,7 @@
 
 
 {% block content %}
-  <div class="jumbotron">
+  <div class="jumbotron" id="heading">
     <div class="container text-center">
       <img class="center-block" src="{{ url_for('static', filename='images/cassette-white.png') }}" alt="" />
       <h1>Artists</h1>
@@ -18,21 +18,23 @@
     </div>
   </div>
 
-  <div class="container" id="artistList">
-    <ul class="list-inline text-center">
-      {% for artist in artists %}
-        <li>
-          <a href="/artists/{{artist.id}}">
-            {% if artist.lastfm_image %}
-              <img class="img-circle" src="{{artist.lastfm_image}}" alt="" />
-            {% else %}
-              <img class="img-circle" src="/static/images/default-artist.png" alt="" />
-            {% endif %}
-            <h4>{{artist.name}}</h4>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
+  <div class="jumbotron" id="artistList">
+    <div class="container">
+      <ul class="list-inline text-center">
+        {% for artist in artists %}
+          <li>
+            <a href="/artists/{{artist.id}}">
+              {% if artist.lastfm_image %}
+                <img class="img-rounded" src="{{artist.lastfm_image}}" alt="" />
+              {% else %}
+                <img class="img-rounded" src="/static/images/default-artist.png" alt="" />
+              {% endif %}
+              <h4>{{artist.name}}</h4>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 
 {% endblock %}

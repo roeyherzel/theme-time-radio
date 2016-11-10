@@ -1,21 +1,30 @@
 
-body {
-  background-color: #333;
-}
-.jumbotron h1 {
-  font-size: 70px;
-  margin-top: 10px;
-}
-.jumbotron img {
-  width: 300px;
-  margin-bottom: 0;
-  padding: 0;
-}
+
 .jumbotron {
   padding-bottom: 0;
   margin-bottom: 0;
 }
 
+#heading h1 {
+  font-size: 70px;
+  margin-top: 10px;
+  color: #eee;
+}
+#heading img {
+  width: 300px;
+  margin-bottom: 0;
+  padding: 0;
+}
+#heading {
+  background-color: #333;
+}
+
+ul.nav-tabs {
+  border-bottom: 0;
+}
+.nav-tabs > li.active > a {
+  background-color: #eee;
+}
 .nav-tabs.nav-justified > li > a {
   border-bottom: 0;
   font-weight: 300;
@@ -26,8 +35,8 @@ body {
   padding-top: 40px;
 }
 #artistList img {
-  width: 130px;
-  border: 1px solid #333;
+  width: 150px;
+  border: 1px solid #eee;
 }
 #artistList h4 {
   margin-bottom: 60px;
@@ -35,5 +44,6 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: white;
+  font-family: Helvetica;
+  font-size: 16px;
 }

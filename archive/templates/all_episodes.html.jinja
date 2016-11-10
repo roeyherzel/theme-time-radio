@@ -2,9 +2,9 @@
 
 
 {% block content %}
-  <div class="jumbotron">
+  <div class="jumbotron" id="heading">
     <div class="container text-center">
-      <img src="{{ url_for('static', filename='images/cassette.png') }}" alt="" />
+      <img src="{{ url_for('static', filename='images/cassette-white.png') }}" alt="" />
       <h1>Episodes</h1>
 
       <ul class="nav nav-tabs">
@@ -17,22 +17,24 @@
     </div>
   </div>
 
-  <div class="container" id="allEpisodes">
-
-    <ul class="list-inline text-center">
-      {% for e in episodes %}
-        <li>
-          <a href="/episodes/{{e.id}}">
-            <img class="img-responsive img-rounded" src={{e.image}}>
-          </a>
-          <div class="episode_title text-left">
-            <div class="small text-muted">Episode {{e.id}}:</div>
-            <a class="lead" href="/episodes/{{e.id}}">{{e.title}}</a>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+  <div class="jumbotron"  id="allEpisodes">
+    <div class="container">
+      <ul class="list-inline text-center">
+        {% for e in episodes %}
+          <li>
+            <a href="/episodes/{{e.id}}">
+              <img class="img-responsive img-rounded" src={{e.image}}>
+            </a>
+            <div class="episode_title text-left">
+              <div class="small text-muted">Episode {{e.id}}:</div>
+              <a class="lead" href="/episodes/{{e.id}}">{{e.title}}</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
+
 {% endblock %}
 
 
