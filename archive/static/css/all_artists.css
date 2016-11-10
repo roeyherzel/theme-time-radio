@@ -1,7 +1,9 @@
 
+body {
+  background-color: #333;
+}
 .jumbotron h1 {
   font-size: 70px;
-  color: white;
   margin-top: 10px;
 }
 .jumbotron img {
@@ -10,7 +12,6 @@
   padding: 0;
 }
 .jumbotron {
-  background-color: #333333;
   padding-bottom: 0;
   margin-bottom: 0;
 }
@@ -26,7 +27,7 @@
 }
 #artistList img {
   width: 130px;
-  border: 1px solid #EEEEEE;
+  border: 1px solid #333;
 }
 #artistList h4 {
   margin-bottom: 60px;
@@ -34,4 +35,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  color: white;
 }

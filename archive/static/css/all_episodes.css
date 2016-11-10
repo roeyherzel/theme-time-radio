@@ -1,15 +1,19 @@
 
+body {
+  background-color: #333;
+}
 
 .jumbotron h1 {
   font-size: 70px;
   margin-top: 10px;
+  margin-bottom: 0;
 }
 .jumbotron img {
   width: 300px;
   margin-bottom: 0;
 }
 .jumbotron {
-  background-color: #F691B2;
+  //background-color: #F691B2;
   padding-bottom: 0;
   margin-bottom: 0;
 }
@@ -32,11 +36,15 @@
   width: 200px;
   height: 120px;
   object-fit: cover;
-  border: 1px solid #eee;
+  border: 1px solid #333;
 }
 .episode_title {
   margin: 5px 0 10px 5px;
   width: 200px;
+}
+.episode_title a {
+  color: white;
+  font-size: 18px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
