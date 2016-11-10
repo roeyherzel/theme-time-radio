@@ -12,10 +12,10 @@ function loadMixtape(tapeTarget) {
     $target.addClass("active");
 
     // remove h1 page title
-    $("#jumboTitle h1").remove();
+    $("#heading h1").remove();
 
     // set tape title
-    $("#tape").html(`${tagName}<small> Mixtape</small>`);
+    $("#tape").html(tagName);
 
     // get tape description
     getTagInfo(tagName, function(info) {
@@ -35,8 +35,6 @@ function loadMixtape(tapeTarget) {
         var context = { show_title: true, artists: _.sortBy(data, 'name') };
         $("#tapeArtists").html(template(context));
 
-        // move location
-        // window.location = "#tape";
       });
     });
   }
@@ -50,25 +48,21 @@ $(document).ready(function() {
 
     $.getJSON('/api/tags', function(tags, status) {
 
-      // sort by tag name
-      tags = _.sortBy(tags, function(t) { return t.tag.name.toLowerCase() });
+      // filter tags
+      tags = _.filter(tags, function(t) { return t.track_count > 5 });
 
-      // group by tag first letter
+      // sort by tag name
+      tags = _.sortBy(tags, function(t) { return t.tag.name.toLowerCase() });    
+
+      // group by tag first index
       var groupedTags = _.groupBy(tags, function(t) {
-        var letter = t.tag.name[0];
-        return (! _.isNaN(Number(letter))) ? "#" : letter.toUpperCase();
+        var index = t.tag.name[0];
+        return (! _.isNaN(Number(index))) ? "#" : index.toUpperCase();
       });
 
       // render mixtape cloud template
       var context = { tags: groupedTags };
       $('#mixtape_placeholder').html(template(context));
-
-      // even handling for index anchors. fixes screen position issue
-      $("#mixtapesListIndex > nav > a").click(function(e) {
-        e.preventDefault();
-        window.location = $(e.target).attr("href");
-        window.scrollTo(0,0);
-      });
 
       // specific tape in url
       if (! (_.isNull($USER_TAPE) || _.isUndefined($USER_TAPE))) {

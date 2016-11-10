@@ -3,19 +3,11 @@
 
 {% block content %}
 
-<div class="jumbotron" id="jumboTitle">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-7">
-        <div id="mixtape_placeholder"></div>
-        <h3 class="text-center">pick a tape <span class="glyphicon glyphicon-circle-arrow-up"></span></h3>
-      </div>
-      <div class="col-md-5 text-center">
-        <img class="center-block" src="{{ url_for('static', filename='images/cassette-mono.png') }}" alt="" />
-        <h1>Mixtapes</h1>
-      </div>
 
-    </div>
+<div class="jumbotron", id="heading">
+  <div class="container text-center">
+    <img class="center-block" src="{{ url_for('static', filename='images/cassette-mono.png') }}" alt="" />
+    <h1>Mixtapes</h1>
   </div>
 </div>
 
@@ -23,16 +15,18 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-md-4">
-        <div id="spotifyPlayer"></div>
-      </div>
       <div class="col-md-8">
         <h1 id="tape"></h1>
         <div id="tapeWiki"></div>
         <div id="tapeArtists"></div>
       </div>
-
+      <div class="col-md-4 text-right">
+        <div id="spotifyPlayer"></div>
+      </div>
     </div>
+
+    <h3 id="mixtapeHint">pick a tape <span class="glyphicon glyphicon-circle-arrow-down"></span></h3>
+    <div id="mixtape_placeholder"></div>
   </div>
 </div>
 

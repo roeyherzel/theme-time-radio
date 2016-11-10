@@ -5,30 +5,29 @@
   padding-bottom: 40px;
   margin-bottom: 0;
 }
-#jumboTitle h1 {
+#heading h1 {
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-#jumboTitle {
+#heading {
   background-color: #9FC6E7;
 }
-#jumboTitle h3 {
-  font-weight: 300;
-  margin-top: 10px;
-}
 
-body {
-  background-color: #eee;
+#mixtapeHint {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #1AB068;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
 }
-
 .footer {
   bottom: 0;  /* because page starts very short */
 }
 
-img {
-  max-width: 350px;
-}
+img { width: 300px; }
 
 #jumboTapeData {
   padding-top: 30px;
@@ -41,13 +40,8 @@ img {
 #tape {
   font-size: 52px;
   margin-top: 0;
-  padding-top: 10px; /* same as spotifyPlayer */
   margin-bottom: 10px;
   text-transform: capitalize;
-}
-
-#spotifyPlayer {
-  padding-top: 10px;
 }
 
 div#tapeWiki {
@@ -59,17 +53,10 @@ div#tapeWiki {
 #mixtape_placeholder {
   margin-top: 8px;
 }
-#mixtapeList {
-  max-height: 180px;
-  width: auto;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
+
 #mixtape_placeholder .page-header {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-weight: 400;
-  padding-top: 5px;
+  padding-top: 10px;
+  border-bottom: 1px solid #fff;
 }
 
 #mixtape_placeholder .well {
@@ -79,39 +66,33 @@ div#tapeWiki {
 }
 
 #mixtapesListIndex {
-  border-top: 1px solid #fff;
-  padding-top: 5px;
-}
-#mixtapesListIndex > nav {
-
-}
-
-#mixtape_placeholder #mixtapeHint {
-  border-bottom: 1px solid #fff;
-  padding-bottom: 10px;
-  margin: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
 }
 
 #tapeArtists .page-header {
   margin-bottom: 10px;
 }
-#tapeArtists a {
-  color: #333;
-  border: 0;
-}
-
 #tapeArtists a,
 #mixtape_placeholder a {
   text-transform: capitalize;
   margin-bottom: 6px;
-  font-weight: 300;
+  font-weight: 400;
   font-family: Helvetica;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 14px;
 }
+
+#tapeArtists a {
+  color: #333;
+  border: 0;
+  border-radius: 4px;
+}
+
 .badge {
   font-weight: 400;
   background-color: #333;
+  text-transform: lowercase;
 }
 #mixtape_placeholder .badge {
   background-color: #eee;

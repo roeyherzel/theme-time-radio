@@ -22,8 +22,9 @@
 ul.nav-tabs {
   border-bottom: 0;
 }
-.nav-tabs > li.active > a {
+.nav-tabs.nav-justified > li.active > a {
   background-color: #eee;
+  border-bottom: 0;
 }
 .nav-tabs.nav-justified > li > a {
   border-bottom: 0;

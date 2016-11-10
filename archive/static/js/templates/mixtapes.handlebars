@@ -1,23 +1,23 @@
 
 <div class="container well">
+  <div id="mixtapesListIndex"class="text-center">
+    {{#indexGroups tags}}{{/indexGroups}}
+  </div>
+
   <div id="mixtapeList">
     {{#each tags as |group|}}
-      <h4 id="{{@key}}" class="page-header text-left">{{@key}}</h4>
+      <h3 class="page-header" id="{{@key}}">{{@key}}</h3>
 
-      <ul class="list-inline text-left">
+      <ul class="list-inline">
         {{#each group as |tag|}}
           <li>
             <a href="#" class="btn btn-default" role="button" tag-name="{{tag.tag.name}}">
-              {{tag.tag.name}}&nbsp;&nbsp;<span class="badge">{{tag.track_count}}</span>
+              {{tag.tag.name}}&nbsp;&nbsp;<span class="badge">{{tag.track_count}} songs</span>
             </a>
           </li>
         {{/each}}
       </ul>
     {{/each}}
-  </div>
-
-  <div id="mixtapesListIndex"class="text-center">
-    {{#indexGroups tags}}{{/indexGroups}}
   </div>
 
 </div>
