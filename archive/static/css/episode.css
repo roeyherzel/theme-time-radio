@@ -20,11 +20,14 @@ ul.pager {
   margin: 0;
   margin-bottom: 5px;
 }
+ul.pager li.disabled > a,
 ul.pager li > a {
   padding: 0;
   background-color: inherit;
   border: 0;
   font-size: 40px;
+}
+ul.pager li > a {
   color: #333;
 }
 

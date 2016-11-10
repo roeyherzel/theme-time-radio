@@ -7,7 +7,7 @@ import logging
 import json
 
 logging.getLogger("requests").setLevel(logging.WARNING)
-logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='tagging.log', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='tagging.log', level=logging.DEBUG)
 
 
 class LastFMArtist(object):
