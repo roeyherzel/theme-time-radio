@@ -18,7 +18,7 @@ def clean_db():
 
 
 @manager.command
-def clean_spotify():
+def clear_spotify():
     models.ArtistsTags.query.delete()
     models.TracksSongs.query.delete()
     models.TracksArtists.query.delete()
@@ -29,13 +29,13 @@ def clean_spotify():
 
 
 @manager.command
-def add_podcasts():
+def load_episodes():
     import wiki_parser
     import tth_parser
 
 
 @manager.command
-def add_spotify():
+def load_spotify():
     import spotify_tagger as s
     s.db_query()
 

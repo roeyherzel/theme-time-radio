@@ -18,7 +18,14 @@ from archive import app, models
 """
 
 prs_episode = re.compile(r"^Episode\s(?P<id>\d+):?\s(?P<title>.*?)$")
-prs_track = re.compile(r'^\"?(?P<song>.*?)\"?\s—\s(?P<artist>.*?)\s\((?P<year>\d+)\)$')
+
+dash_list = "[{}{}{}]".format(
+    b'\xe2\x80\x94'.decode(),
+    b'\xe2\x80\x93'.decode(),
+    '-'
+)
+prs_track_full = re.compile(r'^\"?(?P<song>.*?)\"?\s?' + dash_list + r'\s?(?P<artist>.*?)\s?\((?P<year>\d+).*?\)')
+prs_track_no_year = re.compile(r'^\"?(?P<song>.*?)\"?\s' + dash_list + r'\s(?P<artist>.*?)$')
 
 
 class TrackParser(object):
@@ -28,13 +35,22 @@ class TrackParser(object):
         self.song, self.artist, self.year = None, None, None
         self.title = track_str
         self.position = position
+        self.resolved = self.parse()
 
-        res = prs_track.search(track_str)
-        if not res:
-            return
+    def parse(self):
+        res = prs_track_full.search(self.title)
+        if res:
+            self.song, self.artist, self.year = res.groups()
+            self.year = int('{:<04}'.format(self.year))
+            return True
 
-        self.resolved = True
-        self.song, self.artist, self.year = res.groups()
+        res = prs_track_no_year.search(self.title)
+        if res:
+            self.song, self.artist = res.groups()
+            return True
+
+        print("Error...could not resolve track: {}".format(self.title.encode()))
+        return False
 
     def dbAdd(self, episode_id):
         models.Mixin.create(models.Tracks(episode_id=episode_id, resolved=self.resolved, position=self.position, title=self.title,
