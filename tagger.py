@@ -161,16 +161,16 @@ def tagTrack(song, artist, track_id):
             logging.error("didn't find track for: %s / %s", song, artist)
 
 
-def tag_from_query(arg):
-    logging.info("Tagging #%d Tracks", len(arg))
-    for myTrack in arg:
-        logging.debug(myTrack)
-        tagTrack(song=myTrack.parsed_song, artist=myTrack.parsed_artist, track_id=myTrack.id)
+def tag_from_query(track_list):
+    logging.info("--- Tagging #%d Tracks", len(track_list))
+    for track in track_list:
+        logging.debug(track)
+        tagTrack(song=track.parsed_song, artist=track.parsed_artist, track_id=track.id)
 
 
 def tag_all_unresolved_tagged(limit=None):
     with app.app_context():
-        track_list = models.Tracks.query.filter(models.Tracks.spotify_artists == None, models.Tracks.resolved == True)
+        track_list = models.Tracks.query.filter(models.Tracks.spotify_song == None, models.Tracks.resolved == True)
         if limit:
             track_list = track_list.limit(limit)
 
