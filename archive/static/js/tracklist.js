@@ -22,6 +22,7 @@ function createSpotifyPlayer(tracklist, options) {
   } else if (tracksOnSpotify.length === 1) {
     settings.height = "80";
   }
+  // FIXME: need to escape the string because spotify player won't work if it has charecters like &
   settings.title = settings.title.replace(/\s/g, "%20");
   settings.song_ids = tracksOnSpotify.join(',');
 

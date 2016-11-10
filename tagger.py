@@ -16,12 +16,14 @@ class BaseAPI(object):
 
     def make_request(self):
         try:
-            return requests.get(self.url, params=self.params, headers=self.headers)
+            self.request = requests.get(self.url, params=self.params, headers=self.headers)
 
         except requests.exceptions.ConnectionError as err:
             logging.error("[%s] - %s...retry in 2 sec", self.__class__, err)
             time.sleep(2)
-            return requests.get(url, kwargs)
+            self.request = requests.get(self.url, params=self.params, headers=self.headers)
+
+        logging.debug("make_request - %s", self.request.url)
 
 
 class LastFM(BaseAPI):
@@ -37,7 +39,7 @@ class LastFM(BaseAPI):
         }
         self.found = False
         self.params['artist'] = artist
-        self.request = self.make_request()
+        self.make_request()
         if self.request.ok:
             try:
                 self.data = self.request.json()['artist']
@@ -72,7 +74,7 @@ class Spotify(BaseAPI):
             self.params['q'] = "artist:{}".format(artist)
             self.params['type'] = 'artist'
 
-        self.request = self.make_request()
+        self.make_request()
         if self.request.ok:
             types = "{}s".format(self.params['type'])
             try:

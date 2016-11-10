@@ -9,6 +9,7 @@ Handlebars.registerHelper('nl2br', function(string, options) {
 Handlebars.registerHelper('getArtistTitle', function(spotify_artists, parsed_artist, options) {
 
   if (spotify_artists.length > 0) {
+    console.log(spotify_artists);
     return _.map(spotify_artists, function(a) { return `<a href="/artists/${a.artist.id}">${a.artist.name}</a>` })
             .join('&#44;&#32;');  // comma;space;
   } else {
