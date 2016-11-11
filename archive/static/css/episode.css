@@ -5,11 +5,6 @@
   font-weight: 300;
   margin: 0;
 }
-.jumbotron p.aired {
-  font-size: 16px;
-}
-
-.media-object { padding-right: 20px; }
 
 ul.pager {
   margin: 0;
@@ -23,14 +18,21 @@ ul.pager li > a {
   font-size: 40px;
 }
 
-#episodeInfo {
+#heading {
   margin-bottom: 0;
   background-color: #92E1C0;
   padding-top: 50px;
   padding-bottom: 0;
 }
-#episodeInfo h1 {
+#heading h1 {
   color: #333;
+}
+#heading.jumbotron p {
+  font-size: 16px;
+}
+#heading.jumbotron p.aired {
+  font-size: 18px;
+  padding-left: 5px;
 }
 
 audio {
@@ -38,32 +40,19 @@ audio {
 }
 blockquote {
   padding: 5px 0 0 10px;
-  margin-top: 0;
+  margin-top: 20px;
   margin-bottom: 10px;
   border-left-width: thin;
   border-left-color: #777777;
 }
 
-#episodeInfo.jumbotron p {
-  font-size: 18px;
-}
-#episodeInfo.jumbotron p.aired {
-  padding-left: 5px;
-}
 
-#episodePlaylist {
-  background-color: #F8F8F8;
+#episode_data {
   padding-top: 0;
   padding-bottom: 80px;
   margin-bottom: 0;
 }
 
-
-#tracklist_artists_placeholder a {
-  text-transform: capitalize;
-  margin-bottom: 6px;
-  font-weight: 300;
-  font-family: Helvetica;
-  border-radius: 20px;
-  font-size: 12px;
+div#tracklist_artists_template a {
+  padding: 3px 8px;
 }

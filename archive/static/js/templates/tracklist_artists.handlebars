@@ -1,12 +1,14 @@
 
-{{#if show_title}}
-  <h2 class="page-header">Artists {{#badgeLength artists}}{{/badgeLength}}</h2>
-{{/if}}
+<div id="tracklist_artists_template">
+  {{#if show_title}}
+    <h2 class="page-header">Artists {{#badgeLength artists}}{{/badgeLength}}</h2>
+  {{/if}}
 
-<ul class="list-inline">
-  {{#each artists}}
-    <li>
-      <a href="{{view}}" class="btn btn-default" role="button">{{name}}</a>
-    </li>
-  {{/each}}
-</ul>
+  <ul class="list-inline">
+    {{#each artists}}
+      <li>
+        <a href="{{view}}" class="btn btn-default" role="button">{{name}}</a>
+      </li>
+    {{/each}}
+  </ul>
+</div>

@@ -60,12 +60,15 @@ class ArtistsTagsAPI(Resource):
 
     @marshal_with(schemas.Tags().as_dict)
     def get(self, artist_id):
-        return spotify.Tags.query.join(spotify.ArtistsTags, (spotify.ArtistsTags.tag_id == spotify.Tags.id)) \
-                                 .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
-                                 .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
-                                 .filter(spotify.ArtistsTags.artist_id == artist_id) \
-                                 .filter(podcast.Tracks.spotify_song) \
-                                 .all()
+        res = spotify.Tags.query.join(spotify.ArtistsTags, (spotify.ArtistsTags.tag_id == spotify.Tags.id)) \
+                                .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
+                                .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
+                                .filter(spotify.ArtistsTags.artist_id == artist_id) \
+                                .filter(podcast.Tracks.spotify_song) \
+                                .all()
+
+        # NOTE: WORKAROUND: issue with spotifyPlayer with more then 70 songs
+        return [t for t in res if t.artists.count() > 4 and t.artists.count() < 70]
 
 
 @api.resource('/api/tags', '/api/tags/<string:tag_name>')
@@ -78,23 +81,29 @@ class TagsAPI(Resource):
         if args.get('all') is True:
             return spotify.Tags.query.all()
 
+        # NOTE: WORKAROUND: issue with spotifyPlayer with more then 70 songs
         res = db.session.query(spotify.Tags, func.count(podcast.Tracks.id).label('track_count')) \
                         .join(spotify.ArtistsTags, (spotify.ArtistsTags.tag_id == spotify.Tags.id)) \
                         .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
                         .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
                         .filter(podcast.Tracks.spotify_song) \
                         .group_by(spotify.Tags) \
-                        .order_by(desc('track_count'))
+                        .having(func.count(podcast.Tracks.id) < 70) \
+                        .having(func.count(podcast.Tracks.id) > 4)
 
         if tag_name:
             res = res.filter(spotify.Tags.name == tag_name).first()
             return {'tag': res[0], 'track_count': res[1]}
 
+        if args.get('random'):
+            res = res.order_by(func.random())
+        else:
+            res = res.order_by(desc('track_count'))
+
         if args.get('limit'):
             res = res.limit(args.get('limit'))
 
-        res = res.all()
-        return [{'tag': i[0], 'track_count': i[1]} for i in res]
+        return [{'tag': i.Tags, 'track_count': i.track_count} for i in res.all()]
 
 
 @api.resource('/api/tags/<string:tag_name>/artists')

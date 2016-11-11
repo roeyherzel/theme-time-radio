@@ -29,11 +29,11 @@
 
 img { width: 300px; }
 
-#jumboTapeData {
+#mixtape_data {
   padding-top: 30px;
 }
 
-#jumboTapeData small {
+#mixtape_data small {
   color: #333;
 }
 
@@ -50,31 +50,29 @@ div#tapeWiki {
   font-size: 16px;
 }
 
-#mixtape_placeholder {
+#mixtapes_placeholder {
   margin-top: 8px;
 }
 
-#mixtape_placeholder .page-header {
+#mixtapes_placeholder .page-header {
   padding-top: 10px;
   border-bottom: 1px solid #fff;
 }
 
-#mixtape_placeholder .well {
+#mixtapes_placeholder .well {
   padding-top: 10px;
   padding-bottom: 10px;
   margin: 0;
 }
 
-#mixtapesListIndex {
+#mixtapes_index {
   border-bottom: 1px solid #eee;
   padding-bottom: 5px;
+  font-weight: 300;
+  font-family: Helvetica;
 }
 
-#tapeArtists .page-header {
-  margin-bottom: 10px;
-}
-#tapeArtists a,
-#mixtape_placeholder a {
+#mixtapes_placeholder a[role="button"] {
   text-transform: capitalize;
   margin-bottom: 6px;
   font-weight: 400;
@@ -83,19 +81,10 @@ div#tapeWiki {
   font-size: 14px;
 }
 
-#tapeArtists a {
-  color: #333;
-  border: 0;
-  border-radius: 4px;
-}
-
-.badge {
-  font-weight: 400;
-  background-color: #333;
-  text-transform: lowercase;
-}
-#mixtape_placeholder .badge {
+#mixtapes_placeholder .badge {
   background-color: #eee;
   color: #333;
   font-size: 10px;
+  font-weight: 400;
+  text-transform: lowercase;
 }

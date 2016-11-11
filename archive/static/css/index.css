@@ -15,7 +15,7 @@
   color: #333;
 }
 
-.sub-header {
+.sub-heading {
   font-size: 24px;
   margin-bottom: 10px;
 }
@@ -32,23 +32,23 @@ div.container > h2 > a[role="button"] {
   background-color: #eee;
 }
 
-#header {
+#heading {
   background-color: #333;
   padding-top: 100px;
-  padding-bottom: 120px;
+  padding-bottom: 180px;
 }
 
-#header div.media-left { vertical-align: middle; }
-#header img.media-object {
+#heading div.media-left { vertical-align: middle; }
+#heading img.media-object {
   width: 320px;
   height: auto;
   margin-right: 10px;
 }
-#header h1 {
+#heading h1 {
   font-weight: bold;
   color: white;
 }
-#header p {
+#heading p {
   font-size: 28px;
   font-weight: 100;
   color: #1AB068;
@@ -57,7 +57,7 @@ div.container > h2 > a[role="button"] {
   margin-top: 0;
   border-top: 1px solid white;
 }
-#header p img {
+#heading p img {
   width: 148px;
   height: auto;
   padding-bottom: 5px;
@@ -95,7 +95,7 @@ div.container > h2 > a[role="button"] {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: #777;
+  margin-bottom: 0;
 }
 
 #featureArtists li,
@@ -107,7 +107,7 @@ div.container > h2 > a[role="button"] {
   width: 130px;
 }
 #featureMixtapes h4 {
-  color: white;
+  color: #333;
   width: 165px;
   font-size: 21px;
   margin-bottom: 5px;

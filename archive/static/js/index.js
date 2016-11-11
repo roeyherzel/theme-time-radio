@@ -5,11 +5,9 @@ $(document).ready(function() {
 
   $.getJSON("/api/episodes", { limit: 5 }, function(episodes, status) {
 
-    $.getJSON("/api/artists", { limit:5, random: true }, function(artists, status) {
+    $.getJSON("/api/artists", { limit: 5, random: true }, function(artists, status) {
 
-      $.getJSON("/api/tags", { limit: 20 }, function(tags, status) {
-
-        tags = _.shuffle(tags).slice(0,5);
+      $.getJSON("/api/tags", { limit: 5, random: true }, function(tags, status) {
 
         getTemplateAjax("features.handlebars", function(template) {
 

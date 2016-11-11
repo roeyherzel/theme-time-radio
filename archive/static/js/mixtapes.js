@@ -8,7 +8,7 @@ function loadMixtape(tapeTarget) {
 
   if (tagName) {
     // remove and set active
-    $("#mixtape_placeholder").find(".active").removeClass("active");
+    $("#mixtapes_placeholder").find(".active").removeClass("active");
     $target.addClass("active");
 
     // remove h1 page title
@@ -33,7 +33,7 @@ function loadMixtape(tapeTarget) {
       getTemplateAjax('tracklist_artists.handlebars', function(template) {
 
         var context = { show_title: true, artists: _.sortBy(data, 'name') };
-        $("#tapeArtists").html(template(context));
+        $("#tracklist_artists_placeholder").html(template(context));
 
       });
     });
@@ -48,31 +48,28 @@ $(document).ready(function() {
 
     $.getJSON('/api/tags', function(tags, status) {
 
-      // filter tags
-      tags = _.filter(tags, function(t) { return t.track_count > 5 });
+      /* sort by tag name */
+      tags = _.sortBy(tags, function(t) { return t.tag.name.toLowerCase() });
 
-      // sort by tag name
-      tags = _.sortBy(tags, function(t) { return t.tag.name.toLowerCase() });    
-
-      // group by tag first index
+      /* group by tag first index */
       var groupedTags = _.groupBy(tags, function(t) {
         var index = t.tag.name[0];
         return (! _.isNaN(Number(index))) ? "#" : index.toUpperCase();
       });
 
-      // render mixtape cloud template
+      /* render mixtape cloud template */
       var context = { tags: groupedTags };
-      $('#mixtape_placeholder').html(template(context));
+      $('#mixtapes_placeholder').html(template(context));
 
-      // specific tape in url
+      /* specific tape in url */
       if (! (_.isNull($USER_TAPE) || _.isUndefined($USER_TAPE))) {
 
-        var $tapeAnchor = $(`#mixtapeList a[tag-name='${$USER_TAPE}']`);
+        var $tapeAnchor = $(`#mixtapeList a[tag-name='${$USER_TAPE}']`)[0];
         if ($tapeAnchor) {
-          loadMixtape($tapeAnchor[0]);
+          loadMixtape($tapeAnchor);
         }
       }
-      // Event handling for clicking a tape
+      /* Event handling for clicking a tape */
       $('#mixtapeList > ul > li').click(function(e) { loadMixtape(e.target) });
     });
   });

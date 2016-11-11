@@ -77,6 +77,28 @@ h2 small {
   font-weight: 100;
 }
 
+/* tracklist artists */
+div#tracklist_artists_template a[role="button"] {
+    text-transform: capitalize;
+    margin-bottom: 6px;
+    font-weight: 400;
+    font-family: Helvetica;
+    font-size: 14px;
+    color: #333;
+    border: 0;
+    border-radius: 4px;
+}
+
+div#tracklist_artists_template .page-header {
+  margin-bottom: 10px;
+}
+
+div#tracklist_artists_template .badge {
+  font-weight: 400;
+  background-color: #333;
+}
+
+
 /* playlist/tracklist Related */
 div.tracklist {
   border-radius: 8px;
