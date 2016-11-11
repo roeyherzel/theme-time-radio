@@ -1,9 +1,11 @@
 import requests
 import sys
 import time
-from archive import app, models
 import logging
 import json
+import unicodedata
+
+from archive import app, models
 
 logging.getLogger("requests").setLevel(logging.WARNING)
 logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='tagging.log', level=logging.INFO)
@@ -87,8 +89,8 @@ class Spotify(BaseAPI):
 class BaseResource(object):
     def __init__(self, data):
         self.id = data['id']
-        self.name = data['name']
-        self.type = data['type']
+        # removes accents like "Édith Piaf"
+        self.name = unicodedata.normalize('NFKD', data['name']).encode('ASCII', 'ignore')
         self.newModel = self.Model(id=self.id, name=self.name)
 
     def __str__(self):
@@ -106,6 +108,7 @@ class CollectArtistData(BaseResource):
 
         artistInfo = LastFM(self.newModel.name)
         if artistInfo.found:
+            # LastFM name must be left with accents like "Édith Piaf"
             self.newModel.lastfm_name = artistInfo.getName()
             self.newModel.lastfm_image = artistInfo.getImage()
 
@@ -113,7 +116,7 @@ class CollectArtistData(BaseResource):
 
         if artistInfo.found:
             for tag in artistInfo.getTags():
-                models.create(models.spotify.Tags(name=tag))
+                models.create(models.Tags(name=tag))
                 models.create(models.ArtistsTags(tag_id=models.Tags.getId(tag), artist_id=self.newModel.id))
 
     def __repr__(self):

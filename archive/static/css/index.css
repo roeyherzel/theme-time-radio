@@ -20,11 +20,12 @@
   margin-bottom: 10px;
 }
 
+/* all */
 div.container > h2 > a[role="button"] {
   float: right;
   text-transform: capitalize;
   margin: 0;
-  padding: 3px 6px;
+  padding: 2px 6px 1px 6px;
   font-weight: 300;
   font-family: Helvetica;
   font-size: 12px;
@@ -89,14 +90,19 @@ div.container > h2 > a[role="button"] {
 #featureArtists img {
   width: 160px;
 }
-#featureArtists h4 {
+
+#featureArtists h4,
+#featureMixtapes h4 {
   width: 165px;
   font-size: 16px;
+  font-family: Helvetica;
+  text-transform: capitalize;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  margin-bottom: 0;
 }
+#featureArtists h4 { color: #333; }
+#featureMixtapes h4 { color: white; margin-bottom: 5px;}
 
 #featureArtists li,
 #featureMixtapes li {
@@ -105,14 +111,4 @@ div.container > h2 > a[role="button"] {
 }
 #featureMixtapes img {
   width: 130px;
-}
-#featureMixtapes h4 {
-  color: #333;
-  width: 165px;
-  font-size: 21px;
-  margin-bottom: 5px;
-  text-transform: capitalize;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }

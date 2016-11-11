@@ -11,4 +11,5 @@ api = Api(app)
 
 import archive.resources.podcast
 import archive.resources.spotify
+import archive.resources.tags
 import archive.views

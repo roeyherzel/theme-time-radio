@@ -5,7 +5,7 @@
       <th>#</th>
       <th>SONG</th>
       <th>ARTIST</th>
-      <th>YEAR</th>
+      <th class="text-center">YEAR</th>
     </thead>
     <tbody>
       {{#each tracklist}}
@@ -21,17 +21,13 @@
 
           {{#if resolved}}
             <td>
-              {{#if spotify_song.song.id}}
-                {{spotify_song.song.name}}
-              {{else}}
-                {{parsed_song}}
-              {{/if}}
+              {{#if spotify_song.song.id}}{{spotify_song.song.name}}{{else}}{{parsed_song}}{{/if}}
             </td>
             <td>
               {{#getArtistTitle spotify_artists parsed_artist}}{{/getArtistTitle}}
             </td>
-            <td>
-              {{year}}
+            <td class="text-center">
+              {{#if year}}{{year}}{{else}}-{{/if}}
             </td>
           {{else}}
             <td colspan="3">

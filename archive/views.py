@@ -45,14 +45,12 @@ def artist_view(index="A", artist_id=None):
 
         return render_template('artist.html.jinja', artist=res)
 
-    index = index.upper()
-    artists_names = db.session.query(Artists.name).order_by(Artists.name).all()
-
     # build uniqe list of sorted artist names index
-    artists_index = [re.sub(r"[^a-zA-Z]", "0", i[0][0].upper()) for i in artists_names]
+    artists_index = [re.sub(r"[^a-zA-Z]", "0", i.name[0].upper()) for i in Artists.query.order_by(Artists.name).all()]
     artists_index = sorted(set(artists_index))
 
     # get artist objects matching index
+    index = index.upper()
     if index == "0":
         # didn't find a method to performe the filtering in db query
         artists = [a for a in Artists.query.all() if re.match(r"[^a-zA-Z]", a.name[0])]

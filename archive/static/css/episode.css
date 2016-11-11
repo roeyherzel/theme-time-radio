@@ -15,7 +15,8 @@ ul.pager li > a {
   padding: 0;
   background-color: inherit;
   border: 0;
-  font-size: 40px;
+  font-size: 46px;
+  color: #333;
 }
 
 #heading {
