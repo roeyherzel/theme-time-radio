@@ -35,7 +35,7 @@ div.container > h2 > a[role="button"] {
 #heading {
   background-color: #333;
   padding-top: 100px;
-  padding-bottom: 180px;
+  padding-bottom: 160px;
 }
 
 #heading div.media-left { vertical-align: middle; }
@@ -100,7 +100,7 @@ div.container > h2 > a[role="button"] {
 
 #featureArtists li,
 #featureMixtapes li {
-  margin: 10px 25px 0 25px;
+  margin: 0 25px 0 25px;
   vertical-align: top;
 }
 #featureMixtapes img {
