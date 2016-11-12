@@ -11,8 +11,17 @@
           <h1 class="media-heading">Theme<br>Time<br>Radio Tapes</h1>
           <p><img class="spotify-logo" src="{{ url_for('static', filename='images/Spotify_Logo_CMYK_White.png') }}" alt="" /> playlists based on music from Bob Dylan's radio show</p>
         </div>
-      </div>
 
+      </div>
+    </div>
+    <hr>
+    <div class="container text-center">
+      <ul class="list-inline">
+        <li><span class="stats">{{stats.episodes}}</span> Episodes</li>
+        <li><span class="stats">{{stats.songs}}</span> Songs</li>
+        <li><span class="stats">{{stats.artists}}</span> Artists</li>
+        <li><span class="stats">{{stats.tags}}</span> Mixtapes</li>
+      </ul>
     </div>
   </div>
 

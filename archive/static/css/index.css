@@ -7,11 +7,7 @@
 }
 .media {
   padding: 10px;
-}
-.badge {
-  font-weight: 400;
-  background-color: #eee;
-  color: #333;
+  margin-bottom: 180px
 }
 .sub-heading {
   font-size: 24px;
@@ -36,7 +32,6 @@ div.container > h2 > a[role="button"] {
 
 #heading.jumbotron {
   padding-top: 50px;
-  padding-bottom: 160px;
 }
 
 #heading img.media-object {
@@ -55,13 +50,29 @@ div.container > h2 > a[role="button"] {
   padding-top: 5px;
   margin-bottom: 0;
   margin-top: 0;
-  border-top: 1px solid white;
+  border-top: 1px solid #eee;
 }
 #heading p img {
   width: 148px;
   height: auto;
   padding-bottom: 5px;
   object-fit: scale-down;
+}
+
+#heading hr {
+  border-bottom-color: #777;
+  margin-bottom: 10px;
+}
+#heading ul {
+  margin-bottom: 20px;
+}
+#heading ul > li {
+  color: #92E1C0;
+  font-weight: 300;
+  font-size: 21px;
+}
+#heading ul > li > span {
+  color: #eee;
 }
 
 #featureArtists { background-color: #92E1C0; }
@@ -115,4 +126,10 @@ div.container > h2 > a[role="button"] {
 }
 #featureMixtapes img {
   width: 130px;
+}
+#featureMixtapes .badge {
+  font-weight: 400;
+  background-color: #eee;
+  color: #333;
+  margin-bottom: 180px
 }

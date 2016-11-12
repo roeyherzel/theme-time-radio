@@ -31,6 +31,7 @@ ul.pager li > a {
 }
 #heading.jumbotron h1 {
   color: #333;
+  font-size: 63px;
 }
 #heading.jumbotron p {
   font-size: 16px;

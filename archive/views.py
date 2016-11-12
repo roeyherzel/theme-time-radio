@@ -2,8 +2,8 @@ from flask import render_template
 
 from archive import app
 from archive.models import db
-from archive.models.podcast import Episodes
-from archive.models.spotify import Artists
+from archive.models.podcast import Episodes, Tracks
+from archive.models.spotify import Artists, Tags
 
 from sqlalchemy import func
 
@@ -79,4 +79,11 @@ def about():
 
 @app.route('/')
 def index():
-    return render_template('index.html.jinja')
+    # FIXME: tags count is wrong, need to limit to 5 <= count <= 70
+    stats = {
+        'episodes': "{:,}".format(Episodes.query.count()),
+        'songs': "{:,}".format(Tracks.query.count()),
+        'artists': "{:,}".format(Artists.query.count()),
+        'tags': "{:,}".format(Tags.query.count())
+    }
+    return render_template('index.html.jinja', stats=stats)
