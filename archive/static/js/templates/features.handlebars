@@ -1,32 +1,8 @@
 
-<div class="jumbotron" id="featureEpisodes">
-  <div class="container">
-
-    <h2 class="sub-header">
-      Stream Episodes & Songs <small>played on the show</small>
-      <a href="/episodes" class="btn btn-default" role="button">All Episodes</a>
-    </h2>
-
-    <ul class="list-inline text-center">
-      {{#each episodes }}
-        <li>
-          <a href="{{view}}">
-            <img class="img-responsive img-rounded" src={{image}}>
-          </a>
-          <div class="episode_title text-left">
-            <div class="small text-muted">Episode {{id}}:</div>
-            <a class="lead" href="{{view}}">{{title}}</a>
-          </div>
-        </li>
-      {{/each }}
-    </ul>
-  </div>
-</div>
-
 <div class="jumbotron" id="featureArtists">
   <div class="container">
     <h2 class="sub-header">
-      Discover Artists <small>played on the show</small>
+      Discover Artists
       <a href="/artists" class="btn btn-default" role="button">All Artists</a>
     </h2>
 
@@ -39,10 +15,34 @@
             {{else}}
               <img class="img-circle" src="/static/images/default-artist.png" alt="" />
             {{/if}}
-            <h4>{{name}}</h4>
+            <h4 title="{{name}}">{{name}}</h4>
           </a>
         </li>
       {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron" id="featureEpisodes">
+  <div class="container">
+
+    <h2 class="sub-header">
+      Stream Episodes &amp; Songs
+      <a href="/episodes" class="btn btn-default" role="button">All Episodes</a>
+    </h2>
+
+    <ul class="list-inline text-center">
+      {{#each episodes }}
+        <li>
+          <a href="{{view}}">
+            <img class="img-responsive img-rounded" src={{image}}>
+          </a>
+          <div class="episode_title text-left">
+            <div class="small text-muted">Episode {{id}}:</div>
+            <a class="lead" href="{{view}}" title="{{title}}">{{title}}</a>
+          </div>
+        </li>
+      {{/each }}
     </ul>
   </div>
 </div>
@@ -59,7 +59,7 @@
         <li>
           <a href="/mixtapes/{{tag.name}}">
             <img src="/static/images/cassette-mono.png" alt="" />
-            <h4>{{tag.name}}</h4>
+            <h4 title="{{tag.name}}">{{tag.name}}</h4>
           </a>
           <span class="badge">{{track_count}} songs</span>
         </li>

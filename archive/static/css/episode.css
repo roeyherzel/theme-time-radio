@@ -19,13 +19,17 @@ ul.pager li > a {
   color: #333;
 }
 
-#heading {
+#heading.jumbotron {
   margin-bottom: 0;
   background-color: #92E1C0;
   padding-top: 50px;
   padding-bottom: 0;
 }
-#heading h1 {
+#heading.jumbotron img {
+  width: auto;
+  height: auto;
+}
+#heading.jumbotron h1 {
   color: #333;
 }
 #heading.jumbotron p {

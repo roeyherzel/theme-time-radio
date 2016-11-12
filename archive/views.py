@@ -72,6 +72,11 @@ def episode_view(episode_id=None, season=1):
     return render_template('all_episodes.html.jinja', episodes=episodes, season=season, seasons=[1, 2, 3])
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html.jinja')
+
+
 @app.route('/')
 def index():
     return render_template('index.html.jinja')

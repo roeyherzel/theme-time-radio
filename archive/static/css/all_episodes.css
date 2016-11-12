@@ -1,21 +1,4 @@
 
-#heading h1 {
-  font-size: 70px;
-  margin-top: 10px;
-  margin-bottom: 0;
-  color: #eee;
-}
-#heading img {
-  width: 300px;
-  margin-bottom: 0;
-}
-#heading {
-  background-color: #333;
-  padding-bottom: 0;
-}
-.jumbotron {
-  margin-bottom: 0;
-}
 
 ul.nav-tabs {
   border-bottom: 0;
@@ -29,9 +12,7 @@ ul.nav-tabs {
   font-family: Helvetica;
 }
 
-#allEpisodes {
-  padding-top: 40px;
-}
+#allEpisodes { padding-top: 40px; }
 
 #allEpisodes ul.list-inline > li {
   margin: 10px 5px 20px 5px;
@@ -49,8 +30,4 @@ ul.nav-tabs {
   white-space: nowrap;
   overflow: hidden;
 }
-.episode_title a {
-
-  font-size: 18px;
-
-}
+.episode_title a { font-size: 18px; }

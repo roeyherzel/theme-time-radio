@@ -16,8 +16,26 @@
 }
 #lastfm_logo { padding-bottom: 4px; }
 
-.jumbotron {
+
+.jumbotron { margin-bottom: 0; }
+
+#heading.jumbotron {
   padding-top: 30px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+#heading h1 {
+  font-size: 70px;
+  margin-top: 10px;
+  color: #eee;
+}
+#heading img {
+  width: 300px;
+  margin-bottom: 0;
+  padding: 0;
+}
+#heading {
+  background-color: #333;
 }
 
 th {

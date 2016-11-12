@@ -5,7 +5,6 @@
   padding-top: 0;
   padding-bottom: 30px;
 }
-
 .media {
   padding: 10px;
 }
@@ -14,7 +13,6 @@
   background-color: #eee;
   color: #333;
 }
-
 .sub-heading {
   font-size: 24px;
   margin-bottom: 10px;
@@ -28,14 +26,16 @@ div.container > h2 > a[role="button"] {
   padding: 2px 6px 1px 6px;
   font-weight: 300;
   font-family: Helvetica;
-  font-size: 12px;
+  font-size: 14px;
   border: 0;
-  background-color: #eee;
+}
+.btn-default {
+  background-color: transparent;
+  color: #337ab7;
 }
 
-#heading {
-  background-color: #333;
-  padding-top: 100px;
+#heading.jumbotron {
+  padding-top: 50px;
   padding-bottom: 160px;
 }
 
@@ -65,8 +65,8 @@ div.container > h2 > a[role="button"] {
   object-fit: scale-down;
 }
 
-#featureEpisodes { background-color: white; }
 #featureArtists { background-color: #92E1C0; }
+#featureEpisodes { background-color: #eee; }
 #featureMixtapes { background-color: #9FC6E7; }
 
 #featureEpisodes li {
