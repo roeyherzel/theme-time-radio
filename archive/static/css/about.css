@@ -5,14 +5,14 @@
 }
 
 #heading.jumbotron {
-  background-color: #B99AFF;
+  background-color: #F691B2;
 }
 #heading img {
   width: 300px;
 }
 #heading h1 {
-  color: white;
-  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 #content.container {

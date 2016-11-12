@@ -8,3 +8,4 @@ venv/
 
 # Logs
 tagging.log
+output.log
