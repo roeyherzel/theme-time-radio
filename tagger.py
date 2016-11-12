@@ -90,7 +90,7 @@ class BaseResource(object):
     def __init__(self, data):
         self.id = data['id']
         # removes accents like "Édith Piaf"
-        self.name = unicodedata.normalize('NFKD', data['name']).encode('ASCII', 'ignore')
+        self.name = unicodedata.normalize('NFKD', data['name']).encode('ASCII', 'ignore').decode()
         self.newModel = self.Model(id=self.id, name=self.name)
 
     def __str__(self):
