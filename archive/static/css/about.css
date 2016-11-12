@@ -18,11 +18,14 @@
 #content.container {
   padding-bottom: 100px;
 }
+#content blockquote {
+  margin-bottom: 0;
+}
 #content blockquote > p {
   font-size: 14px;
   font-weight: normal;
+  font-family: Helvetica;
 }
-
 #content ul.list-unstyled {
   line-height: 2;
 }
