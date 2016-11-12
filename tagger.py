@@ -171,7 +171,7 @@ def tag_from_query(track_list):
         tagTrack(song=track.parsed_song, artist=track.parsed_artist, track_id=track.id)
 
 
-def tag_all_unresolved_tagged(limit=None):
+def tag_all_unresolved_untagged(limit=None):
     with app.app_context():
         track_list = models.Tracks.query.filter(models.Tracks.spotify_song == None, models.Tracks.resolved == True)
         if limit:

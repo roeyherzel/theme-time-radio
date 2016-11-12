@@ -37,8 +37,8 @@ def load_episodes():
 
 @manager.command
 def load_spotify():
-    import spotify_tagger as s
-    s.db_query()
+    from tagger import tag_all_unresolved_untagged
+    tag_all_unresolved_untagged()
 
 if __name__ == "__main__":
     manager.run()
