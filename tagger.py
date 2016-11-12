@@ -89,8 +89,7 @@ class Spotify(BaseAPI):
 class BaseResource(object):
     def __init__(self, data):
         self.id = data['id']
-        # removes accents like "Édith Piaf"
-        self.name = unicodedata.normalize('NFKD', data['name']).encode('ASCII', 'ignore').decode()
+        self.name = data['name']
         self.newModel = self.Model(id=self.id, name=self.name)
 
     def __str__(self):
@@ -105,6 +104,8 @@ class CollectArtistData(BaseResource):
     def __init__(self, data):
         self.Model = models.Artists
         super().__init__(data)
+        # removes accents like "Édith Piaf"
+        self.newModel.name = unicodedata.normalize('NFKD', self.newModel.name).encode('ASCII', 'ignore').decode()
 
         artistInfo = LastFM(self.newModel.name)
         if artistInfo.found:
