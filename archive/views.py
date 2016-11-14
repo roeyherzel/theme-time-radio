@@ -42,12 +42,16 @@ def mixtapes_view(tape_name=None):
 
 @app.route('/artists/<string:artist_id>')
 @app.route('/artists/name/<string:artist_name>')
-def artist_view(artist_id=None, artist_name=None):
+@app.route('/artists/lastfm/<string:lastfm_name>')
+def artist_view(artist_id=None, artist_name=None, lastfm_name=None):
     if artist_id:
         res = Artists.query.get(artist_id)
 
     elif artist_name:
         res = Artists.query.filter(func.lower(Artists.name) == artist_name.lower()).one_or_none()
+
+    elif lastfm_name:
+        res = Artists.query.filter(func.lower(Artists.lastfm_name) == lastfm_name.lower()).one_or_none()
 
     if res is None:
         abort(404)

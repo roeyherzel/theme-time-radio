@@ -38,7 +38,7 @@ h3 {
   margin-top: 0;
 }
 .glyphicon {
-  vertical-align: sub;
+  vertical-align: baseline;
   text-indent: 15px;
   font-size: 28px;
 }
