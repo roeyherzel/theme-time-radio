@@ -60,17 +60,8 @@ class ArtistsTagsAPI(Resource):
 
     @marshal_with(schemas.Tags().as_dict)
     def get(self, artist_id):
-        # NOTE: WORKAROUND: issue with spotifyPlayer with more then 70 songs
-        res = db.session.query(Tags, func.count(Tracks.id).label('track_count')) \
-                        .join(ArtistsTags, (ArtistsTags.tag_id == Tags.id)) \
-                        .join(TracksArtists, (TracksArtists.artist_id == ArtistsTags.artist_id)) \
-                        .join(Tracks, (Tracks.id == TracksArtists.track_id)) \
-                        .filter(Tracks.spotify_song) \
-                        .group_by(Tags) \
-                        .having(func.count(Tracks.id) <= 70) \
-                        .having(func.count(Tracks.id) >= 5)
-
-        return [i[0] for i in res.all() if i[0].artists.filter(ArtistsTags.artist_id == artist_id).count() > 0]
+        res = Tags.getAllValid().all()
+        return [i[0] for i in res if i[0].artists.filter(ArtistsTags.artist_id == artist_id).count() > 0]
 
 """
 -----------------------------

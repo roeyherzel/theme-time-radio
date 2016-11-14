@@ -22,16 +22,7 @@ class TagsAPI(Resource):
     def get(self, tag_name=None):
         args = parser.parse_args()
 
-        # NOTE: WORKAROUND: issue with spotifyPlayer with more then 70 songs
-        res = db.session.query(Tags, func.count(Tracks.id).label('track_count')) \
-                        .join(ArtistsTags, (ArtistsTags.tag_id == Tags.id)) \
-                        .join(TracksArtists, (TracksArtists.artist_id == ArtistsTags.artist_id)) \
-                        .join(Tracks, (Tracks.id == TracksArtists.track_id)) \
-                        .filter(Tracks.spotify_song) \
-                        .group_by(Tags) \
-                        .having(func.count(Tracks.id) <= 70) \
-                        .having(func.count(Tracks.id) >= 5)
-
+        res = Tags.getAllValid()
         if tag_name:
             res = res.filter(Tags.name == tag_name).first()
             return {'tag': res[0], 'track_count': res[1]}
@@ -52,7 +43,6 @@ class TagsArtistsAPI(Resource):
 
     @marshal_with(schemas.Artist().as_dict)
     def get(self, tag_name):
-
         return Artists.query.join(ArtistsTags, ArtistsTags.artist_id == Artists.id) \
                             .join(Tags, (Tags.id == ArtistsTags.tag_id)) \
                             .join(TracksArtists, (TracksArtists.artist_id == ArtistsTags.artist_id)) \

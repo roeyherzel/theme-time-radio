@@ -3,6 +3,10 @@
   background-color: #eee;
 }
 
+.page-header {
+  margin-top: 130px;
+}
+
 #heading.jumbotron {
   background-color: #F691B2;
 }
@@ -34,8 +38,9 @@ h3 {
   margin-top: 0;
 }
 .glyphicon {
-  vertical-align: initial;
+  vertical-align: sub;
   text-indent: 15px;
+  font-size: 28px;
 }
 .this-website {
   font-size: 18px;

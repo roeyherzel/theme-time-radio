@@ -1,5 +1,6 @@
 from archive.models import db
 from archive.models.podcast import Tracks
+from sqlalchemy import func
 
 
 class Tags(db.Model):
@@ -13,6 +14,18 @@ class Tags(db.Model):
     @classmethod
     def getId(cls, name):
         return cls.query.filter_by(name=name).first().id
+
+    @classmethod
+    def getAllValid(cls):
+        # NOTE: WORKAROUND: issue with spotifyPlayer with more then 70 songs
+        return db.session.query(Tags, func.count(Tracks.id).label('track_count')) \
+                         .join(ArtistsTags, (ArtistsTags.tag_id == Tags.id)) \
+                         .join(TracksArtists, (TracksArtists.artist_id == ArtistsTags.artist_id)) \
+                         .join(Tracks, (Tracks.id == TracksArtists.track_id)) \
+                         .filter(Tracks.spotify_song) \
+                         .group_by(Tags) \
+                         .having(func.count(Tracks.id) <= 70) \
+                         .having(func.count(Tracks.id) >= 5)
 
 
 # 1:1 album - song
