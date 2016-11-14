@@ -131,5 +131,7 @@ div.container > h2 > a[role="button"] {
   font-weight: 400;
   background-color: #eee;
   color: #333;
-  margin-bottom: 180px
+}
+#featureMixtapes {
+  padding-bottom: 180px  
 }

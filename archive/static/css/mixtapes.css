@@ -15,9 +15,6 @@
   border-radius: 4px;
   text-align: center;
 }
-.footer {
-  bottom: 0;  /* because page starts very short */
-}
 
 #mixtape_data {
   padding-top: 30px;

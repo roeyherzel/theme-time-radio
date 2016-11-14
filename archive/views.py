@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, abort
 
 from archive import app
 from archive.models import db
@@ -25,7 +25,14 @@ def nl2br(eval_ctx, value):
     return result
 
 
+# ----------- error handlers ----------------
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html.jinja'), 404
+
 # ----------- views ----------------
+
 
 @app.route('/mixtapes')
 @app.route('/mixtapes/<string:tape_name>')
@@ -33,26 +40,35 @@ def mixtapes_view(tape_name=None):
     return render_template('mixtapes.html.jinja', tape_name=tape_name)
 
 
-@app.route('/artists')
 @app.route('/artists/<string:artist_id>')
-@app.route('/artists/index/<string:index>')
-def artist_view(index="A", artist_id=None):
+@app.route('/artists/name/<string:artist_name>')
+def artist_view(artist_id=None, artist_name=None):
     if artist_id:
         res = Artists.query.get(artist_id)
-        # lookup artist by lastfm_name
-        if res is None:
-            res = Artists.query.filter(Artists.lastfm_name == artist_id).one()
 
+    elif artist_name:
+        res = Artists.query.filter(func.lower(Artists.name) == artist_name.lower()).one_or_none()
+
+    if res is None:
+        abort(404)
+    else:
         return render_template('artist.html.jinja', artist=res)
 
+
+@app.route('/artists')
+@app.route('/artists/index/<string:index>')
+def all_artists_view(index="A"):
     # build uniqe list of sorted artist names index
     artists_index = [re.sub(r"[^a-zA-Z]", "0", i.name[0].upper()) for i in Artists.query.order_by(Artists.name).all()]
     artists_index = sorted(set(artists_index))
 
+    if index not in artists_index:
+        abort(404)
+
     # get artist objects matching index
     index = index.upper()
     if index == "0":
-        # didn't find a method to performe the filtering in db query
+        # didn't find a method to performe the filtering in db query, filter all NON(^) A-Z
         artists = [a for a in Artists.query.all() if re.match(r"[^a-zA-Z]", a.name[0])]
     else:
         artists = Artists.query.order_by(Artists.name).filter(func.upper(Artists.name).startswith(index)).all()
@@ -66,10 +82,17 @@ def artist_view(index="A", artist_id=None):
 def episode_view(episode_id=None, season=1):
     if episode_id:
         res = Episodes.query.get(episode_id)
+        if res is None:
+            abort(404)
+
         return render_template('episode.html.jinja', episode=res, prev=res.prev, next=res.next)
 
+    seasons = [1, 2, 3]
+    if season not in seasons:
+        abort(404)
+
     episodes = Episodes.query.filter(Episodes.season == season).order_by(Episodes.id)
-    return render_template('all_episodes.html.jinja', episodes=episodes, season=season, seasons=[1, 2, 3])
+    return render_template('all_episodes.html.jinja', episodes=episodes, season=season, seasons=seasons)
 
 
 @app.route('/about')
