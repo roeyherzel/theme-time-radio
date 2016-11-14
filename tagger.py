@@ -104,15 +104,14 @@ class CollectArtistData(BaseResource):
     def __init__(self, data):
         self.Model = models.Artists
         super().__init__(data)
-        # removes accents like "Édith Piaf"
-        self.newModel.name = unicodedata.normalize('NFKD', self.newModel.name).encode('ASCII', 'ignore').decode()
-
+        # LastFM name must be left with accents like "Édith Piaf"
         artistInfo = LastFM(self.newModel.name)
         if artistInfo.found:
-            # LastFM name must be left with accents like "Édith Piaf"
             self.newModel.lastfm_name = artistInfo.getName()
             self.newModel.lastfm_image = artistInfo.getImage()
 
+        # removes accents like "Édith Piaf"
+        self.newModel.name = unicodedata.normalize('NFKD', self.newModel.name).encode('ASCII', 'ignore').decode()
         self.create()
 
         if artistInfo.found:
