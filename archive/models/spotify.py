@@ -4,7 +4,7 @@ from archive.models.podcast import Tracks
 
 class Tags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), unique=True)
+    name = db.Column(db.String, nullable=False, unique=True)
     type = db.Column(db.String)
 
     def __repr__(self):

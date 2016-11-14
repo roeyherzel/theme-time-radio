@@ -1,4 +1,4 @@
-from archive.models import podcast
+from archive.models.podcast import *
 from archive.resources import schemas
 
 from flask_restful import Resource, reqparse, marshal_with, abort
@@ -17,9 +17,9 @@ class EpisodesAPI(Resource):
         args = parser.parse_args()
 
         if episode_id:
-            return podcast.Episodes.query.get(episode_id)
+            return Episodes.query.get(episode_id)
 
-        res = podcast.Episodes.query.order_by(podcast.Episodes.id)
+        res = Episodes.query.order_by(Episodes.id)
         if args.get('limit'):
             res = res.limit(args.get('limit'))
 
@@ -31,7 +31,7 @@ class EpisodesTracklistAPI(Resource):
 
     @marshal_with(schemas.Track().as_dict)
     def get(self, episode_id):
-        episode = podcast.Episodes.query.get(episode_id)
+        episode = Episodes.query.get(episode_id)
         if episode is None:
             abort(404)
 

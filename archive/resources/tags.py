@@ -1,5 +1,7 @@
 
-from archive.models import spotify, podcast, db
+from archive.models import db
+from archive.models.spotify import *
+from archive.models.podcast import *
 from archive.resources import schemas
 
 from flask_restful import Resource, reqparse, marshal_with
@@ -21,17 +23,17 @@ class TagsAPI(Resource):
         args = parser.parse_args()
 
         # NOTE: WORKAROUND: issue with spotifyPlayer with more then 70 songs
-        res = db.session.query(spotify.Tags, func.count(podcast.Tracks.id).label('track_count')) \
-                        .join(spotify.ArtistsTags, (spotify.ArtistsTags.tag_id == spotify.Tags.id)) \
-                        .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
-                        .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
-                        .filter(podcast.Tracks.spotify_song) \
-                        .group_by(spotify.Tags) \
-                        .having(func.count(podcast.Tracks.id) <= 70) \
-                        .having(func.count(podcast.Tracks.id) >= 5)
+        res = db.session.query(Tags, func.count(Tracks.id).label('track_count')) \
+                        .join(ArtistsTags, (ArtistsTags.tag_id == Tags.id)) \
+                        .join(TracksArtists, (TracksArtists.artist_id == ArtistsTags.artist_id)) \
+                        .join(Tracks, (Tracks.id == TracksArtists.track_id)) \
+                        .filter(Tracks.spotify_song) \
+                        .group_by(Tags) \
+                        .having(func.count(Tracks.id) <= 70) \
+                        .having(func.count(Tracks.id) >= 5)
 
         if tag_name:
-            res = res.filter(spotify.Tags.name == tag_name).first()
+            res = res.filter(Tags.name == tag_name).first()
             return {'tag': res[0], 'track_count': res[1]}
 
         if args.get('random'):
@@ -51,13 +53,13 @@ class TagsArtistsAPI(Resource):
     @marshal_with(schemas.Artist().as_dict)
     def get(self, tag_name):
 
-        return spotify.Artists.query.join(spotify.ArtistsTags, spotify.ArtistsTags.artist_id == spotify.Artists.id) \
-                                    .join(spotify.Tags, (spotify.Tags.id == spotify.ArtistsTags.tag_id)) \
-                                    .join(spotify.TracksArtists, (spotify.TracksArtists.artist_id == spotify.ArtistsTags.artist_id)) \
-                                    .join(podcast.Tracks, (podcast.Tracks.id == spotify.TracksArtists.track_id)) \
-                                    .filter(podcast.Tracks.spotify_song) \
-                                    .filter(spotify.Tags.name == tag_name) \
-                                    .all()
+        return Artists.query.join(ArtistsTags, ArtistsTags.artist_id == Artists.id) \
+                            .join(Tags, (Tags.id == ArtistsTags.tag_id)) \
+                            .join(TracksArtists, (TracksArtists.artist_id == ArtistsTags.artist_id)) \
+                            .join(Tracks, (Tracks.id == TracksArtists.track_id)) \
+                            .filter(Tracks.spotify_song) \
+                            .filter(Tags.name == tag_name) \
+                            .all()
 
 
 @api.resource('/api/tags/<string:tag_name>/tracklist')
@@ -67,9 +69,9 @@ class TagsTracksAPI(Resource):
     def get(self, tag_name):
         args = parser.parse_args()
 
-        res = podcast.Tracks.query.join(spotify.TracksArtists, (spotify.TracksArtists.track_id == podcast.Tracks.id)) \
-                                  .join(spotify.Artists, (spotify.Artists.id == spotify.TracksArtists.artist_id)) \
-                                  .join(spotify.ArtistsTags, (spotify.ArtistsTags.artist_id == spotify.Artists.id)) \
-                                  .filter(spotify.ArtistsTags.tag_id == spotify.Tags.getId(tag_name))
+        res = Tracks.query.join(TracksArtists, (TracksArtists.track_id == Tracks.id)) \
+                          .join(Artists, (Artists.id == TracksArtists.artist_id)) \
+                          .join(ArtistsTags, (ArtistsTags.artist_id == Artists.id)) \
+                          .filter(ArtistsTags.tag_id == Tags.getId(tag_name))
 
         return {'tracklist': res.all()}
