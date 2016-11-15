@@ -1,0 +1,10 @@
+{{#if tags}}
+  <h2 class="page-header">Mixtapes <small>playlists</small></h2>
+  <ul class="list-inline">
+    {{#each tags}}
+      <li>
+        <a href="/mixtapes/{{name}}" class="btn btn-default" role="button">{{name}}</a>
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}

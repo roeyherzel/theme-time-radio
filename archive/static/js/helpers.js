@@ -48,7 +48,6 @@ Handlebars.registerHelper('badgeLength', function(data, options) {
 
 // helper for embeding Spotify Artist top tracks playlist
 Handlebars.registerHelper('topTracksPlayer', function(artist_id, options) {
-  console.log(artist_id);
   var artist_src = `https://embed.spotify.com/?uri=spotify%3Aartist%3A${artist_id}&theme=white`;
   return `<iframe src=${artist_src} width="300" height="540" frameborder="0" allowtransparency="true"></iframe>`;
 });
