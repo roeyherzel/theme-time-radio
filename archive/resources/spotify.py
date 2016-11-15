@@ -25,10 +25,11 @@ class ArtistsAPI(Resource):
             return Artists.query.get(artist_id)
 
         order = func.random() if args.get('random') else Artists.name
-
         res = Artists.query.order_by(order)
+
         if args.get('limit'):
-            res = res.limit(args.get('limit'))
+            # filter only artists that have images
+            res = res.filter(Artists.lastfm_image != None, Artists.lastfm_image != '').limit(args.get('limit'))
 
         return res.all()
 
