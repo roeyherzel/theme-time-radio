@@ -21,7 +21,7 @@ function loadMixtape(tapeTarget) {
 
     // get tape's tracklist
     $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
-      createSpotifyPlayer(data.tracklist, {title: "Mixtape"});
+      createSpotifyPlayer(data.tracklist);
     });
 
     // get tape's artists

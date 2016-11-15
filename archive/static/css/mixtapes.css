@@ -2,7 +2,10 @@
 
 #heading h1 {
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 0;
+}
+#heading h4 {
+  color: #333;
 }
 #heading { background-color: #9FC6E7; }
 

@@ -177,3 +177,10 @@ div.tracklist td {
   border-bottom: 1px solid #777777;
   margin-top: 10px;
 }
+
+.not-on-spotify {
+  font-weight: normal;
+}
+.not-on-spotify .glyphicon-question-sign {
+  color: inherit;
+}

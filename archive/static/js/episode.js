@@ -2,7 +2,7 @@
 $(document).ready(function() {
   $.getJSON(`/api/episodes/${$EPISODE_ID}/tracklist`, function(tracklist, status) {
 
-    createTracklist(tracklist, { title: `Episode ${$EPISODE_ID} Playlist`});
+    createTracklist(tracklist);
 
     var artists = _.map(tracklist, function(track) { return track.spotify_artists });
     artists = _.flatten(artists);

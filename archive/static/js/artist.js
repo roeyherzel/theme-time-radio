@@ -24,7 +24,7 @@ $(document).ready(function() {
           });
 
           $.getJSON(`/api/artists/${$ARTIST_ID}/tracklist`, function(data, status) {
-            createSpotifyPlayer(data.tracklist, { title: 'Songs played on the show' });
+            createSpotifyPlayer(data.tracklist);
           });
 
         });

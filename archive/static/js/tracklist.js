@@ -11,19 +11,12 @@ function createSpotifyPlayer(tracklist, options) {
       defaults = {
         height: "380",
         location: "#spotifyPlayer",
-        title: "Playlist"
       },
       settings = _.defaults(options, defaults);
 
-  if (tracksOnSpotify.length === 0) {
-    settings.height = "80";
-    settings.title = "Song not on Spotify";
-
-  } else if (tracksOnSpotify.length === 1) {
+  if (tracksOnSpotify.length === 1) {
     settings.height = "80";
   }
-  // FIXME: need to escape the string because spotify player won't work if it has charecters like &
-  settings.title = settings.title.replace(/\s/g, "%20");
   settings.song_ids = tracksOnSpotify.join(',');
 
   getTemplateAjax("tracklist_player.handlebars", function(template) {
