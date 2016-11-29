@@ -3,10 +3,6 @@
 // create embeded Spotify playlist from tracklist API
 function createSpotifyPlayer(tracklist, options) {
 
-  // convert list of tracks from episodes to list of spotify song ids
-  var tracksOnSpotify = _.filter(tracklist, function(track) { return track.spotify_song.song.id !== null });
-  tracksOnSpotify = _.map(tracksOnSpotify, function(track) { return track.spotify_song.song.id });
-
   var options =  (typeof(options) === typeof(Object())) ? options : Object(),
       defaults = {
         height: "380",
@@ -14,10 +10,16 @@ function createSpotifyPlayer(tracklist, options) {
       },
       settings = _.defaults(options, defaults);
 
-  if (tracksOnSpotify.length === 1) {
+
+  // convert list of tracks from episodes to list of spotify song ids
+  tracklist = tracklist.filter(function(t) { return t.spotify_song.id !== null })
+                       .map(function(t) { return t.spotify_song.id })
+                       .slice(0, 70);
+
+  if (tracklist.length === 1) {
     settings.height = "80";
   }
-  settings.song_ids = tracksOnSpotify.join(',');
+  settings.song_ids = tracklist.join(',');
 
   getTemplateAjax("tracklist_player.handlebars", function(template) {
     $(settings.location).html(template(settings));

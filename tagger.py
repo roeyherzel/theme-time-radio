@@ -4,11 +4,12 @@ import time
 import logging
 import json
 import unicodedata
+import sqlalchemy
 
 from archive import app, models
 
 logging.getLogger("requests").setLevel(logging.WARNING)
-logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='tagging.log', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='tagging.log', level=logging.DEBUG)
 
 
 class BaseAPI(object):
@@ -86,94 +87,69 @@ class Spotify(BaseAPI):
                 pass
 
 
-class BaseResource(object):
-    def __init__(self, data):
-        self.id = data['id']
-        self.name = data['name']
-        self.newModel = self.Model(id=self.id, name=self.name)
-
-    def __str__(self):
-        return "<{}: {}>".format(self.__name__, self.name)
-
-    def create(self):
-        models.create(self.newModel)
-        logging.debug(self.newModel)
-
-
-class CollectArtistData(BaseResource):
-    def __init__(self, data):
-        self.Model = models.Artists
-        super().__init__(data)
-        # LastFM name must be left with accents like "Édith Piaf"
-        artistInfo = LastFM(self.newModel.name)
-        if artistInfo.found:
-            self.newModel.lastfm_name = artistInfo.getName()
-            self.newModel.lastfm_image = artistInfo.getImage()
-
+def collectArtistData(data, trackObj):
+    artistObj = models.Artists.query.get(data['id'])
+    if artistObj is None:
         # removes accents like "Édith Piaf"
-        self.newModel.name = unicodedata.normalize('NFKD', self.newModel.name).encode('ASCII', 'ignore').decode()
-        self.create()
+        artistObj = models.Artists(
+            id=data['id'],
+            name=unicodedata.normalize('NFKD', data['name']).encode('ASCII', 'ignore').decode()
+        )
+        # LastFM name must be left with accents like "Édith Piaf"
+        lastfm_info = LastFM(data['name'])
+        if lastfm_info.found:
+            artistObj.lastfm_name = lastfm_info.getName()
+            artistObj.lastfm_image = lastfm_info.getImage()
 
-        if artistInfo.found:
-            for tag in artistInfo.getTags():
-                models.create(models.Tags(name=tag))
-                models.create(models.ArtistsTags(tag_id=models.Tags.getId(tag), artist_id=self.newModel.id))
+            for tag in lastfm_info.getTags():
+                tagObj = models.Tags(name=tag)
+                if models.create(tagObj) is False:
+                    tagObj = models.Tags.query.filter(models.Tags.name == tag).one_or_none()
 
-    def __repr__(self):
-        return self.id
+                logging.debug("%s", tagObj)
+                artistObj.tags.append(tagObj)
 
+        models.create(artistObj)
 
-class CollectAlbumData(BaseResource):
-    def __init__(self, data):
-        self.Model = models.Albums
-        super().__init__(data)
-        self.create()
-
-
-class CollectSongData(BaseResource):
-    def __init__(self, data):
-        self.Model = models.Songs
-        super().__init__(data)
-        self.newModel.preview_url = data['preview_url']
-        self.newModel.album_id = CollectAlbumData(data['album']).id
-        self.create()
+    trackObj.spotify_artists.append(artistObj)
 
 
-def tagTrack(song, artist, track_id):
-    logging.info("tagTrack - track_id: %d, song: %s, artist: %s", track_id, song, artist)
+def collectSongData(data, trackObj):
+    songObj = models.Songs(id=data['id'], name=data['name'], preview_url=data['preview_url'])
+    if models.create(songObj) is False:
+        songObj = models.Songs.query.get(data['id'])
+
+    trackObj.spotify_song_id = songObj.id
+
+
+def tagTrack(song, artist, trackObj):
+    logging.info("tagTrack - track_id: %s, song: %s, artist: %s", trackObj, song, artist)
     # search track
     results = Spotify(track=song, artist=artist)
     if results.found:
-        newSong = models.TracksSongs(track_id=track_id, song_id=CollectSongData(results.data).id)
-        models.create(newSong)
-        logging.debug(newSong)
+        collectSongData(results.data, trackObj)
 
-        for artist in results.data['artists']:
-            newArtist = models.TracksArtists(track_id=track_id, artist_id=CollectArtistData(artist).id)
-            models.create(newArtist)
-            logging.debug(newArtist)
+        for a in results.data['artists']:
+            collectArtistData(a, trackObj)
     else:
         # search artist
         results = Spotify(artist=artist)
         if results.found:
             logging.warning("ONLY ARTIST")
-            newArtist = models.TracksArtists(track_id=track_id, artist_id=CollectArtistData(results.data).id)
-            models.create(newArtist)
-            logging.debug(newArtist)
+            collectArtistData(results.data, trackObj)
         else:
             logging.error("didn't find track for: %s / %s", song, artist)
 
 
 def tag_from_query(track_list):
-    logging.info("--- Tagging #%d Tracks", len(track_list))
+    logging.info("--- Tagging #%s Tracks", len(track_list))
     for track in track_list:
-        logging.debug(track)
-        tagTrack(song=track.parsed_song, artist=track.parsed_artist, track_id=track.id)
+        tagTrack(song=track.parsed_song, artist=track.parsed_artist, trackObj=track)
 
 
 def tag_all_unresolved_untagged(limit=None):
     with app.app_context():
-        track_list = models.Tracks.query.filter(models.Tracks.spotify_song == None, models.Tracks.resolved == True)
+        track_list = models.Tracks.query.filter(models.Tracks.spotify_song_id == None, models.Tracks.resolved == True)
         if limit:
             track_list = track_list.limit(limit)
 

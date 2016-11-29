@@ -30,7 +30,7 @@ class TagsCount(Base):
 class ArtistTags(SpotifyResource):
     def __init__(self):
         super().__init__()
-        self.tags = fields.List(fields.Nested({'tag': fields.Nested(Tags().as_dict)}))
+        self.tags = fields.List(fields.Nested(Tags().as_dict))
 
 
 class Artist(SpotifyResource):
@@ -75,8 +75,8 @@ class Track(Base):
         self.parsed_artist = fields.String
         self.position = fields.Integer
         self.year = fields.Integer
-        self.spotify_artists = fields.List(fields.Nested({'artist': fields.Nested(Artist().as_dict)}))
-        self.spotify_song = fields.Nested({'song': fields.Nested(Song().as_dict)})
+        self.spotify_artists = fields.List(fields.Nested(Artist().as_dict))
+        self.spotify_song = fields.Nested(Song().as_dict)
 
 
 class EpisodeTracklist(Base):

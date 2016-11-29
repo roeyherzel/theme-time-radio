@@ -2,8 +2,7 @@ from flask import render_template, abort
 
 from archive import app
 from archive.models import db
-from archive.models.podcast import Episodes, Tracks
-from archive.models.spotify import Artists, Tags
+from archive.models.models import Episodes, Tracks, Artists, Tags
 
 from sqlalchemy import func
 

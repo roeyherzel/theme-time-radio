@@ -1,6 +1,5 @@
 from archive.models import db
-from archive.models.spotify import *
-from archive.models.podcast import *
+from archive.models.models import *
 from archive.resources import schemas
 
 from flask_restful import Resource, reqparse, marshal, marshal_with, marshal_with_field, fields
@@ -40,8 +39,8 @@ class ArtistsEpisodesAPI(Resource):
     @marshal_with(schemas.Episode().as_dict)
     def get(self, artist_id):
         return Episodes.query.join(Tracks, Tracks.episode_id == Episodes.id) \
-                             .join(TracksArtists, TracksArtists.track_id == Tracks.id) \
-                             .filter(TracksArtists.artist_id == artist_id) \
+                             .join(association_track_artists, association_track_artists.c.track_id == Tracks.id) \
+                             .filter(association_track_artists.c.artist_id == artist_id) \
                              .all()
 
 
@@ -50,8 +49,8 @@ class ArtistsTracklistAPI(Resource):
 
     @marshal_with(schemas.ArtistTracklist().as_dict)
     def get(self, artist_id):
-        res = Tracks.query.join(TracksArtists, (Tracks.id == TracksArtists.track_id)) \
-                          .filter(TracksArtists.artist_id == artist_id) \
+        res = Tracks.query.join(association_track_artists, (Tracks.id == association_track_artists.c.track_id)) \
+                          .filter(association_track_artists.c.artist_id == artist_id) \
                           .all()
         return {'tracklist': res}
 
@@ -61,8 +60,7 @@ class ArtistsTagsAPI(Resource):
 
     @marshal_with(schemas.Tags().as_dict)
     def get(self, artist_id):
-        res = Tags.getAllValid().all()
-        return [i[0] for i in res if i[0].artists.filter(ArtistsTags.artist_id == artist_id).count() > 0]
+        return Artists.query.get(artist_id).tags
 
 """
 -----------------------------

@@ -19,9 +19,6 @@ def clean_db():
 
 @manager.command
 def clean_spotify():
-    models.ArtistsTags.query.delete()
-    models.TracksSongs.query.delete()
-    models.TracksArtists.query.delete()
     models.Songs.query.delete()
     models.Albums.query.delete()
     models.Artists.query.delete()

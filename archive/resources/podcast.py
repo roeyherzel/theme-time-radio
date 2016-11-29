@@ -1,4 +1,4 @@
-from archive.models.podcast import *
+from archive.models.models import *
 from archive.resources import schemas
 
 from flask_restful import Resource, reqparse, marshal_with, abort
