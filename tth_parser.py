@@ -1,7 +1,7 @@
 import requests
 import re
 from bs4 import BeautifulSoup
-from archive import app, models
+from app import create_app, models
 
 
 parse_id = re.compile(r"episode-(\d+)-")
@@ -25,7 +25,7 @@ def get_episode_data(episodeObj):
         # get image
         image = [i for i in soup.find_all('img') if image_url_prefix in i['src']][0]
         episodeObj.image = image['src']
-        models.update(episodeObj)
+        models.update()
 
     except IndexError:
         pass
@@ -35,10 +35,10 @@ def get_episode_data(episodeObj):
     # get media
     episodeObj.media = soup.find("input", attrs={'id': 'podPressPlayerSpace_1_OrigURL'})['value']
     # update
-    models.update(episodeObj)
+    models.update()
 
 
-with app.app_context():
+with create_app().app_context():
     for myEpisode in models.Episodes.query.order_by(models.Episodes.id).all():
         print("\n" + str(myEpisode))
         get_episode_data(myEpisode)

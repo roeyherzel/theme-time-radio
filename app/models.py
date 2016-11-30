@@ -1,6 +1,37 @@
-from archive.models import db
+from . import db
 from sqlalchemy import func, UniqueConstraint, desc
+from sqlalchemy.exc import IntegrityError
 from datetime import datetime
+
+
+""" commands for db """
+
+
+def create(obj):
+    db.session.add(obj)
+    status = False
+    try:
+        db.session.commit()
+        status = True
+
+    except IntegrityError as err:
+        db.session.rollback()
+        print("rollback: {}, {}".format(err.orig.diag.message_primary, err.orig.diag.message_detail))
+
+    db.session.commit()
+    return status
+
+
+def update():
+    db.session.commit()
+
+
+def delete(obj):
+    db.session.delete(obj)
+    db.session.commit()
+
+
+""" Models """
 
 
 class Episodes(db.Model):
@@ -33,7 +64,7 @@ association_track_artists = db.Table(
 
 class Tracks(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    episode_id = db.Column(db.Integer, db.ForeignKey(Episodes.id))
+    episode_id = db.Column(db.Integer, db.ForeignKey(Episodes.id), nullable=False)
     episode = db.relationship('Episodes', backref=db.backref('tracklist', lazy='dynamic'))
     title = db.Column(db.String(), nullable=False)
     parsed_song = db.Column(db.String())
@@ -66,15 +97,12 @@ class Tags(db.Model):
 
     @classmethod
     def getAllValid(cls):
-        # NOTE: WORKAROUND: issue with spotifyPlayer with more then 70 songs
         return db.session.query(Tags, func.count(Tracks.id).label('track_count')) \
                          .join(association_artist_tags, (association_artist_tags.c.tag_id == Tags.id)) \
                          .join(association_track_artists, (association_track_artists.c.artist_id == association_artist_tags.c.artist_id)) \
                          .join(Tracks, (Tracks.id == association_track_artists.c.track_id)) \
                          .filter(Tracks.spotify_song_id != None) \
-                         .group_by(Tags) \
-                         .having(func.count(Tracks.id) <= 70) \
-                         .having(func.count(Tracks.id) >= 5)
+                         .group_by(Tags)
 
 
 # 1:1 album - song

@@ -6,7 +6,7 @@ import json
 import unicodedata
 import sqlalchemy
 
-from archive import app, models
+from app import create_app, models
 
 logging.getLogger("requests").setLevel(logging.WARNING)
 logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='tagging.log', level=logging.DEBUG)
@@ -148,7 +148,7 @@ def tag_from_query(track_list):
 
 
 def tag_all_unresolved_untagged(limit=None):
-    with app.app_context():
+    with create_app().app_context():
         track_list = models.Tracks.query.filter(models.Tracks.spotify_song_id == None, models.Tracks.resolved == True)
         if limit:
             track_list = track_list.limit(limit)

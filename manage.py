@@ -1,9 +1,7 @@
 from flask_script import Manager, Shell
-from archive import app
-from archive import models
-from archive.models import db
+from app import create_app, models
 
-manager = Manager(app)
+manager = Manager(create_app())
 
 
 @manager.command

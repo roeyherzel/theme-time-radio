@@ -1,9 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-
-from archive import app, models
-
+from app import create_app, models
 
 """
     Parser for extracting all episodes from Wikipedia
@@ -102,7 +100,7 @@ def get_episodes_by_season(url):
     return parsed_episodes
 
 
-with app.app_context():
+with create_app().app_context():
     for season in [1, 2, 3]:
         url = "https://en.wikipedia.org/wiki/Theme_Time_Radio_Hour_(season_{})".format(season)
         episodes_data = get_episodes_by_season(url)

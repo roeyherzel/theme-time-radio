@@ -1,11 +1,7 @@
 from flask import render_template, abort
-
-from archive import app
-from archive.models import db
-from archive.models.models import Episodes, Tracks, Artists, Tags
-
+from . import main
+from ..models import Episodes, Tracks, Artists, Tags
 from sqlalchemy import func
-
 
 # ----------- filters ----------------
 
@@ -15,33 +11,33 @@ from jinja2 import evalcontextfilter, Markup, escape
 _paragraph_re = re.compile(r'(?:\r){2,}')
 
 
-@app.template_filter()
+"""@main.template_filter()
 @evalcontextfilter
 def nl2br(eval_ctx, value):
     result = u'\n\n'.join(u'%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(escape(value)))
     if eval_ctx.autoescape:
         result = Markup(result)
-    return result
+    return result"""
 
 
 # ----------- error handlers ----------------
 
-@app.errorhandler(404)
+@main.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html.jinja'), 404
 
 # ----------- views ----------------
 
 
-@app.route('/mixtapes')
-@app.route('/mixtapes/<string:tape_name>')
+@main.route('/mixtapes')
+@main.route('/mixtapes/<string:tape_name>')
 def mixtapes_view(tape_name=None):
     return render_template('mixtapes.html.jinja', tape_name=tape_name)
 
 
-@app.route('/artists/<string:artist_id>')
-@app.route('/artists/name/<string:artist_name>')
-@app.route('/artists/lastfm/<string:lastfm_name>')
+@main.route('/artists/<string:artist_id>')
+@main.route('/artists/name/<string:artist_name>')
+@main.route('/artists/lastfm/<string:lastfm_name>')
 def artist_view(artist_id=None, artist_name=None, lastfm_name=None):
     if artist_id:
         res = Artists.query.get(artist_id)
@@ -58,8 +54,8 @@ def artist_view(artist_id=None, artist_name=None, lastfm_name=None):
         return render_template('artist.html.jinja', artist=res)
 
 
-@app.route('/artists')
-@app.route('/artists/index/<string:index>')
+@main.route('/artists')
+@main.route('/artists/index/<string:index>')
 def all_artists_view(index="A"):
     # build uniqe list of sorted artist names index
     artists_index = [re.sub(r"[^a-zA-Z]", "0", i.name[0].upper()) for i in Artists.query.order_by(Artists.name).all()]
@@ -79,9 +75,9 @@ def all_artists_view(index="A"):
     return render_template('all_artists.html.jinja', artists=artists, index=index, index_list=artists_index)
 
 
-@app.route('/episodes')
-@app.route('/episodes/season/<int:season>')
-@app.route('/episodes/<int:episode_id>')
+@main.route('/episodes')
+@main.route('/episodes/season/<int:season>')
+@main.route('/episodes/<int:episode_id>')
 def episode_view(episode_id=None, season=1):
     if episode_id:
         res = Episodes.query.get(episode_id)
@@ -98,12 +94,12 @@ def episode_view(episode_id=None, season=1):
     return render_template('all_episodes.html.jinja', episodes=episodes, season=season, seasons=seasons)
 
 
-@app.route('/about')
+@main.route('/about')
 def about():
     return render_template('about.html.jinja')
 
 
-@app.route('/')
+@main.route('/')
 def index():
     stats = {
         'episodes': "{:,}".format(Episodes.query.count()),

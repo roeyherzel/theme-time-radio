@@ -1,11 +1,14 @@
 # Byte-compiled / optimized / DLL files
+# -------------------------------------
 __pycache__/
 *.py[cod]
-
+.tags
 
 # Distribution / packaging
+# ------------------------
 venv/
 
 # Logs
+# ----
 tagging.log
 output.log

@@ -1,13 +1,8 @@
-
-from archive.models import db
-from archive.models.models import *
-from archive.resources import schemas
-
-from flask_restful import Resource, reqparse, marshal_with
-from sqlalchemy import desc, distinct, func
-
-from archive import api
-
+from flask_restful import Resource, reqparse, marshal_with, abort
+from . import api
+from . import schemas
+from ..models import *
+from sqlalchemy import desc, func
 
 parser = reqparse.RequestParser()
 parser.add_argument('limit', type=str, help="limit query results")
