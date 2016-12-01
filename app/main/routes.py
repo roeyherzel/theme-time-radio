@@ -3,30 +3,16 @@ from . import main
 from ..models import Episodes, Tracks, Artists, Tags
 from sqlalchemy import func
 
-# ----------- filters ----------------
 
-import re
-from jinja2 import evalcontextfilter, Markup, escape
+""" error handlers """
 
-_paragraph_re = re.compile(r'(?:\r){2,}')
-
-
-"""@main.template_filter()
-@evalcontextfilter
-def nl2br(eval_ctx, value):
-    result = u'\n\n'.join(u'%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(escape(value)))
-    if eval_ctx.autoescape:
-        result = Markup(result)
-    return result"""
-
-
-# ----------- error handlers ----------------
 
 @main.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html.jinja'), 404
 
-# ----------- views ----------------
+
+""" views """
 
 
 @main.route('/mixtapes')
@@ -105,6 +91,6 @@ def index():
         'episodes': "{:,}".format(Episodes.query.count()),
         'songs': "{:,}".format(Tracks.query.count()),
         'artists': "{:,}".format(Artists.query.count()),
-        'tags': "{:,}".format(Tags.getAllValid().count())
+        'tags': "{:,}".format(Tags.query.count())
     }
     return render_template('index.html.jinja', stats=stats)

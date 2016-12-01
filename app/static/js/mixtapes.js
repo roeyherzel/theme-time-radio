@@ -19,10 +19,8 @@ function loadMixtape(tapeTarget) {
       $("#tapeWiki").html(info.tag.wiki.summary.nl2br());
     });
 
-    // get tape's tracklist
-    $.getJSON(`/api/tags/${tagName}/tracklist`, function(data, status) {
-      createSpotifyPlayer(data.tracklist);
-    });
+    // get tape's songlist
+    $.getJSON(`/api/tags/${tagName}/songs`, function(data, status) { createSpotifyPlayer(songlist_to_songids(data)) });
 
     // get tape's artists
     $.getJSON(`/api/tags/${tagName}/artists`, function(data, artists) {
@@ -48,7 +46,7 @@ $(document).ready(function() {
       /* sort by tag name */
       tags = _.sortBy(tags, function(t) { return t.tag.name.toLowerCase() });
 
-      /* group by tag first index */
+      /* group by tag index */
       var groupedTags = _.groupBy(tags, function(t) {
         var index = t.tag.name[0];
         return (! _.isNaN(Number(index))) ? "#" : index.toUpperCase();

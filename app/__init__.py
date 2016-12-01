@@ -23,4 +23,18 @@ def create_app():
     app.register_blueprint(main_blueprint)
     app.register_blueprint(api_blueprint)
 
+    import re
+    from jinja2 import evalcontextfilter, Markup, escape
+
+    _paragraph_re = re.compile(r'(?:\r){2,}')
+
+    # FIXME: TEMP - should be somewhere else
+    @app.template_filter()
+    @evalcontextfilter
+    def nl2br(eval_ctx, value):
+        result = u'\n\n'.join(u'%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(escape(value)))
+        if eval_ctx.autoescape:
+            result = Markup(result)
+        return result
+
     return app

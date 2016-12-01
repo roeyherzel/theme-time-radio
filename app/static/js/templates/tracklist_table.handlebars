@@ -11,8 +11,8 @@
       {{#each tracklist}}
         <tr>
           <td class="text-center">
-            {{# if spotify_song.song.id }}
-              <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.song.preview_url}}"></span>
+            {{# if spotify_song.id }}
+              <span class="glyphicon glyphicon-play-circle preview" previewUrl="{{spotify_song.preview_url}}"></span>
             {{else}}
               <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Song not on Spotify"></span>
             {{/if}}
@@ -21,7 +21,7 @@
 
           {{#if resolved}}
             <td>
-              {{#if spotify_song.song.id}}{{spotify_song.song.name}}{{else}}{{parsed_song}}{{/if}}
+              {{#if spotify_song.id}}{{spotify_song.name}}{{else}}{{parsed_song}}{{/if}}
             </td>
             <td>
               {{#getArtistTitle spotify_artists parsed_artist}}{{/getArtistTitle}}

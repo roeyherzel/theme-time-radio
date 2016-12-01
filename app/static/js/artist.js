@@ -18,14 +18,13 @@ $(document).ready(function() {
           $('#artistInfo_placeholder').html(template(context));
 
           $.getJSON(`/api/artists/${$ARTIST_ID}/tags`, function(artistTags, status) {
+
             getTemplateAjax('artist_mixtapes.handlebars', function(template) {
                 $("#mixtapes_placeholder").html(template({ tags: artistTags }));
             });
           });
 
-          $.getJSON(`/api/artists/${$ARTIST_ID}/tracklist`, function(data, status) {
-            createSpotifyPlayer(data.tracklist);
-          });
+          $.getJSON(`/api/artists/${$ARTIST_ID}/songs`, function(data, status) { createSpotifyPlayer(songlist_to_songids(data)) });
 
         });
 

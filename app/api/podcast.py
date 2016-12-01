@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse, marshal_with, abort
 from . import api
 from . import schemas
-from ..models import Episodes
+from ..models import Episodes, Tracks
 
 
 @api.resource('/api/episodes', '/api/episodes/<int:episode_id>')
@@ -32,4 +32,4 @@ class EpisodesTracklistAPI(Resource):
         if episode is None:
             abort(404)
 
-        return episode.tracklist.all()
+        return episode.tracklist.order_by(Tracks.position).all()

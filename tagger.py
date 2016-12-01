@@ -31,34 +31,52 @@ class BaseAPI(object):
 
 class LastFM(BaseAPI):
 
-    def __init__(self, artist):
+    def __init__(self):
         super().__init__()
         self.url = "http://ws.audioscrobbler.com/2.0"
         self.api_key = "aa570c383c5f26de24d4e2c7fd182c8e"
         self.params = {
-            'method': 'artist.getinfo',
             'api_key': self.api_key,
-            'format': 'json'
+            'format': 'json',
+            'autocorrect': 1
         }
+
+    def getArtistInfo(self, artist):
         self.found = False
+        self.data = dict()
+        self.params['method'] = 'artist.getinfo'
         self.params['artist'] = artist
+
         self.make_request()
         if self.request.ok:
             try:
-                self.data = self.request.json()['artist']
+                data = self.request.json()['artist']
+                # name
+                self.data['name'] = data['name']
+                # image
+                res = [image['#text'] for image in data['image'] if image['size'] == 'large']
+                self.data['image'] = res[0] if res else None
                 self.found = True
+
             except KeyError:
                 pass
 
-    def getImage(self):
-        res = [image['#text'] for image in self.data['image'] if image['size'] == 'large']
-        return res[0] if res else None
+    def getTrackInfo(self, track, artist):
+        self.found = False
+        self.data = dict()
+        self.params['method'] = 'track.getinfo'
+        self.params['track'] = track
+        self.params['artist'] = artist
 
-    def getName(self):
-        return self.data['name']
+        self.make_request()
+        if self.request.ok:
+            try:
+                data = self.request.json()['track']
+                self.data['tags'] = [tag['name'] for tag in data['toptags']['tag']]
+                self.found = True
 
-    def getTags(self):
-        return [tag['name'] for tag in self.data['tags']['tag']]
+            except KeyError:
+                pass
 
 
 class Spotify(BaseAPI):
@@ -87,7 +105,7 @@ class Spotify(BaseAPI):
                 pass
 
 
-def collectArtistData(data, trackObj):
+def collectArtistData(data, trackObj, songObj=None):
     artistObj = models.Artists.query.get(data['id'])
     if artistObj is None:
         # removes accents like "Édith Piaf"
@@ -96,22 +114,17 @@ def collectArtistData(data, trackObj):
             name=unicodedata.normalize('NFKD', data['name']).encode('ASCII', 'ignore').decode()
         )
         # LastFM name must be left with accents like "Édith Piaf"
-        lastfm_info = LastFM(data['name'])
-        if lastfm_info.found:
-            artistObj.lastfm_name = lastfm_info.getName()
-            artistObj.lastfm_image = lastfm_info.getImage()
-
-            for tag in lastfm_info.getTags():
-                tagObj = models.Tags(name=tag)
-                if models.create(tagObj) is False:
-                    tagObj = models.Tags.query.filter(models.Tags.name == tag).one_or_none()
-
-                logging.debug("%s", tagObj)
-                artistObj.tags.append(tagObj)
+        lastfm = LastFM()
+        lastfm.getArtistInfo(data['name'])
+        if lastfm.found:
+            artistObj.lastfm_name = lastfm.data['name']
+            artistObj.lastfm_image = lastfm.data['image']
 
         models.create(artistObj)
 
     trackObj.spotify_artists.append(artistObj)
+    if songObj:
+        songObj.artists.append(artistObj)
 
 
 def collectSongData(data, trackObj):
@@ -121,6 +134,25 @@ def collectSongData(data, trackObj):
 
     trackObj.spotify_song_id = songObj.id
 
+    for artist_data in data['artists']:
+        collectSongTags(songObj, artist_data['name'])
+        collectArtistData(artist_data, trackObj, songObj)
+
+
+def collectSongTags(songObj, artist):
+    lastfm = LastFM()
+    lastfm.getTrackInfo(track=songObj.name, artist=artist)
+
+    if lastfm.found:
+        for tag in lastfm.data['tags']:
+            tagObj = models.Tags(name=tag)
+
+            if models.create(tagObj) is False:
+                tagObj = models.Tags.query.filter(models.Tags.name == tag).one_or_none()
+
+            logging.debug("%s", tagObj)
+            songObj.tags.append(tagObj)
+
 
 def tagTrack(song, artist, trackObj):
     logging.info("tagTrack - track_id: %s, song: %s, artist: %s", trackObj, song, artist)
@@ -128,9 +160,6 @@ def tagTrack(song, artist, trackObj):
     results = Spotify(track=song, artist=artist)
     if results.found:
         collectSongData(results.data, trackObj)
-
-        for a in results.data['artists']:
-            collectArtistData(a, trackObj)
     else:
         # search artist
         results = Spotify(artist=artist)

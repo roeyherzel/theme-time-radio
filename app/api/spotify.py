@@ -35,20 +35,17 @@ class ArtistsEpisodesAPI(Resource):
     @marshal_with(schemas.Episode().as_dict)
     def get(self, artist_id):
         return Episodes.query.join(Tracks, Tracks.episode_id == Episodes.id) \
-                             .join(association_track_artists, association_track_artists.c.track_id == Tracks.id) \
-                             .filter(association_track_artists.c.artist_id == artist_id) \
+                             .join(aux_tracks_artists, aux_tracks_artists.c.track_id == Tracks.id) \
+                             .filter(aux_tracks_artists.c.artist_id == artist_id) \
                              .all()
 
 
-@api.resource('/api/artists/<string:artist_id>/tracklist')
-class ArtistsTracklistAPI(Resource):
+@api.resource('/api/artists/<string:artist_id>/songs')
+class ArtistsSongsAPI(Resource):
 
-    @marshal_with(schemas.ArtistTracklist().as_dict)
+    @marshal_with(schemas.Song().as_dict)
     def get(self, artist_id):
-        res = Tracks.query.join(association_track_artists, (Tracks.id == association_track_artists.c.track_id)) \
-                          .filter(association_track_artists.c.artist_id == artist_id) \
-                          .all()
-        return {'tracklist': res}
+        return Artists.query.get(artist_id).songs
 
 
 @api.resource('/api/artists/<string:artist_id>/tags')
@@ -56,7 +53,12 @@ class ArtistsTagsAPI(Resource):
 
     @marshal_with(schemas.Tags().as_dict)
     def get(self, artist_id):
-        return Artists.query.get(artist_id).tags
+        subq = db.session.query(Songs.id) \
+                         .join(aux_songs_artists, aux_songs_artists.c.song_id == Songs.id) \
+                         .filter(aux_songs_artists.c.artist_id == artist_id) \
+                         .subquery()
+
+        return Tags.query.join(aux_songs_tags, aux_songs_tags.c.tag_id == Tags.id).filter(aux_songs_tags.c.song_id.in_(subq)).all()
 
 """
 -----------------------------

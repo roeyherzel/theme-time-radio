@@ -55,8 +55,8 @@ class Episodes(db.Model):
         return '<Episode ({}): {}>'.format(self.id, self.title)
 
 
-association_track_artists = db.Table(
-    'association_track_artists',
+aux_tracks_artists = db.Table(
+    'aux_tracks_artists',
     db.Column('artist_id', db.String, db.ForeignKey('artists.id')),
     db.Column('track_id', db.Integer, db.ForeignKey('tracks.id'))
 )
@@ -75,7 +75,7 @@ class Tracks(db.Model):
 
     spotify_song_id = db.Column(db.String, db.ForeignKey('songs.id'))
     spotify_song = db.relationship('Songs', uselist=False, backref='tracks')
-    spotify_artists = db.relationship('Artists', secondary=association_track_artists, backref='tracks')
+    spotify_artists = db.relationship('Artists', secondary=aux_tracks_artists, backref='tracks')
 
     UniqueConstraint(episode_id, title)
 
@@ -96,40 +96,34 @@ class Tags(db.Model):
         return cls.query.filter_by(name=name).first().id
 
     @classmethod
-    def getAllValid(cls):
-        return db.session.query(Tags, func.count(Tracks.id).label('track_count')) \
-                         .join(association_artist_tags, (association_artist_tags.c.tag_id == Tags.id)) \
-                         .join(association_track_artists, (association_track_artists.c.artist_id == association_artist_tags.c.artist_id)) \
-                         .join(Tracks, (Tracks.id == association_track_artists.c.track_id)) \
-                         .filter(Tracks.spotify_song_id != None) \
+    def countSong(cls):
+        return db.session.query(Tags, func.count(Songs.id).label('track_count')) \
+                         .join(aux_songs_tags, (aux_songs_tags.c.tag_id == Tags.id)) \
+                         .join(Songs, Songs.id == aux_songs_tags.c.song_id) \
                          .group_by(Tags)
 
 
-# 1:1 album - song
-class Albums(db.Model):
-    id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String, nullable=False, unique=True)
-
-    def __repr__(self):
-        return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)
+aux_songs_tags = db.Table(
+    'aux_songs_tags',
+    db.Column('song_id', db.String, db.ForeignKey('songs.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
+)
+aux_songs_artists = db.Table(
+    'aux_songs_artists',
+    db.Column('song_id', db.String, db.ForeignKey('songs.id')),
+    db.Column('artist_id', db.String, db.ForeignKey('artists.id'))
+)
 
 
 class Songs(db.Model):
     id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
     preview_url = db.Column(db.String)
-    album_id = db.Column(db.String, db.ForeignKey(Albums.id))
-    album = db.relationship('Albums', backref=db.backref('songs', lazy='dynamic'))
+    tags = db.relationship('Tags', secondary=aux_songs_tags, backref='songs')
+    artists = db.relationship('Artists', secondary=aux_songs_artists, backref='songs')
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)
-
-
-association_artist_tags = db.Table(
-    'association_artist_tags',
-    db.Column('artist_id', db.String, db.ForeignKey('artists.id')),
-    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
-)
 
 
 class Artists(db.Model):
@@ -137,7 +131,6 @@ class Artists(db.Model):
     name = db.Column(db.String, nullable=False, unique=True)
     lastfm_name = db.Column(db.String)
     lastfm_image = db.Column(db.String)
-    tags = db.relationship('Tags', secondary=association_artist_tags, backref='artists')
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)

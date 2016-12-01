@@ -14,13 +14,13 @@ class TagsAPI(Resource):
 
     @marshal_with(schemas.TagsCount().as_dict)
     def get(self, tag_name=None):
-        args = parser.parse_args()
+        res = Tags.countSong()
 
-        res = Tags.getAllValid()
         if tag_name:
             res = res.filter(Tags.name == tag_name).first()
             return {'tag': res[0], 'track_count': res[1]}
 
+        args = parser.parse_args()
         if args.get('random'):
             res = res.order_by(func.random())
         else:
@@ -37,25 +37,15 @@ class TagsArtistsAPI(Resource):
 
     @marshal_with(schemas.Artist().as_dict)
     def get(self, tag_name):
-        return Artists.query.join(association_artist_tags, association_artist_tags.c.artist_id == Artists.id) \
-                            .join(Tags, (Tags.id == association_artist_tags.c.tag_id)) \
-                            .join(association_track_artists, (association_track_artists.c.artist_id == association_artist_tags.c.artist_id)) \
-                            .join(Tracks, (Tracks.id == association_track_artists.c.track_id)) \
-                            .filter(Tracks.spotify_song) \
-                            .filter(Tags.name == tag_name) \
+        return Artists.query.join(aux_songs_artists, aux_songs_artists.c.artist_id == Artists.id) \
+                            .join(aux_songs_tags, aux_songs_tags.c.song_id == aux_songs_artists.c.song_id) \
+                            .filter(aux_songs_tags.c.tag_id == Tags.getId(tag_name)) \
                             .all()
 
 
-@api.resource('/api/tags/<string:tag_name>/tracklist')
-class TagsTracksAPI(Resource):
+@api.resource('/api/tags/<string:tag_name>/songs')
+class TagsSongsAPI(Resource):
 
-    @marshal_with(schemas.ArtistTracklist().as_dict)
+    @marshal_with(schemas.Song().as_dict)
     def get(self, tag_name):
-        args = parser.parse_args()
-
-        res = Tracks.query.join(association_track_artists, (association_track_artists.c.track_id == Tracks.id)) \
-                          .join(Artists, (Artists.id == association_track_artists.c.artist_id)) \
-                          .join(association_artist_tags, (association_artist_tags.c.artist_id == Artists.id)) \
-                          .filter(association_artist_tags.c.tag_id == Tags.getId(tag_name))
-
-        return {'tracklist': res.all()}
+        return Tags.query.get(Tags.getId(tag_name)).songs
