@@ -1,0 +1,16 @@
+<ul>
+  {{#each artists}}
+  <li>
+    <a href="{{view}}">
+      <figure>
+      {{#if lastfm_image}}
+        <img src="{{lastfm_image}}" alt="Photo of {{lastfm_name}}">
+      {{else}}
+        <img src="/static/images/missing-artist.png" alt="Photo of {{lastfm_name}}">
+      {{/if}}
+        <figcaption>{{name}}</figcaption>
+      </figure>
+    </a>
+  </li>
+  {{/each}}
+</ul>

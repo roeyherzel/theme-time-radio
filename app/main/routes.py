@@ -75,11 +75,11 @@ def all_artists_view(index="A"):
 @main.route('/episodes/<int:episode_id>')
 def episode_view(episode_id=None, season=1):
     if episode_id:
-        res = Episodes.query.get(episode_id)
-        if res is None:
+        episode = Episodes.query.get(episode_id)
+        if episode is None:
             abort(404)
 
-        return render_template('episode_info.html.jinja', episode=res, prev=res.prev, next=res.next)
+        return render_template('episode_info.html.jinja', episode=episode, prev=episode.prev, next=episode.next)
 
     seasons = [1, 2, 3]
     if season not in seasons:

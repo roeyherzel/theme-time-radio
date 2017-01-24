@@ -1,0 +1,38 @@
+<div class="tracklist">
+  <table>
+    <thead>
+      <th>Sample</th>
+      <th>#</th>
+      <th>Title</th>
+      <th>Performer</th>
+      <th>Year</th>
+    </thead>
+    <tbody>
+      {{#each tracklist}}
+        <tr class="track">
+
+          <td class="cell-preview">
+            <div class="" data-preview-url="{{spotify_song.preview_url}}"></div>
+          </td>
+          <td class="cell-number">{{position}}</td>
+
+          {{#if resolved}}
+            <td class="cell-title">
+              {{#if spotify_song.id}}{{spotify_song.name}}{{else}}{{parsed_song}}{{/if}}
+            </td>
+
+            <td class="cell-performer">
+              {{#getArtistTitle spotify_artists parsed_artist}}{{/getArtistTitle}}
+            </td>
+
+            <td class="cell-year">
+              {{#if year}}{{year}}{{else}}-{{/if}}
+            </td>
+
+          {{else}}
+            <td class="cell-title" colspan="3">{{title}}</td>
+          {{/if}}
+        </tr>
+      {{/each}}
+  </table>
+</div>

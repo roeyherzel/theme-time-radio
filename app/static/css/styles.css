@@ -57,16 +57,18 @@ header#mainHeader nav {
   display: block;
   margin: 0 auto;
   margin-bottom: 30px;
+  max-width: 100%;
+  object-fit: cover;
 }
 #pageContent header h1 {
   margin-bottom: 0;
 }
 
 button.play-episode {
-  width: 65%;
+  width: 35%;
   display: block;
   background-color: #F78715;
-  border-radius: 10px;
+  border-radius: 15px;
   border: none;
   padding: 10px 0;
   margin: 20px auto;
@@ -129,16 +131,62 @@ section#tracklist table tr:first-child {
   border-top: 1px solid #e3e3e3;
 }
 
-
 section#tracklist table td {
   padding: 10px 5px;
   vertical-align: middle;
   font-size: 0.75rem; /* 12px */
 }
 
-.preview-btn {
+section#tracklist a {
+  text-decoration: none;
+}
+
+.cell-preview div {
   background-image: url('../images/play-button.svg');
   background-repeat: no-repeat;
   width: 25px;
   height: 25px;
+}
+
+.cell-preview div[data-preview-url=""] {
+  background-color: gray;
+}
+
+
+/* ---- Artists ---- */
+
+section#artists {
+  padding: 0;
+}
+
+section#artists figure {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+}
+
+section#artists figcaption {
+  position: absolute;
+  bottom: 2px;
+  width: 100%;
+  background-color: aliceblue;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+section#artists img {
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+section#artists ul {
+  text-align: center;
+}
+section#artists li {
+  display: inline-block;
+  width: 49%;
+  max-width: 174px; /* artist image size in 174x174 px */
+  margin-bottom: 1px;
 }
