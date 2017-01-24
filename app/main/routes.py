@@ -5,7 +5,11 @@ from sqlalchemy import func
 import re
 
 
-""" error handlers """
+"""
+-----------------------------------------------------------------------------------------------------
+Error handlers
+-----------------------------------------------------------------------------------------------------
+"""
 
 
 @main.errorhandler(404)
@@ -13,7 +17,11 @@ def not_found_error(error):
     return render_template('404.html.jinja'), 404
 
 
-""" views """
+"""
+-----------------------------------------------------------------------------------------------------
+Views
+-----------------------------------------------------------------------------------------------------
+"""
 
 
 @main.route('/mixtapes')
@@ -71,7 +79,7 @@ def episode_view(episode_id=None, season=1):
         if res is None:
             abort(404)
 
-        return render_template('episode.html.jinja', episode=res, prev=res.prev, next=res.next)
+        return render_template('episode_info.html.jinja', episode=res, prev=res.prev, next=res.next)
 
     seasons = [1, 2, 3]
     if season not in seasons:

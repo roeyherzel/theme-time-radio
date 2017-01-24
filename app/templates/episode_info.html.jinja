@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Time Radio Hour</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body>
+    <header id="mainHeader" class="clearfix">
+      <h3>Theme Time</h3>
+      <nav>
+      </nav>
+    </header>
+    <div id="pageContent">
+
+      <header class="clearfix">
+        <img src="http://www.themetimeradio.com/wp-content/uploads/2006/05/weather-199x300.jpg" alt="Episode 1">
+        <div>
+          <p>Season 1 / Episode 1</p>
+          <h1>Weather</h1>
+          <p class="release-date">First aired on May 3, 2006.</p>
+          <button class="play-episode" type="button" name="play-episode">Play</button>
+        </div>
+      </header>
+
+      <main>
+        <ul class="tabs">
+          <li class="tab"><a href="#">Intro</a></li>
+          <li class="tab-content">
+            <section id="intro">
+              <p>(The sounds of rain falling)<br>It’s night time in the big city<br>Rain is falling, fog rolls in from the waterfront<br>A night shift nurse smokes the last cigarette in a pack…</p>
+            </section>
+          </li>
+
+          <li class="tab"><a href="#">Tracklist</a></li>
+          <li class="tab-content">
+            <section id="tracklist">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Sample</th>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Performer</th>
+                    <th>Year</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td><div class="preview-btn"></div></td>
+                      <td>1</td>
+                      <td>Blow Wind Blow</td>
+                      <td><a href="/artists/4y6J8jwRAwO4dssiSmN91R">Muddy Waters</a></td>
+                      <td>1953</td>
+                    </tr>
+                    <tr>
+                      <td><div class="preview-btn"></div></td>
+                      <td>2</td>
+                      <td>Frank Sinatra Introduces Louisiana Gov. Jimmie Davis / You Are My Sunshine</td>
+                      <td><a href="/artists/1Mxqyy3pSjf8kZZL4QVxS0">Frank Sinatra</a>, <a href="/artists/2Cfjtk3kiHGgmcxXGkC5vL">Gov. Jimmie Davis</a>, <a href="/artists/2Ixy2lmIGGsrbinhHvnFJl">Axel Stordahl And His Orchestra</a></td>
+                      <td>1940</td>
+                    </tr>
+                    <tr>
+                      <td><div class="preview-btn"></div></td>
+                      <td>3</td>
+                      <td>California Sun</td>
+                      <td><a href="/artists/25q0j1r1m5UM8GwFPLcopw">Joe Jones</a></td>
+                      <td>1961</td>
+                    </tr>
+                  </tbody>
+              </table>
+            </section> <!-- end tracklist tab -->
+          </li>
+
+          <li class="tab"><a href="#">Artists</a></li>
+          <li class="tab-content">
+            <section id="artists">
+              <ul>
+                <li>
+                  <a href="/artists/1Ig4eJhkfzDB2386DVJ0TQ">Ann Cole</a>
+                </li>
+                <li>
+                  <a href="/artists/1tawCzlbH40c30eztzufSu">Roy Brown</a>
+                </li>
+                <li>
+                  <a href="/artists/0NkyXWGxE3WTFixDSJ39PK">Rosemary Clooney</a>
+                </li>
+                <li>
+                  <a href="/artists/4cy9cE3uC8bmbl1IUaD3I4">Nelson Riddle Orchestra</a>
+                </li>
+                <li>
+                  <a href="/artists/6PyGlGbMoNqkofF14K4BWb">Nelson Riddle</a>
+                </li>
+                <li>
+                  <a href="/artists/5luJER4km8jajUxHlIH9R5">Prince La La</a>
+                </li>
+                <li>
+                  <a href="/artists/4K2HmToGFtn7pDOUZGdDKW">The Dave Edmunds Band</a>
+                </li>
+                <li>
+                  <a href="/artists/1KI9lksLGIfXDf1wWCxZNx">Jimmy Cavallo</a>
+                </li>
+                <li>
+                  <a href="/artists/1Mxqyy3pSjf8kZZL4QVxS0">Frank Sinatra</a>
+                </li>
+                <li>
+                  <a href="/artists/1CPwHx5lgVxv0rfcp7UXLx">Ry Cooder</a>
+                </li>
+                <li>
+                  <a href="/artists/1DTgcOxytJHD8p17mhSgd7">Big Joe Turner</a>
+                </li>
+                <li>
+                  <a href="/artists/0iOVhN3tnSvgDbcg25JoJb">Etta James</a>
+                </li>
+                <li>
+                  <a href="/artists/391oLRVmoTkumiN79HkTWu">Darlene Love</a>
+                </li>
+                <li>
+                  <a href="/artists/7dkKSKCoLExyMEw9ay5RSN">Fred Rich &amp; His Orchestra</a>
+                </li>
+                <li>
+                  <a href="/artists/0ApoVi8QEh35twomSXh9TX">Laura Lee</a>
+                </li>
+                <li>
+                  <a href="/artists/3iOE5ItEv5xr9fmKi7GNh2">Lloyd Price</a>
+                </li>
+              </ul>
+            </section> <!-- end artists tab -->
+          </li>
+        </ul>
+      </main>
+    </div> <!-- end pageContent -->
+  </body>
+</html>

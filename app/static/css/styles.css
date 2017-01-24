@@ -1,0 +1,144 @@
+
+/***************************************************
+/* Basic Styles
+/***************************************************/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: white;
+  background-color: #282828;
+  font-size: 1em;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/***************************************************
+/* Layout
+/***************************************************/
+
+
+header#mainHeader {
+  padding: 20px 15px;
+  border-bottom: 0.5px solid white;
+  margin-bottom: 30px;
+}
+
+header#mainHeader h3 {
+  float: left;
+  margin: 0;
+  font-weight: lighter;
+}
+header#mainHeader nav {
+  float: right;
+  background-image: url('../images/mobile_nav@46x42.png');
+  background-repeat: no-repeat;
+  background-size: 23px 21px;
+  width: 23px;
+  height: 21px;
+
+}
+
+/***************************************************
+/* Page Content
+/***************************************************/
+
+#pageContent header {
+  text-align: center;
+  padding: 0 15px;
+}
+#pageContent header img {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+#pageContent header h1 {
+  margin-bottom: 0;
+}
+
+button.play-episode {
+  width: 65%;
+  display: block;
+  background-color: #F78715;
+  border-radius: 10px;
+  border: none;
+  padding: 10px 0;
+  margin: 20px auto;
+}
+
+p.release-date {
+  font-size: 0.8em;
+}
+
+/***************************************************
+/* Tabs
+/***************************************************/
+
+.tabs {
+  margin-top: 50px;
+}
+
+.tab {
+  background-color: #25AAE1;
+}
+.tab a {
+  display: block;
+  font-size: 1.17em;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.tab a,
+.tab-content section {
+  padding: 15px;
+}
+
+.tab-content section {
+  font-size: 0.9em;
+  color: black;
+  background-color: white;
+}
+
+/***************************************************
+/* Tabs Content
+/***************************************************/
+
+/* ---- Into ---- */
+section#intro p {
+  font-weight: lighter;
+  font-style: italic;
+  line-height: 1.8;
+}
+
+/* ---- Tracklist ---- */
+section#tracklist table thead {
+  display: none;
+}
+
+section#tracklist table tr {
+  border-bottom: 1px solid #e3e3e3;
+}
+section#tracklist table tr:first-child {
+  border-top: 1px solid #e3e3e3;
+}
+
+
+section#tracklist table td {
+  padding: 10px 5px;
+  vertical-align: middle;
+  font-size: 0.75rem; /* 12px */
+}
+
+.preview-btn {
+  background-image: url('../images/play-button.svg');
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 25px;
+}
