@@ -1,8 +1,8 @@
 
 /***************************************************
-/* Flatioc font import
+/* Font import - Flatioc
 /***************************************************/
-@import "music-player/flaticon";
+@import "music-player/preview/flaticon.css";
 
 /***************************************************
 /* Basic Styles
@@ -28,19 +28,19 @@ body {
 /* Layout
 /***************************************************/
 
-
-header#mainHeader {
+#mainHeader {
   padding: 20px 15px;
   border-bottom: 0.5px solid white;
   margin-bottom: 30px;
 }
 
-header#mainHeader h3 {
+#mainHeader h3 {
   float: left;
   margin: 0;
   font-weight: lighter;
 }
-header#mainHeader nav {
+
+#mainHeader nav {
   float: right;
   background-image: url('../images/mobile_nav@46x42.png');
   background-repeat: no-repeat;
@@ -56,40 +56,57 @@ header#mainHeader nav {
 
 #pageContent header {
   text-align: center;
-  padding: 0 15px;
 }
 #pageContent header img {
   display: block;
   margin: 0 auto;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   max-width: 100%;
   object-fit: cover;
 }
 #pageContent header h1 {
-  margin-bottom: 0;
+  margin: 0;
+  font-size: 2.7em;
 }
 
-button.play-episode {
-  width: 35%;
-  display: block;
-  background-color: #F78715;
-  border-radius: 15px;
-  border: none;
-  padding: 10px 0;
-  margin: 20px auto;
+p.episode-path {
+  font-weight: lighter;
+  font-size: 0.85em;
+  margin-bottom: 5px;
 }
-
 p.release-date {
-  font-size: 0.8em;
+  margin-top: 20px;
+  font-size: 0.7em;
+  font-weight: lighter;
+}
+
+
+/***************************************************
+/* Player Navigation
+/***************************************************/
+
+#episodePlayerNav {
+  text-align: center;
+  border-top: 1px solid rgba(37, 170, 225, 0.66);
+  padding-top: 10px;
+  margin: 10px 0 40px 0;
+}
+
+#episodePlayerNav li {
+  display: inline-block;
+}
+
+#episodePlayerNav button {
+  font-size: 2.5em;
+  color: #25AAE1;
+}
+button#episodePlayButton {
+  font-size: 3.5em;
 }
 
 /***************************************************
 /* Tabs
 /***************************************************/
-
-.tabs {
-  margin-top: 50px;
-}
 
 .tab {
   background-color: #25AAE1;
@@ -146,15 +163,12 @@ section#tracklist a {
   text-decoration: none;
 }
 
-.cell-preview div {
-  background-image: url('../images/play-button.svg');
-  background-repeat: no-repeat;
-  width: 25px;
-  height: 25px;
+section#tracklist table td.cell-preview {
+  font-size: 2rem;
 }
 
 .cell-preview div[data-preview-url=""] {
-  background-color: gray;
+  color: gray;
 }
 
 
