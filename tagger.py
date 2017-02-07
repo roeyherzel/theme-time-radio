@@ -54,7 +54,7 @@ class LastFM(BaseAPI):
                 # name
                 self.data['name'] = data['name']
                 # image
-                res = [image['#text'] for image in data['image'] if image['size'] == 'large']
+                res = [image['#text'] for image in data['image'] if image['size'] == 'extralarge']
                 self.data['image'] = res[0] if res else None
                 self.found = True
 

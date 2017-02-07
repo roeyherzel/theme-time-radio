@@ -1,0 +1,43 @@
+<div class="tracklist">
+  <table>
+    <thead>
+      <th>Preview</th>
+      <th></th>
+      <th>Title / Performer</th>
+      <th>Stream</th>
+    </thead>
+    <tbody>
+      {{#each tracklist}}
+      <tr class="track">
+        <td class="track-preview">
+          <button type="button" data-preview-url="{{spotify_song.preview_url}}"></button>
+        </td>
+        <td class="track-number">{{position}}</td>
+        <td class="track-title-performer">
+
+        {{#if resolved}}
+          <div class="track-title">{{#if spotify_song.id}}{{spotify_song.name}}{{else}}{{parsed_song}}{{/if}}</div>
+          <div class="track-performer">
+            {{#if spotify_artists.length }}
+              {{#each spotify_artists }}
+                <a href="/artists/{{ id }}">{{ name }}</a>
+              {{/each }}
+            {{ else }}
+              {{ parsed_artist }}
+            {{/if}}
+          </div>
+          <div class="track-year">
+            {{#if year}}{{year}}{{else}}-{{/if}}
+          </div>
+        {{ else }}
+          <div class="track-title">{{ title }}</div>
+        {{/if }}
+        </td>
+        <td class="track-stream">
+          <button type="button" data-id="{{spotify_song.id}}"></button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

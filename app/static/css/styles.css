@@ -1,9 +1,3 @@
-
-/***************************************************
-/* Font import - Flatioc
-/***************************************************/
-@import "music-player/preview/flaticon.css";
-
 /***************************************************
 /* Basic Styles
 /***************************************************/
@@ -13,8 +7,6 @@
 }
 
 body {
-  color: white;
-  background-color: #282828;
   font-size: 1em;
 }
 
@@ -31,7 +23,9 @@ body {
 #mainHeader {
   padding: 20px 15px;
   border-bottom: 0.5px solid white;
-  margin-bottom: 30px;
+  margin-bottom: 0;
+  color: white;
+  background-color: #282828;
 }
 
 #mainHeader h3 {
@@ -50,21 +44,42 @@ body {
 
 }
 
+footer {
+  text-align: center;
+  padding: 10px 0;
+  background-color: white;
+}
+
+footer a {
+  display: block;
+  height: 50px;
+}
+footer img {
+  max-width: 100%;
+  max-height: 100%;
+}
 /***************************************************
 /* Page Content
 /***************************************************/
 
-#pageContent header {
-  text-align: center;
+#pageWrapper {
+  padding-top: 30px;
+  color: white;
+  background-color: #282828;
 }
-#pageContent header img {
+
+#pageWrapper header {
+  text-align: center;
+  padding: 10px;  /* for bordering large landscape images */
+}
+#pageWrapper header img {
   display: block;
   margin: 0 auto;
   margin-bottom: 15px;
   max-width: 100%;
   object-fit: cover;
 }
-#pageContent header h1 {
+#pageWrapper header h1 {
   margin: 0;
   font-size: 2.7em;
 }
@@ -75,7 +90,7 @@ p.episode-path {
   margin-bottom: 5px;
 }
 p.release-date {
-  margin-top: 20px;
+  /*margin-top: 10px;*/
   font-size: 0.7em;
   font-weight: lighter;
 }
@@ -85,23 +100,67 @@ p.release-date {
 /* Player Navigation
 /***************************************************/
 
-#episodePlayerNav {
-  text-align: center;
-  border-top: 1px solid rgba(37, 170, 225, 0.66);
-  padding-top: 10px;
-  margin: 10px 0 40px 0;
+#episodePlayer {
+  background-color: white;
+  color: black;
+  padding: 20px;
 }
 
-#episodePlayerNav li {
+#episodePlayer ul {
+  text-align: center;
+}
+
+#episodePlayer li {
   display: inline-block;
 }
 
-#episodePlayerNav button {
-  font-size: 2.5em;
-  color: #25AAE1;
+#episodePlayer li:nth-child(2n+1) {
+  margin: 0 20px;
 }
+
+#episodePlayer button {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle
+}
+
 button#episodePlayButton {
-  font-size: 3.5em;
+  background-image: url('../icons/play-rounded-button.png');
+  width: 60px;
+  height: 60px;
+}
+#episodePrevButton {
+  background-image: url('../icons/play-previous-button.png');
+}
+#episodeNextButton {
+  background-image: url('../icons/play-next-button.png');
+}
+
+button#episodeVolButton {
+  background-image: url('../icons/volume-up-indicator.png');
+  width: 15px;
+  height: 15px;
+  float: right;
+}
+
+#episodeTimeProgress {
+  text-align: left;
+  font-size: 0.75em;
+  float: left;
+
+}
+
+#episodeProgressBar {
+  height: 4px;
+  background-color: black;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  border-radius: 4px;
 }
 
 /***************************************************
@@ -130,95 +189,141 @@ button#episodePlayButton {
   background-color: white;
 }
 
+
 /***************************************************
-/* Tabs Content
+/* Intro
 /***************************************************/
 
-/* ---- Into ---- */
-section#intro p {
+#intro {
+  background-color: initial;
+}
+#intro p {
   font-weight: lighter;
   font-style: italic;
-  line-height: 1.8;
+  line-height: 2;
+  margin: 10px auto;
+  text-align: center;
+  width: 80%;
+  color: white;
 }
 
-/* ---- Tracklist ---- */
-section#tracklist table thead {
-  display: none;
+/***************************************************
+/* Tracklist
+/***************************************************/
+
+#tracklist table {
+  font-size: 0.75rem; /* 12px */
+  width: 100%;
 }
 
-section#tracklist table tr {
+#tracklist table tr {
   border-bottom: 1px solid #e3e3e3;
 }
-section#tracklist table tr:first-child {
-  border-top: 1px solid #e3e3e3;
-}
 
-section#tracklist table td {
-  padding: 10px 5px;
+#tracklist table th,
+#tracklist table td {
+  padding: 5px;
   vertical-align: middle;
-  font-size: 0.75rem; /* 12px */
 }
 
-section#tracklist a {
+#tracklist a {
   text-decoration: none;
 }
-
-section#tracklist table td.cell-preview {
-  font-size: 2rem;
+.track-number {
+  text-align: center;
 }
 
-.cell-preview div[data-preview-url=""] {
-  color: gray;
+.track-title {
+  font-size: 0.82rem;
 }
 
+.track-title,
+.track-performer,
+.track-year {
+  margin: 4px 0;
+}
 
-/* ---- Artists ---- */
+.track-year {
+  font-size: 0.70rem;
+  color: #9a9a9a;
+}
 
-section#artists {
+.track-performer a:nth-child(1n+2)::before {  /* seperator between multiple performers */
+  content: "/\00A0";
+  color: black;
+}
+
+#tracklist table td.track-preview,
+#tracklist table td.track-stream {
+  text-align: center;
+}
+
+.track-preview button {
+  background: url('../icons/play-button-inside-a-circle.png') no-repeat center;
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  border: none;
+}
+
+.track-stream button {
+  background: url('../icons/Spotify_Icon_CMYK_Black.png') no-repeat center;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  border: none;
+}
+
+/***************************************************
+/* Artists
+/***************************************************/
+
+#artists {
   padding: 0;
 }
 
-section#artists ul {
+#artists ul {
   text-align: center;
-  padding-top: 5px;
   background-color: rgb(246, 246, 246)
 }
 
-section#artists li {
-  margin: 1% auto;
-  width: 47%; /* margin (1% * 2) + 1% whitespace gap between elements */
-  max-width: 174px; /* artist image size in 174x174 px */
-  display: inline-block;
+#artists li {
+  float: left;
+  max-width: 50%;
 }
 
-section#artists li a {
+#artists li:nth-child(2n+3) { /* clear every 2 starting at 3 */
+  clear: both;
+}
+
+#artists li a {
   font-size: 0;
 }
 
-section#artists figure {
+#artists figure {
   position: relative;
   margin: 0;
 }
 
-section#artists figcaption {
+#artists figcaption {
   position: absolute;
-  bottom: -1px;
+  bottom: 0;
   width: 100%;
-  font-size: 0.7rem;
+  height: 25%;
+  font-size: 0.85rem;
   color: white;
   background-color: rgba(40, 40, 40, 0.8);
-  padding: 10px 8px;
+  padding: 15px 10px;
   margin: 0;
+  font-weight: lighter;
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  border-radius: 0 0 4px 4px;
 }
 
-section#artists img {
+#artists img {
   object-fit: cover;
   width: 100%;
   height: 100%;
-  border-radius: 4px;
 }

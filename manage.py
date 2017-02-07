@@ -16,7 +16,7 @@ def clean_db():
 
 
 @manager.command
-def clean_spotify():
+def clean_tags():
     models.Songs.query.delete()
     models.Albums.query.delete()
     models.Artists.query.delete()
@@ -31,7 +31,7 @@ def load_episodes():
 
 
 @manager.command
-def load_spotify():
+def load_tags():
     from tagger import tag_all_unresolved_untagged
     tag_all_unresolved_untagged()
 
