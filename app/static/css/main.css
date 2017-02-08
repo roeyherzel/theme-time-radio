@@ -407,11 +407,11 @@ footer img, #page_wrapper header img, #artists img {
     float: right;
     width: 23px;
     height: 21px;
+    background-color: transparent;
     background-image: url("../icons/white-mobile-nav-46x42.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    background-color: transparent;
     border: none; }
 
 footer {
@@ -470,42 +470,42 @@ footer {
 #episode_play_button {
   width: 60px;
   height: 60px;
+  background-color: transparent;
   background-image: url("../icons/white-play-rounded-button.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-color: transparent;
   border: none;
   margin: 0 20px; }
 
 #episode_prev_button {
   width: 15px;
   height: 15px;
+  background-color: transparent;
   background-image: url("../icons/white-play-previous-button.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-color: transparent;
   border: none; }
 
 #episode_next_button {
   width: 15px;
   height: 15px;
+  background-color: transparent;
   background-image: url("../icons/white-play-next-button.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-color: transparent;
   border: none; }
 
 #episode_vol_button {
   width: 15px;
   height: 15px;
+  background-color: transparent;
   background-image: url("../icons/white-volume-up-indicator.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-color: transparent;
   border: none;
   float: left;
   margin-left: 10px; }
@@ -514,7 +514,7 @@ footer {
   height: 3px;
   background-color: white;
   margin-top: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   border-radius: 4px; }
 
 #episode_progress_time {
@@ -560,20 +560,20 @@ footer {
   #tracklist .track-preview button {
     width: 35px;
     height: 35px;
+    background-color: transparent;
     background-image: url("../icons/black-play-button-inside-a-circle.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    background-color: transparent;
     border: none; }
   #tracklist .track-stream button {
     width: 20px;
     height: 20px;
+    background-color: transparent;
     background-image: url("../icons/Spotify_Icon_CMYK_Black.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    background-color: transparent;
     border: none; }
 
 #artists {
