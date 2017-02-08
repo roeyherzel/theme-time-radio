@@ -373,110 +373,57 @@ ul {
 body {
   font-size: 1em; }
 
-.clearfix::after {
+a {
+  text-decoration: none; }
+
+#main_header::after, #episode_player::after, #artists ul::after {
   content: "";
   clear: both;
   display: table; }
 
-#mainHeader {
+footer img, #page_wrapper header img, #artists img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; }
+
+#artists figcaption {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }
+
+#main_wrapper {
   color: white;
-  background-color: #282828;
+  background-color: #282828; }
+
+#main_header {
   padding: 20px 15px;
   border-bottom: 1px solid #f6f6f6;
   margin-bottom: 0; }
-  #mainHeader h3 {
+  #main_header h3 {
     float: left;
     margin: 0;
     font-weight: lighter; }
-  #mainHeader nav {
+  #main_header nav {
     float: right;
-    background-image: url("../images/mobile_nav@46x42.png");
-    background-repeat: no-repeat;
-    background-size: 23px 21px;
     width: 23px;
-    height: 21px; }
+    height: 21px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: transparent;
+    background-image: url("../images/mobile_nav@46x42.png");
+    border: none; }
 
 footer {
   text-align: center;
-  padding: 10px 0;
+  padding: 10px 15px;
   background-color: white; }
   footer a {
     display: block;
     height: 50px; }
-  footer img {
-    max-width: 100%;
-    max-height: 100%; }
 
-#pageWrapper {
-  color: white;
-  background-color: #282828;
+#page_wrapper {
   padding-top: 30px; }
-
-#pageWrapper header {
-  text-align: center;
-  padding: 10px;
-  /* for bordering large landscape images */ }
-  #pageWrapper header img {
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 15px;
-    max-width: 100%;
-    object-fit: cover; }
-  #pageWrapper header h1 {
-    margin: 0;
-    font-size: 2.7em; }
-  #pageWrapper header p.episode-path {
-    font-weight: lighter;
-    font-size: 0.85em;
-    margin-bottom: 5px; }
-  #pageWrapper header p.release-date {
-    font-size: 0.7em;
-    font-weight: lighter; }
-
-#episodePlayer {
-  background-color: white;
-  color: black;
-  padding: 20px; }
-  #episodePlayer ul {
-    text-align: center; }
-  #episodePlayer li {
-    display: inline-block; }
-    #episodePlayer li:nth-child(2) {
-      margin: 0 20px; }
-  #episodePlayer button {
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    border: none;
-    width: 20px;
-    height: 20px;
-    vertical-align: middle; }
-    #episodePlayer button#episodePlayButton {
-      background-image: url("../icons/play-rounded-button.png");
-      width: 60px;
-      height: 60px; }
-    #episodePlayer button#episodePrevButton {
-      background-image: url("../icons/play-previous-button.png"); }
-    #episodePlayer button#episodeNextButton {
-      background-image: url("../icons/play-next-button.png"); }
-    #episodePlayer button#episodeVolButton {
-      background-image: url("../icons/volume-up-indicator.png");
-      width: 15px;
-      height: 15px;
-      float: right; }
-
-#episodeTimeProgress {
-  text-align: left;
-  font-size: 0.75em;
-  float: left; }
-
-#episodeProgressBar {
-  height: 4px;
-  background-color: black;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  border-radius: 4px; }
 
 .tab {
   background-color: #25AAE1; }
@@ -485,28 +432,105 @@ footer {
     font-size: 1.17em;
     font-weight: bold;
     color: white;
-    text-decoration: none;
     padding: 15px; }
 
-.tab-content section {
-  padding: 15px; }
+.tab-content {
+  background-color: white; }
+  .tab-content section {
+    color: black;
+    padding: 15px; }
 
-#intro {
-  background-color: initial; }
-  #intro p {
-    font-size: 0.9em;
-    font-weight: lighter;
-    line-height: 2;
-    margin: 10px auto;
-    text-align: center;
-    width: 80%;
-    color: white; }
+#page_wrapper header {
+  text-align: center;
+  padding: 10px;
+  /* for bordering large landscape images */ }
+  #page_wrapper header img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px; }
+  #page_wrapper header h1 {
+    margin: 0;
+    font-size: 2.7em; }
+  #page_wrapper header p {
+    font-weight: lighter; }
+    #page_wrapper header p.episode-path {
+      font-size: 0.85em; }
+    #page_wrapper header p.release-date {
+      font-size: 0.70em; }
+
+#episode_player {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  text-align: center; }
+  #episode_player li {
+    display: inline-block; }
+    #episode_player li:nth-child(2) {
+      margin: 0 20px; }
+  #episode_player button {
+    vertical-align: middle; }
+
+#episode_play_button {
+  width: 60px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: transparent;
+  background-image: url("../icons/play-rounded-button.png");
+  border: none; }
+
+#episode_prev_button {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: transparent;
+  background-image: url("../icons/play-previous-button.png");
+  border: none; }
+
+#episode_next_button {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: transparent;
+  background-image: url("../icons/play-next-button.png");
+  border: none; }
+
+#episode_vol_button {
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: transparent;
+  background-image: url("../icons/volume-up-indicator.png");
+  border: none;
+  float: right; }
+
+#episode_progress_bar {
+  height: 4px;
+  background-color: black;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  border-radius: 4px; }
+
+#episode_progress_time {
+  font-size: 0.75em;
+  float: left; }
+
+#intro p {
+  font-size: 0.9em;
+  line-height: 2;
+  margin: 10px auto;
+  text-align: center;
+  width: 80%; }
 
 #tracklist {
-  color: black;
-  background-color: white; }
-  #tracklist a {
-    text-decoration: none; }
+  /* seperator between multiple performers */ }
   #tracklist table {
     font-size: 0.75rem;
     /* 12px */
@@ -516,39 +540,43 @@ footer {
     #tracklist table th, #tracklist table td {
       padding: 5px;
       vertical-align: middle; }
+  #tracklist .track-preview,
+  #tracklist .track-stream,
   #tracklist .track-number {
     text-align: center; }
+  #tracklist .track-title,
+  #tracklist .track-performer {
+    margin: 4px 0; }
   #tracklist .track-title {
     font-size: 0.82rem; }
-  #tracklist .track-title, #tracklist .track-performer {
-    margin: 4px 0; }
   #tracklist .track-year {
     font-size: 0.70rem;
     color: #9a9a9a; }
   #tracklist .track-performer a:nth-child(1n+2)::before {
-    /* seperator between multiple performers */
     content: "/\00A0";
     color: black; }
-  #tracklist .track-preview,
-  #tracklist .track-stream {
-    text-align: center; }
   #tracklist .track-preview button {
-    background: url("../icons/play-button-inside-a-circle.png") no-repeat center;
     width: 35px;
     height: 35px;
+    background-repeat: no-repeat;
     background-size: contain;
+    background-position: center;
+    background-color: transparent;
+    background-image: url("../icons/play-button-inside-a-circle.png");
     border: none; }
   #tracklist .track-stream button {
-    background: url("../icons/Spotify_Icon_CMYK_Black.png") no-repeat center;
     width: 20px;
     height: 20px;
+    background-repeat: no-repeat;
     background-size: contain;
+    background-position: center;
+    background-color: transparent;
+    background-image: url("../icons/Spotify_Icon_CMYK_Black.png");
     border: none; }
 
 #artists {
   padding: 0; }
   #artists ul {
-    text-align: center;
     background-color: #f6f6f6; }
   #artists li {
     float: left;
@@ -571,15 +599,8 @@ footer {
     color: white;
     background-color: rgba(40, 40, 40, 0.8);
     padding: 15px 10px;
-    margin: 0;
-    font-weight: lighter;
-    text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden; }
+    font-weight: lighter; }
   #artists img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%; }
+    outline: 1px solid black; }
 
 /*# sourceMappingURL=main.css.map */

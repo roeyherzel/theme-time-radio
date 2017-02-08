@@ -8,14 +8,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   </head>
   <body id="top">
-    <header id="mainHeader" class="clearfix">
-      <h3>Theme Time</h3>
-      <nav></nav>
-    </header>
 
-    <div id="pageWrapper">
-      {% block page_content %}{% endblock %}
-    </div> <!-- end pageWrapper -->
+    <div id="main_wrapper">
+
+      <header id="main_header">
+        <h3>Theme Time</h3>
+        <nav></nav>
+      </header>
+
+      <div id="page_wrapper">
+        {% block page_content %}{% endblock %}
+      </div>
+
+    </div>
 
     <footer>
       <a href="#top"><img src="/static/images/themetimelogo.jpg" alt="Theme time logo"></a>

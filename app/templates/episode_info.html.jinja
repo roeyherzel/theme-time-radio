@@ -1,30 +1,30 @@
 {% extends "layout.html.jinja" %}
 
 {% block page_content %}
-  <header class="clearfix">
+  <header>
     <img src="{{ episode.image }}" alt="Photo of {{ episode.title }}">
     <p class="episode-path">Season <span id="seasonId"> {{ episode.season }}</span> - Episode <span id="episodeId">{{ episode.id }}</span></p>
     <h1>{{ episode.title }}</h1>
     <p class="release-date">{{ episode.aired }}</p>
   </header>
 
-  <section id="episodePlayer">
+  <section id="episode_player">
     <ul>
-      <li><button id="episodePrevButton" type="button"></button></li>
-      <li><button id="episodePlayButton" type="button"></button></li>
-      <li><button id="episodeNextButton" type="button"></button></li>
+      <li><button id="episode_prev_button" type="button"></button></li>
+      <li><button id="episode_play_button" type="button"></button></li>
+      <li><button id="episode_next_button" type="button"></button></li>
     </ul>
 
-    <div id="episodeProgressBar"></div>
+    <div id="episode_progress_bar"></div>
 
-    <div class="clearfix">
-      <div id="episodeTimeProgress">
-        <span id="episodePlayerCurrTime">0:00</span>
-        <span> / </span>
-        <span id="episodePlayerDurTime">0:00</span>
-      </div>
-      <button id="episodeVolButton" type="button"></button>
+    <div id="episode_progress_time">
+      <span id="episode_current">0:00</span>
+      <span> / </span>
+      <span id="episode_duration">0:00</span>
     </div>
+
+    <button id="episode_vol_button" type="button"></button>
+
   </section>
 
   <main>

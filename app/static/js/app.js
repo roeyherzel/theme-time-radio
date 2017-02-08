@@ -32,7 +32,7 @@ $(document).ready(function() {
     var artists = _.map(tracklist, function(t) { return t.spotify_artists; });
     artists = _.uniq(_.flatten(artists), function(a) { return a.name; });
 
-    getHandlebarsTemplate('episode_artists.handlebars', function(template) {
+    getHandlebarsTemplate('artists_list.handlebars', function(template) {
       $("#artists").html(template({artists: artists}));
     });
 

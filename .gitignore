@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 .tags
+app/static/.sass-cache/
 
 # Distribution / packaging
 # ------------------------
@@ -12,6 +13,3 @@ venv/
 # ----
 tagging.log
 output.log
-
-# Client
-app/static/css/.sass-cache/

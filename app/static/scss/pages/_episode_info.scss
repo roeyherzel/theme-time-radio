@@ -1,0 +1,203 @@
+//================================================
+// Episode Info
+//================================================
+
+#page_wrapper header {
+  text-align: center;
+  padding: 10px;  /* for bordering large landscape images */
+
+  img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    @extend %img-responsive;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2.7em;
+  }
+
+  p {
+    font-weight: lighter;
+    &.episode-path {
+      font-size: 0.85em;
+    }
+    &.release-date {
+      font-size: 0.70em;
+    }
+  }
+}
+
+//================================================
+// Episode Player
+//================================================
+
+#episode_player {
+  @extend %clearfix;
+  background-color: white;
+  color: black;
+  padding: 20px;
+  text-align: center;
+
+  li {
+    display: inline-block;
+
+    &:nth-child(2) { // play button spacing
+      margin: 0 20px;
+    }
+  }
+
+  button {
+    vertical-align: middle;
+  }
+
+}
+
+#episode_play_button {
+  @include icon-button($url: '../icons/play-rounded-button.png', $width: 60px);
+}
+
+#episode_prev_button {
+  @include icon-button($url: '../icons/play-previous-button.png', $width: 20px);
+}
+
+#episode_next_button {
+  @include icon-button($url: '../icons/play-next-button.png', $width: 20px);
+}
+
+#episode_vol_button {
+  @include icon-button($url: '../icons/volume-up-indicator.png', $width: 15px);
+  float: right;
+}
+
+#episode_progress_bar {
+  height: 4px;
+  background-color: black;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+#episode_progress_time {
+  font-size: 0.75em;
+  float: left;
+}
+
+//================================================
+// Intro Tab
+//================================================
+
+#intro {
+  p {
+    font-size: 0.9em;
+    line-height: 2;
+    margin: 10px auto;
+    text-align: center;
+    width: 80%;
+  }
+}
+
+//================================================
+// Tracklist Tab
+//================================================
+
+#tracklist {
+  table {
+    font-size: 0.75rem; /* 12px */
+    width: 100%;
+
+    tr {
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    th, td {
+      padding: 5px;
+      vertical-align: middle;
+    }
+  }
+
+  .track-preview,
+  .track-stream,
+  .track-number {
+    text-align: center;
+  }
+
+  .track-title,
+  .track-performer {
+    margin: 4px 0;
+  }
+
+  .track-title {
+    font-size: 0.82rem;
+  }
+
+  .track-year {
+    font-size: 0.70rem;
+    color: #9a9a9a;
+  }
+
+  /* seperator between multiple performers */
+  .track-performer a:nth-child(1n+2)::before {
+    content: "/\00A0";
+    color: black;
+  }
+
+  .track-preview button {
+    @include icon-button($url: '../icons/play-button-inside-a-circle.png', $width: 35px);
+  }
+
+  .track-stream button {
+    @include icon-button($url: '../icons/Spotify_Icon_CMYK_Black.png', $width: 20px);
+  }
+}
+
+//================================================
+// Artists Tab
+//================================================
+
+#artists {
+  padding: 0;
+
+  ul {
+    @extend %clearfix;
+    background-color: rgb(246, 246, 246)
+  }
+
+  li {
+    float: left;
+    max-width: 50%;
+
+    a {
+      font-size: 0; /* removes unwanted gapping */
+    }
+
+    &:nth-child(2n+3) { /* clear every 2 starting at 3 */
+      clear: both;
+    }
+  }
+
+  figure {
+    position: relative;
+    margin: 0;
+  }
+
+  figcaption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25%;
+    font-size: 0.85rem;
+    color: white;
+    background-color: rgba(40, 40, 40, 0.8);
+    padding: 15px 10px;
+    font-weight: lighter;
+    @extend %text-nowrap;
+  }
+
+  img {
+    @extend %img-responsive;
+    outline: 1px solid black;
+  }
+
+}
