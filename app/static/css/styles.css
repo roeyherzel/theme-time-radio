@@ -114,7 +114,7 @@ p.release-date {
   display: inline-block;
 }
 
-#episodePlayer li:nth-child(2n+1) {
+#episodePlayer li:nth-child(2) {
   margin: 0 20px;
 }
 
@@ -199,7 +199,6 @@ button#episodeVolButton {
 }
 #intro p {
   font-weight: lighter;
-  font-style: italic;
   line-height: 2;
   margin: 10px auto;
   text-align: center;
@@ -260,8 +259,8 @@ button#episodeVolButton {
 
 .track-preview button {
   background: url('../icons/play-button-inside-a-circle.png') no-repeat center;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background-size: contain;
   border: none;
 }
