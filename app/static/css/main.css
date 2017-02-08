@@ -397,7 +397,7 @@ footer img, #page_wrapper header img, #artists img {
 
 #main_header {
   padding: 20px 15px;
-  border-bottom: 1px solid #f6f6f6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
   margin-bottom: 0; }
   #main_header h3 {
     float: left;
@@ -407,11 +407,11 @@ footer img, #page_wrapper header img, #artists img {
     float: right;
     width: 23px;
     height: 21px;
+    background-image: url("../icons/white-mobile-nav-46x42.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     background-color: transparent;
-    background-image: url("../images/mobile_nav@46x42.png");
     border: none; }
 
 footer {
@@ -459,68 +459,70 @@ footer {
       font-size: 0.70em; }
 
 #episode_player {
-  background-color: white;
-  color: black;
-  padding: 20px;
-  text-align: center; }
-  #episode_player li {
-    display: inline-block; }
-    #episode_player li:nth-child(2) {
-      margin: 0 20px; }
+  color: white;
+  padding: 15px;
+  margin: 20px 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.45); }
   #episode_player button {
     vertical-align: middle; }
 
 #episode_play_button {
   width: 60px;
   height: 60px;
+  background-image: url("../icons/white-play-rounded-button.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   background-color: transparent;
-  background-image: url("../icons/play-rounded-button.png");
-  border: none; }
+  border: none;
+  margin: 0 20px; }
 
 #episode_prev_button {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
+  background-image: url("../icons/white-play-previous-button.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   background-color: transparent;
-  background-image: url("../icons/play-previous-button.png");
   border: none; }
 
 #episode_next_button {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
+  background-image: url("../icons/white-play-next-button.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   background-color: transparent;
-  background-image: url("../icons/play-next-button.png");
   border: none; }
 
 #episode_vol_button {
   width: 15px;
   height: 15px;
+  background-image: url("../icons/white-volume-up-indicator.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   background-color: transparent;
-  background-image: url("../icons/volume-up-indicator.png");
   border: none;
-  float: right; }
+  float: left;
+  margin-left: 10px; }
 
 #episode_progress_bar {
-  height: 4px;
-  background-color: black;
+  height: 3px;
+  background-color: white;
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-radius: 4px; }
 
 #episode_progress_time {
-  font-size: 0.75em;
-  float: left; }
+  float: left;
+  margin-left: 2px;
+  font-size: 0.75em; }
+  #episode_progress_time span {
+    vertical-align: middle; }
 
 #intro p {
   font-size: 0.9em;
@@ -558,20 +560,20 @@ footer {
   #tracklist .track-preview button {
     width: 35px;
     height: 35px;
+    background-image: url("../icons/black-play-button-inside-a-circle.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     background-color: transparent;
-    background-image: url("../icons/play-button-inside-a-circle.png");
     border: none; }
   #tracklist .track-stream button {
     width: 20px;
     height: 20px;
+    background-image: url("../icons/Spotify_Icon_CMYK_Black.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     background-color: transparent;
-    background-image: url("../icons/Spotify_Icon_CMYK_Black.png");
     border: none; }
 
 #artists {

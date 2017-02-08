@@ -35,18 +35,11 @@
 
 #episode_player {
   @extend %clearfix;
-  background-color: white;
-  color: black;
-  padding: 20px;
+  color: white;
+  padding: $page-sides-padding;
+  margin: 20px 0;
   text-align: center;
-
-  li {
-    display: inline-block;
-
-    &:nth-child(2) { // play button spacing
-      margin: 0 20px;
-    }
-  }
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
 
   button {
     vertical-align: middle;
@@ -55,33 +48,39 @@
 }
 
 #episode_play_button {
-  @include icon-button($url: '../icons/play-rounded-button.png', $width: 60px);
+  @include icon-button($url: '../icons/white-play-rounded-button.png', $width: 60px);
+  margin: 0 20px;
 }
 
 #episode_prev_button {
-  @include icon-button($url: '../icons/play-previous-button.png', $width: 20px);
+  @include icon-button($url: '../icons/white-play-previous-button.png', $width: 15px);
 }
 
 #episode_next_button {
-  @include icon-button($url: '../icons/play-next-button.png', $width: 20px);
+  @include icon-button($url: '../icons/white-play-next-button.png', $width: 15px);
 }
 
 #episode_vol_button {
-  @include icon-button($url: '../icons/volume-up-indicator.png', $width: 15px);
-  float: right;
+  @include icon-button($url: '../icons/white-volume-up-indicator.png', $width: 15px);
+  float: left;
+  margin-left: 10px;
 }
 
 #episode_progress_bar {
-  height: 4px;
-  background-color: black;
+  height: 3px;
+  background-color: white;
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-radius: 4px;
 }
 
 #episode_progress_time {
-  font-size: 0.75em;
   float: left;
+  margin-left: 2px;
+  font-size: 0.75em;
+  span {
+    vertical-align: middle;
+  }
 }
 
 //================================================
@@ -144,7 +143,7 @@
   }
 
   .track-preview button {
-    @include icon-button($url: '../icons/play-button-inside-a-circle.png', $width: 35px);
+    @include icon-button($url: '../icons/black-play-button-inside-a-circle.png', $width: 35px);
   }
 
   .track-stream button {
