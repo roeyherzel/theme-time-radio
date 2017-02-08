@@ -1,0 +1,269 @@
+//================================================
+// Episode Header
+//================================================
+
+#pageWrapper header {
+  text-align: center;
+  padding: 10px;  /* for bordering large landscape images */
+
+  img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    max-width: 100%;
+    object-fit: cover;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2.7em;
+  }
+
+  p.episode-path {
+    font-weight: lighter;
+    font-size: 0.85em;
+    margin-bottom: 5px;
+  }
+  p.release-date {
+    font-size: 0.7em;
+    font-weight: lighter;
+  }
+}
+
+//================================================
+// Episode Player
+//================================================
+
+#episodePlayer {
+  background-color: white;
+  color: black;
+  padding: 20px;
+
+  ul {
+    text-align: center;
+  }
+
+  li {
+    display: inline-block;
+
+    &:nth-child(2) { // play button spacing
+      margin: 0 20px;
+    }
+  }
+
+  button {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+
+    &#episodePlayButton {
+      background-image: url('../icons/play-rounded-button.png');
+      width: 60px;
+      height: 60px;
+    }
+
+    &#episodePrevButton {
+      background-image: url('../icons/play-previous-button.png');
+    }
+
+    &#episodeNextButton {
+      background-image: url('../icons/play-next-button.png');
+    }
+
+    &#episodeVolButton {
+      background-image: url('../icons/volume-up-indicator.png');
+      width: 15px;
+      height: 15px;
+      float: right;
+    }
+
+  }
+
+}
+
+#episodeTimeProgress {
+  text-align: left;
+  font-size: 0.75em;
+  float: left;
+
+}
+
+#episodeProgressBar {
+  height: 4px;
+  background-color: black;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+//================================================
+// Tabs
+//================================================
+
+.tab {
+  background-color: #25AAE1;
+
+  a {
+    display: block;
+    font-size: 1.17em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+  }
+
+}
+
+.tab-content section {
+  padding: 15px;
+}
+
+//================================================
+// Intro Tab
+//================================================
+
+#intro {
+  background-color: initial;
+
+  p {
+    font-size: 0.9em;
+    font-weight: lighter;
+    line-height: 2;
+    margin: 10px auto;
+    text-align: center;
+    width: 80%;
+    color: white;
+  }
+
+}
+
+//================================================
+// Tracklist Tab
+//================================================
+
+#tracklist {
+  color: black;
+  background-color: white;
+
+  a {
+    text-decoration: none;
+  }
+
+  table {
+    font-size: 0.75rem; /* 12px */
+    width: 100%;
+
+    tr {
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    th, td {
+      padding: 5px;
+      vertical-align: middle;
+    }
+  }
+
+  .track-number {
+    text-align: center;
+  }
+
+  .track-title {
+    font-size: 0.82rem;
+  }
+
+  .track-title, .track-performer {
+    margin: 4px 0;
+  }
+
+  .track-year {
+    font-size: 0.70rem;
+    color: #9a9a9a;
+  }
+
+  .track-performer a:nth-child(1n+2)::before {  /* seperator between multiple performers */
+    content: "/\00A0";
+    color: black;
+  }
+
+  .track-preview,
+  .track-stream {
+    text-align: center;
+  }
+
+  .track-preview button {
+    background: url('../icons/play-button-inside-a-circle.png') no-repeat center;
+    width: 35px;
+    height: 35px;
+    background-size: contain;
+    border: none;
+  }
+
+  .track-stream button {
+    background: url('../icons/Spotify_Icon_CMYK_Black.png') no-repeat center;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    border: none;
+  }
+
+}
+
+//================================================
+// Artists Tab
+//================================================
+
+#artists {
+  padding: 0;
+
+  ul {
+    text-align: center;
+    background-color: rgb(246, 246, 246)
+  }
+
+  li {
+    float: left;
+    max-width: 50%;
+
+    a {
+      font-size: 0; /* removes unwanted gapping */
+    }
+
+    &:nth-child(2n+3) { /* clear every 2 starting at 3 */
+      clear: both;
+    }
+  }
+
+  figure {
+    position: relative;
+    margin: 0;
+  }
+
+  figcaption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25%;
+    font-size: 0.85rem;
+    color: white;
+    background-color: rgba(40, 40, 40, 0.8);
+    padding: 15px 10px;
+    margin: 0;
+    font-weight: lighter;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+}

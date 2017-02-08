@@ -12,3 +12,6 @@ venv/
 # ----
 tagging.log
 output.log
+
+# Client
+app/static/css/.sass-cache/
