@@ -10,7 +10,11 @@
       {{#each tracklist}}
       <tr class="track">
         <td class="track-preview">
-          <button type="button" data-preview-url="{{spotify_song.preview_url}}"></button>
+          {{#if spotify_song.preview_url }}
+            <button class="track-preview-button" type="button" data-preview-url="{{spotify_song.preview_url}}"></button>
+          {{else}}
+            <button class="track-nopreview-button" type="button"></button>
+          {{/if}}
         </td>
         <td class="track-number">{{position}}</td>
         <td class="track-title-performer">
@@ -34,7 +38,9 @@
         {{/if }}
         </td>
         <td class="track-stream">
-          <button type="button" data-id="{{spotify_song.id}}"></button>
+          {{#if spotify_song.preview_url }}
+            <button class="track-stream-button" type="button" data-id="{{spotify_song.id}}"></button>
+          {{/if}}
         </td>
       </tr>
       {{/each}}
