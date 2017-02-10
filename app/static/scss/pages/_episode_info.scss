@@ -1,32 +1,11 @@
 //================================================
-// Episode Info
+// Episode Header
 //================================================
-
-#page_wrapper header {
-  text-align: center;
-  padding: 10px;  /* for bordering large landscape images */
-
-  img {
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 15px;
-    @extend %img-responsive;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: 2.7em;
-  }
-
-  p {
-    font-weight: lighter;
-    &.episode-path {
-      font-size: 0.85em;
-    }
-    &.release-date {
-      font-size: 0.70em;
-    }
-  }
+.episode-path {
+  font-size: 0.85em;
+}
+.release-date {
+  font-size: 0.70em;
 }
 
 //================================================
@@ -44,7 +23,6 @@
   button {
     vertical-align: middle;
   }
-
 }
 
 #episode_play_button {

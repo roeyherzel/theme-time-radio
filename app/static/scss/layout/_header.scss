@@ -1,0 +1,21 @@
+//================================================
+// Header
+//================================================
+
+#main_header {
+  @extend %clearfix;
+  padding: 20px $page-sides-padding;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  margin-bottom: 0;
+
+  h3 {
+    float: left;
+    margin: 0;
+    font-weight: lighter;
+  }
+
+  nav {
+    float: right;
+    @include icon-button($width: 23px, $height: 21px, $url: '../icons/white-mobile-nav-46x42.png');
+  }
+}

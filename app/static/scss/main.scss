@@ -1,14 +1,16 @@
+//================================================
+// Main App
+//================================================
+
 // Normalizer
 @import "normalize";
 
-// Variables
-@import "variables";
+// Utils
+@import "utils/index";
 
-// Mixins
-@import "mixins";
+// Layout
+@import "layout/index";
+@import "components/index";
 
-// Global Styles
-@import "globals";
-
-// Pages Specific
-@import "pages/episode_info";
+// Pages
+@import "pages/index";

@@ -9,14 +9,14 @@
   </head>
   <body id="top">
 
-    <div id="main_wrapper">
+    <div id="page_wrapper">
 
       <header id="main_header">
         <h3>Theme Time</h3>
         <nav></nav>
       </header>
 
-      <div id="page_wrapper">
+      <div id="content_wrapper">
         {% block page_content %}{% endblock %}
       </div>
 
@@ -32,5 +32,6 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/handlebars.min-latest.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block page_scripts %}{% endblock %}
   </body>
 </html>

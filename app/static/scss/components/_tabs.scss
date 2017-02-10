@@ -1,0 +1,25 @@
+//================================================
+// Tabs
+//================================================
+
+.tab {
+  background-color: #25AAE1;
+
+  a {
+    display: block;
+    font-size: 1.17em;
+    font-weight: bold;
+    color: white;
+    padding: $page-sides-padding;
+  }
+
+}
+
+.tab-content {
+  background-color: white;
+
+  section {
+    color: black;
+    padding: $page-sides-padding;
+  }
+}
