@@ -70,7 +70,7 @@
   height: 3px;
   background-color: white;
   margin-top: 15px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   border-radius: 4px;
 }
 
@@ -109,6 +109,12 @@
       border-bottom: 1px solid #e3e3e3;
     }
 
+    th {
+      text-align: center;
+      &:nth-child(3) {
+        text-align: left;
+      }
+    }
     th, td {
       padding: 6px 4px;
       vertical-align: middle;
@@ -144,10 +150,10 @@
   .track-preview-button {
     @include icon-button($url: '../icons/black-play-rounded-button.png', $width: 35px);
   }
-  .track-nopreview-button {
-    @include icon-button($url: '../icons/black-help-round-button.png', $width: 35px);
-  }
 
+  .track-nopreview-button {
+    @include icon-button($url: '../icons/black-round-info-button.png', $width: 35px);
+  }
 
   .track-stream-button {
     @include icon-button($url: '../icons/Spotify_Icon_CMYK_Green.png', $width: 20px);
