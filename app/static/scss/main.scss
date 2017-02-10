@@ -1,14 +1,14 @@
 // Normalizer
-@import "_normalize.scss";
+@import "normalize";
 
 // Variables
-@import "_variables.scss";
+@import "variables";
 
 // Mixins
-@import "_mixins.scss";
+@import "mixins";
 
 // Global Styles
-@import "_globals.scss";
+@import "globals";
 
 // Pages Specific
-@import "pages/_episode_info.scss";
+@import "pages/episode_info";

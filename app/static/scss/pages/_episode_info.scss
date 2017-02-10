@@ -53,11 +53,11 @@
 }
 
 #episode_prev_button {
-  @include icon-button($url: '../icons/white-play-previous-button.png', $width: 15px);
+  @include icon-button($url: '../icons/white-play-previous-button.png', $width: 20px);
 }
 
 #episode_next_button {
-  @include icon-button($url: '../icons/white-play-next-button.png', $width: 15px);
+  @include icon-button($url: '../icons/white-play-next-button.png', $width: 20px);
 }
 
 #episode_vol_button {
@@ -75,7 +75,6 @@
 }
 
 #episode_progress_time {
-  float: left;
   margin-left: 2px;
   font-size: 0.75em;
   span {
@@ -143,15 +142,15 @@
   }
 
   .track-preview-button {
-    @include icon-button($url: '../icons/black-play-button-inside-a-circle.png', $width: 35px);
+    @include icon-button($url: '../icons/black-play-rounded-button.png', $width: 35px);
   }
   .track-nopreview-button {
-    @include icon-button($url: '../icons/black-round-info-button.png', $width: 35px);
+    @include icon-button($url: '../icons/black-help-round-button.png', $width: 35px);
   }
 
 
   .track-stream-button {
-    @include icon-button($url: '../icons/Spotify_Icon_CMYK_Black.png', $width: 20px);
+    @include icon-button($url: '../icons/Spotify_Icon_CMYK_Green.png', $width: 20px);
   }
 }
 
