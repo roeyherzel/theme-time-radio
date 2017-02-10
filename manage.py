@@ -24,7 +24,7 @@ def load_episodes():
 @manager.command
 def tagger():
     from tagger import tag_all_unresolved_untagged
-    tag_all_unresolved_untagged(10)
+    tag_all_unresolved_untagged()
 
 if __name__ == "__main__":
     manager.run()
