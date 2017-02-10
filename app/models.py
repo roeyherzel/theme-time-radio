@@ -41,6 +41,24 @@ Models
 -----------------------------------------------------------------------------------------------------
 """
 
+aux_tracks_artists = db.Table(
+    'aux_tracks_artists',
+    db.Column('artist_id', db.String, db.ForeignKey('artists.id')),
+    db.Column('track_id', db.Integer, db.ForeignKey('tracks.id'))
+)
+
+aux_songs_artists = db.Table(
+    'aux_songs_artists',
+    db.Column('song_id', db.String, db.ForeignKey('songs.id')),
+    db.Column('artist_id', db.String, db.ForeignKey('artists.id'))
+)
+
+aux_artists_tags = db.Table(
+    'aux_artists_tags',
+    db.Column('artist_id', db.String, db.ForeignKey('artists.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
+)
+
 
 class Episodes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -63,11 +81,7 @@ class Episodes(db.Model):
         return '<Episode ({}): {}>'.format(self.id, self.title)
 
 
-aux_tracks_artists = db.Table(
-    'aux_tracks_artists',
-    db.Column('artist_id', db.String, db.ForeignKey('artists.id')),
-    db.Column('track_id', db.Integer, db.ForeignKey('tracks.id'))
-)
+
 
 
 class Tracks(db.Model):
@@ -94,7 +108,6 @@ class Tracks(db.Model):
 class Tags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
-    type = db.Column(db.String)
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)
@@ -103,31 +116,18 @@ class Tags(db.Model):
     def getId(cls, name):
         return cls.query.filter_by(name=name).first().id
 
-    @classmethod
-    def countSong(cls):
-        return db.session.query(Tags, func.count(Songs.id).label('track_count')) \
-                         .join(aux_songs_tags, (aux_songs_tags.c.tag_id == Tags.id)) \
-                         .join(Songs, Songs.id == aux_songs_tags.c.song_id) \
-                         .group_by(Tags)
-
-
-aux_songs_tags = db.Table(
-    'aux_songs_tags',
-    db.Column('song_id', db.String, db.ForeignKey('songs.id')),
-    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
-)
-aux_songs_artists = db.Table(
-    'aux_songs_artists',
-    db.Column('song_id', db.String, db.ForeignKey('songs.id')),
-    db.Column('artist_id', db.String, db.ForeignKey('artists.id'))
-)
+    # @classmethod
+    # def countSong(cls):
+    #     return db.session.query(Tags, func.count(Songs.id).label('track_count')) \
+    #                      .join(aux_songs_tags, (aux_songs_tags.c.tag_id == Tags.id)) \
+    #                      .join(Songs, Songs.id == aux_songs_tags.c.song_id) \
+    #                      .group_by(Tags)
 
 
 class Songs(db.Model):
     id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
     preview_url = db.Column(db.String)
-    tags = db.relationship('Tags', secondary=aux_songs_tags, backref='songs')
     artists = db.relationship('Artists', secondary=aux_songs_artists, backref='songs')
 
     def __repr__(self):
@@ -139,6 +139,7 @@ class Artists(db.Model):
     name = db.Column(db.String, nullable=False, unique=True)
     lastfm_name = db.Column(db.String)
     lastfm_image = db.Column(db.String)
+    lastfm_tags = db.relationship('Tags', secondary=aux_artists_tags, backref='artists')
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)

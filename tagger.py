@@ -13,6 +13,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', filename='t
 
 
 class BaseAPI(object):
+    '''Base class to API requests'''
     def __init__(self):
         self.params = {}
         self.headers = {}
@@ -29,8 +30,7 @@ class BaseAPI(object):
         logging.debug("make_request - %s", self.request.url)
 
 
-class LastFM(BaseAPI):
-
+class LastFmAPI(BaseAPI):
     def __init__(self):
         super().__init__()
         self.url = "http://ws.audioscrobbler.com/2.0"
@@ -53,33 +53,22 @@ class LastFM(BaseAPI):
                 data = self.request.json()['artist']
                 # name
                 self.data['name'] = data['name']
+
                 # image
-                res = [image['#text'] for image in data['image'] if image['size'] == 'extralarge']
-                self.data['image'] = res[0] if res else None
-                self.found = True
+                image = [i['#text'] for i in data['image'] if i['size'] == 'extralarge']
+                self.data['image'] = image[0] if image else None
 
-            except KeyError:
-                pass
+                # tags
+                self.data['tags'] = [t['name'] for t in data['tags']['tag']]
 
-    def getTrackInfo(self, track, artist):
-        self.found = False
-        self.data = dict()
-        self.params['method'] = 'track.getinfo'
-        self.params['track'] = track
-        self.params['artist'] = artist
-
-        self.make_request()
-        if self.request.ok:
-            try:
-                data = self.request.json()['track']
-                self.data['tags'] = [tag['name'] for tag in data['toptags']['tag']]
+                # found
                 self.found = True
 
             except KeyError:
                 pass
 
 
-class Spotify(BaseAPI):
+class SpotifyAPI(BaseAPI):
 
     def __init__(self, artist, track=None):
         super().__init__()
@@ -106,63 +95,70 @@ class Spotify(BaseAPI):
 
 
 def collectArtistData(data, trackObj, songObj=None):
+    '''Collect data retreived from API and add to DB artist object'''
+
+    # check if artist already exist in DB
     artistObj = models.Artists.query.get(data['id'])
     if artistObj is None:
         # removes accents like "Édith Piaf"
-        artistObj = models.Artists(
-            id=data['id'],
-            name=unicodedata.normalize('NFKD', data['name']).encode('ASCII', 'ignore').decode()
-        )
+        artist_name = unicodedata.normalize('NFKD', data['name']).encode('ASCII', 'ignore').decode()
+        # add new artist
+        artistObj = models.Artists(id=data['id'], name=artist_name)
+
         # LastFM name must be left with accents like "Édith Piaf"
-        lastfm = LastFM()
+        lastfm = LastFmAPI()
         lastfm.getArtistInfo(data['name'])
         if lastfm.found:
             artistObj.lastfm_name = lastfm.data['name']
             artistObj.lastfm_image = lastfm.data['image']
 
+            for tag in lastfm.data['tags']:
+                tagObj = models.Tags(name=tag)
+
+                if models.create(tagObj) is False:
+                    tagObj = models.Tags.query.filter(models.Tags.name == tag).one_or_none()
+
+                logging.debug("%s", tagObj)
+                artistObj.lastfm_tags.append(tagObj)
+
+        # creat new artist
         models.create(artistObj)
 
+    # attach artist to track
     trackObj.spotify_artists.append(artistObj)
+    # attach artist to song
     if songObj:
         songObj.artists.append(artistObj)
 
 
 def collectSongData(data, trackObj):
-    songObj = models.Songs(id=data['id'], name=data['name'], preview_url=data['preview_url'])
-    if models.create(songObj) is False:
-        songObj = models.Songs.query.get(data['id'])
+    '''Collect data retreived from API and add to DB song object'''
 
+    # check if song alreadt exist in DB
+    songObj = models.Songs.query.get(data['id'])
+    if songObj is None:
+        # add new song
+        songObj = models.Songs(id=data['id'], name=data['name'], preview_url=data['preview_url'])
+        # create new song
+        models.create(songObj)
+
+    # attach song to track
     trackObj.spotify_song_id = songObj.id
 
     for artist_data in data['artists']:
-        collectSongTags(songObj, artist_data['name'])
+        # collect song artists
         collectArtistData(artist_data, trackObj, songObj)
 
 
-def collectSongTags(songObj, artist):
-    lastfm = LastFM()
-    lastfm.getTrackInfo(track=songObj.name, artist=artist)
-
-    if lastfm.found:
-        for tag in lastfm.data['tags']:
-            tagObj = models.Tags(name=tag)
-
-            if models.create(tagObj) is False:
-                tagObj = models.Tags.query.filter(models.Tags.name == tag).one_or_none()
-
-            logging.debug("%s", tagObj)
-            songObj.tags.append(tagObj)
-
-
-def tagTrack(song, artist, trackObj):
-    logging.info("tagTrack - track_id: %s, song: %s, artist: %s", trackObj, song, artist)
+def tagger(song, artist, trackObj):
+    logging.info("tagger - track_id: %s, song: %s, artist: %s", trackObj, song, artist)
     # search track
-    results = Spotify(track=song, artist=artist)
+    results = SpotifyAPI(track=song, artist=artist)
     if results.found:
         collectSongData(results.data, trackObj)
     else:
         # search artist
-        results = Spotify(artist=artist)
+        results = SpotifyAPI(artist=artist)
         if results.found:
             logging.warning("ONLY ARTIST")
             collectArtistData(results.data, trackObj)
@@ -173,7 +169,7 @@ def tagTrack(song, artist, trackObj):
 def tag_from_query(track_list):
     logging.info("--- Tagging #%s Tracks", len(track_list))
     for track in track_list:
-        tagTrack(song=track.parsed_song, artist=track.parsed_artist, trackObj=track)
+        tagger(song=track.parsed_song, artist=track.parsed_artist, trackObj=track)
 
 
 def tag_all_unresolved_untagged(limit=None):

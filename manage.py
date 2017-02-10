@@ -16,24 +16,15 @@ def clean_db():
 
 
 @manager.command
-def clean_tags():
-    models.Songs.query.delete()
-    models.Albums.query.delete()
-    models.Artists.query.delete()
-    models.Tags.query.delete()
-    models.db.session.commit()
-
-
-@manager.command
 def load_episodes():
     import wiki_parser
     import tth_parser
 
 
 @manager.command
-def load_tags():
+def tagger():
     from tagger import tag_all_unresolved_untagged
-    tag_all_unresolved_untagged()
+    tag_all_unresolved_untagged(10)
 
 if __name__ == "__main__":
     manager.run()
