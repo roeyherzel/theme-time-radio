@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theme Time Radio Hour</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% block page_styles %}{% endblock %}
   </head>
   <body id="top">
 
@@ -17,7 +16,8 @@
       </header>
 
       <div id="content_wrapper">
-        {% block page_content %}{% endblock %}
+        {% block page_content %}
+        {% endblock %}
       </div>
 
     </div>
@@ -26,11 +26,10 @@
       <a href="#top"><img src="/static/images/themetimelogo.jpg" alt="Theme time logo"></a>
     </footer>
     <!-- javaScripts -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/lib/jquery-3.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/lib/underscore-min.js') }}"></script> <!-- TODO: try to workwitout underscore.js -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/lib/handlebars.min-latest.js') }}"></script>
 
-    <!-- TODO: try to workwitout underscore.js -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/handlebars.min-latest.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
     {% block page_scripts %}{% endblock %}
   </body>

@@ -40,38 +40,17 @@ class ArtistsEpisodesAPI(Resource):
                              .all()
 
 
-@api.resource('/api/artists/<string:artist_id>/songs')
-class ArtistsSongsAPI(Resource):
+@api.resource('/api/artists/<string:artist_id>/tracklist')
+class ArtistsTracklistAPI(Resource):
 
-    @marshal_with(schemas.Song().as_dict)
+    @marshal_with(schemas.Track().as_dict)
     def get(self, artist_id):
-        return Artists.query.get(artist_id).songs
+        return Artists.query.get(artist_id).tracks
 
 
-@api.resource('/api/artists/<string:artist_id>/tags')
-class ArtistsTagsAPI(Resource):
-
-    @marshal_with(schemas.Tags().as_dict)
-    def get(self, artist_id):
-        subq = db.session.query(Songs.id) \
-                         .join(aux_songs_artists, aux_songs_artists.c.song_id == Songs.id) \
-                         .filter(aux_songs_artists.c.artist_id == artist_id) \
-                         .subquery()
-
-        return Tags.query.join(aux_songs_tags, aux_songs_tags.c.tag_id == Tags.id).filter(aux_songs_tags.c.song_id.in_(subq)).all()
-
-"""
------------------------------
-LastFM API
------------------------------
-"""
-
-
-# TODO: move this to ArtistsAPI with request parameter
-@api.resource('/api/lastfm/artists')
+@api.resource('/api/helper/all-lastfm-artists')
 class LastFmArtistsAPI(Resource):
 
     @marshal_with_field(fields.List(fields.String()))
     def get(self):
-        # NOTE: used to wraped/envelope with data:
         return [i.lastfm_name for i in Artists.query.all()]

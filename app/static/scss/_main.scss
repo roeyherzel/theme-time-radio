@@ -2,15 +2,10 @@
 // Main App
 //================================================
 
-// Normalizer
-@import "normalize";
-
-// Utils
 @import "utils/index";
 
-// Layout
-@import "layout/index";
-@import "components/index";
+@import "base/index";
 
-// Pages
-@import "pages/index";
+@import "layout/index";
+
+@import "components/index";

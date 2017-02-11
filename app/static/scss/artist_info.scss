@@ -1,0 +1,34 @@
+//================================================
+// Import main
+//================================================
+
+@import "main";
+
+
+//================================================
+// Artist Header
+//================================================
+
+#content_wrapper header {
+  img {
+    border-radius: 50%;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  li {
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+  li a {
+    text-transform: capitalize;
+    padding: 5px;
+    background-color: white;
+    font-size: 0.75em;
+  }
+
+}

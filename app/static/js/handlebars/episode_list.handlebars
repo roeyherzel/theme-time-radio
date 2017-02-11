@@ -1,0 +1,12 @@
+<ul>
+  {{#each episodes}}
+  <li>
+    <a href="{{view}}">
+      <figure>
+        <img src="{{image}}" alt="Episode - {{title}}">
+        <figcaption>{{id}}. {{title}}</figcaption>
+      </figure>
+    </a>
+  </li>
+  {{/each}}
+</ul>

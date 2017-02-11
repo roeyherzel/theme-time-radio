@@ -1,23 +1,19 @@
 /*============================================================================================
-Episode Info page
+Episode info page
 ============================================================================================*/
 
 $(document).ready(function() {
-  var episode_id = $('#episodeId').text();
+  var episodeId = $('#episode_id').text();
 
-  $.getJSON("/api/episodes/" + episode_id + "/tracklist", function(tracklist, status) {
+  $.getJSON("/api/episodes/" + episodeId + "/tracklist", function(tracklist) {
 
-    getHandlebarsTemplate('tracklist_table.handlebars', function(template) {
-      $('#tracklist').html(template({tracklist: tracklist}));
+    handlebarsRenderTracklist(tracklist);
 
-    });
-
+    // extract list of artists from tracks
     var artists = _.map(tracklist, function(t) { return t.spotify_artists; });
     artists = _.uniq(_.flatten(artists), function(a) { return a.name; });
 
-    getHandlebarsTemplate('artists_list.handlebars', function(template) {
-      $("#artists").html(template({artists: artists}));
-    });
+    handlebarsRenderArtists(artists);
 
   });
 

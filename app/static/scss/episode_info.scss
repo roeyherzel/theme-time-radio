@@ -1,0 +1,88 @@
+//================================================
+// Import main
+//================================================
+
+@import "main";
+
+
+//================================================
+// Episode Header
+//================================================
+
+#content_wrapper header {
+  h1 {
+    margin: 0;
+    font-size: 2.7em;
+  }
+
+  p {
+    font-weight: lighter;
+    font-size: 0.70em;
+  }
+}
+
+//================================================
+// Episode Player
+//================================================
+
+#episode_player {
+  @extend %clearfix;
+  color: white;
+  padding: $page-sides-padding;
+  margin-top: 10px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+
+  button {
+    vertical-align: middle;
+  }
+}
+
+#episode_play_button {
+  @include icon-button($url: '../icons/white-play-rounded-button.png', $width: 60px);
+  margin: 0 20px;
+}
+
+#episode_prev_button {
+  @include icon-button($url: '../icons/white-play-previous-button.png', $width: 20px);
+}
+
+#episode_next_button {
+  @include icon-button($url: '../icons/white-play-next-button.png', $width: 20px);
+}
+
+#episode_vol_button {
+  @include icon-button($url: '../icons/white-volume-up-indicator.png', $width: 15px);
+  float: left;
+  margin-left: 10px;
+}
+
+#episode_progress_bar {
+  height: 3px;
+  background-color: white;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+#episode_progress_time {
+  margin-left: 2px;
+  font-size: 0.75em;
+  span {
+    vertical-align: middle;
+  }
+}
+
+//================================================
+// Intro Tab
+//================================================
+
+#intro {
+  p {
+    font-size: 0.9em;
+    line-height: 2;
+    margin: 10px auto;
+    text-align: center;
+    width: 80%;
+  }
+}

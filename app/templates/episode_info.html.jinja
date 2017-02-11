@@ -3,9 +3,9 @@
 {% block page_content %}
   <header>
     <img src="{{ episode.image }}" alt="Photo of {{ episode.title }}">
-    <p class="episode-path">Season <span id="seasonId"> {{ episode.season }}</span> - Episode <span id="episodeId">{{ episode.id }}</span></p>
+    <p>Season <span id="seasonId"> {{ episode.season }}</span> - Episode <span id="episode_id">{{ episode.id }}</span></p>
     <h1>{{ episode.title }}</h1>
-    <p class="release-date">{{ episode.aired }}</p>
+    <p>{{ episode.aired }}</p>
   </header>
 
   <section id="episode_player">
@@ -37,15 +37,19 @@
 
       <li class="tab"><a href="#">Tracklist</a></li>
       <li class="tab-content">
-        <section id="tracklist"></section> <!-- tracklist placeholder -->
+        <section id="tracklist_placeholder"></section>
       </li>
 
       <li class="tab"><a href="#">Artists</a></li>
       <li class="tab-content">
-        <section id="artists"></section> <!-- artists placeholder -->
+        <section id="artists_placeholder"></section>
       </li>
     </ul>
   </main>
+{% endblock %}
+
+{% block page_styles %}
+  <link rel="stylesheet" href="/static/css/episode_info.css">
 {% endblock %}
 
 {% block page_scripts %}
