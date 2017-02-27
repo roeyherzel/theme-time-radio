@@ -14,7 +14,7 @@ Error handlers
 
 @main.errorhandler(404)
 def not_found_error(error):
-    return render_template('404.html.jinja'), 404
+    return render_template('404.html.j2'), 404
 
 
 """
@@ -27,7 +27,7 @@ Views
 @main.route('/mixtapes')
 @main.route('/mixtapes/<string:tape_name>')
 def mixtapes_view(tape_name=None):
-    return render_template('mixtapes.html.jinja', tape_name=tape_name)
+    return render_template('mixtapes.html.j2', tape_name=tape_name)
 
 
 @main.route('/artists/<string:artist_id>')
@@ -46,7 +46,7 @@ def artist_view(artist_id=None, artist_name=None, lastfm_name=None):
     if artist is None:
         abort(404)
     else:
-        return render_template('artist_info.html.jinja', artist=artist)
+        return render_template('artist_info.html.j2', artist=artist)
 
 
 @main.route('/artists')
@@ -67,7 +67,7 @@ def all_artists_view(index="A"):
     else:
         artists = Artists.query.order_by(Artists.name).filter(func.upper(Artists.name).startswith(index)).all()
 
-    return render_template('all_artists.html.jinja', artists=artists, index=index, index_list=artists_index)
+    return render_template('all_artists.html.j2', artists=artists, index=index, index_list=artists_index)
 
 
 @main.route('/episodes')
@@ -79,19 +79,19 @@ def episode_view(episode_id=None, season=1):
         if episode is None:
             abort(404)
 
-        return render_template('episode_info.html.jinja', episode=episode, prev=episode.prev, next=episode.next)
+        return render_template('episode_info.html.j2', episode=episode, prev=episode.prev, next=episode.next)
 
     seasons = [1, 2, 3]
     if season not in seasons:
         abort(404)
 
     episodes = Episodes.query.filter(Episodes.season == season).order_by(Episodes.id)
-    return render_template('all_episodes.html.jinja', episodes=episodes, season=season, seasons=seasons)
+    return render_template('all_episodes.html.j2', episodes=episodes, season=season, seasons=seasons)
 
 
 @main.route('/about')
 def about():
-    return render_template('about.html.jinja')
+    return render_template('about.html.j2')
 
 
 @main.route('/')
@@ -102,4 +102,4 @@ def index():
         'artists': "{:,}".format(Artists.query.count()),
         'tags': "{:,}".format(Tags.query.count())
     }
-    return render_template('index.html.jinja', stats=stats)
+    return render_template('index.html.j2', stats=stats)

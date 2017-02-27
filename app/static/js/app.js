@@ -14,19 +14,19 @@ function handlebarsGetTemplate(path, callback) {
 }
 
 function handlebarsRenderTracklist(trackList) {
-  handlebarsGetTemplate('tracklist_table.handlebars', function(template) {
+  handlebarsGetTemplate('tracklist_table.hbs', function(template) {
     $('#tracklist_placeholder').html(template({ tracks: trackList }));
   });
 }
 
 function handlebarsRenderArtists(artistList) {
-  handlebarsGetTemplate('artists_list.handlebars', function(template) {
+  handlebarsGetTemplate('artists_list.hbs', function(template) {
     $("#artists_placeholder").html(template({ artists: artistList }));
   });
 }
 
 function handlebarsRenderEpisodes(episodeList) {
-  handlebarsGetTemplate('episode_list.handlebars', function(template) {
+  handlebarsGetTemplate('episode_list.hbs', function(template) {
     $("#episodes_placeholder").html(template({ episodes: episodeList }));
   });
 }
