@@ -1,11 +1,7 @@
 
-@mixin icon-button($url, $width, $height:$width) {
+@mixin icon-button($name, $width, $height:$width) {
   width: $width;
   height: $height;
-  background-color: transparent;
-  background-image: url($url);
-  background-repeat: no-repeat;
-  background-size: contain;;
-  background-position: center;
+  background: transparent url('../icons/svg/#{$name}.svg') center/contain no-repeat;
   border: none;
 }
