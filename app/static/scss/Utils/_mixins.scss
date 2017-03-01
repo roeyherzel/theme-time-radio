@@ -1,7 +1,17 @@
 
-@mixin icon-button($name, $width, $height:$width) {
-  width: $width;
-  height: $height;
-  background: transparent url('../icons/svg/#{$name}.svg') center/contain no-repeat;
+@mixin svg-button(
+  $width,
+  $fill: null,
+  $height: $width) {
+
   border: none;
+  outline: none;
+  background: transparent;
+
+  svg {
+    width: $width;
+    height: $height;
+    vertical-align: middle;
+    fill: $fill;
+  }
 }

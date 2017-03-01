@@ -16,6 +16,6 @@
 
   nav {
     float: right;
-    @include icon-button($width: 23px, $height: 21px, $name: '../icons/white-mobile-nav-46x42.png');
+    @include svg-button($width: 23px, $height: 21px);
   }
 }

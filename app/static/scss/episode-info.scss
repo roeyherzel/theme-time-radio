@@ -10,7 +10,6 @@
 
     h1 {
       margin: 0;
-      //font-size: 2.7em;
     }
 
     p {
@@ -30,7 +29,7 @@
       width: 100%;
       height: auto;
       background: #282828;
-      padding: 10px 10px 20px 10px;
+      padding: 10px 15px 20px 15px;
       color: #A0A0A0;
 
       .episode-player-row {
@@ -42,22 +41,23 @@
       }
 
       .episode-playpause {
-        @include icon-button('play-circle', 70px);
-        margin: 0 30px;
+        @include svg-button(70px, #A0A0A0);
+        margin: 0 20px;
       }
 
       .episode-prev {
-        @include icon-button('chevron-left', 30px);
+        @include svg-button(30px, #A0A0A0);
       }
 
       .episode-next {
-        @include icon-button('chevron-right', 30px);
+        @include svg-button(30px, #A0A0A0);
       }
 
       .episode-volume {
-        @include icon-button('high-volume', 20px);
+        @include svg-button(20px, #A0A0A0);
         position: absolute;
-        right: 4px;
+        right: 3px;
+        padding: 0;
       }
 
       .episode-progress-bar {

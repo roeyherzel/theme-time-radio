@@ -1,17 +1,17 @@
 //================================================
-// Tracklist table
+// Tracklist card
 //================================================
 
 #tracklist_placeholder {
-  padding: 0 1px;
-  background: black;
+  padding: 1px 4px;
+  background: #f6f6f6;
 
   .track-card {
     position: relative;
     display: flex;
     align-items: center;
     width: 100%;
-    margin: 2px 0;
+    margin: 4px 0;
     box-shadow: 0 0 1px black;
     border-radius: 3px;
     font-size: 11px;
@@ -26,7 +26,6 @@
       flex: 0 0 17px;
       height: 17px;
       text-align: center;
-      //border: 1px solid rgba(0, 0, 0, 0.17);
       border-left: none;
       border-top: none;
       border-radius: 3px 0;
@@ -41,14 +40,14 @@
     }
 
     .track-preview {
-      flex: 0 0;
-      height: 50px;
-      width: auto;
-      margin: 0 10px 0 -7px;
+      flex: 0 0 50px;
+      @include svg-button(50px, lightgray);
+      margin: 0 10px 0 -4px;
+      padding: 0;
 
-      &[data-url=''] {
+      &:not([data-url=""]) {
         svg {
-          fill: lightgray;
+          fill: black;
         }
       }
     }
@@ -59,7 +58,6 @@
       flex:  1 1 100px; // min size
       width: 160px; // affects the span text-overflow
       height: 100%;
-
       padding: 8px;
       border-left: 1px solid rgba(0, 0, 0, 0.17);
       text-transform: capitalize;
@@ -93,17 +91,15 @@
     }
 
     .track-spotify {
+      @include svg-button(20px, lightgray);
       align-self: flex-end;
       flex: 0 0 20px;
-      width: 20px;
-      height: 20px;
       margin-right: 6px;
       margin-bottom: 8px;
-      //fill="#91DC5A"
 
-      &[data-song-id=''] {
+      &:not([data-song-id=""]) {
         svg {
-          fill: lightgray;
+          fill: #91DC5A;
         }
       }
     }
