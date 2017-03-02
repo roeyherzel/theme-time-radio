@@ -15,3 +15,45 @@
     fill: $fill;
   }
 }
+
+
+@mixin thumbnails-ul($width, $height) {
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    li {
+      margin: 10px;
+
+      figure {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        margin: 0;
+        max-width: $width;
+        max-height: $height;
+        box-shadow: 0px 1px 3px 0px black;
+
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+        }
+
+        figcaption {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          text-align: center;
+          background: rgba(255, 255, 255, 0.9);
+          font-weight: bold;
+          padding: 20px 0;
+          color: black;
+        }
+      }
+    }
+  }
+}

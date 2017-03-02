@@ -2,25 +2,27 @@
 // Tabs
 //================================================
 
-.tab {
-  background-color: #25AAE1;
-  border-bottom: 3px solid black;
+ul.tabs {
+  background: #f6f6f6;
 
-  a {
-    display: block;
-    font-size: 1.17em;
-    font-weight: bold;
-    color: white;
-    padding: $page-sides-padding;
-  }
+  li {
+    &.tab-header {
+      background-color: #25AAE1;
+      border-bottom: 3px solid black;
 
-}
+      a {
+        display: block;
+        font-size: 1.17em;
+        font-weight: bold;
+        color: white;
+        padding: $page-sides-padding;
+      }
+    }
 
-.tab-content {
-  background-color: white;
-
-  section {
-    color: black;
-    padding: $page-sides-padding;
+    &.tab-content {
+      section {
+        color: black;
+      }
+    }
   }
 }

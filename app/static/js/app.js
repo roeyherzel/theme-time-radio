@@ -5,7 +5,7 @@ Handlebars.js: ajax and helpers
 
 function handlebarsGetTemplate(path, callback) {
   $.ajax({
-    url: "/static/js/handlebars/" + path,
+    url: "/static/handlebars/" + path,
     cache: false,
     success: function(data) {
       if (callback) callback(Handlebars.compile(data));

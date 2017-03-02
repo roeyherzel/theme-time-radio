@@ -7,27 +7,47 @@
 #content_wrapper {
 
   header {
-    
+
     img {
       border-radius: 50%;
     }
 
-    ul {
+    ul#artist_tags {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
 
+      padding: 10px 10px 30px 10px;
+
       li {
-        margin-left: 1px;
-        margin-right: 1px;
+        margin: 5px;
+        padding: 2px 8px 4px 8px;
+        background: #F78715;
+        box-shadow: 0 0 2px 2px white;
+        border-radius: 10px;
 
         a {
           text-transform: capitalize;
-          padding: 5px;
-          background-color: white;
+          text-align: center;
           font-size: 0.75em;
+          vertical-align: middle;
+          color: black;
         }
       }
     }
+
   }
+
+  main {
+
+    section#bio {
+      padding: 0 10px;
+
+      p {
+        line-height: 1.5;
+      }
+    }
+
+  }
+
 }
