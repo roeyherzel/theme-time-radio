@@ -1,9 +1,33 @@
+//-------------------------------------------------
+// Variables
+//-------------------------------------------------
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Passion+One:400");
+@import url("https://fonts.googleapis.com/css?family=Droid+Sans:700");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+$font-family-pri: 'Droid Sans', sans-serif;
+$font-family-sec: 'Open Sans', sans-serif;
+$font-family-h1: 'Passion One', cursive;
+
 
 // Colors
-$primary-background-color: #121212;
+$primary-background-color: #222222;
 
 $primary-font-color: white;
 
+$color-black: #222222;
+$color-gray: #424242;
+$color-yellow: #FFEB3B;
+$color-pink: #F85658;
+$color-red: #FF5252;
+$color-blue: #3ABFEF;
+$color-white: white;
+$color-purple: #3F51B5;
 
 // Layout
 $page-sides-padding: 15px;
+
+$padding-tab-header: 15px;
+$padding-tab-body: $padding-tab-header;

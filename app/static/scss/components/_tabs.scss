@@ -7,21 +7,23 @@ ul.tabs {
 
   li {
     &.tab-header {
-      background-color: #25AAE1;
-      border-bottom: 3px solid black;
+      background-color: $color-blue;
+      border-bottom: 3px solid $color-black;
 
       a {
         display: block;
-        font-size: 1.17em;
+        padding: $padding-tab-header;
+        font-family: $font-family-pri;
+        font-size: 1.5rem;
         font-weight: bold;
-        color: white;
-        padding: $page-sides-padding;
+        color: $color-white;
       }
     }
 
-    &.tab-content {
+    &.tab-body {
       section {
-        color: black;
+        padding: $padding-tab-body;
+        color: $color-black;
       }
     }
   }

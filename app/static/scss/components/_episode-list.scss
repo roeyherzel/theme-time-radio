@@ -5,8 +5,8 @@
 section#episodes_placeholder {
   @include thumbnails-ul(260px, 300px);
 
-  figure {
-    width: 260px;
-  }
-  
+  // figure {
+  //   width: 260px;
+  // }
+
 }

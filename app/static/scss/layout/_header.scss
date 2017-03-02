@@ -2,16 +2,23 @@
 // Header
 //================================================
 
-#main_header {
+#nav_header {
   @extend %clearfix;
   padding: 20px $page-sides-padding;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid #424242;
   margin-bottom: 0;
 
   h3 {
-    float: left;
     margin: 0;
-    font-weight: lighter;
+    font-family: "Passion One", cursive;
+    font-weight: 400;
+    text-align: center;
+    font-size: 1.6rem;
+    color: $color-white;
+
+    span {
+      color: $color-blue;
+    }
   }
 
   nav {
