@@ -23,11 +23,11 @@
     .track-label {
       display: flex;
       justify-content: center;
+      align-items: center;
       order: 1;
       flex: 0 0 20px;
       margin-right: 6px;
       margin-bottom: 8px;
-      padding: 2px 1px 1px 1px;
       width: 20px;
       height: 20px;
       text-align: center;
@@ -40,6 +40,7 @@
       .track-number {
         vertical-align: middle;
         color: $color-white;
+        font-size: 0.65rem;
       }
     }
 
