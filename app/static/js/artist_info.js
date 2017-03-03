@@ -2,8 +2,8 @@
 Artist info page
 ============================================================================================*/
 
-var artistId = $('header h1').attr('data-artist-id'),
-    artistName = $('header h1').text();
+var artistId = $('#page header h1').attr('data-artist-id'),
+    artistName = $('#page header h1').text();
 
 $.getJSON("/api/artists/" + artistId + "/episodes", handlebarsRenderEpisodes);
 $.getJSON("/api/artists/" + artistId + "/tracklist", handlebarsRenderTracklist);
