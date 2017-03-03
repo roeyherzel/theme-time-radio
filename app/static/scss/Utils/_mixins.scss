@@ -28,6 +28,7 @@
       margin: 10px;
 
       figure {
+        // flex here for fixing a small bottom gap between caption and figure
         display: flex;
         flex-direction: column;
         position: relative;
@@ -47,11 +48,12 @@
           position: absolute;
           bottom: 0;
           width: 100%;
-          text-align: center;
+          padding: 25px 10px;
           background: rgba(255, 255, 255, 0.9);
-          font-weight: bold;
-          padding: 25px 0;
           color: black;
+          font-size: 1.5rem;
+          font-family: 'Passion One', cursive;
+          text-align: center;
         }
       }
     }

@@ -32,24 +32,60 @@ a {
   text-decoration: none;
 }
 
-#main_wrapper {
-  color: $primary-font-color;
-  background: $color-black;
+h3.site-name {
+  margin: 0;
+  font-family: "Passion One", cursive;
+  font-weight: 400;
+  text-align: center;
+  font-size: 1.6rem;
+  color: $color-white;
+
+  span {
+    color: $color-blue;
+  }
 }
 
-#page {
-  padding-top: 20px;
+#main_wrapper {
+  background: $color-black;
 
-  header {
-    text-align: center;
-    padding: 15px;
+  header#nav_header {
+    color: $color-white;
+    border-bottom: 1px solid $color-gray;
+    padding: 20px;
+    margin-bottom: 20px;
 
-    img {
-      display: block;
-      margin: 0 auto;
-      margin-bottom: 15px;
-      @extend %img-responsive;
+    nav {
+      @include svg-button($width: 23px, $height: 21px);
     }
   }
+
+  footer {
+    background: $color-black;
+    color: $color-white;
+    margin: 0;
+  }
+
+  #page {
+
+    header {
+      background: $color-black;
+      color: $color-white;
+      padding: 15px;
+      text-align: center;
+
+      img {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 15px;
+        @extend %img-responsive;
+      }
+    }
+
+    main {
+      background: $color-white-smoke;
+      padding-bottom: 40px;
+    }
+  }
+
 
 }

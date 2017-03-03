@@ -20,11 +20,10 @@
       height: 100%;
     }
 
-    .track-label {
+    .track-number {
       display: flex;
       justify-content: center;
       align-items: center;
-      order: 1;
       flex: 0 0 20px;
       margin-right: 6px;
       margin-bottom: 8px;
@@ -34,13 +33,11 @@
       border-radius: 100%;
       align-self: flex-end;
       background: lightgray;
-      background: $color-gray;
 
-
-      .track-number {
+      span {
         vertical-align: middle;
-        color: $color-white;
         font-size: 0.65rem;
+        color: white;
       }
     }
 

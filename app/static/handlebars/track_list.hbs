@@ -2,9 +2,7 @@
   {{#each tracks}}
   <div class="track-card">
 
-    <div class="track-label">
-      <a href="" class="track-number">{{position}}</a>
-    </div>
+
 
     <button type="button" class="track-preview" data-url="{{spotify_song.preview_url}}">
       <svg viewBox="0 0 99.893 99.893">
@@ -47,6 +45,7 @@
         </g>
       </svg>
     </a>
+    <a href="#" class="track-number"><span>{{position}}</span></a>
   </div>
   {{/each}}
 </div>

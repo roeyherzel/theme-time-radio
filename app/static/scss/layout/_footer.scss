@@ -3,16 +3,5 @@
 //================================================
 
 footer {
-  text-align: center;
-  padding: 10px $page-sides-padding;
-  background-color: white;
-
-  a {
-    display: block;
-    height: 50px;
-  }
-
-  img {
-    @extend %img-responsive;
-  }
+  padding: 20px;
 }

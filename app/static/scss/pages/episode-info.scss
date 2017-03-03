@@ -13,9 +13,19 @@
     }
 
     p {
-      font-weight: lighter;
-      font-size: 0.75em;
-      color: #A0A0A0;
+      &:first-of-type {
+        font-size: 0.7em;
+        color: $color-gray-light;
+        text-transform: lowercase;
+      }
+
+      &:last-of-type {
+        font-size: 0.8em;
+        color: #FF5252;
+        border-top: 1px solid $color-gray;
+        padding-top: 5px;
+        margin: 5px 60px 15px 60px;
+      }
     }
 
     img {
@@ -30,7 +40,7 @@
       height: auto;
       background: #282828;
       padding: 10px 15px 20px 15px;
-      color: #A0A0A0;
+      color: $color-gray-light;
 
       .episode-player-row {
         position: relative;
@@ -41,20 +51,20 @@
       }
 
       .episode-playpause {
-        @include svg-button(70px, #A0A0A0);
+        @include svg-button(70px, $color-gray-light);
         margin: 0 20px;
       }
 
       .episode-prev {
-        @include svg-button(30px, #A0A0A0);
+        @include svg-button(30px, $color-gray-light);
       }
 
       .episode-next {
-        @include svg-button(30px, #A0A0A0);
+        @include svg-button(30px, $color-gray-light);
       }
 
       .episode-volume {
-        @include svg-button(20px, #A0A0A0);
+        @include svg-button(20px, $color-gray-light);
         position: absolute;
         right: 3px;
         padding: 0;

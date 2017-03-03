@@ -11,7 +11,7 @@
     <div id="main_wrapper">
 
       <header id="nav_header">
-        <h3>Theme<span>Time</span>Radio</h3>
+        <h3 class="site-name">Theme<span>Time</span>Radio</h3>
         <nav></nav>
       </header>
 
@@ -20,11 +20,11 @@
         {% endblock %}
       </div>
 
+      <footer>
+        <a href="#"><h3 class="site-name">Theme<span>Time</span>Radio</h3></a>
+      </footer>
     </div>
 
-    <footer>
-      <a href="#top"><img src="/static/images/themetimelogo.jpg" alt="Theme time logo"></a>
-    </footer>
     <!-- javaScripts -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/lib/jquery-3.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/lib/underscore-min.js') }}"></script> <!-- TODO: try to workwitout underscore.js -->
