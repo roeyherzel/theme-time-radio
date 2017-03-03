@@ -33,20 +33,24 @@ class TagsAPI(Resource):
         # return [{'tag': i.Tags, 'track_count': i.track_count} for i in res.all()]
 
 
-@api.resource('/api/tags/<string:tag_name>/artists')
+@api.resource('/api/tags/<string:tag>/artists')
 class TagsArtistsAPI(Resource):
 
     @marshal_with(schemas.Artist().as_dict)
-    def get(self, tag_name):
-        return Artists.query.join(aux_songs_artists, aux_songs_artists.c.artist_id == Artists.id) \
-                            .join(aux_songs_tags, aux_songs_tags.c.song_id == aux_songs_artists.c.song_id) \
-                            .filter(aux_songs_tags.c.tag_id == Tags.getId(tag_name)) \
+    def get(self, tag):
+        print(tag)
+        return Artists.query.join(aux_artists_tags, aux_artists_tags.c.artist_id == Artists.id) \
+                            .filter(aux_artists_tags.c.tag_id == Tags.getId(tag)) \
                             .all()
 
 
-@api.resource('/api/tags/<string:tag_name>/songs')
-class TagsSongsAPI(Resource):
+@api.resource('/api/tags/<string:tag>/tracklist')
+class TagsTracklistAPI(Resource):
 
-    @marshal_with(schemas.Song().as_dict)
-    def get(self, tag_name):
-        return Tags.query.get(Tags.getId(tag_name)).songs
+    @marshal_with(schemas.Track().as_dict)
+    def get(self, tag):
+        return Tracks.query.join(aux_tracks_artists, aux_tracks_artists.c.track_id == Tracks.id) \
+                           .join(aux_artists_tags, aux_artists_tags.c.artist_id == aux_tracks_artists.c.artist_id) \
+                           .filter(aux_artists_tags.c.tag_id == Tags.getId(tag)) \
+                           .order_by(Tracks.episode_id, Tracks.position) \
+                           .all()

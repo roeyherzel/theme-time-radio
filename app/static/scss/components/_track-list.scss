@@ -5,13 +5,14 @@
 #tracklist_placeholder {
 
   .track-card {
-    position: relative;
     display: flex;
     align-items: center;
+    height: 85px;
     width: 100%;
     margin-bottom: 10px;
     box-shadow: 0 0 1px black;
     border-radius: 3px;
+    overflow: hidden;
     background: white;
     font-size: 0.7rem;
 
@@ -19,92 +20,129 @@
       width: auto;
       height: 100%;
     }
+  }
 
-    .track-number {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex: 0 0 20px;
-      margin-right: 6px;
-      margin-bottom: 8px;
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      border-radius: 100%;
-      align-self: flex-end;
-      background: lightgray;
+  .track-thumbnail {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex: 0 0 70px;
+    width: 70px;
+    height: 100%;
 
-      span {
-        vertical-align: middle;
-        font-size: 0.65rem;
-        color: white;
-      }
-    }
-
-    .track-preview {
-      flex: 0 0 50px;
-      @include svg-button(50px, lightgray);
-      margin: 0 5px;
-      padding: 0;
-
-      &:not([data-url=""]) {
-        svg {
-          fill: black;
-        }
-      }
-    }
-
-    .track-info {
-      display: flex;
-      flex-direction: column;
-      flex:  1 1 100px; // min size
-      width: 160px; // affects the span text-overflow
+    img {
+      position: absolute;
       height: 100%;
-      padding: 8px;
-      border-left: 1px solid rgba(0, 0, 0, 0.17);
-      text-transform: capitalize;
-
-      span {
-        margin: 3px 0;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-
-        a:visited {
-          color: blue;
-        }
-
-        &.track-title {
-          font-size: 0.8rem;
-        }
-
-        &.track-artist {
-
-          /* seperator between multiple performers */
-          & a:nth-child(1n+2)::before {
-            content: "/\00A0";
-            color: black;
-          }
-        }
-
-        &.track-year {
-          color: #9a9a9a;
-        }
-      }
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      object-fit: cover;
+      object-position: top left;
     }
 
-    .track-spotify {
-      @include svg-button(20px, lightgray);
-      align-self: flex-end;
-      flex: 0 0 20px;
-      margin-right: 6px;
-      margin-bottom: 8px;
+    span.overlay { // overlay
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.3)
+    }
 
-      &:not([data-song-id=""]) {
-        svg {
-          fill: #91DC5A;
-        }
+  }
+
+  .track-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex:  1 1 100px; // min size
+    height: 100%;
+    padding: 8px;
+    border-left: 1px solid rgba(0, 0, 0, 0.17);
+    text-transform: capitalize;
+
+    span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      a:visited {
+        color: blue;
+      }
+
+    }
+  }
+
+  span.track-title {
+    font-size: 0.8rem;
+    width: 185px; // affects the span text-overflow
+  }
+
+  span.track-artist {
+    width: 185px; // affects the span text-overflow
+
+    /* seperator between multiple performers */
+    & a:nth-child(1n+2)::before {
+      content: "/\00A0";
+      color: black;
+    }
+  }
+
+  span.track-year {
+    color: $color-gray-light;
+    margin-right: auto;
+  }
+
+  .track-label {
+    display: flex;
+    align-items: center;
+  }
+
+  .track-preview {
+    @include svg-button(20px, lightgray);
+    flex: 0 0 20px;
+    margin-right: 5px;
+
+    &:not([data-url=""]) {
+
+      span.overlay {
+        background: rgba(0,0,0, 0.4);
+      }
+
+      svg {
+        fill: black;
       }
     }
   }
+
+  .track-spotify {
+    @include svg-button(20px, lightgray);
+    flex: 0 0 20px;
+    margin-right: 5px;
+
+    &:not([data-song-id=""]) {
+      svg {
+        fill: #91DC5A;
+      }
+    }
+  }
+
+  .track-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 100%;
+    box-shadow: 0 0 1px $color-gray;
+
+    span {
+      vertical-align: middle;
+      font-size: 0.65rem;
+      color: black;
+    }
+  }
+
 }

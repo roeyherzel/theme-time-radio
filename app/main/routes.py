@@ -24,24 +24,21 @@ Views
 """
 
 
-@main.route('/mixtapes')
-@main.route('/mixtapes/<string:tape_name>')
-def mixtapes_view(tape_name=None):
-    return render_template('mixtapes.html.j2', tape_name=tape_name)
+@main.route('/tags')
+@main.route('/tags/<string:tag>')
+def tags_view(tag=None):
+    return render_template('tag_info.html.j2', tag=tag)
 
 
-@main.route('/artists/<string:artist_id>')
-@main.route('/artists/name/<string:artist_name>')
-@main.route('/artists/lastfm/<string:lastfm_name>')
-def artist_view(artist_id=None, artist_name=None, lastfm_name=None):
-    if artist_id:
-        artist = Artists.query.get(artist_id)
+@main.route('/artists/<string:id>')
+@main.route('/artists/name/<string:name>')
+def artist_view(id=None, name=None):
+    if id:
+        artist = Artists.query.get(id)
 
-    elif artist_name:
-        artist = Artists.query.filter(func.lower(Artists.name) == artist_name.lower()).one_or_none()
-
-    elif lastfm_name:
-        artist = Artists.query.filter(func.lower(Artists.lastfm_name) == lastfm_name.lower()).one_or_none()
+    elif name:
+        artist = Artists.query.filter(func.lower(Artists.lastfm_name) == name.lower()) \
+                        .one_or_none()
 
     if artist is None:
         abort(404)
@@ -72,10 +69,10 @@ def all_artists_view(index="A"):
 
 @main.route('/episodes')
 @main.route('/episodes/season/<int:season>')
-@main.route('/episodes/<int:episode_id>')
-def episode_view(episode_id=None, season=1):
-    if episode_id:
-        episode = Episodes.query.get(episode_id)
+@main.route('/episodes/<int:id>')
+def episode_view(id=None, season=1):
+    if id:
+        episode = Episodes.query.get(id)
         if episode is None:
             abort(404)
 

@@ -23,7 +23,7 @@ class ArtistsAPI(Resource):
         res = Artists.query.order_by(order)
 
         if args.get('limit'):
-            # filter only artists that have images
+            # filter only artists with images
             res = res.filter(Artists.lastfm_image != None, Artists.lastfm_image != '').limit(args.get('limit'))
 
         return res.all()
@@ -37,6 +37,7 @@ class ArtistsEpisodesAPI(Resource):
         return Episodes.query.join(Tracks, Tracks.episode_id == Episodes.id) \
                              .join(aux_tracks_artists, aux_tracks_artists.c.track_id == Tracks.id) \
                              .filter(aux_tracks_artists.c.artist_id == artist_id) \
+                             .order_by(Tracks.episode_id, Tracks.position) \
                              .all()
 
 

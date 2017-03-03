@@ -27,7 +27,7 @@ lastFmAPIGet("artist", artistName, function(artistInfo) {
         var myRelatedArtists = [];
         for (var i=0 ; i < relatedArtists.length ; i++ ) {
             var artist = {};
-            artist.view = "/artists/lastfm/" + relatedArtists[i].name;
+            artist.view = "/artists/name/" + relatedArtists[i].name;
             artist.lastfm_name = relatedArtists[i].name;
             artist.lastfm_image = _.find(relatedArtists[i].image, function(image) {
                 return image.size === "extralarge"; }

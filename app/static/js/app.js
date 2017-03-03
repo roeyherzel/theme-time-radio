@@ -15,7 +15,7 @@ function handlebarsGetTemplate(path, callback) {
 
 function handlebarsRenderTracklist(trackList) {
   handlebarsGetTemplate('track_list.hbs', function(template) {
-    $('#tracklist_placeholder').html(template({ tracks: trackList }));
+    $('#tracklist_placeholder').html(template({ tracks: trackList}));
   });
 }
 
@@ -26,9 +26,10 @@ function handlebarsRenderArtists(artistList) {
 }
 
 function handlebarsRenderEpisodes(episodeList) {
-  handlebarsGetTemplate('episode_list.hbs', function(template) {
-    $("#episodes_placeholder").html(template({ episodes: episodeList }));
-  });
+  console.log(episodeList);
+  // handlebarsGetTemplate('episode_list.hbs', function(template) {
+  //   $("#episodes_placeholder").html(template({ episodes: episodeList }));
+  // });
 }
 
 /*============================================================================================
