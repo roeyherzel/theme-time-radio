@@ -18,16 +18,16 @@
 }
 
 
-@mixin thumbnails-ul($width, $height) {
+@mixin thumbnails-ul($width) {
 
   ul {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 
     li {
-      margin-bottom: 10px;
+      margin: 10px;
 
       figure {
         // flex here for fixing a small bottom gap between caption and figure
