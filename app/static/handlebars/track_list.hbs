@@ -5,19 +5,24 @@
 
     <div class="track-thumbnail">
 
-      {{#if spotify_artists}}
+      <img src="{{episode.image}}" alt="Episode Photo">
 
-        {{#if layout}}
-          <img src="/static/images/missing-artist.png" alt="Episode Photo">
-        {{else}}
-          <img src="{{episode.image}}" alt="Episode Photo">
-        {{/if}}
-
-      {{else}}
-        <img src="/static/images/missing-artist.png" alt="Episode Photo">
-      {{/if}}
-
-      <span class="overlay"></span>
+      <span class="overlay">
+        <button class="track-preview" type="button" data-url="{{spotify_song.preview_url}}">
+          <svg viewBox="0 0 510 510">
+            <g>
+              <g class="play-circle-outline">
+                <path d="M204,369.75L357,255L204,140.25V369.75z M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255
+                S395.25,0,255,0z M255,459c-112.2,0-204-91.8-204-204S142.8,51,255,51s204,91.8,204,204S367.2,459,255,459z"/>
+              </g>
+              <g class="play-circle-fill">
+                <path d="M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M204,369.75v-229.5L357,255
+                  L204,369.75z"/>
+              </g>
+            </g>
+          </svg>
+        </button>
+      </span>
     </div>
 
     <div class="track-info">
@@ -44,18 +49,6 @@
       <div class="track-label">
         <span class="track-year">{{#if year }}{{year}}{{else}}-{{/if}}</span>
 
-        <button class="track-preview" type="button" data-url="{{spotify_song.preview_url}}">
-          <svg viewBox="0 0 476.737 476.737">
-            <g>
-              <path
-                d="M238.369,0C106.726,0,0,106.726,0,238.369c0,131.675,106.726,238.369,238.369,238.369
-              c131.675,0,238.369-106.694,238.369-238.369C476.737,106.726,370.043,0,238.369,0z M344.427,247.903l-123.221,97.318
-              c-6.897,5.435-18.084,5.435-24.981,0l0.064-0.064c-3.401-2.479-5.594-6.007-5.594-9.98V140.987c0-3.909,2.066-7.405,5.371-9.916
-              l0.159-0.159c6.897-5.403,18.084-5.403,24.981,0l122.553,97.095l0.667,0.35C351.355,233.728,351.355,242.5,344.427,247.903z"/>
-            </g>
-          </svg>
-        </button>
-        
         <a class="track-spotify" href="#" data-song-id="{{spotify_song.id}}">
           <svg viewBox="0 0 305 305">
             <g>

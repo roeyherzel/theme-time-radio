@@ -46,7 +46,10 @@
       width: 100%;
       bottom: 0;
       left: 0;
-      background: rgba(255, 255, 255, 0.3)
+      background: rgba(255, 255, 255, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
   }
@@ -100,18 +103,23 @@
 
   .track-preview {
     @include svg-button(20px, lightgray);
-    flex: 0 0 20px;
-    margin-right: 5px;
+    //flex: 0 0 20px;
+    //margin-right: 5px;
 
-    &:not([data-url=""]) {
+    svg {
+      width: 40px;
+      height: 40px;
 
-      span.overlay {
-        background: rgba(0,0,0, 0.4);
+      g.play-circle-outline {
+        fill: white;
       }
-
-      svg {
+      g.play-circle-fill {
         fill: black;
       }
+    }
+
+    &[data-url=""] {
+      display: none;
     }
   }
 
