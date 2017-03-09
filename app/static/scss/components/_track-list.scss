@@ -52,6 +52,24 @@
       align-items: center;
     }
 
+    .track-preview {
+      @include svg-button(20px, white);
+
+      &[data-url=""] {
+        display: none;
+      }
+
+      svg {
+        width: 40px;
+        height: 40px;
+
+        g.play-circle-fill {
+          fill: black;
+        }
+      }
+
+    }
+
   }
 
   .track-info {
@@ -59,6 +77,7 @@
     flex-direction: column;
     justify-content: space-between;
     flex:  1 1 100px; // min size
+    width: 150px; // affects the span text-overflow
     height: 100%;
     padding: 8px;
     border-left: 1px solid rgba(0, 0, 0, 0.17);
@@ -72,61 +91,40 @@
       a:visited {
         color: blue;
       }
-
     }
-  }
 
-  span.track-title {
-    font-size: 0.8rem;
-    width: 185px; // affects the span text-overflow
-  }
-
-  span.track-artist {
-    width: 185px; // affects the span text-overflow
-
-    /* seperator between multiple performers */
-    & a:nth-child(1n+2)::before {
-      content: "/\00A0";
-      color: black;
+    span.track-title {
+      font-size: 0.8rem;
     }
+
+    span.track-artist {
+      /* seperator between multiple performers */
+      & a:nth-child(1n+2)::before {
+        content: "/\00A0";
+        color: black;
+      }
+    }
+
+    span.track-year {
+      color: $color-gray-light;
+      margin-right: auto;
+    }
+
   }
 
-  span.track-year {
-    color: $color-gray-light;
-    margin-right: auto;
-  }
 
   .track-label {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    height: 100%;
+    padding: 8px;
   }
 
-  .track-preview {
-    @include svg-button(20px, lightgray);
-    //flex: 0 0 20px;
-    //margin-right: 5px;
-
-    svg {
-      width: 40px;
-      height: 40px;
-
-      g.play-circle-outline {
-        fill: white;
-      }
-      g.play-circle-fill {
-        fill: black;
-      }
-    }
-
-    &[data-url=""] {
-      display: none;
-    }
-  }
 
   .track-spotify {
     @include svg-button(20px, lightgray);
-    flex: 0 0 20px;
-    margin-right: 5px;
 
     &:not([data-song-id=""]) {
       svg {
@@ -139,17 +137,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 0 0 20px;
     width: 20px;
     height: 20px;
     text-align: center;
     border-radius: 100%;
-    box-shadow: 0 0 1px $color-gray;
+    background: #E6EAED;
 
     span {
       vertical-align: middle;
       font-size: 0.65rem;
-      color: black;
+      color: #9B9B9B;
+      font-weight: bold;
     }
   }
 
