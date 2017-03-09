@@ -95,8 +95,6 @@
   }
 
   .track-buttons {
-    // flex: 0 0 50px;
-    // width: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -142,13 +140,15 @@
   .track-number {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 16px;
     height: 16px;
     border-radius: 100%;
-    background: #E6EAED;
+    background: $color-gray;
+    font-size: .6rem;
 
     span {
-      color: #9B9B9B;
+      color: white;
     }
   }
 
