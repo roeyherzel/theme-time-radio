@@ -52,30 +52,12 @@
       align-items: center;
     }
 
-    .track-preview {
-      @include svg-button(20px, white);
-
-      &[data-url=""] {
-        display: none;
-      }
-
-      svg {
-        width: 40px;
-        height: 40px;
-
-        g.play-circle-fill {
-          fill: black;
-        }
-      }
-
-    }
-
   }
 
   .track-info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     flex:  1 1 100px; // min size
     width: 150px; // affects the span text-overflow
     height: 100%;
@@ -112,8 +94,9 @@
 
   }
 
-
-  .track-label {
+  .track-buttons {
+    // flex: 0 0 50px;
+    // width: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -123,8 +106,31 @@
   }
 
 
+  .track-preview {
+    @include svg-button(30px, black);
+    margin-bottom: 15px;
+
+    &[data-url=""] {
+      svg {
+        fill: lightgray;
+      }
+    }
+
+    svg g.play-circle-fill {
+      fill: black;
+    }
+  }
+
+  .track-labels {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 20px;
+    width: 40px;
+  }
+
   .track-spotify {
-    @include svg-button(20px, lightgray);
+    @include svg-button(16px, lightgray);
 
     &:not([data-song-id=""]) {
       svg {
@@ -136,18 +142,13 @@
   .track-number {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 20px;
-    height: 20px;
-    text-align: center;
+    width: 16px;
+    height: 16px;
     border-radius: 100%;
     background: #E6EAED;
 
     span {
-      vertical-align: middle;
-      font-size: 0.65rem;
       color: #9B9B9B;
-      font-weight: bold;
     }
   }
 
