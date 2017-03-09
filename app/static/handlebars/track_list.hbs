@@ -2,12 +2,12 @@
 
   {{#each tracks}}
   <div class="track-card">
-    <div class="track-thumbnail">
+    
+    <a href="{{episode.view}}" class="track-thumbnail">
       <img src="{{episode.image}}" alt="Episode Photo">
-
       <span class="overlay">
       </span>
-    </div>
+    </a>
 
     <div class="track-info">
       {{#if resolved}}
@@ -51,7 +51,7 @@
             </g>
           </svg>
         </a>
-        <a href="{{episode.view}}" class="track-number"><span>{{position}}</span></a>
+        <!-- <a href="{{episode.view}}" class="track-number"><span>{{position}}</span></a> -->
       </div>
 
     </div>

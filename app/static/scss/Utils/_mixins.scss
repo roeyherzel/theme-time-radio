@@ -22,20 +22,21 @@
 
   ul {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: space-around;
 
     li {
-      margin: 10px;
+      margin-bottom: 10px;
 
       figure {
         // flex here for fixing a small bottom gap between caption and figure
         display: flex;
         flex-direction: column;
-        position: relative;
         margin: 0;
         max-width: $width;
-        max-height: $height;
+        height: auto;
+
         box-shadow: 0px 1px 3px 0px black;
 
 
@@ -46,14 +47,13 @@
         }
 
         figcaption {
-          position: absolute;
-          bottom: 0;
           width: 100%;
-          padding: 25px 10px;
-          background: rgba(0, 0, 0, 0.75);
-          color: white;
+          padding: 15px 10px;
+          background: rgba(255, 255, 255, .75);
           font-family: $font-family-pri;
           text-align: center;
+          font-size: .7rem;
+          color: black;
         }
       }
     }

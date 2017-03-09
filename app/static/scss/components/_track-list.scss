@@ -69,10 +69,6 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-
-      a:visited {
-        color: blue;
-      }
     }
 
     span.track-title {
@@ -97,7 +93,7 @@
   .track-buttons {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     height: 100%;
     padding: 8px;
@@ -106,7 +102,6 @@
 
   .track-preview {
     @include svg-button(30px, black);
-    margin-bottom: 15px;
 
     &[data-url=""] {
       svg {
@@ -144,8 +139,8 @@
     width: 16px;
     height: 16px;
     border-radius: 100%;
-    background: $color-gray;
-    font-size: .6rem;
+    background: $color-gray-light;
+    font-size: .55rem;
 
     span {
       color: white;

@@ -30,6 +30,10 @@ p {
 
 a {
   text-decoration: none;
+
+  &:visited {
+    color: blue;
+  }
 }
 
 h3.site-name {
