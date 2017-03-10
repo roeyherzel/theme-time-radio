@@ -133,14 +133,14 @@
   }
 
   .track-number {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
+    flex: 0 0 16px;
     width: 16px;
-    height: 16px;
-    border-radius: 100%;
-    background: $color-gray;
-    font-size: .55rem;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.17);
+    border-left: 1px solid rgba(0, 0, 0, 0.17);
 
     span {
       color: white;

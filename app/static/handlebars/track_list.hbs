@@ -2,7 +2,7 @@
 
   {{#each tracks}}
   <div class="track-card">
-    
+
     <a href="{{episode.view}}" class="track-thumbnail">
       <img src="{{episode.image}}" alt="Episode Photo">
       <span class="overlay">
@@ -42,6 +42,7 @@
         		</g>
         </svg>
       </button>
+
       <div class="track-labels">
         <a class="track-spotify" href="#" data-song-id="{{spotify_song.id}}">
           <svg viewBox="0 0 305 305">
@@ -51,10 +52,12 @@
             </g>
           </svg>
         </a>
-        <!-- <a href="{{episode.view}}" class="track-number"><span>{{position}}</span></a> -->
       </div>
 
     </div>
+
+    <div class="track-number"><span>{{position}}</span></div>
+
   </div>
   {{/each}}
 </div>

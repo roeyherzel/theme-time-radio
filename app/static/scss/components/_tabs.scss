@@ -9,6 +9,9 @@ ul.tabs {
     input[type=radio] {
       display: none;
 
+      &:checked ~ label::after {
+        transform: rotate(0deg);
+      }
       &:checked ~ section {
         display: block;
       }
@@ -31,6 +34,7 @@ ul.tabs {
         background: transparent url("../../icons/svg/arrow-down-outline.svg") center no-repeat;
         width: 15px;
         height: 15px;
+        transform: rotate(-90deg);
       }
     }
 
