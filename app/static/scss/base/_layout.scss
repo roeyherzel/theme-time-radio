@@ -1,0 +1,93 @@
+//================================================
+// Layout
+//================================================
+
+#main_wrapper {
+  background: $color-black;
+}
+
+#mobile_nav {
+  display: none;
+
+  &:checked ~ #nav_header {
+    background: $color-white-smoke;
+
+    & label {
+      background: $color-gray-light;
+
+      svg {
+        fill: $color-black;
+      }
+    }
+
+    & nav {
+      transform: translateX(0);
+    }
+
+    & h3 {
+      color: $color-black;
+    }
+  }
+}
+
+#nav_header {
+  position: relative;
+  border-bottom: 1px solid $color-charcoal;
+  padding: 20px;
+
+  label {
+    @include svg-button(16px, $color-white);
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  nav {
+    position: absolute;
+    left: 0;
+    top: 69px;
+    width: 100%;
+    z-index: 100;
+    padding: 20px;
+    transform: translateX(-100%);
+    background: $color-white-smoke;
+    border-top: 1px solid $color-charcoal;
+
+    ul li {
+      padding: 10px 0;
+    }
+  }
+}
+
+footer {
+  margin: 0;
+  padding: 20px;
+
+  .site-name {
+    font-size: 1rem;
+  }
+}
+
+#page {
+
+  header {
+    background: $color-black;
+    color: $color-white;
+    padding: 15px;
+    text-align: center;
+
+    img {
+      display: block;
+      margin: 15px auto;
+      @extend %img-responsive;
+    }
+  }
+
+  main {
+    padding-bottom: 40px;
+  }
+}

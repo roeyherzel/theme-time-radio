@@ -4,26 +4,42 @@
 
 ul.tabs {
 
-  li {
-    &.tab-header {
-      background-color: $color-blue;
-      border-bottom: 3px solid $color-black;
+  li.tab {
 
-      a {
+    input[type=radio] {
+      display: none;
+
+      &:checked ~ section {
         display: block;
-        padding: $padding-tab-header;
-        font-family: $font-family-pri;
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: $color-white;
       }
     }
 
-    &.tab-body {
-      section {
-        padding: $padding-tab-body;
-        color: $color-black;
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: $padding-tab-header;
+      background-color: $color-blue;
+      border-bottom: 1.5px solid $color-black;
+      font-family: $font-family-pri;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: $color-white;
+
+      &::after {
+        content: "";
+        background: transparent url("../../icons/svg/arrow-down-outline.svg") center no-repeat;
+        width: 15px;
+        height: 15px;
       }
     }
+
+    section {
+      display: none;
+      padding: $padding-tab-body;
+      color: $color-black;
+      background: $color-white-smoke;
+    }
+
   }
 }

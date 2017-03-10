@@ -6,13 +6,32 @@
     <title>Theme Time Radio Hour</title>
     {% block page_styles %}{% endblock %}
   </head>
-  <body id="top">
+
+  <body>
 
     <div id="main_wrapper">
-
+      <input type="checkbox" id="mobile_nav">
       <header id="nav_header">
+
+        <label for="mobile_nav">
+          <svg viewBox="0 0 226.216 226.216">
+            <g>
+              <path d="M8.701,43.503h208.814c5.22,0,8.701-3.48,8.701-8.701s-3.48-8.701-8.701-8.701H8.701C3.48,26.102,0,29.582,0,34.802    S3.48,43.503,8.701,43.503z"/>
+              <path d="m217.515,104.407h-208.814c-5.22,0-8.701,3.48-8.701,8.701s3.48,8.701 8.701,8.701h208.814c5.22,0 8.701-3.48 8.701-8.701s-3.481-8.701-8.701-8.701z"/>
+              <path d="m217.515,182.713h-208.814c-5.22,0-8.701,3.48-8.701,8.701s3.48,8.701 8.701,8.701h208.814c5.22,0 8.701-3.48 8.701-8.701s-3.481-8.701-8.701-8.701z"/>
+            </g>
+          </svg>
+        </label>
+
         <h3 class="site-name">Theme<span>Time</span>Radio</h3>
-        <nav></nav>
+        <nav role="off-canvas">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Episodes</a></li>
+            <li><a href="#">Artists</a></li>
+            <li><a href="#">Genres</a></li>
+          </ul>
+        </nav>
       </header>
 
       <div id="page">

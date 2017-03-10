@@ -15,20 +15,25 @@
 
   <main>
     <ul class="tabs">
-      <li class="tab-header"><a href="#">Biography</a></li>
-      <li class="tab-body">
+
+      <li class="tab">
+        <input type="radio" name="tab-group" id="tab_1" checked>
+        <label for="tab_1">Biography</label>
         <section id="bio"></section>
       </li>
 
-      <li class="tab-header"><a href="#">Tracklist</a></li>
-      <li class="tab-body">
+      <li class="tab">
+        <input type="radio" name="tab-group" id="tab_2">
+        <label for="tab_2">Tracklist</label>
         <section id="tracklist_placeholder"></section>
       </li>
 
-      <li class="tab-header"><a href="#">Related Artists</a></li>
-      <li class="tab-body">
+      <li class="tab">
+        <input type="radio" name="tab-group" id="tab_3">
+        <label for="tab_3">Related Artists</label>
         <section id="artists_placeholder"></section>
       </li>
+
     </ul>
   </main>
 {% endblock %}

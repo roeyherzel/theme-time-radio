@@ -15,14 +15,14 @@
     p {
       &:first-of-type {
         font-size: 0.7em;
-        color: $color-gray-light;
+        color: $color-gray;
         text-transform: lowercase;
       }
 
       &:last-of-type {
         font-size: 0.8em;
         color: #FF5252;
-        border-top: 1px solid $color-gray;
+        border-top: 1px solid $color-charcoal;
         padding-top: 5px;
         margin: 10px 60px 15px 60px;
       }
@@ -40,7 +40,7 @@
   height: auto;
   background: #282828;
   padding: 10px 15px 20px 15px;
-  color: $color-gray-light;
+  color: $color-gray;
 
   .episode-player-row {
     position: relative;
@@ -51,20 +51,20 @@
   }
 
   .episode-playpause {
-    @include svg-button(70px, $color-gray-light);
+    @include svg-button(70px, $color-gray);
     margin: 0 20px;
   }
 
   .episode-prev {
-    @include svg-button(30px, $color-gray-light);
+    @include svg-button(30px, $color-gray);
   }
 
   .episode-next {
-    @include svg-button(30px, $color-gray-light);
+    @include svg-button(30px, $color-gray);
   }
 
   .episode-volume {
-    @include svg-button(20px, $color-gray-light);
+    @include svg-button(20px, $color-gray);
     position: absolute;
     right: 3px;
     padding: 0;
@@ -83,12 +83,6 @@
   }
 }
 
-
-#intro {
-  p {
-    line-height: 2;
-  }
-}
 
 #tracklist_placeholder .tracklist {
   .track-thumbnail {

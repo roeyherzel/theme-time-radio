@@ -13,7 +13,7 @@ body {
 
 h1 {
   font-family: $font-family-h1;
-  font-weight: 400;
+  font-weight: normal;
   font-size: 2.5rem;
 }
 
@@ -36,59 +36,15 @@ a {
   }
 }
 
-h3.site-name {
+.site-name {
   margin: 0;
-  font-family: "Passion One", cursive;
-  font-weight: 400;
+  font-family: $font-family-h1;
+  font-weight: normal;
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   color: $color-white;
 
   span {
     color: $color-blue;
   }
-}
-
-#main_wrapper {
-  background: $color-black;
-
-  header#nav_header {
-    color: $color-white;
-    border-bottom: 1px solid $color-gray;
-    padding: 20px;
-
-    nav {
-      @include svg-button($width: 23px, $height: 21px);
-    }
-  }
-
-  footer {
-    background: $color-black;
-    color: $color-white;
-    margin: 0;
-    padding: 20px;
-  }
-
-  #page {
-
-    header {
-      background: $color-black;
-      color: $color-white;
-      padding: 15px;
-      text-align: center;
-
-      img {
-        display: block;
-        margin: 15px auto;
-        @extend %img-responsive;
-      }
-    }
-
-    main {
-      background: $color-white-smoke;
-      padding-bottom: 40px;
-    }
-  }
-
-
 }
