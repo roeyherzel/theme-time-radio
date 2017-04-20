@@ -4,13 +4,10 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Passion+One:400");
-@import url("https://fonts.googleapis.com/css?family=Droid+Sans:700");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 
-$font-family-pri: 'Droid Sans', sans-serif;
-$font-family-sec: 'Open Sans', sans-serif;
+$font-family: 'Open Sans', sans-serif;
 $font-family-h1: 'Passion One', cursive;
-
 
 // Colors
 $primary-background-color: #222222;
@@ -20,15 +17,20 @@ $primary-font-color: white;
 $color-black: #222222;
 $color-charcoal: #424242;
 $color-gray: #A0A0A0;
-$color-gray-light: lightgray;
-$color-yellow: #FFEB3B;
-$color-pink: #F85658;
+
+$color-light-gray: lightgray;
+$color-light-salmon: lightsalmon;
+
 $color-red: #FF5252;
-$color-blue: #3ABFEF;
-$color-summer-sky: #39ADD1;
+
 $color-white: white;
 $color-white-smoke: #f6f6f6;
-$color-purple: #3F51B5;
+
+$color-aquagreen: mediumaquamarine;
+$color-pink: lightpink;
+$color-yellow: #FFEB3B;
+
+$color-dark-blur: darkslateblue;
 
 // Layout
 $page-sides-padding: 15px;

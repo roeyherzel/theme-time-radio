@@ -7,36 +7,38 @@ section#artists_placeholder {
   ul {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
 
     li {
-      margin: 10px;
+      margin: 5px;
     }
 
     figure {
-      // flex here for fixing a small bottom gap between caption and figure
-      display: flex;
-      flex-direction: column;
       margin: 0;
-      max-width: 125px;
-      height: auto;
-      box-shadow: 0px 1px 3px 0px black;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 .5px $color-gray;
+      border-radius: 7px;
 
       img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
+        max-width: 120px;
+        height: auto;
       }
 
       figcaption {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
         width: 100%;
-        padding: 15px 10px;
-        background: rgba(255, 255, 255, .75);
-        font-family: $font-family-pri;
-        text-align: center;
-        font-size: .7rem;
-        color: black;
+        height: 2rem;
+        background: $color-light-gray;
+
+        span {
+          color: black;
+          font-size: .7rem;
+        }
       }
     }
   }
