@@ -91,6 +91,7 @@
   }
 
   .track-buttons {
+    flex: 0 0 3.3rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -119,11 +120,10 @@
     align-items: center;
     justify-content: space-around;
     height: 20px;
-    width: 40px;
   }
 
   .track-spotify {
-    @include svg-button(16px, lightgray);
+    @include svg-button(1rem, lightgray);
 
     &:not([data-song-id=""]) {
       svg {
@@ -136,14 +136,14 @@
     display: none;
     justify-content: center;
     align-items: center;
-    flex: 0 0 16px;
-    width: 16px;
+    flex: 0 0 1.5rem;
+    width: 1.5rem;
     height: 100%;
     background: rgba(0, 0, 0, 0.17);
     border-left: 1px solid rgba(0, 0, 0, 0.17);
 
     span {
-      color: white;
+      color: $color-charcoal;
     }
   }
 

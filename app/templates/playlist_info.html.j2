@@ -1,26 +1,17 @@
 {% extends "layout.html.j2" %}
 
 {% block page_content %}
-  <div id="page" class="artist-info">
+  <div id="page" class="playlist-info">
     <header>
-      <img src="{{artist.lastfm_image}}" alt="{{artist.lastfm_name}} Photo">
-
-      <h1 data-artist-id="{{artist.id}}">{{artist.name}}</h1>
-
-      <ul id="artist_tags">
-        {% for tag in artist.lastfm_tags %}
-          <li><a href="/tags/{{tag.name}}">{{tag.name}}</a></li>
-        {% endfor %}
-      </ul>
+      <h1 data-tag-name="{{tag}}">{{tag}}</h1>
     </header>
 
     <main>
       <ul class="tabs">
-
         <li class="tab">
           <input type="radio" name="tab-group" id="tab_1" checked>
-          <label for="tab_1">Biography</label>
-          <section id="bio"></section>
+          <label for="tab_1">Description</label>
+          <section id="desc"></section>
         </li>
 
         <li class="tab">
@@ -31,7 +22,7 @@
 
         <li class="tab">
           <input type="radio" name="tab-group" id="tab_3">
-          <label for="tab_3">Related Artists</label>
+          <label for="tab_3">Artists</label>
           <section id="artists_placeholder"></section>
         </li>
 
@@ -41,5 +32,5 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript" src="{{ url_for('static', filename='js/artist_info.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/tag_info.js') }}"></script>
 {% endblock %}

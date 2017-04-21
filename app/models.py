@@ -20,7 +20,7 @@ def create(obj):
 
     except IntegrityError as err:
         db.session.rollback()
-        print("rollback: {}, {}".format(err.orig.diag.message_primary, err.orig.diag.message_detail))
+        print("{} - rollback: {}".format(datetime.now().strftime('%c'), err))
 
     db.session.commit()
     return status
@@ -133,7 +133,7 @@ class Songs(db.Model):
 
 class Artists(db.Model):
     id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String, nullable=False, unique=True)
+    name = db.Column(db.String, nullable=False)
     lastfm_name = db.Column(db.String)
     lastfm_image = db.Column(db.String)
     lastfm_tags = db.relationship('Tags', secondary=aux_artists_tags, backref='artists')

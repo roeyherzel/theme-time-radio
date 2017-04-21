@@ -13,6 +13,8 @@ $(document).ready(function() {
     var artists = _.map(tracklist, function(t) { return t.spotify_artists; });
     artists = _.uniq(_.flatten(artists), function(a) { return a.name; });
 
+    console.log(artists);
+
     handlebarsRenderArtists(artists);
 
   });

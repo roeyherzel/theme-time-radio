@@ -2,9 +2,7 @@
 // Episode Info
 //================================================
 
-@import "index";
-
-#page {
+#page.episode-info {
 
   header {
 
@@ -30,6 +28,14 @@
 
     img {
       margin-bottom: 5px;
+    }
+  }
+
+  main {
+    .tracklist {
+      .track-thumbnail { display: none; }
+      .track-buttons { order: -1; }
+      .track-number { display: flex; }
     }
   }
 
@@ -80,18 +86,5 @@
 
   span {
     font-size: 0.625rem;
-  }
-}
-
-
-#tracklist_placeholder .tracklist {
-  .track-thumbnail {
-    display: none;
-  }
-  .track-buttons {
-    order: -1;
-  }
-  .track-number {
-    display: flex;
   }
 }

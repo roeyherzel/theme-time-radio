@@ -27,7 +27,7 @@ Views
 @main.route('/tags')
 @main.route('/tags/<string:tag>')
 def tags_view(tag=None):
-    return render_template('tag_info.html.j2', tag=tag)
+    return render_template('playlist_info.html.j2', tag=tag)
 
 
 @main.route('/artists/<string:id>')
@@ -64,7 +64,7 @@ def all_artists_view(index="A"):
     else:
         artists = Artists.query.order_by(Artists.name).filter(func.upper(Artists.name).startswith(index)).all()
 
-    return render_template('all_artists.html.j2', artists=artists, index=index, index_list=artists_index)
+    return render_template('artists.html.j2', artists=artists, index=index, index_list=artists_index)
 
 
 @main.route('/episodes')

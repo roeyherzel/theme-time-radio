@@ -10,20 +10,20 @@ def hello():
 
 
 @manager.command
-def clean_db():
+def create():
     models.db.drop_all()
     models.db.create_all()
 
 
 @manager.command
-def load_episodes():
+def addEpisodes():
     import wiki_parser
     import tth_parser
 
 
 @manager.command
-def tagger():
-    from tagger import tag_all_unresolved_untagged
+def addMusic():
+    from music_tagger import tag_all_unresolved_untagged
     tag_all_unresolved_untagged()
 
 if __name__ == "__main__":
