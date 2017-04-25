@@ -6,6 +6,10 @@
 
   header {
 
+    h1 {
+      margin-bottom: 10px;
+    }
+    
     img {
       @extend %img-responsive;
       margin-top: 1rem;

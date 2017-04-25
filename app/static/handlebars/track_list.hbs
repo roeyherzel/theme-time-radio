@@ -3,6 +3,8 @@
   {{#each tracks}}
   <div class="track-card">
 
+    <div class="track-number"><span>{{position}}</span></div>
+
     <a href="{{episode.view}}" class="track-thumbnail">
       <img src="{{episode.image}}" alt="Episode Photo">
       <span class="overlay">
@@ -55,8 +57,6 @@
       </div>
 
     </div>
-
-    <div class="track-number"><span>{{position}}</span></div>
 
   </div>
   {{/each}}
