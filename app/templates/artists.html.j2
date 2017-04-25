@@ -4,19 +4,23 @@
   <div id="page" class="artists">
     <header>
       <h1>Artists</h1>
-      <div id="group_nav">
-        <input id="toggle_group_nav" type="checkbox"><label for="toggle_group_nav">Navigation</label>
-        <nav></nav>
-      </div>
+      <div id="groups_nav"></div>
       <div id="artists_placeholder"></div>
     </header>
 
     <main>
-      <div id="group_list"></div>
+      <div id="groups"></div>
     </main>
   </div>
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript" src="{{ url_for('static', filename='js/artists.js') }}"></script>
+  <script type="text/javascript">
+    $.getJSON('/api/artists', { limit: 6, random: true })
+     .then((artists) => {
+       handlebarsRenderArtists(artists);
+     });
+
+    renderGroupNavList('artists');
+  </script>
 {% endblock %}
