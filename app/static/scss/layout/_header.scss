@@ -1,36 +1,9 @@
 //================================================
-// Layout
+// Header
 //================================================
 
-#main_wrapper {
-  background: $color-black;
-}
-
-#mobile_nav {
-  display: none;
-
-  &:checked ~ #nav_header {
-    background: $color-white-smoke;
-
-    & label {
-      background: $color-light-gray;
-
-      svg {
-        fill: $color-black;
-      }
-    }
-
-    & nav {
-      transform: translateX(0);
-    }
-
-    & h3 {
-      color: $color-black;
-    }
-  }
-}
-
-#nav_header {
+#main_wrapper > header {
+  background-color: $color-black;
   position: relative;
   border-bottom: 1px solid $color-charcoal;
   padding: 20px;
@@ -63,11 +36,26 @@
   }
 }
 
-footer {
-  margin: 0;
-  padding: 20px;
+input#mobile_nav {
+  display: none;
 
-  .site-name {
-    font-size: 1rem;
+  &:checked ~ header {
+    background: $color-white-smoke;
+
+    & label {
+      background: $color-light-gray;
+
+      svg {
+        fill: $color-black;
+      }
+    }
+
+    & nav {
+      transform: translateX(0);
+    }
+
+    & h3 {
+      color: $color-black;
+    }
   }
 }
