@@ -69,13 +69,17 @@ class Episodes(db.Model):
     media = db.Column(db.String)
     image = db.Column(db.String)
 
+    @staticmethod
+    def _nav_helper(ep):
+        return '/episodes/' + str(ep.id) if ep else None
+
     @property
     def next(self):
-        return Episodes.query.filter(Episodes.id > self.id).order_by(Episodes.id).first()
+        return Episodes._nav_helper(Episodes.query.filter(Episodes.id > self.id).order_by(Episodes.id).first())
 
     @property
     def prev(self):
-        return Episodes.query.filter(Episodes.id < self.id).order_by(desc(Episodes.id)).first()
+        return Episodes._nav_helper(Episodes.query.filter(Episodes.id < self.id).order_by(desc(Episodes.id)).first())
 
     def __repr__(self):
         return '<Episode ({}): {}>'.format(self.id, self.title)

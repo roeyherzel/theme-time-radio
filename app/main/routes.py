@@ -43,7 +43,7 @@ def episode_view(id=None, season=1):
         if episode is None:
             abort(404)
 
-        return render_template('episode_info.html.j2', episode=episode, prev=episode.prev, next=episode.next)
+        return render_template('episode_info.html.j2', episode=episode)
 
     seasons = [1, 2, 3]
     if season not in seasons:

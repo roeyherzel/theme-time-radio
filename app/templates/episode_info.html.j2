@@ -12,7 +12,7 @@
 
       <div id="episode_player">
         <div class="episode-player-row">
-          <button type="button" class="episode-prev">
+          <a class="episode-prev" {% if episode.prev %} href="{{episode.prev}}" {% else %} href="#" disabled {% endif %}>
             <svg viewBox="0 0 237.947 237.947">
         			<g>
         				<path
@@ -21,7 +21,7 @@
         				c6.198-6.198,6.198-16.304,0-22.47L89.857,119.002z"/>
         			</g>
             </svg>
-          </button>
+          </a>
           <button type="button" class="episode-playpause">
             <svg viewBox="0 0 476.737 476.737">
         			<g>
@@ -33,7 +33,7 @@
         			</g>
             </svg>
           </button>
-          <button type="button" class="episode-next">
+          <a class="episode-next" {% if episode.next %} href="{{episode.next}}" {% else %} href="#" disabled {% endif %}>
             <svg viewBox="0 0 238.003 238.003">
           		<g>
           			<path
@@ -42,7 +42,7 @@
           			c3.146-3.146,4.672-7.246,4.64-11.283C186.416,114.902,184.89,110.833,181.776,107.719z"/>
           		</g>
             </svg>
-          </button>
+          </a>
           <button type="button" class="episode-volume">
             <svg viewBox="0 0 508.52 508.52">
       				<g>
