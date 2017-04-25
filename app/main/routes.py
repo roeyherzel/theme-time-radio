@@ -42,15 +42,16 @@ def episode_view(id=None, season=1):
         episode = Episodes.query.get(id)
         if episode is None:
             abort(404)
-
         return render_template('episode_info.html.j2', episode=episode)
 
-    seasons = [1, 2, 3]
-    if season not in seasons:
+    elif season:
+        seasons = [1, 2, 3]
+        if season not in seasons:
+            abort(404)
+        episodes = Episodes.query.filter(Episodes.season == season).order_by(Episodes.id)
+        return render_template('episodes.html.j2', episodes=episodes, season=season, seasons=seasons)
+    else:
         abort(404)
-
-    episodes = Episodes.query.filter(Episodes.season == season).order_by(Episodes.id)
-    return render_template('all_episodes.html.j2', episodes=episodes, season=season, seasons=seasons)
 
 
 @main.route('/about')

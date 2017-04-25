@@ -14,7 +14,7 @@ function handlebarsGetTemplate(path, callback) {
 }
 
 function handlebarsRenderTracklist(trackList) {
-  handlebarsGetTemplate('track_list.hbs', function(template) {
+  handlebarsGetTemplate('track_cards.hbs', function(template) {
     $('#tracklist_placeholder').html(template({ tracks: trackList}));
   });
 }

@@ -1,0 +1,47 @@
+{% extends "layout.html.j2" %}
+
+{% block page_content %}
+  <div id="page" class="episodes">
+    <header>
+      <h1>Episodes</h1>
+      <p>Season</p>
+      <ul class="seasons">
+      {% for s in seasons %}
+          <li>
+            <a {% if s == season %} class="selected" {% endif %} href="/episodes/season/{{s}}">{{s}}</a>
+          </li>
+      {% endfor %}
+      </ul>
+    </header>
+
+    <main>
+      <ul class="episodes">
+      {% for e in episodes %}
+        <li>
+          <a class="card" href="/episodes/{{e.id}}">
+
+            <div class="card-number">
+              <span>{{e.id}}</span>
+            </div>
+
+            <div class="card-text">
+              <span class="text-lg">{{e.title}}</span>
+              <span class="text-sm aired">{{e.aired}}</span>
+            </div>
+
+            <div class="card-thumb">
+              <img src="{{e.image}}" alt="Episode poster image">
+              <span class="overlay"></span>
+            </div>
+          </a>
+        </li>
+      {% endfor %}
+      </ul>
+    </main>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+  <script type="text/javascript">
+  </script>
+{% endblock %}
