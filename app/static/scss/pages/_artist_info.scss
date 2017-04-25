@@ -7,6 +7,8 @@
   header {
 
     img {
+      @extend %img-responsive;
+      margin-top: 1rem;
       border-radius: 100%;
       box-shadow: 0px 0px 1px 2px $color-white;
     }
@@ -18,7 +20,7 @@
 ul#artist_tags {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   padding: 2px 0 30px 0;
   border-top: 1px solid $color-charcoal;
 

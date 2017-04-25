@@ -54,3 +54,40 @@ function lastFmAPIGet(resource, value, callback) {
     }
   });
 }
+
+/*============================================================================================
+Groups
+============================================================================================*/
+
+const getAnchor = (name, address) => {
+  const capName = name[0].toUpperCase() + name.slice(1);
+  return $('<a>').attr('href', address).text(capName);
+};
+
+const renderGroupNavList = (resource) => {
+
+  $.getJSON(`/api/${resource}`, (data) => {
+
+    data = _.groupBy(data, (a) => {
+      let index = a.name[0].toUpperCase();
+      return (! _.isNaN(Number(index))) ? "?" : index;
+    });
+
+    const $navList = $('<ul>');
+    for (let group in data) {
+      $('<li>').append(getAnchor(group, `#${group}`)).appendTo($navList);
+
+      let $section = $('<section>').attr('id', group),
+          $header = $('<h2>').text(group).appendTo($section),
+          $groupList = $('<ul>').appendTo($section);
+
+      for (let a of data[group]) {
+        $('<li>').append(getAnchor(a.name, a.view)).appendTo($groupList);
+      }
+      $section.appendTo('#group_list');
+    }
+    // Placholder for nav content
+    $('#group_nav nav').html($navList);
+
+  });
+};

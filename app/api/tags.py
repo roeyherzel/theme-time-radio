@@ -9,42 +9,29 @@ parser.add_argument('limit', type=str, help="limit query results")
 parser.add_argument('random', type=str, help="limit query results")
 
 
-@api.resource('/api/tags', '/api/tags/<string:tag_name>')
+@api.resource('/api/genres', '/api/genres/<string:tag_name>')
 class TagsAPI(Resource):
 
-    @marshal_with(schemas.TagsCount().as_dict)
+    @marshal_with(schemas.Tags().as_dict)
     def get(self, tag_name=None):
-        return tag_name
-        # res = Tags.countSong()
-        #
-        # if tag_name:
-        #     res = res.filter(Tags.name == tag_name).first()
-        #     return {'tag': res[0], 'track_count': res[1]}
-        #
-        # args = parser.parse_args()
-        # if args.get('random'):
-        #     res = res.order_by(func.random())
-        # else:
-        #     res = res.order_by(desc('track_count'))
-        #
-        # if args.get('limit'):
-        #     res = res.limit(args.get('limit'))
-        #
-        # return [{'tag': i.Tags, 'track_count': i.track_count} for i in res.all()]
+        if tag_name is None:
+            # TODO: filter only tags that has > songs
+            return Tags.query.order_by(Tags.name).all()
+        else:
+            return Tags.query.filter(Tags.name == tag_name).first()
 
 
-@api.resource('/api/tags/<string:tag>/artists')
+@api.resource('/api/genres/<string:tag>/artists')
 class TagsArtistsAPI(Resource):
 
     @marshal_with(schemas.Artist().as_dict)
     def get(self, tag):
-        print(tag)
         return Artists.query.join(aux_artists_tags, aux_artists_tags.c.artist_id == Artists.id) \
                             .filter(aux_artists_tags.c.tag_id == Tags.getId(tag)) \
                             .all()
 
 
-@api.resource('/api/tags/<string:tag>/tracklist')
+@api.resource('/api/genres/<string:tag>/tracklist')
 class TagsTracklistAPI(Resource):
 
     @marshal_with(schemas.Track().as_dict)

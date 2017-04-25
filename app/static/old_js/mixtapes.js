@@ -20,10 +20,10 @@ function loadMixtape(tapeTarget) {
     });
 
     // get tape's songlist
-    $.getJSON(`/api/tags/${tagName}/songs`, function(data, status) { createSpotifyPlayer(songlist_to_songids(data)) });
+    $.getJSON(`/api/genres/${tagName}/songs`, function(data, status) { createSpotifyPlayer(songlist_to_songids(data)) });
 
     // get tape's artists
-    $.getJSON(`/api/tags/${tagName}/artists`, function(data, artists) {
+    $.getJSON(`/api/genres/${tagName}/artists`, function(data, artists) {
 
       getTemplateAjax('tracklist_artists.handlebars', function(template) {
 
@@ -41,7 +41,7 @@ $(document).ready(function() {
 
   getTemplateAjax('mixtapes.handlebars', function(template) {
 
-    $.getJSON('/api/tags', function(tags, status) {
+    $.getJSON('/api/genres', function(tags, status) {
 
       /* sort by tag name */
       tags = _.sortBy(tags, function(t) { return t.tag.name.toLowerCase() });

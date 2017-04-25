@@ -5,66 +5,33 @@ from sqlalchemy import func
 import re
 
 
-"""
------------------------------------------------------------------------------------------------------
-Error handlers
------------------------------------------------------------------------------------------------------
-"""
-
-
 @main.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html.j2'), 404
 
 
-"""
------------------------------------------------------------------------------------------------------
-Views
------------------------------------------------------------------------------------------------------
-"""
+@main.route('/genres')
+@main.route('/genres/<string:genre>')
+def genres_view(genre=None):
+    if genre is None:
+        return render_template('genres.html.j2')
+    else:
+        return render_template('genre_info.html.j2', genre=genre)
 
 
-@main.route('/tags')
-@main.route('/tags/<string:tag>')
-def tags_view(tag=None):
-    return render_template('playlist_info.html.j2', tag=tag)
-
-
+@main.route('/artists')
 @main.route('/artists/<string:id>')
 @main.route('/artists/name/<string:name>')
 def artist_view(id=None, name=None):
-    if id:
+    if id is None and name is None:
+        return render_template('artists.html.j2')
+    elif id:
         artist = Artists.query.get(id)
-
     elif name:
         artist = Artists.query.filter(func.lower(Artists.lastfm_name) == name.lower()) \
                         .one_or_none()
 
-    if artist is None:
-        abort(404)
-    else:
-        return render_template('artist_info.html.j2', artist=artist)
-
-
-@main.route('/artists')
-@main.route('/artists/index/<string:index>')
-def all_artists_view(index="A"):
-    # build uniqe list of sorted artist names index
-    artists_index = [re.sub(r"[^a-zA-Z]", "0", i.name[0].upper()) for i in Artists.query.order_by(Artists.name).all()]
-    artists_index = sorted(set(artists_index))
-
-    if index not in artists_index:
-        abort(404)
-
-    # get artist objects matching index
-    index = index.upper()
-    if index == "0":
-        # didn't find a method to performe the filtering in db query, filter all NON(^) A-Z
-        artists = [a for a in Artists.query.all() if re.match(r"[^a-zA-Z]", a.name[0])]
-    else:
-        artists = Artists.query.order_by(Artists.name).filter(func.upper(Artists.name).startswith(index)).all()
-
-    return render_template('artists.html.j2', artists=artists, index=index, index_list=artists_index)
+    return render_template('artist_info.html.j2', artist=artist)
 
 
 @main.route('/episodes')
@@ -97,6 +64,6 @@ def index():
         'episodes': "{:,}".format(Episodes.query.count()),
         'songs': "{:,}".format(Tracks.query.count()),
         'artists': "{:,}".format(Artists.query.count()),
-        'tags': "{:,}".format(Tags.query.count())
+        'genres': "{:,}".format(genres.query.count())
     }
     return render_template('index.html.j2', stats=stats)

@@ -1,14 +1,13 @@
 {% extends "layout.html.j2" %}
 
 {% block page_content %}
-  <div id="page" class="artists">
+  <div id="page" class="genres">
     <header>
       <h1>Artists</h1>
       <div id="group_nav">
         <input id="toggle_group_nav" type="checkbox"><label for="toggle_group_nav">Navigation</label>
         <nav></nav>
       </div>
-      <div id="artists_placeholder"></div>
     </header>
 
     <main>
@@ -18,5 +17,7 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript" src="{{ url_for('static', filename='js/artists.js') }}"></script>
+  <script type="text/javascript">
+    renderGroupNavList('genres');
+  </script>
 {% endblock %}

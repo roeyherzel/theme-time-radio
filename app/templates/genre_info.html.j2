@@ -3,7 +3,7 @@
 {% block page_content %}
   <div id="page" class="playlist-info">
     <header>
-      <h1 data-tag-name="{{tag}}">{{tag}}</h1>
+      <h1 data-genre-name="{{genre}}">{{genre}}</h1>
     </header>
 
     <main>
@@ -32,5 +32,5 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript" src="{{ url_for('static', filename='js/tag_info.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/genre_info.js') }}"></script>
 {% endblock %}

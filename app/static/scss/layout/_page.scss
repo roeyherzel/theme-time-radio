@@ -5,11 +5,19 @@
 #page {
 
   header {
+    background: $color-black;
+    color: $color-white;
+    padding: 15px;
+    text-align: center;
 
     h1 {
       text-transform: capitalize;
-      margin-bottom: 10px;
     }
 
+  }
+
+  main {
+    background-color: $color-white-smoke;
+    padding: $padding-page-sides;
   }
 }

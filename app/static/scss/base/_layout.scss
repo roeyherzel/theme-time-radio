@@ -52,13 +52,13 @@
     top: 69px;
     width: 100%;
     z-index: 100;
-    padding: 20px;
     transform: translateX(-100%);
     background: $color-white-smoke;
     border-top: 1px solid $color-charcoal;
 
-    ul li {
-      padding: 10px 0;
+    li a {
+      padding: .8rem 1rem;
+      display: block;
     }
   }
 }
@@ -70,21 +70,4 @@ footer {
   .site-name {
     font-size: 1rem;
   }
-}
-
-#page {
-
-  header {
-    background: $color-black;
-    color: $color-white;
-    padding: 15px;
-    text-align: center;
-
-    img {
-      display: block;
-      margin: 15px auto;
-      @extend %img-responsive;
-    }
-  }
-
 }

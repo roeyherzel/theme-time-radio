@@ -1,0 +1,73 @@
+//================================================
+// Group Navigation
+//================================================
+
+#group_nav {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 1rem;
+  background-color: $color-white-smoke;
+  border-radius: 6px; // same as label
+
+  label[for="toggle_group_nav"] {
+    display: block;
+    padding: .5rem 1rem;
+    background-color: $color-aquagreen;
+    border-radius: 6px;
+    font-size: .9rem;
+    font-weight: lighter;
+  }
+
+  input#toggle_group_nav {
+    display: none;
+
+    &:checked {
+      ~ nav {
+        height: 100%;
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      ~ label {
+        margin: 0 -1rem;
+        box-shadow: 0 0 3px 2px black;
+      }
+    }
+  }
+
+  nav {
+    height: 0;
+    opacity: 0;
+    transform: translateX(200%);
+  }
+
+  li {
+    border-bottom: 1px solid $color-gray;
+  }
+
+  a {
+    display: block;
+    padding: 10px;
+  }
+}
+
+#group_list {
+
+  section {
+    h2 {
+      border-bottom: 1px solid;
+    }
+
+    ul {
+      font-size: .85rem;
+    }
+
+    li {
+      margin-bottom: .5rem;
+    }
+
+    a {
+      color: $color-black;
+    }
+  }
+}

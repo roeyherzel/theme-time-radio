@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     $.getJSON("/api/artists", { limit: 5, random: true }, function(artists, status) {
 
-      $.getJSON("/api/tags", { limit: 5, random: true }, function(tags, status) {
+      $.getJSON("/api/genres", { limit: 5, random: true }, function(tags, status) {
 
         getTemplateAjax("features.handlebars", function(template) {
 

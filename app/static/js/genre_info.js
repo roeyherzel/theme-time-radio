@@ -2,10 +2,10 @@
 Tag info page
 ============================================================================================*/
 
-var tagName = $('#page header h1').attr('data-tag-name');
+var tagName = $('#page header h1').attr('data-genre-name');
 
-$.getJSON("/api/tags/" + tagName + "/tracklist", handlebarsRenderTracklist);
-$.getJSON("/api/tags/" + tagName + "/artists", handlebarsRenderArtists);
+$.getJSON("/api/genres/" + tagName + "/tracklist", handlebarsRenderTracklist);
+$.getJSON("/api/genres/" + tagName + "/artists", handlebarsRenderArtists);
 
 // get artist info from LastFM API
 lastFmAPIGet("tag", tagName, function(tagInfo) {

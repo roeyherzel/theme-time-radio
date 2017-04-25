@@ -27,7 +27,9 @@
     }
 
     img {
-      margin-bottom: 5px;
+      display: block;
+      margin: 15px auto 5px auto;
+      @extend %img-responsive;
     }
   }
 
@@ -44,7 +46,6 @@
 #episode_player {
   width: 100%;
   height: auto;
-  background: #282828;
   padding: 10px 15px 20px 15px;
   color: $color-gray;
 
