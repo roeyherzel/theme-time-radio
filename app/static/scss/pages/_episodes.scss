@@ -11,7 +11,7 @@
     }
 
     p {
-      color: $color-light-salmon;
+      color: $color-salmon;
     }
 
     ul.seasons {
@@ -25,7 +25,7 @@
         border-radius: 4px;
 
         &.selected {
-          box-shadow: 0 1px 5px 1px white;
+          background: $color-salmon;
           border: 1px solid white;
         }
       }

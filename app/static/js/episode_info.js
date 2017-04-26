@@ -3,7 +3,7 @@ Episode info page
 ============================================================================================*/
 
 $(document).ready(function() {
-  var episodeId = $('#episode_id').text();
+  var episodeId = $('h1[data-episode-id]').attr('data-episode-id');
 
   $.getJSON("/api/episodes/" + episodeId + "/tracklist", function(tracklist) {
 

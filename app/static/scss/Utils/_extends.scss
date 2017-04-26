@@ -21,3 +21,7 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+%remove-page-padding {
+  margin: -$padding-page-sides;
+}

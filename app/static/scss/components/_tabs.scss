@@ -3,7 +3,7 @@
 //================================================
 
 ul.tabs {
-  margin: -$padding-page-sides;
+  @extend %remove-page-padding;
 
   li.tab {
 

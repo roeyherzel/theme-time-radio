@@ -7,7 +7,7 @@
       <p>{{ episode.aired }}</p>
       <h1 data-episode-title="{{ episode.title }}" data-episode-id="{{ episode.id }}">{{ episode.title }}</h1>
       <p>
-        Season <span id="season_id"> {{ episode.season }}</span> - Episode <span id="episode_id">{{ episode.id }}</span>
+        <a href="/episodes/season/{{episode.season}}">Season {{episode.season}}</a> - <a href="#">Episode {{episode.id}}</a>
       </p>
 
       <div id="episode_player">

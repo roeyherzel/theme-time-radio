@@ -14,10 +14,21 @@
       text-transform: capitalize;
     }
 
+    img {
+      @extend %img-responsive;
+      margin: auto;
+    }
+
+    a {
+      color: $color-light-salmon;
+      text-transform: capitalize;
+      font-size: 0.8rem;
+    }
   }
 
   main {
     background-color: $color-white-smoke;
+    color: $color-black;
     padding: $padding-page-sides;
   }
 }

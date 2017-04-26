@@ -1,0 +1,37 @@
+{% extends "layout.html.j2" %}
+
+{% block page_content %}
+  <div id="page" class="home">
+    <header>
+      <img src="{{ url_for('static', filename='images/cassette.png')}}" alt="Image of cassette">
+
+      <h2 class="site-name">Theme<span>Time</span>Radio</h2>
+      <p class="pitch">A Podcast website for the show <span>Theme Time Radio Hour</span></p>
+
+      <nav>
+        <a href="/episodes">Episodes</a>
+        <a href="/artists">Artists</a>
+        <a href="/genres">Genres</a>
+      </nav>
+    </header>
+
+    <main>
+      <blockquote>
+        <i><strong>Theme Time Radio Hour</strong></i>&nbsp; was a weekly, one-hour satellite radio show hosted by <a href="/artists/name/Bob Dylan">Bob Dylan</a> originally airing from May 2006 to April 2009.
+        Each episode was an eclectic, freeform mix of blues, folk, rockabilly, R&B, soul, bebop, rock-and-roll, country and pop music, centered on a theme such as
+        <a href="/episodes/1">"Weather"</a>,
+        <a href="/episodes/76">"Money"</a>, and
+        <a href="/episodes/11">"Flowers"</a> with songs from artists as diverse as
+        <a href="/artists/name/Patti Page">Patti Page</a> and
+        <a href="/artists/name/LL Cool J">LL Cool J</a>.
+        <footer>
+          —
+          <cite><a target="_blank" href="https://en.wikipedia.org/wiki/Theme_Time_Radio_Hour">Wikipedia</a></cite>
+        </footer>
+      </blockquote>
+    </main>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+{% endblock %}

@@ -3,7 +3,7 @@
 //================================================
 
 #groups_nav {
-  width: 80%;
+  width: 50%;
   margin: auto;
   margin-bottom: 1rem;
   background-color: $color-white-smoke;
@@ -68,6 +68,7 @@
 
     a {
       color: $color-black;
+      text-transform: capitalize;
     }
   }
 }

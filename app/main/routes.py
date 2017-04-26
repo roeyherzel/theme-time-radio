@@ -65,6 +65,6 @@ def index():
         'episodes': "{:,}".format(Episodes.query.count()),
         'songs': "{:,}".format(Tracks.query.count()),
         'artists': "{:,}".format(Artists.query.count()),
-        'genres': "{:,}".format(genres.query.count())
+        'genres': "{:,}".format(Tags.query.count())
     }
     return render_template('index.html.j2', stats=stats)

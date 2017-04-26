@@ -29,14 +29,6 @@ ul#artist_tags {
 
   li {
     margin: 2px 5px;
-
-    a {
-      text-transform: capitalize;
-      text-align: center;
-      vertical-align: middle;
-      color: $color-light-salmon;
-      font-size: 0.8rem;
-      text-decoration: underline;
-    }
+    text-decoration: underline;
   }
 }

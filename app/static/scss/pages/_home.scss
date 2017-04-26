@@ -1,0 +1,63 @@
+//================================================
+// Home
+//================================================
+
+#page.home {
+
+  header {
+
+    img {
+      margin-top: 2rem;
+    }
+
+    .site-name {
+      font-size: 2rem;
+      margin: 1rem 0;
+    }
+
+    p.pitch {
+      color: $color-light-salmon;
+      font-weight: lighter;
+
+      span {
+        display: block;
+        font-style: italic;
+      }
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      @extend %remove-page-padding;
+      margin-top: 2rem;
+
+      a {
+        flex: 1 1;
+        color: $color-black;
+        padding: .4rem 0;
+        border-left: 1px solid $color-black;
+        background-color: $color-salmon;
+        border-radius: 10px 10px 0 0;
+      }
+    }
+
+  }
+
+  main {
+
+    blockquote {
+      margin: 0;
+      margin-top: 1.5rem;
+      font-size: .9rem;
+
+      a {
+        color: $color-salmon;
+
+      }
+      footer {
+        margin-top: .5rem;
+        margin-left: .5rem;
+      }
+    }
+  }
+}

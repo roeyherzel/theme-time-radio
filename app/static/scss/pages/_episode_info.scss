@@ -19,11 +19,13 @@
 
       &:last-of-type {
         font-size: 0.8em;
-        color: $color-aquagreen;
-        border-top: 1px solid $color-charcoal;
-        padding-top: 5px;
+        color: $color-light-salmon;
         margin: 10px 60px 15px 60px;
       }
+    }
+
+    a {
+      text-decoration: underline;
     }
 
     img {
@@ -36,9 +38,7 @@
 }
 
 #episode_player {
-  width: 100%;
-  height: auto;
-  padding: 10px 15px 20px 15px;
+  padding: 1rem;
   color: $color-gray;
 
   .episode-player-row {

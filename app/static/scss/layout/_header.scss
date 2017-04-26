@@ -13,20 +13,23 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: 20px;
+    padding: 1.5rem;
     height: 100%;
     display: flex;
     align-items: center;
+    transition: background .3s;
   }
 
   nav {
     position: absolute;
     left: 0;
-    top: 69px;
+    top: 100%;
     width: 100%;
+    padding: 1rem 0;
     z-index: 100;
     transform: translateX(-100%);
-    background: $color-white-smoke;
+    transition: transform .3s;
+    background: $color-black;
     border-top: 1px solid $color-charcoal;
 
     li a {
@@ -39,23 +42,23 @@
 input#mobile_nav {
   display: none;
 
-  &:checked ~ header {
-    background: $color-white-smoke;
+  &:checked {
 
-    & label {
-      background: $color-light-gray;
+    ~ header {
 
-      svg {
-        fill: $color-black;
+      label {
+        background: $color-light-gray;
+        svg {
+          fill: $color-black;
+        }
+      }
+      nav {
+        transform: translateX(0);
       }
     }
 
-    & nav {
-      transform: translateX(0);
-    }
-
-    & h3 {
-      color: $color-black;
+    ~ #page {
+      opacity: 0.2;
     }
   }
 }
