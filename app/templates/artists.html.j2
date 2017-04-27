@@ -16,11 +16,6 @@
 
 {% block page_scripts %}
   <script type="text/javascript">
-    $.getJSON('/api/artists', { limit: 6, random: true })
-     .then((artists) => {
-       handlebarsRenderArtists(artists);
-     });
-
-    renderGroupNavList('artists');
+    Pages.Artists();
   </script>
 {% endblock %}

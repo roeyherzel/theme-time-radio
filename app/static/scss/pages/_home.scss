@@ -29,11 +29,11 @@
       display: flex;
       justify-content: space-between;
       @extend %remove-page-padding;
-      margin-top: 2rem;
+      margin-top: 3rem;
 
       a {
         flex: 1 1;
-        color: $color-black;
+        color: white;
         padding: .4rem 0;
         border-left: 1px solid $color-black;
         background-color: $color-salmon;

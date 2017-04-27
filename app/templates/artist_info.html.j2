@@ -5,7 +5,7 @@
     <header>
       <img src="{{artist.lastfm_image}}" alt="{{artist.lastfm_name}} Photo">
 
-      <h1 data-artist-id="{{artist.id}}">{{artist.name}}</h1>
+      <h1 data-artist-id="{{artist.id}}" data-artist-lastfm="{{artist.lastfm_name}}">{{artist.name}}</h1>
 
       <ul id="artist_tags">
         {% for tag in artist.lastfm_tags %}
@@ -41,5 +41,7 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript" src="{{ url_for('static', filename='js/artist_info.js') }}"></script>
+  <script type="text/javascript">
+    Pages.ArtistInfo();
+  </script>
 {% endblock %}

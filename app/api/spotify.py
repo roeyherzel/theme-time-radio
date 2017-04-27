@@ -4,33 +4,51 @@ from . import schemas
 from ..models import *
 from sqlalchemy import func
 
-parser = reqparse.RequestParser()
-parser.add_argument('limit', type=str, help="limit query results")
-parser.add_argument('random', type=str, help="limit query results")
 
-
-@api.resource('/api/artists', '/api/artists/<string:artist_id>')
-class ArtistsAPI(Resource):
+@api.resource('/api/artists')
+class API_AllArtists(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('limit', type=str, help="limit query results")
+    parser.add_argument('random', type=bool, help="random query results")
 
     @marshal_with(schemas.Artist().as_dict)
-    def get(self, artist_id=None):
-        args = parser.parse_args()
+    def get(self):
+        args = __class__.parser.parse_args()
+        query = Artists.query
 
-        if artist_id:
-            return Artists.query.get(artist_id)
-
-        order = func.random() if args.get('random') else Artists.name
-        res = Artists.query.order_by(order)
+        if args.get('random'):
+            query = query.order_by(func.random())
+        else:
+            query = query.order_by(Artists.name)
 
         if args.get('limit'):
             # filter only artists with images
-            res = res.filter(Artists.lastfm_image != None, Artists.lastfm_image != '').limit(args.get('limit'))
+            query = query.filter(Artists.lastfm_image != None, Artists.lastfm_image != '') \
+                         .limit(args.get('limit'))
 
-        return res.all()
+        return query.all() or abort(500)
+
+
+@api.resource('/api/artists/<string:artist>')
+class API_Artist(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('lastfm', type=bool, help="Lookup artist by lastfm name")
+
+    @marshal_with(schemas.Artist().as_dict)
+    def get(self, artist):
+        args = args = __class__.parser.parse_args()
+        query = Artists.query
+
+        if args.get('lastfm'):
+            query = query.filter(Artists.lastfm_name == artist).one_or_none()
+        else:
+            query = query.get(artist)
+
+        return query or abort(404)
 
 
 @api.resource('/api/artists/<string:artist_id>/episodes')
-class ArtistsEpisodesAPI(Resource):
+class API_ArtistsEpisodes(Resource):
 
     @marshal_with(schemas.Episode().as_dict)
     def get(self, artist_id):
@@ -42,7 +60,7 @@ class ArtistsEpisodesAPI(Resource):
 
 
 @api.resource('/api/artists/<string:artist_id>/tracklist')
-class ArtistsTracklistAPI(Resource):
+class API_ArtistsTracklist(Resource):
 
     @marshal_with(schemas.Track().as_dict)
     def get(self, artist_id):

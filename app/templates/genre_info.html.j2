@@ -33,5 +33,7 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript" src="{{ url_for('static', filename='js/genre_info.js') }}"></script>
+  <script type="text/javascript">
+    Pages.GenreInfo();
+  </script>
 {% endblock %}

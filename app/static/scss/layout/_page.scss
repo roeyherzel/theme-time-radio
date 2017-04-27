@@ -3,7 +3,8 @@
 //================================================
 
 #page {
-
+  transition: opacity .3s;
+  
   header {
     background: $color-black;
     color: $color-white;
