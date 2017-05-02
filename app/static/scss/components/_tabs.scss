@@ -7,7 +7,7 @@ ul.tabs {
 
   li.tab {
 
-    input[type=radio] {
+    input[type=checkbox] {
       display: none;
 
       &:checked ~ label::after {

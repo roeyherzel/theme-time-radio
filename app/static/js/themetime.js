@@ -2,168 +2,233 @@
 /* ThemeTime.js
  * ============
  *
- *
  */
 
-const TTR = (function() {
-/* =========================================================================
+const App = {};
+
+/* -------------------------
  * theme-time web server API
- * =========================================================================
+ * -------------------------
  */
-  const API = {
-    _get: function(path, params) {
-      return $.getJSON(path, params);
-    },
 
-    getArtists: function(params) {
-      return API._get('/api/artists', params);
-    },
+App.api = (function() {
 
-    getArtistTracks: function(id) {
-      return API._get(`/api/artists/${id}/tracklist`);
-    },
+  const _get = (path, params) => $.getJSON(path, params);
 
-    getGenres: function() {
-      return API._get('/api/genres');
-    },
+  const getArtists       = (params) => _get('/api/artists', params);
+  const getArtistTracks  = (id)     => _get(`/api/artists/${id}/tracklist`);
+  const getGenres        = ()       => _get('/api/genres');
+  const getGenreTracks   = (genre)  => _get(`/api/genres/${genre}/tracklist`);
+  const getGenreArtists  = (genre)  => _get(`/api/genres/${genre}/artists`);
+  const getEpisodeTracks = (id)     => _get(`/api/episodes/${id}/tracklist`);
+  const getLastfmArtist  = (lastfmName) => {
 
-    getGenreTracks: function(genre) {
-      return API._get(`/api/genres/${genre}/tracklist`);
-    },
-
-    getGenreArtists: function(genre) {
-      return API._get(`/api/genres/${genre}/artists`);
-    },
-
-    getEpisodeTracks: function(id) {
-      return API._get(`/api/episodes/${id}/tracklist`);
-    },
-
-    getLastfmArtist: function(lastfmName) {
-      return new Promise((resolve, reject) => {
-        API._get(`/api/artists/${lastfmName}`, {lastfm: true})
-           .catch(error => console.log(`${lastfmName} on not in theme-time`))
-           .then(data => resolve(data));
-      });
-    },
+    return new Promise((resolve, reject) => {
+      _get(`/api/artists/${lastfmName}`, {lastfm: true})
+      .catch(error => console.log(`${lastfmName} on not in theme-time`))
+      .then(data => resolve(data));
+    });
   };
 
-/* =========================================================================
+  // Exports
+  return { getArtists, getArtistTracks, getGenres, getGenreTracks, getGenreArtists, getEpisodeTracks, getLastfmArtist };
+}());
+
+
+/* --------------------
  * Handlebars templates
- * =========================================================================
+ * --------------------
  */
-  const HBS = {
-    _get: function(file, data, ph) {
-      return $.get(`/static/handlebars/${file}.hbs`)
-             .then((template) => Handlebars.compile(template))
-             .then((template) => $(ph).html(template(data)));
-    },
 
-    renderTracks: function(tracks, ph = '#tracklist_placeholder') {
-      HBS._get('track_cards', {tracks}, ph);
-      return tracks;
-    },
+App.templates = (function() {
 
-    renderArtists: function(artists, ph = '#artists_placeholder') {
-      HBS._get('artists_list', {artists}, ph);
-    }
+  const _get = (file, data, ph) => {
+    return $.get(`/static/handlebars/${file}.hbs`)
+           .then((template) => Handlebars.compile(template))
+           .then((template) => $(ph).html(template(data)));
+  };
+  const renderTracks = (tracks, ph = '#tracklist_placeholder') => {
+    _get('track_cards', {tracks}, ph);
+    return tracks; // returning tracks so we could keep processing the tracks data
+  };
+  const renderArtists = (artists, ph = '#artists_placeholder') => {
+    _get('artists_list', {artists}, ph);
   };
 
-/* =========================================================================
+  // Exports
+  return { renderTracks, renderArtists };
+}());
+
+
+/* ----------
  * LastFM API
- * =========================================================================
+ * ----------
  */
-  const LastFM = {
-    _get: function(method, resource) {
-      const data = {
-        api_key: 'aa570c383c5f26de24d4e2c7fd182c8e',
-        format: 'json',
-        method: method + '.getinfo',
-      };
-      data[method] = resource;
-      return $.getJSON('http://ws.audioscrobbler.com/2.0/', data);
-    },
 
-    getArtistInfo: function(artist) {
-      return LastFM._get('artist', artist);
-    },
+App.lastFM = (function() {
 
-    getGenreInfo: function(genre) {
-      return LastFM._get('tag', genre);
-    },
+  const _get = (method, resource) => {
+    const data = {
+      api_key: 'aa570c383c5f26de24d4e2c7fd182c8e',
+      format: 'json',
+      method: method + '.getinfo',
+    };
+    data[method] = resource;
+    return $.getJSON('http://ws.audioscrobbler.com/2.0/', data);
+  };
 
-    renderArtistBio: function(data, ph) {
-      $(ph).html($('<p>').html(data.artist.bio.summary));
-      return data;
-    },
+  const getArtistInfo = (artist) => _get('artist', artist);
+  const getGenreInfo  = (genre)  => _get('tag', genre);
 
-    renderGenreSummary: function(data, ph) {
-      $(ph).html($('<p>').html(data.tag.wiki.summary));
+  const renderArtistBio = (data, ph) => {
+    $(ph).html($('<p>').html(data.artist.bio.summary));
+    return data; // returning data for chaining more promises
+  };
+  const renderGenreSummary = (data, ph) => $(ph).html($('<p>').html(data.tag.wiki.summary));
+
+  // Exports
+  return { getArtistInfo, getGenreInfo, renderArtistBio, renderGenreSummary };
+}());
+
+
+/* -------------------------------
+ * Components (rendered by jQuery)
+ * -------------------------------
+ */
+
+App.components = (function() {
+  const _createLinkItem = (name, address) => $('<li>').append(`<a href=${address}>${name}</a>`);
+
+  const renderGroups = (data) => {
+    // Group data by first char, if char is not a-Z then group = #
+    data = _.groupBy(data, (a) => (/[a-z]/i).test(a.name.charAt(0)) ? a.name.charAt(0).toUpperCase() : "#");
+    // Create group section with list of items
+    for (let group in data) {
+      const $section  = $(`<section id=${group}></section>`).append(`<h2>${group}</h2>`);
+      const $group_ul = $('<ul>').appendTo($section);
+
+      for (let i of data[group]) {
+        $group_ul.append(_createLinkItem(i.name, i.view));
+      }
+      $('#groups').append($section);
+    }
+    // Create group navigation with dropdown and list of groups
+    const $nav_container = $('#groups_nav');
+    const $nav_checkbox  = $('<input id="toggle_group_nav" type="checkbox">');
+    const $nav_label     = $('<label for="toggle_group_nav">A - Z</label>');
+    const $nav_nav       = $('<nav>');
+    const $nav_ul        = $('<ul>').appendTo($nav_nav);
+    $nav_container.append($nav_checkbox, $nav_label, $nav_nav);
+
+    for (let g of _.keys(data)) {
+      $nav_ul.append(_createLinkItem(g, `#${g}`));
     }
   };
 
-/* =========================================================================
- * Components (jQuery rendered)
- * =========================================================================
- */
-  const Components = {
-    _createLinkItem: function(name, address) {
-      return $('<li>').append(`<a href=${address}>${name}</a>`);
-    },
+  // Exports
+  return { renderGroups };
+}());
 
-    renderGroups: function(data) {
-      // Group data by first char, if char is not a-Z then group = #
-      data = _.groupBy(data, (a) => (/[a-z]/i).test(a.name.charAt(0)) ? a.name.charAt(0).toUpperCase() : "#");
-      // Create group section with list of items
-      for (let group in data) {
-        const $section  = $(`<section id=${group}></section>`).append(`<h2>${group}</h2>`);
-        const $group_ul = $('<ul>').appendTo($section);
 
-        for (let i of data[group]) {
-          $group_ul.append(Components._createLinkItem(i.name, i.view));
-        }
-        $('#groups').append($section);
-      }
-      // Create group navigation with dropdown and list of groups
-      const $nav_container = $('#groups_nav');
-      const $nav_checkbox  = $('<input id="toggle_group_nav" type="checkbox">');
-      const $nav_label     = $('<label for="toggle_group_nav">A - Z</label>');
-      const $nav_nav       = $('<nav>');
-      const $nav_ul        = $('<ul>').appendTo($nav_nav);
-      $nav_container.append($nav_checkbox, $nav_label, $nav_nav);
+App.episodePlayer = (function() {
 
-      for (let g of _.keys(data)) {
-        $nav_ul.append(Components._createLinkItem(g, `#${g}`));
-      }
-    },
+  const formatTime = (seconds) => {
+    let minutes, minutes_float;
+    minutes_float = seconds / 60;
+    minutes = Math.floor(minutes_float);
+    seconds = Math.floor((minutes_float - minutes) * 60);
+
+    // Convert number to string and pad start with 0 if needed
+    seconds = seconds.toString();
+    seconds = seconds.length === 1 ? '0' + seconds : seconds;
+    return minutes + ':' + seconds;
   };
 
-/* =========================================================================
- * Export public methods
- * =========================================================================
- */
-  return {
-    API: {
-      getArtists      : API.getArtists,
-      getArtistTracks : API.getArtistTracks,
-      getGenres       : API.getGenres,
-      getGenreTracks  : API.getGenreTracks,
-      getGenreArtists : API.getGenreArtists,
-      getEpisodeTracks: API.getEpisodeTracks,
-      getLastfmArtist : API.getLastfmArtist
+  const Media = {
+    init: function() {
+      const $player  = $('#episode_player');
+      const url      = $player.attr('data-media-url');
+
+      if ($player && url) {
+        this.$duration     = $player.find(".eplayer-duration");
+        this.$current      = $player.find(".eplayer-current");
+        this.$bufferedBar  = $player.find(".eplayer-buffered-bar");
+        this.$playedBar    = $player.find(".eplayer-played-bar");
+        this.$playedInput  = $player.find(".eplayer-played-input");
+        this.$playPauseBtn = $player.find(".eplayer-playpause");
+
+        this.url = $player.attr('data-media-url');
+        this.audio = new Audio(this.url);
+
+        this.bindUIAction();
+        return this.audio;
+      }
+
     },
-    HBS: {
-      renderTracks : HBS.renderTracks,
-      renderArtists: HBS.renderArtists
+
+    bindUIAction: function() {
+      this.audio.addEventListener('loadedmetadata', this.onDataLoad);
+      this.audio.addEventListener('loadeddata'    , this.onDataLoad);
+      this.audio.addEventListener('loadstart'     , this.onBuffering);
+      this.audio.addEventListener('loadeddata'    , this.onBuffering);
+      this.audio.addEventListener('progress'      , this.onBuffering);
+      this.audio.addEventListener('timeupdate'    , this.onTimeUpdate);
+      this.audio.addEventListener('play'          , this.onPlay);
+      this.audio.addEventListener('pause'         , this.onPause);
+
+      this.$playPauseBtn.on('click', this.toggolePlayPause);
+      this.$playedInput.on('input' , this.onSkip);
+      this.$playedInput.on('change', this.onSkip);
     },
-    LastFM: {
-      getArtistInfo     : LastFM.getArtistInfo,
-      getGenreInfo      : LastFM.getGenreInfo,
-      renderArtistBio   : LastFM.renderArtistBio,
-      renderGenreSummary: LastFM.renderGenreSummary
+
+    onDataLoad: function(event) {
+      Media.$playedBar.prop('max', event.target.duration);
+      Media.$playedInput.prop('max', event.target.duration);
+      Media.$bufferedBar.prop('max', event.target.duration);
+      Media.$duration.text(formatTime(event.target.duration));
     },
-    Components: {
-      renderGroups: Components.renderGroups
+
+    onBuffering: function(event) {
+      if (event.target.buffered.length) {
+        Media.$bufferedBar.prop('value', event.target.buffered.end(0));
+      }
+    },
+
+    onTimeUpdate: function(event) {
+      Media.$playedBar.prop('value', event.target.currentTime);
+      Media.$playedInput.prop('value', event.target.currentTime);
+      Media.$current.text(formatTime(event.target.currentTime));
+    },
+
+    onSkip: function(event) {
+      if (event.type === 'input') {
+        Media.audio.pause();
+        Media.$current.text(formatTime(event.target.value));
+      } else if (event.type === 'change') {
+        // Trigger timeupdate
+        Media.audio.currentTime = event.target.value;
+        Media.audio.play();
+      }
+    },
+
+    onPlay: function(event) {
+      Media.$playPauseBtn.attr('data-status', 'playing');
+    },
+
+    onPause: function(event) {
+      Media.$playPauseBtn.attr('data-status', 'paused');
+    },
+
+    toggolePlayPause: function(event) {
+      if (Media.audio.paused) {
+        Media.audio.play();
+      } else {
+        Media.audio.pause();
+      }
     }
+
   };
-}()); // end module
+
+  return Media.init();
+
+}());

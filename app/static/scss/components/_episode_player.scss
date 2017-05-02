@@ -1,0 +1,90 @@
+//================================================
+// Episode Player
+//================================================
+
+#episode_player {
+  padding: 1rem;
+  color: $color-gray;
+
+  .eplayer-controls,
+  .eplayer-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .eplayer-progress {
+    margin-top: 1rem;
+  }
+
+  .eplayer-playpause {
+    @include svg-button(70px, $color-gray);
+    width: 70px;
+    height: 70px;
+    position: relative;
+    margin: 0 20px;
+
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      &.pause-icon {
+        opacity: 0;
+        fill: white;
+      }
+    }
+
+    &[data-status=playing] {
+      .play-icon { opacity: 0; }
+      .pause-icon { opacity: 1; }
+    }
+
+    &[data-status=paused] {
+      .play-icon { opacity: 1; }
+      .pause-icon { opacity: 0; }
+    }
+  }
+
+  .eplayer-prev {
+    @include svg-button(30px, $color-gray);
+  }
+
+  .eplayer-next {
+    @include svg-button(30px, $color-gray);
+  }
+
+  .eplayer-current,
+  .eplayer-duration {
+    font-size: 0.625rem;
+  }
+
+  .eplayer-bars {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background: #3F3F3F;
+    border-radius: 6px;
+    margin: 0 10px;
+  }
+
+  progress, input[type=range] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .eplayer-played-input {
+    @include input-range(transparent);
+  }
+
+  .eplayer-played-bar {
+    @include progress-bar(red, transparent);
+  }
+
+  .eplayer-buffered-bar {
+    @include progress-bar(transparentize($color-gray, .7), transparent);
+  }
+
+}

@@ -20,7 +20,7 @@
     /* seperator between multiple performers */
     a:nth-child(1n+2)::before {
       content: "/\00A0";
-      color: black;
+      color: $color-black;
     }
   }
 
@@ -35,14 +35,14 @@
   }
 
   .track-preview {
-    @include svg-button(35px, black);
+    @include svg-button(2rem, $color-black);
     &[data-url=""] {
       svg {
         fill: lightgray;
       }
     }
     svg g.play-circle-fill {
-      fill: black;
+      fill: $color-black;
     }
   }
 

@@ -1,3 +1,12 @@
+/*==================================================
+  Input range slider
+==================================================*/
+/*--------------------------------------------------
+  Helpers
+--------------------------------------------------*/
+/*--------------------------------------------------
+  Main mixin got input button type range
+--------------------------------------------------*/
 #page header img, #page.artist-info header img, #page.episode-info header img {
   max-width: 100%;
   max-height: 100%;
@@ -404,11 +413,11 @@ a {
   .site-name span {
     color: mediumaquamarine; }
 
-ul.tabs li.tab input[type=radio] {
+ul.tabs li.tab input[type=checkbox] {
   display: none; }
-  ul.tabs li.tab input[type=radio]:checked ~ label::after {
+  ul.tabs li.tab input[type=checkbox]:checked ~ label::after {
     transform: rotate(0deg); }
-  ul.tabs li.tab input[type=radio]:checked ~ section {
+  ul.tabs li.tab input[type=checkbox]:checked ~ section {
     display: block; }
 ul.tabs li.tab label {
   display: flex;
@@ -546,7 +555,7 @@ ul.tabs li.tab section {
   /* seperator between multiple performers */ }
   #tracklist_placeholder .track-artists a:nth-child(1n+2)::before {
     content: "/\00A0";
-    color: black; }
+    color: #222222; }
 #tracklist_placeholder .track-actions {
   flex: 0 0 3.3rem;
   height: 100%;
@@ -561,14 +570,14 @@ ul.tabs li.tab section {
   outline: none;
   background: transparent; }
   #tracklist_placeholder .track-preview svg {
-    width: 35px;
-    height: 35px;
+    width: 2rem;
+    height: 2rem;
     vertical-align: middle;
-    fill: black; }
+    fill: #222222; }
   #tracklist_placeholder .track-preview[data-url=""] svg {
     fill: lightgray; }
   #tracklist_placeholder .track-preview svg g.play-circle-fill {
-    fill: black; }
+    fill: #222222; }
 #tracklist_placeholder .track-spotify {
   padding: 0;
   border: none;
@@ -618,6 +627,181 @@ ul.tabs li.tab section {
         text-align: center;
         padding: 4px 2px 6px 2px;
         color: #222222; }
+
+#episode_player {
+  padding: 1rem;
+  color: #A0A0A0; }
+  #episode_player .eplayer-controls,
+  #episode_player .eplayer-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  #episode_player .eplayer-progress {
+    margin-top: 1rem; }
+  #episode_player .eplayer-playpause {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 70px;
+    height: 70px;
+    position: relative;
+    margin: 0 20px; }
+    #episode_player .eplayer-playpause svg {
+      width: 70px;
+      height: 70px;
+      vertical-align: middle;
+      fill: #A0A0A0; }
+    #episode_player .eplayer-playpause svg {
+      position: absolute;
+      top: 0;
+      left: 0; }
+      #episode_player .eplayer-playpause svg.pause-icon {
+        opacity: 0;
+        fill: white; }
+    #episode_player .eplayer-playpause[data-status=playing] .play-icon {
+      opacity: 0; }
+    #episode_player .eplayer-playpause[data-status=playing] .pause-icon {
+      opacity: 1; }
+    #episode_player .eplayer-playpause[data-status=paused] .play-icon {
+      opacity: 1; }
+    #episode_player .eplayer-playpause[data-status=paused] .pause-icon {
+      opacity: 0; }
+  #episode_player .eplayer-prev {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent; }
+    #episode_player .eplayer-prev svg {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+      fill: #A0A0A0; }
+  #episode_player .eplayer-next {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent; }
+    #episode_player .eplayer-next svg {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+      fill: #A0A0A0; }
+  #episode_player .eplayer-current,
+  #episode_player .eplayer-duration {
+    font-size: 0.625rem; }
+  #episode_player .eplayer-bars {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background: #3F3F3F;
+    border-radius: 6px;
+    margin: 0 10px; }
+  #episode_player progress, #episode_player input[type=range] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+  #episode_player .eplayer-played-input {
+    -webkit-appearance: none;
+    background: transparent; }
+    #episode_player .eplayer-played-input::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: transparent;
+      border-radius: 1.3px; }
+    #episode_player .eplayer-played-input::-moz-range-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: transparent;
+      border-radius: 1.3px; }
+    #episode_player .eplayer-played-input::-ms-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: transparent;
+      border-radius: 1.3px; }
+    #episode_player .eplayer-played-input::-ms-fill-lower {
+      background: transparent; }
+    #episode_player .eplayer-played-input::-ms-fill-upper {
+      background: transparent; }
+    #episode_player .eplayer-played-input::-webkit-slider-thumb {
+      height: 14px;
+      width: 14px;
+      margin-top: -5px;
+      background: gray;
+      cursor: pointer;
+      border-radius: 100%;
+      -webkit-appearance: none; }
+    #episode_player .eplayer-played-input::-moz-range-thumb {
+      height: 14px;
+      width: 14px;
+      margin-top: -5px;
+      background: gray;
+      cursor: pointer;
+      border-radius: 100%; }
+    #episode_player .eplayer-played-input::-ms-thumb {
+      height: 14px;
+      width: 14px;
+      margin-top: -5px;
+      background: gray;
+      cursor: pointer;
+      border-radius: 100%; }
+    #episode_player .eplayer-played-input:focus {
+      outline: none; }
+      #episode_player .eplayer-played-input:focus::-webkit-slider-runnable-track {
+        background: transparent; }
+      #episode_player .eplayer-played-input:focus::-ms-fill-lower {
+        background: transparent; }
+      #episode_player .eplayer-played-input:focus::-ms-fill-upper {
+        background: transparent; }
+  #episode_player .eplayer-played-bar {
+    width: 100%;
+    height: 100%;
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Firefox */
+    border: none;
+    background: transparent;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset; }
+    #episode_player .eplayer-played-bar::-webkit-progress-bar {
+      background: transparent;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+      border-radius: 3px; }
+    #episode_player .eplayer-played-bar::-webkit-progress-value {
+      background-color: red;
+      border-radius: 3px; }
+    #episode_player .eplayer-played-bar::-moz-progress-bar {
+      background-color: red;
+      border-radius: 3px; }
+  #episode_player .eplayer-buffered-bar {
+    width: 100%;
+    height: 100%;
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Firefox */
+    border: none;
+    background: transparent;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset; }
+    #episode_player .eplayer-buffered-bar::-webkit-progress-bar {
+      background: transparent;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+      border-radius: 3px; }
+    #episode_player .eplayer-buffered-bar::-webkit-progress-value {
+      background-color: rgba(160, 160, 160, 0.3);
+      border-radius: 3px; }
+    #episode_player .eplayer-buffered-bar::-moz-progress-bar {
+      background-color: rgba(160, 160, 160, 0.3);
+      border-radius: 3px; }
 
 #main_wrapper {
   max-width: 425px;
@@ -737,70 +921,6 @@ ul#artist_tags {
 #page.episode-info header img {
   display: block;
   margin: 15px auto 5px auto; }
-
-#episode_player {
-  padding: 1rem;
-  color: #A0A0A0; }
-  #episode_player .episode-player-row {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 6px 0; }
-    #episode_player .episode-player-row:last-of-type {
-      margin-top: 1rem; }
-  #episode_player .episode-playpause {
-    padding: 0;
-    border: none;
-    outline: none;
-    background: transparent;
-    margin: 0 20px; }
-    #episode_player .episode-playpause svg {
-      width: 70px;
-      height: 70px;
-      vertical-align: middle;
-      fill: #A0A0A0; }
-  #episode_player .episode-prev {
-    padding: 0;
-    border: none;
-    outline: none;
-    background: transparent; }
-    #episode_player .episode-prev svg {
-      width: 30px;
-      height: 30px;
-      vertical-align: middle;
-      fill: #A0A0A0; }
-  #episode_player .episode-next {
-    padding: 0;
-    border: none;
-    outline: none;
-    background: transparent; }
-    #episode_player .episode-next svg {
-      width: 30px;
-      height: 30px;
-      vertical-align: middle;
-      fill: #A0A0A0; }
-  #episode_player .episode-volume {
-    padding: 0;
-    border: none;
-    outline: none;
-    background: transparent;
-    position: absolute;
-    right: 3px;
-    padding: 0; }
-    #episode_player .episode-volume svg {
-      width: 20px;
-      height: 20px;
-      vertical-align: middle;
-      fill: #A0A0A0; }
-  #episode_player .episode-progress-bar {
-    width: 100%;
-    height: 4px;
-    background: #3F3F3F;
-    border-radius: 6px;
-    margin: 0 10px; }
-  #episode_player span {
-    font-size: 0.625rem; }
 
 #page.episodes header h1 {
   margin-bottom: 0; }

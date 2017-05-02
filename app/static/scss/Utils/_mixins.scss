@@ -16,3 +16,95 @@
     fill: $fill;
   }
 }
+
+
+@mixin progress-bar($color: #CC0000, $background: #EEE) {
+  width: 100%;
+  height: 100%;
+
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Firefox */
+  border: none;
+  background: $background;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+
+  &::-webkit-progress-bar {
+    background: $background;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+    border-radius: 3px;
+  }
+
+  &::-webkit-progress-value {
+    background-color: $color;
+    border-radius: 3px;
+  }
+
+  &::-moz-progress-bar {
+    background-color: $color;
+    border-radius: 3px;
+  }
+}
+
+/*==================================================
+  Input range slider
+==================================================*/
+
+// Variables
+$custom-input-range-track-height: 4px;
+$custom-input-range-thumb-size: 14px;
+
+/*--------------------------------------------------
+  Helpers
+--------------------------------------------------*/
+// Styles the input "bar" AKA track
+@mixin _inputRangeTrack($background: gray) {
+  width: 100%;
+  height: $custom-input-range-track-height;
+  cursor: pointer;
+  background: $background;
+  border-radius: 1.3px;
+}
+
+// Styles the input "handle" AKA thumb
+@mixin _inputRangeThumb($background: gray) {
+  height: $custom-input-range-thumb-size;
+  width: $custom-input-range-thumb-size;
+  margin-top: -5px;
+  background: $background;
+  cursor: pointer;
+  border-radius: 100%;
+}
+
+/*--------------------------------------------------
+  Main mixin got input button type range
+--------------------------------------------------*/
+@mixin input-range($track-color: gray,$thumb-color: gray) {
+  -webkit-appearance: none;
+  background: $track-color;
+
+  &::-webkit-slider-runnable-track { @include _inputRangeTrack($track-color); }
+  &::-moz-range-track              { @include _inputRangeTrack($track-color); }
+  &::-ms-track                     { @include _inputRangeTrack($track-color); }
+  &::-ms-fill-lower                { background: $track-color; }
+  &::-ms-fill-upper                { background: $track-color; }
+
+  &::-webkit-slider-thumb {
+    @include _inputRangeThumb($thumb-color);
+    -webkit-appearance: none;
+  }
+  &::-moz-range-thumb { @include _inputRangeThumb($thumb-color); }
+  &::-ms-thumb { @include _inputRangeThumb($thumb-color); }
+
+  &:focus {
+    outline: none;
+    &::-webkit-slider-runnable-track { background: $track-color; }
+    &::-ms-fill-lower { background: $track-color; }
+    &::-ms-fill-upper { background: $track-color; }
+  }
+
+}
