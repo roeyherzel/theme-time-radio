@@ -17,7 +17,6 @@ output.log
 # Sass
 # ----
 app/static/.sass-cache/
-app/static/css/*
 
 
 # Database

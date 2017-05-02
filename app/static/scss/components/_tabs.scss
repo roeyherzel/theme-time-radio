@@ -32,10 +32,11 @@ ul.tabs {
 
       &::after {
         content: "";
-        background: transparent url("../../icons/svg/arrow-down-outline.svg") center no-repeat;
+        background: transparent url("../icons/arrow-down-outline.svg") center no-repeat;
         width: 15px;
         height: 15px;
         transform: rotate(-90deg);
+        transition: transform .2s;
       }
     }
 

@@ -47,6 +47,10 @@
     justify-content: center;
     align-items: center;
     margin: 6px 0;
+
+    &:last-of-type {
+      margin-top: 1rem;
+    }
   }
 
   .episode-playpause {
