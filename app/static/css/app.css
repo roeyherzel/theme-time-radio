@@ -401,7 +401,7 @@ h4 {
 
 a {
   text-decoration: none;
-  color: salmon; }
+  color: royalblue; }
 
 .site-name {
   margin: 0;
@@ -441,7 +441,7 @@ ul.tabs li.tab section {
   display: none;
   padding: 15px;
   color: #222222;
-  background: #f6f6f6; }
+  background: whitesmoke; }
 
 .card {
   display: flex;
@@ -505,7 +505,7 @@ ul.tabs li.tab section {
   width: 50%;
   margin: auto;
   margin-bottom: 1rem;
-  background-color: #f6f6f6;
+  background-color: whitesmoke;
   border-radius: 6px; }
   #groups_nav label[for="toggle_group_nav"] {
     display: block;
@@ -625,8 +625,7 @@ ul.tabs li.tab section {
       #artists_placeholder ul figure figcaption span {
         font-size: .7rem;
         text-align: center;
-        padding: 4px 2px 6px 2px;
-        color: #222222; }
+        padding: 4px 2px 6px 2px; }
 
 #episode_player {
   padding: 1rem;
@@ -809,7 +808,7 @@ ul.tabs li.tab section {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f6f6f6;
+  background: whitesmoke;
   overflow: hidden; }
 
 #main_wrapper > header {
@@ -877,7 +876,7 @@ input#mobile_nav {
       text-transform: capitalize;
       font-size: 0.8rem; }
   #page main {
-    background-color: #f6f6f6;
+    background-color: whitesmoke;
     color: #222222;
     padding: 1rem; }
 
@@ -966,8 +965,6 @@ ul#artist_tags {
   margin: 0;
   margin-top: 1.5rem;
   font-size: .9rem; }
-  #page.home main blockquote a {
-    color: salmon; }
   #page.home main blockquote footer {
     margin-top: .5rem;
     margin-left: .5rem; }

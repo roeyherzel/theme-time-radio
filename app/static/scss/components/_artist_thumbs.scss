@@ -17,7 +17,6 @@
       display: flex;
       flex-direction: column;
       margin: 0;
-      // border: .5px solid $color-black;
       width: 120px;
       height: auto;
 
@@ -33,13 +32,11 @@
         width: 100%;
         height: 2.5rem;
         background: $color-light-gray;
-        // border-top: .5px solid $color-black;
 
         span {
           font-size: .7rem;
           text-align: center;
           padding: 4px 2px 6px 2px;
-          color: $color-black;
         }
       }
     }
