@@ -576,12 +576,12 @@ ul.tabs li.tab section {
     width: 2rem;
     height: 2rem;
     vertical-align: middle;
-    fill: #222222; }
+    fill: #191414; }
   #tracklist_placeholder .track-preview svg {
     position: absolute;
     top: 0;
     left: 0;
-    fill: #222222; }
+    fill: #191414; }
     #tracklist_placeholder .track-preview svg.pause-icon {
       opacity: 0;
       fill: mediumaquamarine; }
@@ -609,7 +609,7 @@ ul.tabs li.tab section {
     vertical-align: middle;
     fill: lightgray; }
   #tracklist_placeholder .track-spotify:not([data-song-id=""]) svg {
-    fill: #222222; }
+    fill: #2FD566; }
 
 #page.episode-info .tracklist .card-thumb {
   display: none; }
