@@ -2,10 +2,16 @@
 // Header
 //================================================
 
+
 #main_wrapper > header {
+  background-color: $color-black;
+}
+
+#header_wrapper {
+  max-width: $screen-max;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
-  background-color: $color-black;
   position: relative;
   border-bottom: 1px solid $color-charcoal;
   padding: 20px;

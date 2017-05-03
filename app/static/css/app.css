@@ -838,19 +838,23 @@ ul.thumbnails {
   overflow: hidden; }
 
 #main_wrapper > header {
+  background-color: #222222; }
+
+#header_wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
-  background-color: #222222;
   position: relative;
   border-bottom: 1px solid #424242;
   padding: 20px; }
   @media (min-width: 1024px) {
-    #main_wrapper > header {
+    #header_wrapper {
       justify-content: space-between;
       align-items: center;
       padding: 0 20px;
       border: none; } }
-  #main_wrapper > header label {
+  #header_wrapper label {
     padding: 0;
     border: none;
     outline: none;
@@ -866,15 +870,15 @@ ul.thumbnails {
     display: flex;
     align-items: center;
     transition: background .3s; }
-    #main_wrapper > header label svg {
+    #header_wrapper label svg {
       width: 16px;
       height: 16px;
       vertical-align: middle;
       fill: white; }
     @media (min-width: 1024px) {
-      #main_wrapper > header label {
+      #header_wrapper label {
         display: none; } }
-  #main_wrapper > header nav {
+  #header_wrapper nav {
     position: absolute;
     left: 0;
     top: 100%;
@@ -886,7 +890,7 @@ ul.thumbnails {
     border-top: 1px solid #424242;
     padding: 1rem; }
     @media (min-width: 1024px) {
-      #main_wrapper > header nav {
+      #header_wrapper nav {
         position: static;
         display: flex;
         flex: 0 0;
@@ -894,7 +898,7 @@ ul.thumbnails {
         transform: none;
         transition: none;
         padding: 0; } }
-    #main_wrapper > header nav a {
+    #header_wrapper nav a {
       padding: .8rem 1rem;
       display: block;
       color: mediumaquamarine;
@@ -926,9 +930,15 @@ input#mobile_nav {
       text-transform: capitalize;
       font-size: 0.8rem; }
   #page main {
+    max-width: 1440px;
+    margin: auto;
     background-color: whitesmoke;
     color: #222222;
     padding: 1rem; }
+    @media (min-width: 1024px) {
+      #page main {
+        margin-top: 2rem;
+        margin-bottom: 2rem; } }
 
 #main_wrapper > footer {
   background-color: #222222;
@@ -973,24 +983,41 @@ ul#artist_tags {
   display: block;
   margin: 15px auto 5px auto; }
 
-#page.episodes header h1 {
-  margin-bottom: 0; }
 #page.episodes header p {
   color: salmon;
   font-weight: lighter; }
-#page.episodes header ul.seasons a {
-  display: block;
-  padding: 10px;
-  margin-bottom: 1px;
-  background-color: mediumaquamarine;
-  color: #222222; }
-  #page.episodes header ul.seasons a.selected {
-    background: salmon;
-    border: 1px solid white;
-    box-shadow: 0 0 1px 1px white; }
-#page.episodes .card .aired {
+#page.episodes header ul.seasons {
+  display: flex;
+  justify-content: center; }
+  #page.episodes header ul.seasons li {
+    flex: 1 1;
+    max-width: 120px;
+    margin: 0 5px; }
+  #page.episodes header ul.seasons a {
+    display: block;
+    padding: 5px;
+    color: salmon;
+    border: 1px solid salmon;
+    border-radius: 3px; }
+    #page.episodes header ul.seasons a.selected {
+      background: salmon;
+      border: 1px solid white;
+      box-shadow: 0 0 0.5px 0.5px salmon;
+      color: #222222; }
+#page.episodes main ul.episode-cards {
+  display: flex;
+  flex-wrap: wrap; }
+  @media (min-width: 768px) {
+    #page.episodes main ul.episode-cards li {
+      flex: 1 1 40%;
+      margin: 0 10px; } }
+  @media (min-width: 1024px) {
+    #page.episodes main ul.episode-cards li {
+      flex: 1 1 30%; } }
+#page.episodes main .card .aired {
   font-style: italic;
-  color: #A0A0A0; }
+  color: #A0A0A0;
+  overflow: hidden; }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   #page.home .thumbnails {
@@ -1017,7 +1044,11 @@ ul#artist_tags {
     #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {
       flex: 0 0 100%; }
     #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
-      flex: 1 1; }
+      flex: 1 1; } }
+@media (min-width: 1024px) and (min-width: 1024px) {
+  #page.home .thumbnails .thumb {
+    width: 150px; } }
+@media (min-width: 1024px) {
   #page.home #episodes_placeholder .thumbnails {
     justify-content: space-around; } }
 #page.home header img {
@@ -1031,14 +1062,11 @@ ul#artist_tags {
   #page.home header p.pitch span {
     display: block;
     font-style: italic; }
-#page.home main {
-  max-width: 1024px;
-  margin: 2rem auto; }
-  #page.home main blockquote {
-    margin: 0;
-    font-size: .9rem; }
-    #page.home main blockquote footer {
-      margin-top: .5rem;
-      margin-left: .5rem; }
+#page.home main blockquote {
+  margin: 0;
+  font-size: .9rem; }
+  #page.home main blockquote footer {
+    margin-top: .5rem;
+    margin-left: .5rem; }
 
 /*# sourceMappingURL=app.css.map */

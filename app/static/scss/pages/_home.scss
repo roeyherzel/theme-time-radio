@@ -50,6 +50,12 @@
       }
     }
 
+    @media (min-width: $screen-desktop) {
+      .thumbnails .thumb {
+        width: 150px;
+      }
+    }
+
     #episodes_placeholder .thumbnails {
       justify-content: space-around;
     }
@@ -79,9 +85,6 @@
   }
 
   main {
-    max-width: 1024px;
-    margin: 2rem auto;
-
     blockquote {
       margin: 0;
       font-size: .9rem;

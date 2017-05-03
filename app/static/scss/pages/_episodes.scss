@@ -6,36 +6,60 @@
 
   header {
 
-    h1 {
-      margin-bottom: 0;
-    }
-
     p {
       color: $color-salmon;
       font-weight: lighter;
     }
 
     ul.seasons {
+      display: flex;
+      justify-content: center;
+
+      li {
+        flex: 1 1;
+        max-width: 120px;
+        margin: 0 5px;
+      }
 
       a {
         display: block;
-        padding: 10px;
-        margin-bottom: 1px;
-        background-color: $color-aquagreen;
-        color: $color-black;
+        padding: 5px;
+        color: $color-salmon;
+        border: 1px solid $color-salmon;
+        border-radius: 3px;
+
 
         &.selected {
           background: $color-salmon;
           border: 1px solid white;
-          box-shadow: 0 0 1px 1px white;
+          box-shadow: 0 0 .5px .5px $color-salmon;
+          color: $color-black;
         }
       }
     }
   }
 
-  .card .aired {
-    font-style: italic;
-    color: $color-gray;
+  main {
+    ul.episode-cards {
+      display: flex;
+      flex-wrap: wrap;
+
+      li {
+        @media (min-width: $screen-tablet) {
+          flex: 1 1 40%;
+          margin: 0 10px;
+        }
+        @media (min-width: $screen-desktop) {
+          flex: 1 1 30%;
+        }
+      }
+    }
+
+    .card .aired {
+      font-style: italic;
+      color: $color-gray;
+      overflow: hidden;
+    }
   }
 
 }
