@@ -17,6 +17,7 @@ ul.thumbnails {
     margin: 0;
     width: 120px; // so figcature will be limited too
 
+
     img {
       height: 120px;
       object-fit: cover;
@@ -32,7 +33,7 @@ ul.thumbnails {
       background: $color-light-gray;
       border-top: 1px solid $color-white-smoke;
       text-transform: capitalize;
-      
+
       span {
         font-size: .7rem;
         text-align: center;

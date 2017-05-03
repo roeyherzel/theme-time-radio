@@ -18,14 +18,14 @@
       }
 
       &:last-of-type {
-        font-size: 0.8em;
-        color: $color-light-salmon;
         margin: 10px 60px 15px 60px;
       }
     }
 
     a {
       text-decoration: underline;
+      font-size: 0.8em;
+      color: $color-light-salmon;
     }
 
     img {

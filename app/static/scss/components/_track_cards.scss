@@ -35,7 +35,7 @@
   }
 
   .track-preview {
-    @include play-pause-btn(2rem, $color-spotify-black, $color-aquagreen);
+    @include play-pause-btn(2rem, $color-spotify-black, $color-spotify-green);
 
     &[data-media-url=""] svg {
       fill: lightgray;

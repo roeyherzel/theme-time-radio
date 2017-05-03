@@ -613,7 +613,7 @@ ul.thumbnails {
     fill: #191414; }
     #tracklist_placeholder .track-preview svg.pause-icon {
       opacity: 0;
-      fill: mediumaquamarine; }
+      fill: #2FD566; }
   #tracklist_placeholder .track-preview[data-status=playing] .play-icon {
     opacity: 0; }
   #tracklist_placeholder .track-preview[data-status=playing] .pause-icon {
@@ -838,10 +838,18 @@ ul.thumbnails {
   overflow: hidden; }
 
 #main_wrapper > header {
+  display: flex;
+  justify-content: center;
   background-color: #222222;
   position: relative;
   border-bottom: 1px solid #424242;
   padding: 20px; }
+  @media (min-width: 1024px) {
+    #main_wrapper > header {
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      border: none; } }
   #main_wrapper > header label {
     padding: 0;
     border: none;
@@ -863,21 +871,34 @@ ul.thumbnails {
       height: 16px;
       vertical-align: middle;
       fill: white; }
+    @media (min-width: 1024px) {
+      #main_wrapper > header label {
+        display: none; } }
   #main_wrapper > header nav {
     position: absolute;
     left: 0;
     top: 100%;
     width: 100%;
-    padding: 1rem 0;
     z-index: 100;
     transform: translateX(-100%);
     transition: transform .3s;
     background: #222222;
-    border-top: 1px solid #424242; }
-    #main_wrapper > header nav li a {
+    border-top: 1px solid #424242;
+    padding: 1rem; }
+    @media (min-width: 1024px) {
+      #main_wrapper > header nav {
+        position: static;
+        display: flex;
+        flex: 0 0;
+        border: none;
+        transform: none;
+        transition: none;
+        padding: 0; } }
+    #main_wrapper > header nav a {
       padding: .8rem 1rem;
       display: block;
-      color: mediumaquamarine; }
+      color: mediumaquamarine;
+      font-weight: lighter; }
 
 input#mobile_nav {
   display: none; }
@@ -913,16 +934,16 @@ input#mobile_nav {
   background-color: #222222;
   margin: 0;
   margin-top: auto;
-  padding: 20px; }
-  #main_wrapper > footer .site-name {
-    font-size: 1rem; }
+  padding: 20px;
+  text-align: center;
+  color: whitesmoke;
+  font-size: .85rem; }
 
 #page.artist-info header h1 {
   margin-bottom: 10px; }
 #page.artist-info header img {
   margin-top: 1rem;
-  border-radius: 100%;
-  box-shadow: 0px 0px 1px 2px white; }
+  border-radius: 100%; }
 
 ul#artist_tags {
   display: flex;
@@ -943,11 +964,11 @@ ul#artist_tags {
   color: #A0A0A0;
   text-transform: lowercase; }
 #page.episode-info header p:last-of-type {
-  font-size: 0.8em;
-  color: lightsalmon;
   margin: 10px 60px 15px 60px; }
 #page.episode-info header a {
-  text-decoration: underline; }
+  text-decoration: underline;
+  font-size: 0.8em;
+  color: lightsalmon; }
 #page.episode-info header img {
   display: block;
   margin: 15px auto 5px auto; }
@@ -971,6 +992,34 @@ ul#artist_tags {
   font-style: italic;
   color: #A0A0A0; }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  #page.home .thumbnails {
+    justify-content: center; }
+    #page.home .thumbnails .thumb {
+      width: 110px; } }
+@media (min-width: 1024px) {
+  #page.home .tabs {
+    display: flex;
+    flex-wrap: wrap; }
+    #page.home .tabs .tab section {
+      display: block;
+      margin: 0 2rem 2rem 2rem;
+      background: white;
+      border-radius: 10px; }
+    #page.home .tabs .tab label {
+      justify-content: center;
+      color: #222222;
+      background: transparent;
+      border: none;
+      font-size: 1rem; }
+      #page.home .tabs .tab label::after {
+        content: unset; }
+    #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {
+      flex: 0 0 100%; }
+    #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
+      flex: 1 1; }
+  #page.home #episodes_placeholder .thumbnails {
+    justify-content: space-around; } }
 #page.home header img {
   margin-top: 2rem; }
 #page.home header .site-name {
@@ -982,11 +1031,14 @@ ul#artist_tags {
   #page.home header p.pitch span {
     display: block;
     font-style: italic; }
-#page.home main blockquote {
-  margin: 0;
-  font-size: .9rem; }
-  #page.home main blockquote footer {
-    margin-top: .5rem;
-    margin-left: .5rem; }
+#page.home main {
+  max-width: 1024px;
+  margin: 2rem auto; }
+  #page.home main blockquote {
+    margin: 0;
+    font-size: .9rem; }
+    #page.home main blockquote footer {
+      margin-top: .5rem;
+      margin-left: .5rem; }
 
 /*# sourceMappingURL=app.css.map */
