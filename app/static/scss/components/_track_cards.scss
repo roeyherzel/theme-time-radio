@@ -29,7 +29,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     padding: 4px;
   }
@@ -44,10 +44,12 @@
   }
 
   .track-spotify {
-    @include svg-btn(1rem, lightgray);
+    @include svg-btn(1.15rem, lightgray);
+    margin: 10px 5px;
+
     &:not([data-song-id=""]) {
       svg {
-        fill: #91DC5A;
+        fill: $color-black;
       }
     }
   }
