@@ -853,7 +853,7 @@ ul.tabs li.tab section {
     left: 0;
     padding: 1.5rem;
     height: 100%;
-    width: 100%;
+    width: unset;
     display: flex;
     align-items: center;
     transition: background .3s; }
@@ -875,7 +875,8 @@ ul.tabs li.tab section {
     border-top: 1px solid #424242; }
     #main_wrapper > header nav li a {
       padding: .8rem 1rem;
-      display: block; }
+      display: block;
+      color: mediumaquamarine; }
 
 input#mobile_nav {
   display: none; }
