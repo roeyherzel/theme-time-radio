@@ -45,7 +45,7 @@ App.api = (function() {
 
   // Exports
   return { getArtists, getArtistTracks, getGenres, getGenreTracks, getGenreArtists, getEpisodeTracks, getLastfmArtist };
-}());
+})();
 
 
 /* --------------------
@@ -62,6 +62,8 @@ App.templates = (function() {
             .then(() => data);
   };
 
+  const _createLinkItem = (name, address) => $('<li>').append(`<a href=${address}>${name}</a>`);
+
   const renderTracks = (tracks, ph = '#tracklist_placeholder') => {
     return _get('track_cards', {tracks}, ph)
             .then((tracks) => {
@@ -74,49 +76,12 @@ App.templates = (function() {
     _get('artists_list', {artists}, ph);
   };
 
-  // Exports
-  return { renderTracks, renderArtists };
-}());
-
-
-/* ----------
- * LastFM API
- * ----------
- */
-
-App.lastFM = (function() {
-
-  const _get = (method, resource) => {
-    const data = {
-      api_key: 'aa570c383c5f26de24d4e2c7fd182c8e',
-      format: 'json',
-      method: method + '.getinfo',
-    };
-    data[method] = resource;
-    return $.getJSON('http://ws.audioscrobbler.com/2.0/', data);
-  };
-
-  const getArtistInfo = (artist) => _get('artist', artist);
-  const getGenreInfo  = (genre)  => _get('tag', genre);
-
   const renderArtistBio = (data, ph) => {
     $(ph).html($('<p>').html(data.artist.bio.summary));
     return data; // returning data for chaining more promises
   };
+
   const renderGenreSummary = (data, ph) => $(ph).html($('<p>').html(data.tag.wiki.summary));
-
-  // Exports
-  return { getArtistInfo, getGenreInfo, renderArtistBio, renderGenreSummary };
-}());
-
-
-/* -------------------------------
- * Components (rendered by jQuery)
- * -------------------------------
- */
-
-App.components = (function() {
-  const _createLinkItem = (name, address) => $('<li>').append(`<a href=${address}>${name}</a>`);
 
   const renderGroups = (data) => {
     // Group data by first char, if char is not a-Z then group = #
@@ -145,8 +110,33 @@ App.components = (function() {
   };
 
   // Exports
-  return { renderGroups };
-}());
+  return { renderTracks, renderArtists, renderArtistBio, renderGenreSummary, renderGroups };
+})();
+
+
+/* ----------
+ * LastFM API
+ * ----------
+ */
+
+App.lastFM = (function() {
+
+  const _get = (method, resource) => {
+    const data = {
+      api_key: 'aa570c383c5f26de24d4e2c7fd182c8e',
+      format: 'json',
+      method: method + '.getinfo',
+    };
+    data[method] = resource;
+    return $.getJSON('http://ws.audioscrobbler.com/2.0/', data);
+  };
+
+  const getArtistInfo = (artist) => _get('artist', artist);
+  const getGenreInfo  = (genre)  => _get('tag', genre);
+
+  // Exports
+  return { getArtistInfo, getGenreInfo };
+})();
 
 
 /* -------------------------------
@@ -255,7 +245,7 @@ App.episodePlayer = (function() {
 
   return Media.init();
 
-}());
+})();
 
 
 /* -------------------------------
@@ -263,7 +253,7 @@ App.episodePlayer = (function() {
  * -------------------------------
  */
 
-App.trackPlayer = function() {
+App.trackPlayer = (function() {
 
   const cachedAudio = new Map();
   const getAudio = (previewBtn) => {
@@ -318,4 +308,4 @@ App.trackPlayer = function() {
 
   return { init };
 
-}();
+})();

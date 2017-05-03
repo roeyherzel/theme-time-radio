@@ -4,7 +4,7 @@
 
 #page {
   transition: opacity .3s;
-  
+
   header {
     background: $color-black;
     color: $color-white;
@@ -21,7 +21,6 @@
     }
 
     a {
-      color: $color-light-salmon;
       text-transform: capitalize;
       font-size: 0.8rem;
     }

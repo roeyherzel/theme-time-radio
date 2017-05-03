@@ -901,7 +901,6 @@ input#mobile_nav {
     #page header img {
       margin: auto; }
     #page header a {
-      color: lightsalmon;
       text-transform: capitalize;
       font-size: 0.8rem; }
   #page main {
@@ -933,6 +932,8 @@ ul#artist_tags {
   ul#artist_tags li {
     margin: 2px 5px;
     text-decoration: underline; }
+  ul#artist_tags a {
+    color: lightsalmon; }
 
 #page.episode-info header h1 {
   margin: 0; }
@@ -986,7 +987,7 @@ ul#artist_tags {
   margin-top: 3rem; }
   #page.home header nav a {
     flex: 1 1;
-    color: white;
+    color: #222222;
     padding: .4rem 0;
     border-left: 1px solid #222222;
     background-color: salmon; }

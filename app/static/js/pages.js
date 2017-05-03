@@ -14,7 +14,7 @@ Pages.ArtistInfo = () => {
   App.api.getArtistTracks(artistId);
 
   App.lastFM.getArtistInfo(artistName)
-            .then(data => App.lastFM.renderArtistBio(data,'#bio'))
+            .then(data => App.templates.renderArtistBio(data,'#bio'))
             .then(data => {
               let apiCalls = [];
               for (let a of data.artist.similar.artist) {
@@ -36,13 +36,12 @@ Pages.ArtistInfo = () => {
 
 Pages.Artists = () => {
   App.api.getArtists({ limit: 6, random: true })
-        .then(App.templates.renderArtists);
+        .then(artists => App.templates.renderArtists(artists));
   App.api.getArtists()
-        .then(App.components.renderGroups);
+        .then(artists => App.templates.renderGroups(artists));
 };
 
 Pages.EpisodeInfo = () => {
-
   const episode = $('h1[data-episode-id]').attr('data-episode-id');
 
   App.api.getEpisodeTracks(episode)
@@ -61,10 +60,10 @@ Pages.GenreInfo = () => {
   App.api.getGenreArtists(genre)
         .then((artists) => App.templates.renderArtists(artists));
   App.lastFM.getGenreInfo(genre)
-        .then((data) => App.lastFM.renderGenreSummary(data, '#desc'));
+        .then((data) => App.templates.renderGenreSummary(data, '#desc'));
 };
 
 Pages.Genres = () => {
   App.api.getGenres()
-        .then(App.components.renderGroups);
+        .then(App.templates.renderGroups);
 };
