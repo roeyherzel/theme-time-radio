@@ -16,7 +16,8 @@ App.api = (function() {
   const _get = (path, params) => $.getJSON(path, params);
 
   const getArtists       = (params) => _get('/api/artists', params);
-  const getGenres        = ()       => _get('/api/genres');
+  const getEpisodes      = (params) => _get('/api/episodes', params);
+  const getGenres        = (params) => _get('/api/genres', params);
   const getGenreArtists  = (genre)  => _get(`/api/genres/${genre}/artists`);
 
   const getLastfmArtist = (lastfmName) => {
@@ -42,9 +43,8 @@ App.api = (function() {
             .then(tracks => App.templates.renderTracks(tracks));
   };
 
-
   // Exports
-  return { getArtists, getArtistTracks, getGenres, getGenreTracks, getGenreArtists, getEpisodeTracks, getLastfmArtist };
+  return { getEpisodes, getArtists, getArtistTracks, getGenres, getGenreTracks, getGenreArtists, getEpisodeTracks, getLastfmArtist };
 })();
 
 
@@ -56,9 +56,12 @@ App.api = (function() {
 App.templates = (function() {
 
   const _get = (file, data, ph) => {
+    if (! $(ph).length) {
+      console.error("placeholder not found:", ph, $(ph));
+    }
     return $.get(`/static/handlebars/${file}.hbs`)
-            .then((template) => Handlebars.compile(template))
-            .then((template) => $(ph).html(template(data)))
+            .then(template => Handlebars.compile(template))
+            .then(template => $(ph).html(template(data)))
             .then(() => data);
   };
 
@@ -72,8 +75,16 @@ App.templates = (function() {
             });
   };
 
+  const renderEpisodes = (episodes, ph = '#episodes_placeholder') => {
+    _get('episodes_thumbs', {episodes}, ph);
+  };
+
   const renderArtists = (artists, ph = '#artists_placeholder') => {
-    _get('artists_list', {artists}, ph);
+    _get('artists_thumbs', {artists}, ph);
+  };
+
+  const renderGenres = (genres, ph = '#genres_placeholder') => {
+    _get('genres_thumbs', {genres}, ph);
   };
 
   const renderArtistBio = (data, ph) => {
@@ -110,7 +121,7 @@ App.templates = (function() {
   };
 
   // Exports
-  return { renderTracks, renderArtists, renderArtistBio, renderGenreSummary, renderGroups };
+  return { renderEpisodes, renderArtists, renderGenres, renderTracks, renderArtistBio, renderGenreSummary, renderGroups };
 })();
 
 

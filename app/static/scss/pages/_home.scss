@@ -25,28 +25,12 @@
       }
     }
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      @extend %remove-page-padding;
-      margin-top: 3rem;
-
-      a {
-        flex: 1 1;
-        color: $color-black;
-        padding: .4rem 0;
-        border-left: 1px solid $color-black;
-        background-color: $color-salmon;
-      }
-    }
-
   }
 
   main {
 
     blockquote {
       margin: 0;
-      margin-top: 1.5rem;
       font-size: .9rem;
 
       footer {
@@ -54,5 +38,6 @@
         margin-left: .5rem;
       }
     }
+
   }
 }

@@ -4,19 +4,22 @@ from . import schemas
 from ..models import *
 from sqlalchemy import desc, func
 
-parser = reqparse.RequestParser()
-parser.add_argument('limit', type=str, help="limit query results")
-parser.add_argument('random', type=str, help="limit query results")
-
 
 @api.resource('/api/genres', '/api/genres/<string:tag_name>')
 class TagsAPI(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('limit', type=str, help="limit query results")
+    parser.add_argument('random', type=str, help="limit query results")
 
     @marshal_with(schemas.Tags().as_dict)
     def get(self, tag_name=None):
         if tag_name is None:
-            # TODO: filter only tags that has > songs
-            return Tags.query.order_by(Tags.name).all()
+            args = __class__.parser.parse_args()
+            query = Tags.query
+            query = query.order_by(func.random()) if args.get('random') else query.order_by(Tags.name)
+            query = query.limit(args.get('limit')) if args.get('limit') else query
+
+            return query.all()
         else:
             return Tags.query.filter(Tags.name == tag_name).first()
 

@@ -6,6 +6,17 @@
 
 const Pages = {};
 
+Pages.home = () => {
+  App.api.getEpisodes({ limit: 6 })
+        .then(episodes => App.templates.renderEpisodes(episodes));
+
+  App.api.getArtists({ limit: 6, random: true })
+        .then(artists => App.templates.renderArtists(artists));
+
+  App.api.getGenres({ limit: 6, random: true })
+        .then(generes => App.templates.renderGenres(generes));
+};
+
 Pages.ArtistInfo = () => {
 
   const artistId = $('#page header h1').attr('data-artist-id');
@@ -35,10 +46,8 @@ Pages.ArtistInfo = () => {
 };
 
 Pages.Artists = () => {
-  App.api.getArtists({ limit: 6, random: true })
-        .then(artists => App.templates.renderArtists(artists));
-  App.api.getArtists()
-        .then(artists => App.templates.renderGroups(artists));
+  App.api.getArtists({ limit: 6, random: true }).then(artists => App.templates.renderArtists(artists));
+  App.api.getArtists().then(artists => App.templates.renderGroups(artists));
 };
 
 Pages.EpisodeInfo = () => {
