@@ -568,21 +568,40 @@ ul.tabs li.tab section {
   padding: 0;
   border: none;
   outline: none;
-  background: transparent; }
+  background: transparent;
+  width: 2rem;
+  height: 2rem;
+  position: relative; }
   #tracklist_placeholder .track-preview svg {
     width: 2rem;
     height: 2rem;
     vertical-align: middle;
     fill: #222222; }
-  #tracklist_placeholder .track-preview[data-url=""] svg {
-    fill: lightgray; }
-  #tracklist_placeholder .track-preview svg g.play-circle-fill {
+  #tracklist_placeholder .track-preview svg {
+    position: absolute;
+    top: 0;
+    left: 0;
     fill: #222222; }
+    #tracklist_placeholder .track-preview svg.pause-icon {
+      opacity: 0;
+      fill: mediumaquamarine; }
+  #tracklist_placeholder .track-preview[data-status=playing] .play-icon {
+    opacity: 0; }
+  #tracklist_placeholder .track-preview[data-status=playing] .pause-icon {
+    opacity: 1; }
+  #tracklist_placeholder .track-preview[data-status=paused] .play-icon {
+    opacity: 1; }
+  #tracklist_placeholder .track-preview[data-status=paused] .pause-icon {
+    opacity: 0; }
+  #tracklist_placeholder .track-preview[data-media-url=""] svg {
+    fill: lightgray; }
 #tracklist_placeholder .track-spotify {
   padding: 0;
   border: none;
   outline: none;
-  background: transparent; }
+  background: transparent;
+  width: 1rem;
+  height: 1rem; }
   #tracklist_placeholder .track-spotify svg {
     width: 1rem;
     height: 1rem;
@@ -654,7 +673,8 @@ ul.tabs li.tab section {
     #episode_player .eplayer-playpause svg {
       position: absolute;
       top: 0;
-      left: 0; }
+      left: 0;
+      fill: #A0A0A0; }
       #episode_player .eplayer-playpause svg.pause-icon {
         opacity: 0;
         fill: white; }
@@ -670,7 +690,9 @@ ul.tabs li.tab section {
     padding: 0;
     border: none;
     outline: none;
-    background: transparent; }
+    background: transparent;
+    width: 30px;
+    height: 30px; }
     #episode_player .eplayer-prev svg {
       width: 30px;
       height: 30px;
@@ -680,7 +702,9 @@ ul.tabs li.tab section {
     padding: 0;
     border: none;
     outline: none;
-    background: transparent; }
+    background: transparent;
+    width: 30px;
+    height: 30px; }
     #episode_player .eplayer-next svg {
       width: 30px;
       height: 30px;
@@ -821,6 +845,8 @@ ul.tabs li.tab section {
     border: none;
     outline: none;
     background: transparent;
+    width: 16px;
+    height: 16px;
     position: absolute;
     top: 0;
     left: 0;

@@ -35,19 +35,16 @@
   }
 
   .track-preview {
-    @include svg-button(2rem, $color-black);
-    &[data-url=""] {
-      svg {
-        fill: lightgray;
-      }
+    @include play-pause-btn(2rem, $color-black, $color-aquagreen);
+
+    &[data-media-url=""] svg {
+      fill: lightgray;
     }
-    svg g.play-circle-fill {
-      fill: $color-black;
-    }
+
   }
 
   .track-spotify {
-    @include svg-button(1rem, lightgray);
+    @include svg-btn(1rem, lightgray);
     &:not([data-song-id=""]) {
       svg {
         fill: #91DC5A;

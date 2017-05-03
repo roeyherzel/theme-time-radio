@@ -16,19 +16,32 @@ App.api = (function() {
   const _get = (path, params) => $.getJSON(path, params);
 
   const getArtists       = (params) => _get('/api/artists', params);
-  const getArtistTracks  = (id)     => _get(`/api/artists/${id}/tracklist`);
   const getGenres        = ()       => _get('/api/genres');
-  const getGenreTracks   = (genre)  => _get(`/api/genres/${genre}/tracklist`);
   const getGenreArtists  = (genre)  => _get(`/api/genres/${genre}/artists`);
-  const getEpisodeTracks = (id)     => _get(`/api/episodes/${id}/tracklist`);
-  const getLastfmArtist  = (lastfmName) => {
 
+  const getLastfmArtist = (lastfmName) => {
     return new Promise((resolve, reject) => {
       _get(`/api/artists/${lastfmName}`, {lastfm: true})
       .catch(error => console.log(`${lastfmName} on not in theme-time`))
       .then(data => resolve(data));
     });
   };
+
+  const getArtistTracks = (id) => {
+    return _get(`/api/artists/${id}/tracklist`)
+            .then(tracks => App.templates.renderTracks(tracks));
+  };
+
+  const getEpisodeTracks = (id) => {
+    return _get(`/api/episodes/${id}/tracklist`)
+            .then(tracks => App.templates.renderTracks(tracks));
+  };
+
+  const getGenreTracks = (genre) => {
+    return _get(`/api/genres/${genre}/tracklist`)
+            .then(tracks => App.templates.renderTracks(tracks));
+  };
+
 
   // Exports
   return { getArtists, getArtistTracks, getGenres, getGenreTracks, getGenreArtists, getEpisodeTracks, getLastfmArtist };
@@ -44,13 +57,19 @@ App.templates = (function() {
 
   const _get = (file, data, ph) => {
     return $.get(`/static/handlebars/${file}.hbs`)
-           .then((template) => Handlebars.compile(template))
-           .then((template) => $(ph).html(template(data)));
+            .then((template) => Handlebars.compile(template))
+            .then((template) => $(ph).html(template(data)))
+            .then(() => data);
   };
+
   const renderTracks = (tracks, ph = '#tracklist_placeholder') => {
-    _get('track_cards', {tracks}, ph);
-    return tracks; // returning tracks so we could keep processing the tracks data
+    return _get('track_cards', {tracks}, ph)
+            .then((tracks) => {
+              App.trackPlayer.init();
+              return tracks.tracks;
+            });
   };
+
   const renderArtists = (artists, ph = '#artists_placeholder') => {
     _get('artists_list', {artists}, ph);
   };
@@ -129,6 +148,11 @@ App.components = (function() {
   return { renderGroups };
 }());
 
+
+/* -------------------------------
+ * Episode Player
+ * -------------------------------
+ */
 
 App.episodePlayer = (function() {
 
@@ -232,3 +256,66 @@ App.episodePlayer = (function() {
   return Media.init();
 
 }());
+
+
+/* -------------------------------
+ * Track Player
+ * -------------------------------
+ */
+
+App.trackPlayer = function() {
+
+  const cachedAudio = new Map();
+  const getAudio = (previewBtn) => {
+
+    if (cachedAudio.has(previewBtn)) {
+      return cachedAudio.get(previewBtn);
+    } else {
+      const $btn = $(previewBtn);
+      const audio = new Audio($btn.attr('data-media-url'));
+
+      // bind handlers
+      audio.addEventListener('play' , (e) => $btn.attr('data-status', 'playing'));
+      audio.addEventListener('pause', (e) => onPause(e, $btn));
+      audio.addEventListener('ended', (e) => onPause(e, $btn));
+
+      // Add to cache
+      cachedAudio.set(previewBtn, audio);
+      return audio;
+    }
+  };
+
+  const onPause = (event, $btn) => {
+    event.target.currentTime = 0;
+    $btn.attr('data-status', 'paused');
+  };
+
+  const toggolePlayPause = (event) => {
+    const previewBtn = event.currentTarget;
+    const audio = getAudio(previewBtn);
+
+    // Pause all other tracks
+    for (let cached of cachedAudio.values()) {
+      if (cached !== audio) {
+        cached.pause();
+      }
+    }
+    // Toggle state
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  };
+
+  const init = () => {
+    const $tracks = $('.track-preview[data-media-url!=""]');
+    if ($tracks) {
+      $tracks.on('click', toggolePlayPause);
+    }
+    console.log($tracks);
+  };
+
+  return { init };
+
+}();

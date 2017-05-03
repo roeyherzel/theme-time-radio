@@ -18,39 +18,16 @@
   }
 
   .eplayer-playpause {
-    @include svg-button(70px, $color-gray);
-    width: 70px;
-    height: 70px;
-    position: relative;
+    @include play-pause-btn(70px, $color-gray, white);
     margin: 0 20px;
-
-    svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      &.pause-icon {
-        opacity: 0;
-        fill: white;
-      }
-    }
-
-    &[data-status=playing] {
-      .play-icon { opacity: 0; }
-      .pause-icon { opacity: 1; }
-    }
-
-    &[data-status=paused] {
-      .play-icon { opacity: 1; }
-      .pause-icon { opacity: 0; }
-    }
   }
 
   .eplayer-prev {
-    @include svg-button(30px, $color-gray);
+    @include svg-btn(30px, $color-gray);
   }
 
   .eplayer-next {
-    @include svg-button(30px, $color-gray);
+    @include svg-btn(30px, $color-gray);
   }
 
   .eplayer-current,

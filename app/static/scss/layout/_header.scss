@@ -9,7 +9,7 @@
   padding: 20px;
 
   label {
-    @include svg-button(16px, $color-white);
+    @include svg-btn(16px, $color-white);
     position: absolute;
     top: 0;
     left: 0;

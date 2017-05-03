@@ -1,19 +1,44 @@
 
-@mixin svg-button(
-  $width,
-  $fill: null,
-  $height: $width) {
-
+@mixin svg-btn($width, $fill: null, $height: $width) {
   padding: 0;
   border: none;
   outline: none;
   background: transparent;
+  width: $width;
+  height: $height;
 
   svg {
     width: $width;
     height: $height;
     vertical-align: middle;
     fill: $fill;
+  }
+}
+
+@mixin play-pause-btn($size, $fill-play, $fill-pause: $fill-play) {
+  @include svg-btn($size, $fill-play);
+  position: relative;
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    fill: $fill-play;
+
+    &.pause-icon {
+      opacity: 0;
+      fill: $fill-pause;
+    }
+  }
+
+  &[data-status=playing] {
+    .play-icon { opacity: 0; }
+    .pause-icon { opacity: 1; }
+  }
+
+  &[data-status=paused] {
+    .play-icon { opacity: 1; }
+    .pause-icon { opacity: 0; }
   }
 }
 
