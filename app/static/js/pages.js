@@ -74,5 +74,5 @@ Pages.GenreInfo = () => {
 
 Pages.Genres = () => {
   App.api.getGenres()
-        .then(App.templates.renderGroups);
+        .then(genres => App.templates.renderGroups(genres));
 };

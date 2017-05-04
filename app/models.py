@@ -115,6 +115,7 @@ class Tags(db.Model):
 
     @classmethod
     def getId(cls, name):
+        print(name)
         return cls.query.filter(func.lower(Tags.name) == name.lower()).first().id
 
     # @classmethod

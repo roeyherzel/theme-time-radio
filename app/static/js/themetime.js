@@ -65,8 +65,6 @@ App.templates = (function() {
             .then(() => data);
   };
 
-  const _createLinkItem = (name, address) => $('<li>').append(`<a href=${address}>${name}</a>`);
-
   const _renderLastFM = (prop, ph) => {
     const $content = $('<p>').html(prop);
     $content.find('a').prop('target', '_blank');
@@ -86,14 +84,16 @@ App.templates = (function() {
   const renderGenres = (genres, ph = '#genres_placeholder') => _get('genres_thumbs', {genres}, ph);
 
 
+  const renderGenreSummary = (data, ph) => _renderLastFM(data.tag.wiki.summary, ph);
   const renderArtistBio = (data, ph) => {
     _renderLastFM(data.artist.bio.summary, ph);
     return data; // returning data for chaining more promises
   };
 
-  const renderGenreSummary = (data, ph) => _renderLastFM(data.tag.wiki.summary, ph);
-
   const renderGroups = (data) => {
+    // Returns a tag wrapped in li
+    const _createLinkItem = (name, address) => $('<li>').append(`<a href="${address}">${name}</a>`);
+
     // Group data by first char, if char is not a-Z then group = #
     data = _.groupBy(data, (a) => (/[a-z]/i).test(a.name.charAt(0)) ? a.name.charAt(0).toUpperCase() : "#");
     // Create group section

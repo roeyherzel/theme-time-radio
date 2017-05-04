@@ -421,6 +421,13 @@ label {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; } }
+@media (min-width: 1024px) {
+  ul.tabs li.tab:nth-of-type(1) {
+    flex: 0 0 100%; }
+  ul.tabs li.tab:nth-of-type(2) {
+    flex: 0 0 55%; }
+  ul.tabs li.tab:nth-of-type(3) {
+    flex: 0 0 45%; } }
 ul.tabs li.tab input[type=checkbox] {
   display: none; }
   ul.tabs li.tab input[type=checkbox]:checked ~ label::after {
@@ -1026,13 +1033,6 @@ input#mobile_nav {
 #page.artist-info header img {
   margin-top: 1rem;
   border-radius: 100%; }
-@media (min-width: 1024px) {
-  #page.artist-info main .tabs .tab:nth-of-type(1) {
-    flex: 0 0 100%; }
-  #page.artist-info main .tabs .tab:nth-of-type(2) {
-    flex: 0 0 60%; }
-  #page.artist-info main .tabs .tab:nth-of-type(3) {
-    flex: 0 0 40%; } }
 
 ul#artist_tags {
   display: flex;
@@ -1059,13 +1059,6 @@ ul#artist_tags {
   text-decoration: underline;
   font-size: 0.8em;
   color: lightsalmon; }
-@media (min-width: 1024px) {
-  #page.episode-info main .tabs .tab:nth-of-type(1) {
-    flex: 0 0 100%; }
-  #page.episode-info main .tabs .tab:nth-of-type(2) {
-    flex: 0 0 40%; }
-  #page.episode-info main .tabs .tab:nth-of-type(3) {
-    flex: 0 0 60%; } }
 
 #page.episodes header p {
   color: salmon;
@@ -1108,20 +1101,14 @@ ul#artist_tags {
   overflow: hidden; }
 
 @media (min-width: 1024px) {
-  #page.genre-info main .tabs .tab:nth-of-type(1) {
-    flex: 0 0 100%; }
-  #page.genre-info main .tabs .tab:nth-of-type(2) {
-    flex: 0 0 40%; }
-  #page.genre-info main .tabs .tab:nth-of-type(3) {
-    flex: 0 0 60%; } }
-
-@media (min-width: 1024px) {
   #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {
     flex: 0 0 100%; }
   #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
     flex: 1 1; }
   #page.home #episodes_placeholder .thumbnails {
-    justify-content: space-around; } }
+    justify-content: space-around; }
+  #page.home #artists_placeholder .thumbnails, #page.home #genres_placeholder .thumbnails {
+    justify-content: center; } }
 #page.home header img {
   margin-top: 2rem; }
 #page.home header .site-name {
