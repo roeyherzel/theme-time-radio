@@ -170,6 +170,7 @@ App.episodePlayer = (function() {
   };
 
   const Media = {
+
     init: function() {
       const $player  = $('#episode_player');
       const url      = $player.attr('data-media-url');
@@ -203,7 +204,6 @@ App.episodePlayer = (function() {
 
       this.$playPauseBtn.on('click', this.toggolePlayPause);
       this.$playedInput.on('input' , this.onSkip);
-      this.$playedInput.on('change', this.onSkip);
     },
 
     onDataLoad: function(event) {
@@ -226,14 +226,8 @@ App.episodePlayer = (function() {
     },
 
     onSkip: function(event) {
-      if (event.type === 'input') {
-        Media.audio.pause();
-        Media.$current.text(formatTime(event.target.value));
-      } else if (event.type === 'change') {
-        // Trigger timeupdate
-        Media.audio.currentTime = event.target.value;
-        Media.audio.play();
-      }
+      Media.$current.text(formatTime(event.target.value));
+      Media.audio.currentTime = event.target.value;
     },
 
     onPlay: function(event) {
