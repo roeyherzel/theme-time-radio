@@ -1069,7 +1069,11 @@ ul#artist_tags {
       color: #222222; }
 #page.episodes main ul.episode-cards {
   display: flex;
-  flex-wrap: wrap; }
+  flex-direction: column; }
+  @media (min-width: 768px) {
+    #page.episodes main ul.episode-cards {
+      flex-direction: row;
+      flex-wrap: wrap; } }
   @media (min-width: 768px) {
     #page.episodes main ul.episode-cards li {
       flex: 1 1 40%;

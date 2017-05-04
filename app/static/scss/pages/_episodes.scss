@@ -42,8 +42,12 @@
   main {
     ul.episode-cards {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
 
+      @media (min-width: $screen-tablet) {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
       li {
         @media (min-width: $screen-tablet) {
           flex: 1 1 40%;
