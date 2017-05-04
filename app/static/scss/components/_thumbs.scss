@@ -41,4 +41,19 @@ ul.thumbnails {
       }
     }
   }
+
+  @media (min-width: $screen-tablet) and (max-width: $screen-desktop - 1) {
+
+    figure.thumb {
+      width: 110px;
+      img { height: 110px; }
+    }
+  }
+
+  @media (min-width: $screen-desktop-lg) {
+    figure.thumb {
+      width: 150px;
+      img { height: 150px; }
+    }
+  }
 }

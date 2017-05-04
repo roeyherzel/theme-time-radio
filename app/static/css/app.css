@@ -413,6 +413,10 @@ a {
   .site-name span {
     color: mediumaquamarine; }
 
+@media (min-width: 1024px) {
+  ul.tabs {
+    display: flex;
+    flex-wrap: wrap; } }
 ul.tabs li.tab input[type=checkbox] {
   display: none; }
   ul.tabs li.tab input[type=checkbox]:checked ~ label::after {
@@ -430,6 +434,13 @@ ul.tabs li.tab label {
   font-size: 1.3rem;
   font-weight: bold;
   color: white; }
+  @media (min-width: 1024px) {
+    ul.tabs li.tab label {
+      justify-content: center;
+      color: #222222;
+      background: transparent;
+      border: none;
+      font-size: 1rem; } }
   ul.tabs li.tab label::after {
     content: "";
     background: transparent url("../icons/arrow-down-outline.svg") center no-repeat;
@@ -437,11 +448,20 @@ ul.tabs li.tab label {
     height: 15px;
     transform: rotate(-90deg);
     transition: transform .2s; }
+    @media (min-width: 1024px) {
+      ul.tabs li.tab label::after {
+        content: unset; } }
 ul.tabs li.tab section {
   display: none;
   padding: 15px;
   color: #222222;
   background: whitesmoke; }
+  @media (min-width: 1024px) {
+    ul.tabs li.tab section {
+      display: block;
+      margin: 0 1rem 2rem 1rem;
+      background: white;
+      border-radius: 10px; } }
 
 .card {
   display: flex;
@@ -529,6 +549,16 @@ ul.thumbnails {
         font-size: .7rem;
         text-align: center;
         padding: 4px 2px 6px 2px; }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    ul.thumbnails figure.thumb {
+      width: 110px; }
+      ul.thumbnails figure.thumb img {
+        height: 110px; } }
+  @media (min-width: 1440px) {
+    ul.thumbnails figure.thumb {
+      width: 150px; }
+      ul.thumbnails figure.thumb img {
+        height: 150px; } }
 
 #groups_nav {
   position: relative;
@@ -570,6 +600,7 @@ ul.thumbnails {
 #groups section h2 {
   border-bottom: 1px solid lightgray; }
 #groups section ul {
+  padding-left: 1rem;
   font-size: .85rem; }
 #groups section li {
   margin-bottom: .5rem; }
@@ -581,10 +612,10 @@ ul.thumbnails {
     display: flex;
     flex-wrap: wrap; }
   #groups section li {
-    flex: 1 1 40%; } }
+    flex: 0 0 40%; } }
 @media (min-width: 1440px) {
   #groups section li {
-    flex: 1 1 30%; } }
+    flex: 0 0 30%; } }
 
 #tracklist_placeholder .card-text {
   width: 100px; }
@@ -968,6 +999,13 @@ input#mobile_nav {
 #page.artist-info header img {
   margin-top: 1rem;
   border-radius: 100%; }
+@media (min-width: 1024px) {
+  #page.artist-info main .tabs {
+    justify-content: center; }
+  #page.artist-info main .tabs .tab:nth-of-type(2) {
+    flex: 0 0 60%; }
+  #page.artist-info main .tabs .tab:nth-of-type(3) {
+    flex: 0 0 40%; } }
 
 ul#artist_tags {
   display: flex;
@@ -1033,36 +1071,11 @@ ul#artist_tags {
   color: #A0A0A0;
   overflow: hidden; }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  #page.home .thumbnails {
-    justify-content: center; }
-    #page.home .thumbnails .thumb {
-      width: 110px; } }
 @media (min-width: 1024px) {
-  #page.home .tabs {
-    display: flex;
-    flex-wrap: wrap; }
-    #page.home .tabs .tab section {
-      display: block;
-      margin: 0 2rem 2rem 2rem;
-      background: white;
-      border-radius: 10px; }
-    #page.home .tabs .tab label {
-      justify-content: center;
-      color: #222222;
-      background: transparent;
-      border: none;
-      font-size: 1rem; }
-      #page.home .tabs .tab label::after {
-        content: unset; }
-    #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {
-      flex: 0 0 100%; }
-    #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
-      flex: 1 1; } }
-@media (min-width: 1024px) and (min-width: 1024px) {
-  #page.home .thumbnails .thumb {
-    width: 150px; } }
-@media (min-width: 1024px) {
+  #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {
+    flex: 0 0 100%; }
+  #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
+    flex: 1 1; }
   #page.home #episodes_placeholder .thumbnails {
     justify-content: space-around; } }
 #page.home header img {

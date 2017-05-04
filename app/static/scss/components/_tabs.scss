@@ -5,6 +5,11 @@
 ul.tabs {
   @extend %remove-page-padding;
 
+  @media (min-width: $screen-desktop) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   li.tab {
 
     input[type=checkbox] {
@@ -31,6 +36,14 @@ ul.tabs {
       font-weight: bold;
       color: $color-white;
 
+      @media (min-width: $screen-desktop) {
+        justify-content: center;
+        color: $color-black;
+        background: transparent;
+        border: none;
+        font-size: 1rem;
+      }
+
       &::after {
         content: "";
         background: transparent url("../icons/arrow-down-outline.svg") center no-repeat;
@@ -38,6 +51,10 @@ ul.tabs {
         height: 15px;
         transform: rotate(-90deg);
         transition: transform .2s;
+
+        @media (min-width: $screen-desktop) {
+          content: unset; // remove arrow
+        }
       }
     }
 
@@ -46,6 +63,13 @@ ul.tabs {
       padding: $padding-tab-body;
       color: $color-black;
       background: $color-white-smoke;
+
+      @media (min-width: $screen-desktop) {
+        display: block;
+        margin: 0 1rem 2rem 1rem;
+        background: white;
+        border-radius: 10px;
+      }
     }
 
   }

@@ -314,7 +314,6 @@ App.trackPlayer = (function() {
     if ($tracks) {
       $tracks.on('click', toggolePlayPause);
     }
-    console.log($tracks);
   };
 
   return { init };

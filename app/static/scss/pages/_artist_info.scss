@@ -17,6 +17,23 @@
     }
   }
 
+  main {
+    @media (min-width: $screen-desktop) {
+      .tabs {
+        justify-content: center;
+      }
+
+      .tabs .tab {
+        &:nth-of-type(2) {
+          flex: 0 0 60%;
+        }
+        &:nth-of-type(3) {
+          flex: 0 0 40%;
+        }
+
+      }
+    }
+  }
 }
 
 ul#artist_tags {
