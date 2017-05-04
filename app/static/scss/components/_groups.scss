@@ -3,19 +3,20 @@
 //================================================
 
 #groups_nav {
-  width: 50%;
+  position: relative;
+  width: 120px;
   margin: auto;
-  margin-bottom: 1rem;
-  background-color: $color-white-smoke;
-  border-radius: 6px; // same as label
+  margin-bottom: 1.75rem;
 
   label[for="toggle_group_nav"] {
     display: block;
-    padding: .5rem 1rem;
-    background-color: $color-aquagreen;
-    border-radius: 6px;
+    padding: 3px;
+    background-color: $color-black;
+    border-radius: 4px;
     font-size: .9rem;
     font-weight: lighter;
+    border: 1px solid white;
+    transition: all .2s;
   }
 
   input#toggle_group_nav {
@@ -23,22 +24,26 @@
 
     &:checked {
       ~ nav {
-        height: 100%;
-        opacity: 1;
-        transform: translateX(0);
+        z-index: 0;
       }
 
       ~ label {
         margin: 0 -1rem;
-        box-shadow: 0 0 3px 2px black;
+        box-shadow: 0 0 1px 1px white;
       }
     }
   }
 
   nav {
-    height: 0;
-    opacity: 0;
-    transform: translateX(200%);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: $color-white-smoke;
+    border: 1px solid $color-gray;
+    border-top: none;
+    z-index: -100;
+    transition: .2s;
   }
 
   li {
@@ -55,7 +60,7 @@
 
   section {
     h2 {
-      border-bottom: 1px solid;
+      border-bottom: 1px solid lightgray;
     }
 
     ul {
@@ -69,6 +74,23 @@
     a {
       color: $color-black;
       text-transform: capitalize;
+    }
+
+    @media (min-width: $screen-tablet) {
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      li {
+        flex: 1 1 40%;
+      }
+    }
+
+    @media (min-width: $screen-desktop-lg) {
+      li {
+        flex: 1 1 30%;
+      }
     }
   }
 }

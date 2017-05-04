@@ -531,31 +531,36 @@ ul.thumbnails {
         padding: 4px 2px 6px 2px; }
 
 #groups_nav {
-  width: 50%;
+  position: relative;
+  width: 120px;
   margin: auto;
-  margin-bottom: 1rem;
-  background-color: whitesmoke;
-  border-radius: 6px; }
+  margin-bottom: 1.75rem; }
   #groups_nav label[for="toggle_group_nav"] {
     display: block;
-    padding: .5rem 1rem;
-    background-color: mediumaquamarine;
-    border-radius: 6px;
+    padding: 3px;
+    background-color: #222222;
+    border-radius: 4px;
     font-size: .9rem;
-    font-weight: lighter; }
+    font-weight: lighter;
+    border: 1px solid white;
+    transition: all .2s; }
   #groups_nav input#toggle_group_nav {
     display: none; }
     #groups_nav input#toggle_group_nav:checked ~ nav {
-      height: 100%;
-      opacity: 1;
-      transform: translateX(0); }
+      z-index: 0; }
     #groups_nav input#toggle_group_nav:checked ~ label {
       margin: 0 -1rem;
-      box-shadow: 0 0 3px 2px black; }
+      box-shadow: 0 0 1px 1px white; }
   #groups_nav nav {
-    height: 0;
-    opacity: 0;
-    transform: translateX(200%); }
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: whitesmoke;
+    border: 1px solid #A0A0A0;
+    border-top: none;
+    z-index: -100;
+    transition: .2s; }
   #groups_nav li {
     border-bottom: 1px solid #A0A0A0; }
   #groups_nav a {
@@ -563,7 +568,7 @@ ul.thumbnails {
     padding: 10px; }
 
 #groups section h2 {
-  border-bottom: 1px solid; }
+  border-bottom: 1px solid lightgray; }
 #groups section ul {
   font-size: .85rem; }
 #groups section li {
@@ -571,6 +576,15 @@ ul.thumbnails {
 #groups section a {
   color: #222222;
   text-transform: capitalize; }
+@media (min-width: 768px) {
+  #groups section ul {
+    display: flex;
+    flex-wrap: wrap; }
+  #groups section li {
+    flex: 1 1 40%; } }
+@media (min-width: 1440px) {
+  #groups section li {
+    flex: 1 1 30%; } }
 
 #tracklist_placeholder .card-text {
   width: 100px; }
