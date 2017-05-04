@@ -4,11 +4,13 @@
   <div id="page" class="episode-info">
     <header>
       <img src="{{ episode.image }}" alt="Photo of {{ episode.title }}">
-      <p>{{ episode.aired }}</p>
-      <h1 data-episode-title="{{ episode.title }}" data-episode-id="{{ episode.id }}">{{ episode.title }}</h1>
-      <p>
-        <a href="/episodes/season/{{episode.season}}">Season {{episode.season}}</a> - <a href="#">Episode {{episode.id}}</a>
-      </p>
+      <div class="info">
+        <p>{{ episode.aired }}</p>
+        <h1 data-episode-title="{{ episode.title }}" data-episode-id="{{ episode.id }}">{{ episode.title }}</h1>
+        <p>
+          <a href="/episodes/season/{{episode.season}}">Season {{episode.season}}</a> - <a href="#">Episode {{episode.id}}</a>
+        </p>
+      </div>
 
       <div id="episode_player" data-media-url="{{episode.media}}">
         <div class="eplayer-controls">

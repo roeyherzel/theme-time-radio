@@ -3,6 +3,9 @@
 //================================================
 
 #episode_player {
+  max-width: $screen-desktop;
+  margin-left: auto;
+  margin-right: auto;
   padding: 1rem;
   color: $color-gray;
 

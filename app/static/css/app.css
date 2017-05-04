@@ -416,7 +416,8 @@ a {
 @media (min-width: 1024px) {
   ul.tabs {
     display: flex;
-    flex-wrap: wrap; } }
+    flex-wrap: wrap;
+    justify-content: center; } }
 ul.tabs li.tab input[type=checkbox] {
   display: none; }
   ul.tabs li.tab input[type=checkbox]:checked ~ label::after {
@@ -523,8 +524,7 @@ ul.tabs li.tab section {
 
 ul.thumbnails {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center; }
+  flex-wrap: wrap; }
   ul.thumbnails li {
     margin: 5px; }
   ul.thumbnails figure.thumb {
@@ -695,6 +695,9 @@ ul.thumbnails {
   display: none; }
 
 #episode_player {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 1rem;
   color: #A0A0A0; }
   #episode_player .eplayer-controls,
@@ -1000,8 +1003,8 @@ input#mobile_nav {
   margin-top: 1rem;
   border-radius: 100%; }
 @media (min-width: 1024px) {
-  #page.artist-info main .tabs {
-    justify-content: center; }
+  #page.artist-info main .tabs .tab:nth-of-type(1) {
+    flex: 0 0 100%; }
   #page.artist-info main .tabs .tab:nth-of-type(2) {
     flex: 0 0 60%; }
   #page.artist-info main .tabs .tab:nth-of-type(3) {
@@ -1019,21 +1022,26 @@ ul#artist_tags {
   ul#artist_tags a {
     color: lightsalmon; }
 
+#page.artists header .thumbnails {
+  justify-content: center; }
+
 #page.episode-info header h1 {
   margin: 0; }
 #page.episode-info header p:first-of-type {
   font-size: 0.7em;
   color: #A0A0A0;
   text-transform: lowercase; }
-#page.episode-info header p:last-of-type {
-  margin: 10px 60px 15px 60px; }
 #page.episode-info header a {
   text-decoration: underline;
   font-size: 0.8em;
   color: lightsalmon; }
-#page.episode-info header img {
-  display: block;
-  margin: 15px auto 5px auto; }
+@media (min-width: 1024px) {
+  #page.episode-info main .tabs .tab:nth-of-type(1) {
+    flex: 0 0 100%; }
+  #page.episode-info main .tabs .tab:nth-of-type(2) {
+    flex: 0 0 40%; }
+  #page.episode-info main .tabs .tab:nth-of-type(3) {
+    flex: 0 0 60%; } }
 
 #page.episodes header p {
   color: salmon;
@@ -1070,6 +1078,14 @@ ul#artist_tags {
   font-style: italic;
   color: #A0A0A0;
   overflow: hidden; }
+
+@media (min-width: 1024px) {
+  #page.genre-info main .tabs .tab:nth-of-type(1) {
+    flex: 0 0 100%; }
+  #page.genre-info main .tabs .tab:nth-of-type(2) {
+    flex: 0 0 40%; }
+  #page.genre-info main .tabs .tab:nth-of-type(3) {
+    flex: 0 0 60%; } }
 
 @media (min-width: 1024px) {
   #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {

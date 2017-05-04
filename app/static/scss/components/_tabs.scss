@@ -8,6 +8,7 @@ ul.tabs {
   @media (min-width: $screen-desktop) {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   li.tab {
