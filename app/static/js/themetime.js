@@ -48,9 +48,9 @@ App.api = (function() {
 })();
 
 
-/* --------------------
- * Handlebars templates
- * --------------------
+/* -----------------------------------------
+ * Handlebars templates and jQuery rendering
+ * -----------------------------------------
  */
 
 App.templates = (function() {
@@ -81,17 +81,10 @@ App.templates = (function() {
             });
   };
 
-  const renderEpisodes = (episodes, ph = '#episodes_placeholder') => {
-    _get('episodes_thumbs', {episodes}, ph);
-  };
+  const renderEpisodes = (episodes, ph = '#episodes_placeholder') => _get('episodes_thumbs', {episodes}, ph);
+  const renderArtists = (artists, ph = '#artists_placeholder') => _get('artists_thumbs', {artists}, ph);
+  const renderGenres = (genres, ph = '#genres_placeholder') => _get('genres_thumbs', {genres}, ph);
 
-  const renderArtists = (artists, ph = '#artists_placeholder') => {
-    _get('artists_thumbs', {artists}, ph);
-  };
-
-  const renderGenres = (genres, ph = '#genres_placeholder') => {
-    _get('genres_thumbs', {genres}, ph);
-  };
 
   const renderArtistBio = (data, ph) => {
     _renderLastFM(data.artist.bio.summary, ph);
@@ -103,27 +96,39 @@ App.templates = (function() {
   const renderGroups = (data) => {
     // Group data by first char, if char is not a-Z then group = #
     data = _.groupBy(data, (a) => (/[a-z]/i).test(a.name.charAt(0)) ? a.name.charAt(0).toUpperCase() : "#");
-    // Create group section with list of items
+    // Create group section
     for (let group in data) {
       const $section  = $(`<section id=${group}></section>`).append(`<h2>${group}</h2>`);
       const $group_ul = $('<ul>').appendTo($section);
 
+      // Add link items
       for (let i of data[group]) {
         $group_ul.append(_createLinkItem(i.name, i.view));
       }
+      // Add group to page
       $('#groups').append($section);
     }
     // Create group navigation with dropdown and list of groups
-    const $nav_container = $('#groups_nav');
     const $nav_checkbox  = $('<input id="toggle_group_nav" type="checkbox">');
     const $nav_label     = $('<label for="toggle_group_nav">A - Z</label>');
     const $nav_nav       = $('<nav>');
     const $nav_ul        = $('<ul>').appendTo($nav_nav);
-    $nav_container.append($nav_checkbox, $nav_label, $nav_nav);
 
+    // Add group links
     for (let g of _.keys(data)) {
       $nav_ul.append(_createLinkItem(g, `#${g}`));
     }
+    // Add group navigation to page
+    $('#groups_nav').append($nav_checkbox, $nav_label, $nav_nav);
+
+    // Close nav on click outside
+    $(document).on('click', (event) => {
+      const $checkbox = $('#toggle_group_nav');
+
+      if (! $(event.target).is($('label[for="toggle_group_nav"] , #toggle_group_nav'))) {
+        $checkbox.prop('checked', false);
+      }
+    });
   };
 
   // Exports
