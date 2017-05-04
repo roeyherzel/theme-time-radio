@@ -1106,9 +1106,7 @@ ul#artist_tags {
   #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
     flex: 1 1; }
   #page.home #episodes_placeholder .thumbnails {
-    justify-content: space-around; }
-  #page.home #artists_placeholder .thumbnails, #page.home #genres_placeholder .thumbnails {
-    justify-content: center; } }
+    justify-content: space-around; } }
 #page.home header img {
   margin-top: 2rem; }
 #page.home header .site-name {
