@@ -115,7 +115,7 @@ class Tags(db.Model):
 
     @classmethod
     def getId(cls, name):
-        return cls.query.filter_by(name=name).first().id
+        return cls.query.filter(func.lower(Tags.name) == name.lower()).first().id
 
     # @classmethod
     # def countSong(cls):

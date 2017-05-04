@@ -67,14 +67,6 @@ class API_ArtistsTracklist(Resource):
         return Artists.query.get(artist_id).tracks
 
 
-@api.resource('/api/helper/all-lastfm-artists')
-class LastFmArtistsAPI(Resource):
-
-    @marshal_with_field(fields.List(fields.String()))
-    def get(self):
-        return [i.lastfm_name for i in Artists.query.all()]
-
-
 @api.resource('/api/genres', '/api/genres/<string:tag_name>')
 class TagsAPI(Resource):
     parser = reqparse.RequestParser()
@@ -91,7 +83,7 @@ class TagsAPI(Resource):
 
             return query.all()
         else:
-            return Tags.query.filter(Tags.name == tag_name).first()
+            return Tags.query.filter(func.lower(Tags.name) == tag_name.lower()).first()
 
 
 @api.resource('/api/genres/<string:tag>/artists')

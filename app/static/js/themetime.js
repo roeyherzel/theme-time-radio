@@ -67,6 +67,12 @@ App.templates = (function() {
 
   const _createLinkItem = (name, address) => $('<li>').append(`<a href=${address}>${name}</a>`);
 
+  const _renderLastFM = (prop, ph) => {
+    const $content = $('<p>').html(prop);
+    $content.find('a').prop('target', '_blank');
+    $(ph).html($content);
+  };
+
   const renderTracks = (tracks, ph = '#tracklist_placeholder') => {
     return _get('track_cards', {tracks}, ph)
             .then((tracks) => {
@@ -88,11 +94,11 @@ App.templates = (function() {
   };
 
   const renderArtistBio = (data, ph) => {
-    $(ph).html($('<p>').html(data.artist.bio.summary));
+    _renderLastFM(data.artist.bio.summary, ph);
     return data; // returning data for chaining more promises
   };
 
-  const renderGenreSummary = (data, ph) => $(ph).html($('<p>').html(data.tag.wiki.summary));
+  const renderGenreSummary = (data, ph) => _renderLastFM(data.tag.wiki.summary, ph);
 
   const renderGroups = (data) => {
     // Group data by first char, if char is not a-Z then group = #

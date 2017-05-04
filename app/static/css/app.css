@@ -413,6 +413,9 @@ a {
   .site-name span {
     color: mediumaquamarine; }
 
+label {
+  cursor: pointer; }
+
 @media (min-width: 1024px) {
   ul.tabs {
     display: flex;
