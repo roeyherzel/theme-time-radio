@@ -12,3 +12,13 @@ venv/
 # ----
 tagging.log
 output.log
+
+
+# Sass
+# ----
+app/static/.sass-cache/
+
+
+# Database
+# --------
+app/themetime.sqlite3

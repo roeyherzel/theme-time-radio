@@ -1,0 +1,123 @@
+//================================================
+// Group Navigation
+//================================================
+
+#groups_nav {
+  position: relative;
+  width: 120px;
+  margin: auto;
+  margin-bottom: 1.75rem;
+
+  @media (min-width: $screen-desktop) {
+    width: 100%;
+  }
+
+  label[for="toggle_group_nav"] {
+    display: block;
+    padding: 3px;
+    background-color: $color-black;
+    border-radius: 4px;
+    font-size: .9rem;
+    font-weight: lighter;
+    border: 1px solid white;
+    transition: all .2s;
+
+    @media (min-width: $screen-desktop) {
+      display: none;
+    }
+  }
+
+  input#toggle_group_nav {
+    display: none;
+
+    &:checked {
+      ~ nav {
+        z-index: 0;
+      }
+
+      ~ label {
+        margin: 0 -1rem;
+        box-shadow: 0 0 1px 1px white;
+      }
+    }
+  }
+
+  nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: $color-white-smoke;
+    border: 1px solid $color-gray;
+    border-top: none;
+    z-index: -100;
+    transition: .2s;
+
+    @media (min-width: $screen-desktop) {
+      position: static;
+      background: transparent;
+      border: none;
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: $screen-desktop) {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  li {
+    border-bottom: 1px solid $color-gray;
+    @media (min-width: $screen-desktop) {
+      border: none;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 10px;
+  }
+}
+
+#groups {
+
+  section {
+    h2 {
+      border-bottom: 1px solid lightgray;
+    }
+
+    ul {
+      padding-left: 1rem;
+      font-size: .85rem;
+    }
+
+    li {
+      margin-bottom: .5rem;
+    }
+
+    a {
+      color: $color-black;
+      text-transform: capitalize;
+    }
+
+    @media (min-width: $screen-tablet) {
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      li {
+        flex: 0 0 40%;
+      }
+    }
+
+    @media (min-width: $screen-desktop-lg) {
+      li {
+        flex: 0 0 30%;
+      }
+    }
+  }
+}

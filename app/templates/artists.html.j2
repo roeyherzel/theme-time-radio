@@ -1,0 +1,21 @@
+{% extends "layout.html.j2" %}
+
+{% block page_content %}
+  <div id="page" class="artists">
+    <header>
+      <h1>Artists</h1>
+      <div id="groups_nav"></div>
+      <div id="artists_placeholder"></div>
+    </header>
+
+    <main>
+      <div id="groups"></div>
+    </main>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+  <script type="text/javascript">
+    Pages.Artists();
+  </script>
+{% endblock %}

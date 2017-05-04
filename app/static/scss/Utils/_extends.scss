@@ -1,0 +1,27 @@
+//================================================
+// Extends
+//================================================
+
+%clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
+%img-responsive {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+%text-nowrap{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+%remove-page-padding {
+  margin: -$padding-page-sides;
+}

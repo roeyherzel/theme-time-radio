@@ -1,0 +1,74 @@
+//================================================
+// Cards
+//================================================
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  height: 85px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0 0 1px black;
+  border-radius: 3px;
+  overflow: hidden;
+  background: white;
+  color: $color-black;
+
+  .card-number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 1.5rem;
+    height: 100%;
+    background: $color-light-gray;
+    border-left: 1px solid rgba(0, 0, 0, 0.17);
+
+    span {
+      width: 100%;
+      color: white;
+      text-align: center;
+      font-size: 0.7rem;
+      padding-top: 8px;
+    }
+  }
+
+  .card-thumb {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex: 0 0 70px;
+    height: 100%;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: top left;
+    }
+
+    span.overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .card-text {
+    flex: 1 1;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      line-height: 2;
+    }
+    .text-lg { font-size: 0.85rem; }
+    .text-md { font-size: 0.75rem; }
+    .text-sm { font-size: 0.7rem; }
+  }
+
+}

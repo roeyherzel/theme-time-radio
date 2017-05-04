@@ -4,7 +4,11 @@ from sqlalchemy.exc import IntegrityError
 from datetime import datetime
 
 
-""" commands for db """
+"""
+-----------------------------------------------------------------------------------------------------
+Class Methods for interating with DB/Model
+-----------------------------------------------------------------------------------------------------
+"""
 
 
 def create(obj):
@@ -16,7 +20,7 @@ def create(obj):
 
     except IntegrityError as err:
         db.session.rollback()
-        print("rollback: {}, {}".format(err.orig.diag.message_primary, err.orig.diag.message_detail))
+        print("{} - rollback: {}".format(datetime.now().strftime('%c'), err))
 
     db.session.commit()
     return status
@@ -31,7 +35,29 @@ def delete(obj):
     db.session.commit()
 
 
-""" Models """
+"""
+-----------------------------------------------------------------------------------------------------
+Models
+-----------------------------------------------------------------------------------------------------
+"""
+
+aux_tracks_artists = db.Table(
+    'aux_tracks_artists',
+    db.Column('artist_id', db.String, db.ForeignKey('artists.id')),
+    db.Column('track_id', db.Integer, db.ForeignKey('tracks.id'))
+)
+
+aux_songs_artists = db.Table(
+    'aux_songs_artists',
+    db.Column('song_id', db.String, db.ForeignKey('songs.id')),
+    db.Column('artist_id', db.String, db.ForeignKey('artists.id'))
+)
+
+aux_artists_tags = db.Table(
+    'aux_artists_tags',
+    db.Column('artist_id', db.String, db.ForeignKey('artists.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
+)
 
 
 class Episodes(db.Model):
@@ -43,23 +69,20 @@ class Episodes(db.Model):
     media = db.Column(db.String)
     image = db.Column(db.String)
 
+    @staticmethod
+    def _nav_helper(ep):
+        return '/episodes/' + str(ep.id) if ep else None
+
     @property
     def next(self):
-        return Episodes.query.filter(Episodes.id > self.id).order_by(Episodes.id).first()
+        return Episodes._nav_helper(Episodes.query.filter(Episodes.id > self.id).order_by(Episodes.id).first())
 
     @property
     def prev(self):
-        return Episodes.query.filter(Episodes.id < self.id).order_by(desc(Episodes.id)).first()
+        return Episodes._nav_helper(Episodes.query.filter(Episodes.id < self.id).order_by(desc(Episodes.id)).first())
 
     def __repr__(self):
         return '<Episode ({}): {}>'.format(self.id, self.title)
-
-
-aux_tracks_artists = db.Table(
-    'aux_tracks_artists',
-    db.Column('artist_id', db.String, db.ForeignKey('artists.id')),
-    db.Column('track_id', db.Integer, db.ForeignKey('tracks.id'))
-)
 
 
 class Tracks(db.Model):
@@ -86,40 +109,27 @@ class Tracks(db.Model):
 class Tags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
-    type = db.Column(db.String)
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)
 
     @classmethod
     def getId(cls, name):
-        return cls.query.filter_by(name=name).first().id
+        print(name)
+        return cls.query.filter(func.lower(Tags.name) == name.lower()).first().id
 
-    @classmethod
-    def countSong(cls):
-        return db.session.query(Tags, func.count(Songs.id).label('track_count')) \
-                         .join(aux_songs_tags, (aux_songs_tags.c.tag_id == Tags.id)) \
-                         .join(Songs, Songs.id == aux_songs_tags.c.song_id) \
-                         .group_by(Tags)
-
-
-aux_songs_tags = db.Table(
-    'aux_songs_tags',
-    db.Column('song_id', db.String, db.ForeignKey('songs.id')),
-    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
-)
-aux_songs_artists = db.Table(
-    'aux_songs_artists',
-    db.Column('song_id', db.String, db.ForeignKey('songs.id')),
-    db.Column('artist_id', db.String, db.ForeignKey('artists.id'))
-)
+    # @classmethod
+    # def countSong(cls):
+    #     return db.session.query(Tags, func.count(Songs.id).label('track_count')) \
+    #                      .join(aux_songs_tags, (aux_songs_tags.c.tag_id == Tags.id)) \
+    #                      .join(Songs, Songs.id == aux_songs_tags.c.song_id) \
+    #                      .group_by(Tags)
 
 
 class Songs(db.Model):
     id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
     preview_url = db.Column(db.String)
-    tags = db.relationship('Tags', secondary=aux_songs_tags, backref='songs')
     artists = db.relationship('Artists', secondary=aux_songs_artists, backref='songs')
 
     def __repr__(self):
@@ -128,9 +138,10 @@ class Songs(db.Model):
 
 class Artists(db.Model):
     id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String, nullable=False, unique=True)
+    name = db.Column(db.String, nullable=False)
     lastfm_name = db.Column(db.String)
     lastfm_image = db.Column(db.String)
+    lastfm_tags = db.relationship('Tags', secondary=aux_artists_tags, backref='artists')
 
     def __repr__(self):
         return '<{} - {}: {}>'.format(self.id, self.__class__.__name__, self.name)

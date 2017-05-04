@@ -1,0 +1,47 @@
+{% extends "layout.html.j2" %}
+
+{% block page_content %}
+  <div id="page" class="artist-info">
+    <header>
+      <img src="{{artist.lastfm_image}}" alt="{{artist.lastfm_name}} Photo">
+
+      <h1 data-artist-id="{{artist.id}}" data-artist-lastfm="{{artist.lastfm_name}}">{{artist.name}}</h1>
+
+      <ul id="artist_tags">
+        {% for tag in artist.lastfm_tags %}
+          <li><a href="/genres/{{tag.name}}">{{tag.name}}</a></li>
+        {% endfor %}
+      </ul>
+    </header>
+
+    <main>
+      <ul class="tabs">
+
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_1" checked>
+          <label for="tab_1">Biography</label>
+          <section id="bio"></section>
+        </li>
+
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_2">
+          <label for="tab_2">Tracklist</label>
+          <section id="tracklist_placeholder"></section>
+        </li>
+
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_3">
+          <label for="tab_3">Related Artists</label>
+          <section id="artists_placeholder"></section>
+        </li>
+
+      </ul>
+    </main>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+  <script type="text/javascript">
+    Pages.ArtistInfo();
+  </script>
+{% endblock %}

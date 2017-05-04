@@ -1,0 +1,37 @@
+//================================================
+// Artist Info
+//================================================
+
+#page.artist-info {
+
+  header {
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    img {
+      @extend %img-responsive;
+      margin-top: 1rem;
+      border-radius: 100%;
+    }
+  }
+
+}
+
+ul#artist_tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2px 0 30px 0;
+  border-top: 1px solid $color-charcoal;
+
+  li {
+    margin: 2px 5px;
+    text-decoration: underline;
+  }
+
+  a {
+    color: $color-light-salmon;
+  }
+}

@@ -1,0 +1,88 @@
+//================================================
+// Tabs
+//================================================
+
+ul.tabs {
+  @extend %remove-page-padding;
+
+  @media (min-width: $screen-desktop) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  li.tab {
+    @media (min-width: $screen-desktop) {
+      &:nth-of-type(1) {
+        flex: 0 0 100%;
+      }
+      &:nth-of-type(2) {
+        flex: 0 0 55%;
+      }
+      &:nth-of-type(3) {
+        flex: 0 0 45%;
+      }
+    }
+
+    input[type=checkbox] {
+      display: none;
+
+      &:checked ~ label::after {
+        transform: rotate(0deg);
+      }
+      &:checked ~ section {
+        display: block;
+      }
+
+    }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: $padding-tab-header;
+      background-color: $color-aquagreen;
+      border-bottom: 1.5px solid $color-black;
+      font-family: $font-family;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: $color-white;
+
+      @media (min-width: $screen-desktop) {
+        justify-content: center;
+        color: $color-black;
+        background: transparent;
+        border: none;
+        font-size: 1rem;
+      }
+
+      &::after {
+        content: "";
+        background: transparent url("../icons/arrow-down-outline.svg") center no-repeat;
+        width: 15px;
+        height: 15px;
+        transform: rotate(-90deg);
+        transition: transform .2s;
+
+        @media (min-width: $screen-desktop) {
+          content: unset; // remove arrow
+        }
+      }
+    }
+
+    section {
+      display: none;
+      padding: $padding-tab-body;
+      color: $color-black;
+      background: $color-white-smoke;
+
+      @media (min-width: $screen-desktop) {
+        display: block;
+        margin: 0 1rem 2rem 1rem;
+        background: white;
+        border-radius: 10px;
+      }
+    }
+
+  }
+}

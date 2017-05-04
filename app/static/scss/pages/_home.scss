@@ -1,0 +1,62 @@
+//================================================
+// Home
+//================================================
+
+#page.home {
+
+  @media (min-width: $screen-desktop) {
+
+    .tabs .tab {
+      &:nth-of-type(1),
+      &:nth-of-type(2) {
+        flex: 0 0 100%;
+      }
+      &:nth-of-type(3),
+      &:nth-of-type(4) {
+        flex: 1 1;
+      }
+    }
+
+    #episodes_placeholder .thumbnails {
+      justify-content: space-around;
+    }
+  }
+
+  header {
+
+    img {
+      margin-top: 2rem;
+    }
+
+    .site-name {
+      font-size: 2rem;
+      margin: 1rem 0;
+    }
+
+    p.pitch {
+      color: $color-light-salmon;
+      font-weight: lighter;
+
+      span {
+        display: block;
+        font-style: italic;
+      }
+    }
+
+  }
+
+  main {
+    blockquote {
+      margin: 0;
+      font-size: .9rem;
+
+      footer {
+        margin-top: .5rem;
+        margin-left: .5rem;
+      }
+
+    }
+
+  }
+
+}

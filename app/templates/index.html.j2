@@ -1,0 +1,57 @@
+{% extends "layout.html.j2" %}
+
+{% block page_content %}
+  <div id="page" class="home">
+    <header>
+      <img src="{{ url_for('static', filename='images/cassette.png')}}" alt="Image of cassette">
+
+      <h2 class="site-name">Theme<span>Time</span>Radio</h2>
+      <p class="pitch">Podcast website for the <span>Theme Time Radio Hour</span></p>
+    </header>
+
+    <main>
+      <ul class="tabs">
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_1" checked>
+          <label for="tab_1">About</label>
+          <section>
+            <blockquote>
+              <i><strong>Theme Time Radio Hour</strong></i>&nbsp; was a weekly, one-hour satellite radio show hosted by <a href="/artists/name/Bob Dylan">Bob Dylan</a> originally airing from May 2006 to April 2009.
+              Each episode was an eclectic, freeform mix of blues, folk, rockabilly, R&B, soul, bebop, rock-and-roll, country and pop music, centered on a theme such as
+              <a href="/episodes/1">"Weather"</a>,
+              <a href="/episodes/76">"Money"</a>, and
+              <a href="/episodes/11">"Flowers"</a> with songs from artists as diverse as
+              <a href="/artists/name/Patti Page">Patti Page</a> and
+              <a href="/artists/name/LL Cool J">LL Cool J</a>.
+              <footer>
+                —
+                <cite><a target="_blank" href="https://en.wikipedia.org/wiki/Theme_Time_Radio_Hour">Wikipedia</a></cite>
+              </footer>
+            </blockquote>
+          </section>
+        </li>
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_2" checked>
+          <label for="tab_2">Episodes</label>
+          <section id="episodes_placeholder"></section>
+        </li>
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_3" checked>
+          <label for="tab_3">Artists</label>
+          <section id="artists_placeholder"></section>
+        </li>
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_4" checked>
+          <label for="tab_4">Genres</label>
+          <section id="genres_placeholder"></section>
+        </li>
+      </ul>
+    </main>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+<script type="text/javascript">
+  Pages.home();
+</script>
+{% endblock %}

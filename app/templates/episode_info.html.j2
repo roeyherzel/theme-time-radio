@@ -1,0 +1,97 @@
+{% extends "layout.html.j2" %}
+
+{% block page_content %}
+  <div id="page" class="episode-info">
+    <header>
+      <img src="{{ episode.image }}" alt="Photo of {{ episode.title }}">
+      <div class="info">
+        <p>{{ episode.aired }}</p>
+        <h1 data-episode-title="{{ episode.title }}" data-episode-id="{{ episode.id }}">{{ episode.title }}</h1>
+        <p>
+          <a href="/episodes/season/{{episode.season}}">Season {{episode.season}}</a> - <a href="#">Episode {{episode.id}}</a>
+        </p>
+      </div>
+
+      <div id="episode_player" data-media-url="{{episode.media}}">
+        <div class="eplayer-controls">
+          <a class="eplayer-prev" {% if episode.prev %} href="{{episode.prev}}" {% else %} href="#" disabled {% endif %}>
+            <svg viewBox="0 0 237.947 237.947">
+        			<g>
+        				<path d="M89.857,119.002l91.883-91.883c6.198-6.198,6.198-16.273,0-22.47s-16.273-6.198-22.47,0
+        				  L56.199,107.719c-3.115,3.115-4.64,7.183-4.64,11.283s1.526,8.168,4.64,11.283L159.27,233.323c6.198,6.166,16.273,6.166,22.47,0
+        				  c6.198-6.198,6.198-16.304,0-22.47L89.857,119.002z"/>
+        			</g>
+            </svg>
+          </a>
+          <button type="button" class="eplayer-playpause">
+            <svg class="play-icon" viewBox="0 0 476.737 476.737">
+          		<g>
+          			<path d="M238.369,0C106.726,0,0,106.726,0,238.369c0,131.675,106.726,238.369,238.369,238.369
+          				c131.675,0,238.369-106.694,238.369-238.369C476.737,106.726,370.043,0,238.369,0z M344.427,247.903l-123.221,97.318
+          				c-6.897,5.435-18.084,5.435-24.981,0l0.064-0.064c-3.401-2.479-5.594-6.007-5.594-9.98V140.987c0-3.909,2.066-7.405,5.371-9.916
+          				l0.159-0.159c6.897-5.403,18.084-5.403,24.981,0l122.553,97.095l0.667,0.35C351.355,233.728,351.355,242.5,344.427,247.903z"/>
+          		</g>
+            </svg>
+            <svg class="pause-icon" viewBox="0 0 508.52 508.52">
+          		<g>
+          			<path d="M254.26,0C113.845,0,0,113.845,0,254.26s113.845,254.26,254.26,254.26
+          				s254.26-113.845,254.26-254.26S394.675,0,254.26,0z M222.477,317.825c0,17.544-14.239,31.783-31.782,31.783
+          				s-31.782-14.239-31.782-31.783v-127.13c0-17.544,14.239-31.782,31.782-31.782s31.782,14.239,31.782,31.782V317.825z
+          				 M349.607,317.825c0,17.544-14.239,31.783-31.783,31.783c-17.544,0-31.782-14.239-31.782-31.783v-127.13
+          				c0-17.544,14.239-31.782,31.782-31.782c17.544,0,31.783,14.239,31.783,31.782V317.825z"/>
+          		</g>
+            </svg>
+          </button>
+          <a class="eplayer-next" {% if episode.next %} href="{{episode.next}}" {% else %} href="#" disabled {% endif %}>
+            <svg viewBox="0 0 238.003 238.003">
+          		<g>
+          			<path d="M181.776,107.719L78.705,4.648c-6.198-6.198-16.273-6.198-22.47,0s-6.198,16.273,0,22.47
+          			  l91.883,91.883l-91.883,91.883c-6.198,6.198-6.198,16.273,0,22.47s16.273,6.198,22.47,0l103.071-103.039
+          			  c3.146-3.146,4.672-7.246,4.64-11.283C186.416,114.902,184.89,110.833,181.776,107.719z"/>
+          		</g>
+            </svg>
+          </a>
+        </div>
+        <div class="eplayer-progress">
+          <span class="eplayer-current">0:00</span>
+          <div class="eplayer-bars">
+            <progress class="eplayer-buffered-bar" value="0" max="100"></progress>
+            <progress class="eplayer-played-bar" value="0" max="100"></progress>
+            <input class="eplayer-played-input" type="range" value="0" max=100>
+          </div>
+          <span class="eplayer-duration">0:00</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <ul class="tabs">
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_1" checked>
+          <label for="tab_1">Intro</label>
+          <section>
+            <p>{{ episode.description }}...</p>
+          </section>
+        </li>
+
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_2">
+          <label for="tab_2">Tracklist</label>
+          <section id="tracklist_placeholder"></section>
+        </li>
+
+        <li class="tab">
+          <input type="checkbox" name="tab-group" id="tab_3">
+          <label for="tab_3">Artists</label>
+          <section id="artists_placeholder"></section>
+        </li>
+      </ul>
+    </main>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+  <script type="text/javascript">
+    Pages.EpisodeInfo();
+  </script>
+{% endblock %}

@@ -18,7 +18,7 @@ class Tags(Base):
     def __init__(self):
         self.id = fields.Integer
         self.name = fields.String
-        self.type = fields.String
+        self.view = fields.FormattedString("/genres/{name}")
 
 
 class TagsCount(Base):
@@ -77,6 +77,7 @@ class Track(Base):
         self.year = fields.Integer
         self.spotify_artists = fields.List(fields.Nested(Artist().as_dict))
         self.spotify_song = fields.Nested(Song().as_dict)
+        self.episode = fields.Nested(Episode().as_dict)
 
 
 class EpisodeTracklist(Base):

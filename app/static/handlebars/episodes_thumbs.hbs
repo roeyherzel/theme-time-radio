@@ -1,0 +1,12 @@
+<ul class="thumbnails">
+  {{#each episodes}}
+  <li>
+    <a href="{{view}}">
+      <figure class="thumb">
+        <img src="{{image}}" alt="Poster image of episode {{title}}">
+        <figcaption><span>{{title}}</span></figcaption>
+      </figure>
+    </a>
+  </li>
+  {{/each}}
+</ul>

@@ -5,85 +5,58 @@ from sqlalchemy import func
 import re
 
 
-""" error handlers """
-
-
 @main.errorhandler(404)
 def not_found_error(error):
-    return render_template('404.html.jinja'), 404
+    return render_template('404.html.j2'), 404
 
 
-""" views """
-
-
-@main.route('/mixtapes')
-@main.route('/mixtapes/<string:tape_name>')
-def mixtapes_view(tape_name=None):
-    return render_template('mixtapes.html.jinja', tape_name=tape_name)
-
-
-@main.route('/artists/<string:artist_id>')
-@main.route('/artists/name/<string:artist_name>')
-@main.route('/artists/lastfm/<string:lastfm_name>')
-def artist_view(artist_id=None, artist_name=None, lastfm_name=None):
-    if artist_id:
-        res = Artists.query.get(artist_id)
-
-    elif artist_name:
-        res = Artists.query.filter(func.lower(Artists.name) == artist_name.lower()).one_or_none()
-
-    elif lastfm_name:
-        res = Artists.query.filter(func.lower(Artists.lastfm_name) == lastfm_name.lower()).one_or_none()
-
-    if res is None:
-        abort(404)
+@main.route('/genres')
+@main.route('/genres/<string:genre>')
+def genres_view(genre=None):
+    if genre is None:
+        return render_template('genres.html.j2')
     else:
-        return render_template('artist.html.jinja', artist=res)
+        return render_template('genre_info.html.j2', genre=genre)
 
 
 @main.route('/artists')
-@main.route('/artists/index/<string:index>')
-def all_artists_view(index="A"):
-    # build uniqe list of sorted artist names index
-    artists_index = [re.sub(r"[^a-zA-Z]", "0", i.name[0].upper()) for i in Artists.query.order_by(Artists.name).all()]
-    artists_index = sorted(set(artists_index))
+@main.route('/artists/<string:id>')
+@main.route('/artists/name/<string:name>')
+def artist_view(id=None, name=None):
+    if id is None and name is None:
+        return render_template('artists.html.j2')
+    elif id:
+        artist = Artists.query.get(id)
+    elif name:
+        artist = Artists.query.filter(func.lower(Artists.lastfm_name) == name.lower()) \
+                        .one_or_none()
 
-    if index not in artists_index:
-        abort(404)
-
-    # get artist objects matching index
-    index = index.upper()
-    if index == "0":
-        # didn't find a method to performe the filtering in db query, filter all NON(^) A-Z
-        artists = [a for a in Artists.query.all() if re.match(r"[^a-zA-Z]", a.name[0])]
-    else:
-        artists = Artists.query.order_by(Artists.name).filter(func.upper(Artists.name).startswith(index)).all()
-
-    return render_template('all_artists.html.jinja', artists=artists, index=index, index_list=artists_index)
+    return render_template('artist_info.html.j2', artist=artist)
 
 
 @main.route('/episodes')
 @main.route('/episodes/season/<int:season>')
-@main.route('/episodes/<int:episode_id>')
-def episode_view(episode_id=None, season=1):
-    if episode_id:
-        res = Episodes.query.get(episode_id)
-        if res is None:
+@main.route('/episodes/<int:id>')
+def episode_view(id=None, season=1):
+    if id:
+        episode = Episodes.query.get(id)
+        if episode is None:
             abort(404)
+        return render_template('episode_info.html.j2', episode=episode)
 
-        return render_template('episode.html.jinja', episode=res, prev=res.prev, next=res.next)
-
-    seasons = [1, 2, 3]
-    if season not in seasons:
+    elif season:
+        seasons = [1, 2, 3]
+        if season not in seasons:
+            abort(404)
+        episodes = Episodes.query.filter(Episodes.season == season).order_by(Episodes.id)
+        return render_template('episodes.html.j2', episodes=episodes, season=season, seasons=seasons)
+    else:
         abort(404)
-
-    episodes = Episodes.query.filter(Episodes.season == season).order_by(Episodes.id)
-    return render_template('all_episodes.html.jinja', episodes=episodes, season=season, seasons=seasons)
 
 
 @main.route('/about')
 def about():
-    return render_template('about.html.jinja')
+    return render_template('about.html.j2')
 
 
 @main.route('/')
@@ -92,6 +65,6 @@ def index():
         'episodes': "{:,}".format(Episodes.query.count()),
         'songs': "{:,}".format(Tracks.query.count()),
         'artists': "{:,}".format(Artists.query.count()),
-        'tags': "{:,}".format(Tags.query.count())
+        'genres': "{:,}".format(Tags.query.count())
     }
-    return render_template('index.html.jinja', stats=stats)
+    return render_template('index.html.j2', stats=stats)

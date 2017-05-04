@@ -1,0 +1,73 @@
+//================================================
+// Tracklist card
+//================================================
+
+#tracklist_placeholder {
+  .card-text {
+    width: 100px; // to allow span text to be cliped
+    span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .track-year {
+    color: $color-gray;
+  }
+
+  .track-artists {
+    /* seperator between multiple performers */
+    a:nth-child(1n+2)::before {
+      content: "/\00A0";
+      color: $color-black;
+    }
+  }
+
+  .track-actions {
+    flex: 0 0 3.3rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+  }
+
+  .track-preview {
+    @include play-pause-btn(2rem, $color-spotify-black, $color-spotify-green);
+
+    &[data-media-url=""] svg {
+      fill: lightgray;
+    }
+
+  }
+
+  .track-spotify {
+    @include svg-btn(1.15rem, lightgray);
+    margin: 10px 5px;
+
+    &:not([data-song-id=""]) {
+      svg {
+        fill: $color-spotify-green;
+      }
+    }
+  }
+
+}
+
+//================================================
+// Page specific
+//================================================
+
+#page.episode-info .tracklist {
+  .card-thumb { display: none; }
+}
+
+#page.artist-info .tracklist {
+  .card-number { display: none; }
+}
+
+#page.genre-info .tracklist {
+  .card-number { display: none; }
+}

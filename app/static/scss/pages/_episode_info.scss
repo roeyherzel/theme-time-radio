@@ -1,0 +1,33 @@
+//================================================
+// Episode Info
+//================================================
+
+#page.episode-info {
+
+  header {
+
+    h1 {
+      margin: 0;
+    }
+
+    p {
+      &:first-of-type {
+        font-size: 0.7em;
+        color: $color-gray;
+        text-transform: lowercase;
+      }
+    }
+
+    a {
+      text-decoration: underline;
+      font-size: 0.8em;
+      color: $color-light-salmon;
+    }
+
+    img {
+      @extend %img-responsive;
+    }
+
+  }
+
+}

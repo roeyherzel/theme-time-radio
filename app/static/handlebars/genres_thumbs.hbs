@@ -1,0 +1,12 @@
+<ul class="thumbnails">
+  {{#each genres}}
+  <li>
+    <a href="{{view}}">
+      <figure class="thumb">
+        <img src="/static/images/default-file.png" alt="">
+        <figcaption><span>{{name}}</span></figcaption>
+      </figure>
+    </a>
+  </li>
+  {{/each}}
+</ul>

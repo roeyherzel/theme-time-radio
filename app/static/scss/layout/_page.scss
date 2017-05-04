@@ -1,0 +1,41 @@
+//================================================
+// Page
+//================================================
+
+#page {
+  transition: opacity .3s;
+
+  header {
+    background: $color-black;
+    color: $color-white;
+    padding: 15px;
+    text-align: center;
+
+    h1 {
+      text-transform: capitalize;
+    }
+
+    img {
+      @extend %img-responsive;
+      margin: auto;
+    }
+
+    a {
+      text-transform: capitalize;
+      font-size: 0.8rem;
+    }
+  }
+
+  main {
+    max-width: $screen-max;
+    margin: auto;
+    background-color: $color-white-smoke;
+    color: $color-black;
+    padding: $padding-page-sides;
+
+    @media (min-width: $screen-desktop) {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+}

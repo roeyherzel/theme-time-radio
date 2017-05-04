@@ -1,0 +1,1128 @@
+/*==================================================
+  Input range slider
+==================================================*/
+/*--------------------------------------------------
+  Helpers
+--------------------------------------------------*/
+/*--------------------------------------------------
+  Main mixin got input button type range
+--------------------------------------------------*/
+#page header img, #page.artist-info header img, #page.episode-info header img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; }
+
+ul.tabs {
+  margin: -1rem; }
+
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Remove default margin.
+ */
+body {
+  margin: 0; }
+
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11
+ * and Firefox.
+ * Correct `block` display not defined for `main` in IE 11.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block; }
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
+ */
+[hidden],
+template {
+  display: none; }
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+a:active,
+a:hover {
+  outline: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold; }
+
+/**
+ * Address styling not present in Safari and Chrome.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+img {
+  border: 0; }
+
+/**
+ * Correct overflow not hidden in IE 9/10/11.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari.
+ */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0; }
+
+/**
+ * Contain overflow in all browsers.
+ */
+pre {
+  overflow: auto; }
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set.
+ */
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+  margin: 0;
+  /* 3 */ }
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10/11.
+ */
+button {
+  overflow: visible; }
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+ * Correct `select` style inheritance in Firefox.
+ */
+button,
+select {
+  text-transform: none; }
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */ }
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled],
+html input[disabled] {
+  cursor: default; }
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+input {
+  line-height: normal; }
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
+ *    (include `-moz` to future-proof).
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  /* 2 */
+  box-sizing: content-box; }
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+optgroup {
+  font-weight: bold; }
+
+/* Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+td,
+th {
+  padding: 0; }
+
+/* Lists
+   ========================================================================== */
+/**
+ * Remove default list styles, margins and padding.
+ */
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+* {
+  box-sizing: border-box; }
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem; }
+
+h1 {
+  font-family: "Open Sans", sans-serif; }
+
+h2
+h3,
+h4 {
+  font-family: "Open Sans", sans-serif; }
+
+a {
+  text-decoration: none;
+  color: royalblue; }
+
+.site-name {
+  margin: 0;
+  font-family: "Righteous", cursive;
+  font-weight: normal;
+  text-align: center;
+  font-size: 1rem;
+  color: white; }
+  .site-name span {
+    color: mediumaquamarine; }
+
+label {
+  cursor: pointer; }
+
+@media (min-width: 1024px) {
+  ul.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; } }
+@media (min-width: 1024px) {
+  ul.tabs li.tab:nth-of-type(1) {
+    flex: 0 0 100%; }
+  ul.tabs li.tab:nth-of-type(2) {
+    flex: 0 0 55%; }
+  ul.tabs li.tab:nth-of-type(3) {
+    flex: 0 0 45%; } }
+ul.tabs li.tab input[type=checkbox] {
+  display: none; }
+  ul.tabs li.tab input[type=checkbox]:checked ~ label::after {
+    transform: rotate(0deg); }
+  ul.tabs li.tab input[type=checkbox]:checked ~ section {
+    display: block; }
+ul.tabs li.tab label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: mediumaquamarine;
+  border-bottom: 1.5px solid #222222;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white; }
+  @media (min-width: 1024px) {
+    ul.tabs li.tab label {
+      justify-content: center;
+      color: #222222;
+      background: transparent;
+      border: none;
+      font-size: 1rem; } }
+  ul.tabs li.tab label::after {
+    content: "";
+    background: transparent url("../icons/arrow-down-outline.svg") center no-repeat;
+    width: 15px;
+    height: 15px;
+    transform: rotate(-90deg);
+    transition: transform .2s; }
+    @media (min-width: 1024px) {
+      ul.tabs li.tab label::after {
+        content: unset; } }
+ul.tabs li.tab section {
+  display: none;
+  padding: 15px;
+  color: #222222;
+  background: whitesmoke; }
+  @media (min-width: 1024px) {
+    ul.tabs li.tab section {
+      display: block;
+      margin: 0 1rem 2rem 1rem;
+      background: white;
+      border-radius: 10px; } }
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  height: 85px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0 0 1px black;
+  border-radius: 3px;
+  overflow: hidden;
+  background: white;
+  color: #222222; }
+  .card .card-number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 1.5rem;
+    height: 100%;
+    background: lightgray;
+    border-left: 1px solid rgba(0, 0, 0, 0.17); }
+    .card .card-number span {
+      width: 100%;
+      color: white;
+      text-align: center;
+      font-size: 0.7rem;
+      padding-top: 8px; }
+  .card .card-thumb {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex: 0 0 70px;
+    height: 100%; }
+    .card .card-thumb img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: top left; }
+    .card .card-thumb span.overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2); }
+  .card .card-text {
+    flex: 1 1;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column; }
+    .card .card-text span {
+      line-height: 2; }
+    .card .card-text .text-lg {
+      font-size: 0.85rem; }
+    .card .card-text .text-md {
+      font-size: 0.75rem; }
+    .card .card-text .text-sm {
+      font-size: 0.7rem; }
+
+ul.thumbnails {
+  display: flex;
+  flex-wrap: wrap; }
+  ul.thumbnails li {
+    margin: 5px; }
+  ul.thumbnails figure.thumb {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 120px; }
+    ul.thumbnails figure.thumb img {
+      height: 120px;
+      object-fit: cover;
+      object-position: top center; }
+    ul.thumbnails figure.thumb figcaption {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 2.5rem;
+      background: lightgray;
+      border-top: 1px solid whitesmoke;
+      text-transform: capitalize; }
+      ul.thumbnails figure.thumb figcaption span {
+        font-size: .7rem;
+        text-align: center;
+        padding: 4px 2px 6px 2px; }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    ul.thumbnails figure.thumb {
+      width: 110px; }
+      ul.thumbnails figure.thumb img {
+        height: 110px; } }
+  @media (min-width: 1440px) {
+    ul.thumbnails figure.thumb {
+      width: 150px; }
+      ul.thumbnails figure.thumb img {
+        height: 150px; } }
+
+#groups_nav {
+  position: relative;
+  width: 120px;
+  margin: auto;
+  margin-bottom: 1.75rem; }
+  @media (min-width: 1024px) {
+    #groups_nav {
+      width: 100%; } }
+  #groups_nav label[for="toggle_group_nav"] {
+    display: block;
+    padding: 3px;
+    background-color: #222222;
+    border-radius: 4px;
+    font-size: .9rem;
+    font-weight: lighter;
+    border: 1px solid white;
+    transition: all .2s; }
+    @media (min-width: 1024px) {
+      #groups_nav label[for="toggle_group_nav"] {
+        display: none; } }
+  #groups_nav input#toggle_group_nav {
+    display: none; }
+    #groups_nav input#toggle_group_nav:checked ~ nav {
+      z-index: 0; }
+    #groups_nav input#toggle_group_nav:checked ~ label {
+      margin: 0 -1rem;
+      box-shadow: 0 0 1px 1px white; }
+  #groups_nav nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: whitesmoke;
+    border: 1px solid #A0A0A0;
+    border-top: none;
+    z-index: -100;
+    transition: .2s; }
+    @media (min-width: 1024px) {
+      #groups_nav nav {
+        position: static;
+        background: transparent;
+        border: none; } }
+  #groups_nav ul {
+    display: flex;
+    flex-direction: column; }
+    @media (min-width: 1024px) {
+      #groups_nav ul {
+        flex-direction: row;
+        justify-content: center; } }
+  #groups_nav li {
+    border-bottom: 1px solid #A0A0A0; }
+    @media (min-width: 1024px) {
+      #groups_nav li {
+        border: none; } }
+  #groups_nav a {
+    display: block;
+    padding: 10px; }
+
+#groups section h2 {
+  border-bottom: 1px solid lightgray; }
+#groups section ul {
+  padding-left: 1rem;
+  font-size: .85rem; }
+#groups section li {
+  margin-bottom: .5rem; }
+#groups section a {
+  color: #222222;
+  text-transform: capitalize; }
+@media (min-width: 768px) {
+  #groups section ul {
+    display: flex;
+    flex-wrap: wrap; }
+  #groups section li {
+    flex: 0 0 40%; } }
+@media (min-width: 1440px) {
+  #groups section li {
+    flex: 0 0 30%; } }
+
+#tracklist_placeholder .card-text {
+  width: 100px; }
+  #tracklist_placeholder .card-text span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; }
+#tracklist_placeholder .track-year {
+  color: #A0A0A0; }
+#tracklist_placeholder .track-artists {
+  /* seperator between multiple performers */ }
+  #tracklist_placeholder .track-artists a:nth-child(1n+2)::before {
+    content: "/\00A0";
+    color: #222222; }
+#tracklist_placeholder .track-actions {
+  flex: 0 0 3.3rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px; }
+#tracklist_placeholder .track-preview {
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 2rem;
+  height: 2rem;
+  position: relative; }
+  #tracklist_placeholder .track-preview svg {
+    width: 2rem;
+    height: 2rem;
+    vertical-align: middle;
+    fill: #191414; }
+  #tracklist_placeholder .track-preview svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    fill: #191414; }
+    #tracklist_placeholder .track-preview svg.pause-icon {
+      opacity: 0;
+      fill: #2FD566; }
+  #tracklist_placeholder .track-preview[data-status=playing] .play-icon {
+    opacity: 0; }
+  #tracklist_placeholder .track-preview[data-status=playing] .pause-icon {
+    opacity: 1; }
+  #tracklist_placeholder .track-preview[data-status=paused] .play-icon {
+    opacity: 1; }
+  #tracklist_placeholder .track-preview[data-status=paused] .pause-icon {
+    opacity: 0; }
+  #tracklist_placeholder .track-preview[data-media-url=""] svg {
+    fill: lightgray; }
+#tracklist_placeholder .track-spotify {
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 10px 5px; }
+  #tracklist_placeholder .track-spotify svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    vertical-align: middle;
+    fill: lightgray; }
+  #tracklist_placeholder .track-spotify:not([data-song-id=""]) svg {
+    fill: #2FD566; }
+
+#page.episode-info .tracklist .card-thumb {
+  display: none; }
+
+#page.artist-info .tracklist .card-number {
+  display: none; }
+
+#page.genre-info .tracklist .card-number {
+  display: none; }
+
+#episode_player {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  color: #A0A0A0; }
+  #episode_player .eplayer-controls,
+  #episode_player .eplayer-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  #episode_player .eplayer-progress {
+    margin-top: 1rem; }
+  #episode_player .eplayer-playpause {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 70px;
+    height: 70px;
+    position: relative;
+    margin: 0 20px; }
+    #episode_player .eplayer-playpause svg {
+      width: 70px;
+      height: 70px;
+      vertical-align: middle;
+      fill: #A0A0A0; }
+    #episode_player .eplayer-playpause svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      fill: #A0A0A0; }
+      #episode_player .eplayer-playpause svg.pause-icon {
+        opacity: 0;
+        fill: white; }
+    #episode_player .eplayer-playpause[data-status=playing] .play-icon {
+      opacity: 0; }
+    #episode_player .eplayer-playpause[data-status=playing] .pause-icon {
+      opacity: 1; }
+    #episode_player .eplayer-playpause[data-status=paused] .play-icon {
+      opacity: 1; }
+    #episode_player .eplayer-playpause[data-status=paused] .pause-icon {
+      opacity: 0; }
+  #episode_player .eplayer-prev {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 30px;
+    height: 30px; }
+    #episode_player .eplayer-prev svg {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+      fill: #A0A0A0; }
+  #episode_player .eplayer-next {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 30px;
+    height: 30px; }
+    #episode_player .eplayer-next svg {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+      fill: #A0A0A0; }
+  #episode_player .eplayer-current,
+  #episode_player .eplayer-duration {
+    font-size: 0.625rem; }
+  #episode_player .eplayer-bars {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background: #3F3F3F;
+    border-radius: 6px;
+    margin: 0 10px; }
+  #episode_player progress, #episode_player input[type=range] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+  #episode_player .eplayer-played-input {
+    -webkit-appearance: none;
+    background: transparent; }
+    #episode_player .eplayer-played-input::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: transparent;
+      border-radius: 1.3px; }
+    #episode_player .eplayer-played-input::-moz-range-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: transparent;
+      border-radius: 1.3px; }
+    #episode_player .eplayer-played-input::-ms-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: transparent;
+      border-radius: 1.3px; }
+    #episode_player .eplayer-played-input::-ms-fill-lower {
+      background: transparent; }
+    #episode_player .eplayer-played-input::-ms-fill-upper {
+      background: transparent; }
+    #episode_player .eplayer-played-input::-webkit-slider-thumb {
+      height: 14px;
+      width: 14px;
+      margin-top: -5px;
+      background: gray;
+      cursor: pointer;
+      border-radius: 100%;
+      -webkit-appearance: none; }
+    #episode_player .eplayer-played-input::-moz-range-thumb {
+      height: 14px;
+      width: 14px;
+      margin-top: -5px;
+      background: gray;
+      cursor: pointer;
+      border-radius: 100%; }
+    #episode_player .eplayer-played-input::-ms-thumb {
+      height: 14px;
+      width: 14px;
+      margin-top: -5px;
+      background: gray;
+      cursor: pointer;
+      border-radius: 100%; }
+    #episode_player .eplayer-played-input:focus {
+      outline: none; }
+      #episode_player .eplayer-played-input:focus::-webkit-slider-runnable-track {
+        background: transparent; }
+      #episode_player .eplayer-played-input:focus::-ms-fill-lower {
+        background: transparent; }
+      #episode_player .eplayer-played-input:focus::-ms-fill-upper {
+        background: transparent; }
+  #episode_player .eplayer-played-bar {
+    width: 100%;
+    height: 100%;
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Firefox */
+    border: none;
+    background: transparent;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset; }
+    #episode_player .eplayer-played-bar::-webkit-progress-bar {
+      background: transparent;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+      border-radius: 3px; }
+    #episode_player .eplayer-played-bar::-webkit-progress-value {
+      background-color: red;
+      border-radius: 3px; }
+    #episode_player .eplayer-played-bar::-moz-progress-bar {
+      background-color: red;
+      border-radius: 3px; }
+  #episode_player .eplayer-buffered-bar {
+    width: 100%;
+    height: 100%;
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Firefox */
+    border: none;
+    background: transparent;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset; }
+    #episode_player .eplayer-buffered-bar::-webkit-progress-bar {
+      background: transparent;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+      border-radius: 3px; }
+    #episode_player .eplayer-buffered-bar::-webkit-progress-value {
+      background-color: rgba(160, 160, 160, 0.3);
+      border-radius: 3px; }
+    #episode_player .eplayer-buffered-bar::-moz-progress-bar {
+      background-color: rgba(160, 160, 160, 0.3);
+      border-radius: 3px; }
+
+#main_wrapper {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: whitesmoke;
+  overflow: hidden; }
+
+#main_wrapper > header {
+  background-color: #222222; }
+
+#header_wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid #424242;
+  padding: 20px; }
+  @media (min-width: 1024px) {
+    #header_wrapper {
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      border: none; } }
+  #header_wrapper label {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1.5rem;
+    height: 100%;
+    width: unset;
+    display: flex;
+    align-items: center;
+    transition: background .3s; }
+    #header_wrapper label svg {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      fill: white; }
+    @media (min-width: 1024px) {
+      #header_wrapper label {
+        display: none; } }
+  #header_wrapper nav {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform .3s;
+    background: #222222;
+    border-top: 1px solid #424242;
+    padding: 1rem; }
+    @media (min-width: 1024px) {
+      #header_wrapper nav {
+        position: static;
+        display: flex;
+        flex: 0 0;
+        border: none;
+        transform: none;
+        transition: none;
+        padding: 0; } }
+    #header_wrapper nav a {
+      padding: .8rem 1rem;
+      display: block;
+      color: mediumaquamarine;
+      font-weight: lighter; }
+
+input#mobile_nav {
+  display: none; }
+  input#mobile_nav:checked ~ header label {
+    background: lightgray; }
+    input#mobile_nav:checked ~ header label svg {
+      fill: #222222; }
+  input#mobile_nav:checked ~ header nav {
+    transform: translateX(0); }
+  input#mobile_nav:checked ~ #page {
+    opacity: 0.2; }
+
+#page {
+  transition: opacity .3s; }
+  #page header {
+    background: #222222;
+    color: white;
+    padding: 15px;
+    text-align: center; }
+    #page header h1 {
+      text-transform: capitalize; }
+    #page header img {
+      margin: auto; }
+    #page header a {
+      text-transform: capitalize;
+      font-size: 0.8rem; }
+  #page main {
+    max-width: 1440px;
+    margin: auto;
+    background-color: whitesmoke;
+    color: #222222;
+    padding: 1rem; }
+    @media (min-width: 1024px) {
+      #page main {
+        margin-top: 2rem;
+        margin-bottom: 2rem; } }
+
+#main_wrapper > footer {
+  background-color: #222222;
+  margin: 0;
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  color: whitesmoke;
+  font-size: .85rem; }
+
+#page.artist-info header h1 {
+  margin-bottom: 10px; }
+#page.artist-info header img {
+  margin-top: 1rem;
+  border-radius: 100%; }
+
+ul#artist_tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2px 0 30px 0;
+  border-top: 1px solid #424242; }
+  ul#artist_tags li {
+    margin: 2px 5px;
+    text-decoration: underline; }
+  ul#artist_tags a {
+    color: lightsalmon; }
+
+#page.artists header .thumbnails {
+  justify-content: center; }
+
+#page.episode-info header h1 {
+  margin: 0; }
+#page.episode-info header p:first-of-type {
+  font-size: 0.7em;
+  color: #A0A0A0;
+  text-transform: lowercase; }
+#page.episode-info header a {
+  text-decoration: underline;
+  font-size: 0.8em;
+  color: lightsalmon; }
+
+#page.episodes header p {
+  color: salmon;
+  font-weight: lighter; }
+#page.episodes header ul.seasons {
+  display: flex;
+  justify-content: center; }
+  #page.episodes header ul.seasons li {
+    flex: 1 1;
+    max-width: 120px;
+    margin: 0 5px; }
+  #page.episodes header ul.seasons a {
+    display: block;
+    padding: 5px;
+    color: salmon;
+    border: 1px solid salmon;
+    border-radius: 3px; }
+    #page.episodes header ul.seasons a.selected {
+      background: salmon;
+      border: 1px solid white;
+      box-shadow: 0 0 0.5px 0.5px salmon;
+      color: #222222; }
+#page.episodes main ul.episode-cards {
+  display: flex;
+  flex-direction: column; }
+  @media (min-width: 768px) {
+    #page.episodes main ul.episode-cards {
+      flex-direction: row;
+      flex-wrap: wrap; } }
+  @media (min-width: 768px) {
+    #page.episodes main ul.episode-cards li {
+      flex: 1 1 40%;
+      margin: 0 10px; } }
+  @media (min-width: 1024px) {
+    #page.episodes main ul.episode-cards li {
+      flex: 1 1 30%; } }
+#page.episodes main .card .aired {
+  font-style: italic;
+  color: #A0A0A0;
+  overflow: hidden; }
+
+@media (min-width: 1024px) {
+  #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {
+    flex: 0 0 100%; }
+  #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
+    flex: 1 1; }
+  #page.home #episodes_placeholder .thumbnails {
+    justify-content: space-around; } }
+#page.home header img {
+  margin-top: 2rem; }
+#page.home header .site-name {
+  font-size: 2rem;
+  margin: 1rem 0; }
+#page.home header p.pitch {
+  color: lightsalmon;
+  font-weight: lighter; }
+  #page.home header p.pitch span {
+    display: block;
+    font-style: italic; }
+#page.home main blockquote {
+  margin: 0;
+  font-size: .9rem; }
+  #page.home main blockquote footer {
+    margin-top: .5rem;
+    margin-left: .5rem; }
+
+/*# sourceMappingURL=app.css.map */

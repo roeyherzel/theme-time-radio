@@ -1,0 +1,20 @@
+{% extends "layout.html.j2" %}
+
+{% block page_content %}
+  <div id="page" class="genres">
+    <header>
+      <h1>Genres</h1>
+      <div id="groups_nav"></div>
+    </header>
+
+    <main>
+      <div id="groups"></div>
+    </main>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+  <script type="text/javascript">
+    Pages.Genres();
+  </script>
+{% endblock %}
