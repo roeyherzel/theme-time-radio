@@ -150,7 +150,7 @@ App.lastFM = (function() {
       method: method + '.getinfo',
     };
     data[method] = resource;
-    return $.getJSON('http://ws.audioscrobbler.com/2.0/', data);
+    return $.getJSON('https://ws.audioscrobbler.com/2.0/', data);
   };
 
   const getArtistInfo = (artist) => _get('artist', artist);
