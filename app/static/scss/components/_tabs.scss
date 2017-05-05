@@ -17,10 +17,10 @@ ul.tabs {
         flex: 0 0 100%;
       }
       &:nth-of-type(2) {
-        flex: 0 0 55%;
+        flex: 2 2;
       }
       &:nth-of-type(3) {
-        flex: 0 0 45%;
+        flex: 1 1;
       }
     }
 

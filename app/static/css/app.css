@@ -425,9 +425,9 @@ label {
   ul.tabs li.tab:nth-of-type(1) {
     flex: 0 0 100%; }
   ul.tabs li.tab:nth-of-type(2) {
-    flex: 0 0 55%; }
+    flex: 2 2; }
   ul.tabs li.tab:nth-of-type(3) {
-    flex: 0 0 45%; } }
+    flex: 1 1; } }
 ul.tabs li.tab input[type=checkbox] {
   display: none; }
   ul.tabs li.tab input[type=checkbox]:checked ~ label::after {
@@ -534,7 +534,8 @@ ul.tabs li.tab section {
 
 ul.thumbnails {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  justify-content: center; }
   ul.thumbnails li {
     margin: 5px; }
   ul.thumbnails figure.thumb {
@@ -546,35 +547,29 @@ ul.thumbnails {
       height: 120px;
       object-fit: cover;
       object-position: top center; }
-    ul.thumbnails figure.thumb figcaption {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 2.5rem;
-      background: lightgray;
-      border-top: 1px solid whitesmoke;
-      text-transform: capitalize; }
-      ul.thumbnails figure.thumb figcaption span {
-        font-size: .7rem;
-        text-align: center;
-        padding: 4px 2px 6px 2px; }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    ul.thumbnails figure.thumb {
-      width: 110px; }
-      ul.thumbnails figure.thumb img {
-        height: 110px; } }
-  @media (min-width: 1440px) {
-    ul.thumbnails figure.thumb {
-      width: 150px; }
-      ul.thumbnails figure.thumb img {
-        height: 150px; } }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      ul.thumbnails figure.thumb {
+        width: 110px; }
+        ul.thumbnails figure.thumb img {
+          height: 110px; } }
+  ul.thumbnails figcaption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 2.5rem;
+    background: lightgray;
+    border-top: 1px solid whitesmoke;
+    text-transform: capitalize; }
+    ul.thumbnails figcaption span {
+      font-size: .7rem;
+      text-align: center;
+      padding: 4px 2px 6px 2px; }
 
 #groups_nav {
   position: relative;
   width: 120px;
-  margin: auto;
-  margin-bottom: 1.75rem; }
+  margin: auto; }
   @media (min-width: 1024px) {
     #groups_nav {
       width: 100%; } }
@@ -920,7 +915,7 @@ ul.thumbnails {
   background-color: #222222; }
 
 #header_wrapper {
-  max-width: 1440px;
+  max-width: 1024px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -1004,12 +999,13 @@ input#mobile_nav {
     #page header h1 {
       text-transform: capitalize; }
     #page header img {
-      margin: auto; }
+      margin: auto;
+      margin-top: 2rem; }
     #page header a {
       text-transform: capitalize;
       font-size: 0.8rem; }
   #page main {
-    max-width: 1440px;
+    max-width: 1024px;
     margin: auto;
     background-color: whitesmoke;
     color: #222222;
@@ -1017,7 +1013,8 @@ input#mobile_nav {
     @media (min-width: 1024px) {
       #page main {
         margin-top: 2rem;
-        margin-bottom: 2rem; } }
+        margin-bottom: 2rem;
+        padding: 2rem; } }
 
 #main_wrapper > footer {
   background-color: #222222;
