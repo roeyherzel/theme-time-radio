@@ -793,7 +793,7 @@ ul.thumbnails {
   #episode_player .eplayer-bars {
     position: relative;
     width: 100%;
-    height: 3px;
+    height: 5px;
     background: #3F3F3F;
     border-radius: 6px;
     margin: 0 10px; }

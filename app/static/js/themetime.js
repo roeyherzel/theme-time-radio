@@ -184,9 +184,8 @@ App.episodePlayer = (function() {
 
     init: function() {
       const $player  = $('#episode_player');
-      const url      = $player.attr('data-media-url');
 
-      if ($player && url) {
+      if ($player) {
         this.$duration     = $player.find(".eplayer-duration");
         this.$current      = $player.find(".eplayer-current");
         this.$bufferedBar  = $player.find(".eplayer-buffered-bar");
@@ -194,9 +193,7 @@ App.episodePlayer = (function() {
         this.$playedInput  = $player.find(".eplayer-played-input");
         this.$playPauseBtn = $player.find(".eplayer-playpause");
 
-        this.url = $player.attr('data-media-url');
-        this.audio = new Audio(this.url);
-
+        this.audio = $player.find('audio').get(0);
         this.bindUIAction();
         return this.audio;
       }
@@ -212,9 +209,13 @@ App.episodePlayer = (function() {
       this.audio.addEventListener('timeupdate'    , this.onTimeUpdate);
       this.audio.addEventListener('play'          , this.onPlay);
       this.audio.addEventListener('pause'         , this.onPause);
+      this.audio.addEventListener('seeking'       , this.onSeeking);
+      this.audio.addEventListener('seeked'        , this.onSeeked);
 
       this.$playPauseBtn.on('click', this.toggolePlayPause);
+      this.$playedInput.on('change' , this.onSkip);
       this.$playedInput.on('input' , this.onSkip);
+
     },
 
     onDataLoad: function(event) {
@@ -236,9 +237,17 @@ App.episodePlayer = (function() {
       Media.$current.text(formatTime(event.target.currentTime));
     },
 
+    onSeeking: function(event) {
+      Media.audio.pause();
+    },
+
+    onSeeked: function(event) {
+      Media.audio.play();
+    },
+
     onSkip: function(event) {
-      Media.$current.text(formatTime(event.target.value));
       Media.audio.currentTime = event.target.value;
+      Media.$current.text(formatTime(event.target.value));
     },
 
     onPlay: function(event) {

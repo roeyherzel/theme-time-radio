@@ -12,7 +12,8 @@
         </p>
       </div>
 
-      <div id="episode_player" data-media-url="{{episode.media}}">
+      <div id="episode_player">
+        <audio src="{{episode.media}}"></audio>
         <div class="eplayer-controls">
           <a class="eplayer-prev" {% if episode.prev %} href="{{episode.prev}}" {% else %} href="#" disabled {% endif %}>
             <svg viewBox="0 0 237.947 237.947">
