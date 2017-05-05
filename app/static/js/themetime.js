@@ -185,7 +185,7 @@ App.episodePlayer = (function() {
     init: function() {
       const $player  = $('#episode_player');
 
-      if ($player) {
+      if ($player.length) {
         this.$duration     = $player.find(".eplayer-duration");
         this.$current      = $player.find(".eplayer-current");
         this.$bufferedBar  = $player.find(".eplayer-buffered-bar");
