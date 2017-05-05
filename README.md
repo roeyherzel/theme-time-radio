@@ -1,0 +1,85 @@
+# Theme Time Radio
+
+Podcast website for "Theme Time Radio Hour" with Bob Dylan.
+
+[https://theme-time-radio.herokuapp.com/](https://theme-time-radio.herokuapp.com/)
+
+
+
+## Objective
+
+Create a Podcast website for the show "Theme Time Radio Hour". The site will also act as a music library out of all the songs and artists that were played on.
+
+
+
+## Features
+
+* Stream Podcast episodes
+* Play 30 seconds preview of episode songs
+* Stream episode songs with Spotify player
+* Discover artists biography
+* Discover artists genres
+
+
+
+## Technologies Used
+
+### Back-End
+
+
+
+#### Web Server
+
+Using Python Flask I have implemented a web server that would serve `jinja` templated. I also implemented API endpoint using `flask_restful` that would server data from my database in the form of `JSON`.
+
+#### Database
+
+Using Python `sqlalchemy` to create a model for storing information I am going to collect.
+
+**Models**
+
+- Episodes
+- Tracks
+- Tags / Genres
+- Songs
+- Artists
+
+#### Web Scrapping
+
+Using Python `BeautifulSoup` package, I created scripts that scrapped the following websites to get information about the episodes. The information is then stored in the database.
+
+**[Wikipedia.org]( https://en.wikipedia.org/wiki/Theme_Time_Radio_Hour)**
+
+* Number
+* Season
+* Title
+* Aired date
+* Tracklist
+
+**[ThemeTimeRadioHour.com](http://www.themetimeradio.com)**
+
+* Poster image
+* Description
+* Audio url
+
+#### Music Tagger
+
+Using Python `requests` package I created a script that queries [Spotify](https://developer.spotify.com/web-api/) and [LastFM](http://www.last.fm/api) APIs. The purpose of the script is to gather information about the "raw" scrapped tracks.
+
+The information is then stored in the database and referenced to each track.
+
+
+
+### Front-End
+
+#### Styling
+
+Implemented using `Sass`
+
+#### JavaScript
+
+* Used `Handlebars.js` to render repetitive components. Mostly used for rendering response data from APIs.
+* Used `jQuery` to communicate with Theme-Time API and LastFM API.
+* Used `Underscore.js` module for different data manipulation techniques.
+* Created custom HTML5 `<audio>` tag controls for episode player.
+
