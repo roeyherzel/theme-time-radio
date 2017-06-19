@@ -8,7 +8,7 @@ Podcast website for "Theme Time Radio Hour" with Bob Dylan.
 
 ## Objective
 
-Create a Podcast website for the show "Theme Time Radio Hour". The site will also act as a music library out of all the songs and artists that were played on.
+Create a Podcast website for the "Theme Time Radio Hour". The site will also act as a music library so users can navigate between episodes, artists and genres.
 
 
 
@@ -26,21 +26,22 @@ Create a Podcast website for the show "Theme Time Radio Hour". The site will als
 
 ### Back-End
 
-
-
 #### Web Server
 
-Using Python Flask I have implemented a web server that would serve `jinja` templated. I also implemented API endpoint using `flask_restful` that would server data from my database in the form of `JSON`.
+Using Python Flask I have implemented:
+
+*  Web server that serves `jinja` templated
+* API endpoint using `flask_restful` that would server data from my database in `JSON` format.
 
 #### Database
 
-Using Python `sqlalchemy` to create a model for storing information I am going to collect.
+Used Python `sqlalchemy` to create a model for storing information I am going to collect.
 
 **Models**
 
 - Episodes
 - Tracks
-- Tags / Genres
+- Genres
 - Songs
 - Artists
 
@@ -74,12 +75,12 @@ The information is then stored in the database and referenced to each track.
 
 #### Styling
 
-Implemented using `Sass`
+Implemented using `Sass` in a mobile first responsive design.
 
 #### JavaScript
 
 * Used `Handlebars.js` to render repetitive components. Mostly used for rendering response data from APIs.
-* Used `jQuery` to communicate with Theme-Time API and LastFM API.
+* Used `jQuery` to communicate with my API and LastFM API.
 * Used `Underscore.js` module for different data manipulation techniques.
 * Created custom HTML5 `<audio>` tag controls for episode player.
 
