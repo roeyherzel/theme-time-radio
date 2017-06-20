@@ -41,7 +41,5 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript">
-    Pages.ArtistInfo();
-  </script>
+  <script type="text/javascript" src="{{ url_for('static', filename='pages/artist_info.bundle.js')}}"></script>
 {% endblock %}

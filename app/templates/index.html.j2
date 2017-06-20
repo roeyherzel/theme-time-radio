@@ -51,7 +51,5 @@
 {% endblock %}
 
 {% block page_scripts %}
-<script type="text/javascript">
-  Pages.home();
-</script>
+<script type="text/javascript" src="{{ url_for('static', filename='pages/home.bundle.js')}}"></script>
 {% endblock %}
