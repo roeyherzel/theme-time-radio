@@ -14,7 +14,11 @@ node_modules/
 tagging.log
 output.log
 
-
 # Sass
 # ----
 app/static/.sass-cache/
+
+
+# build
+# -----
+app/static/pages
