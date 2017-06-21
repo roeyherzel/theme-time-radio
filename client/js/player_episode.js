@@ -1,7 +1,7 @@
 /* -------------------------------
  * Episode Player
- * -------------------------------
- */
+ * -------------------------------*/
+
 
 const formatTime = (seconds) => {
     let minutes, minutes_float;
@@ -15,94 +15,91 @@ const formatTime = (seconds) => {
     return minutes + ':' + seconds;
 };
 
-const Media = {
-    init: function () {
-        const $player = $('#episode_player');
+class Media {
+    constructor($player) {
+        this.$duration     = $player.find(".eplayer-duration");
+        this.$current      = $player.find(".eplayer-current");
+        this.$bufferedBar  = $player.find(".eplayer-buffered-bar");
+        this.$playedBar    = $player.find(".eplayer-played-bar");
+        this.$playedInput  = $player.find(".eplayer-played-input");
+        this.$playPauseBtn = $player.find(".eplayer-playpause");
 
-        if ($player.length) {
-            this.$duration = $player.find(".eplayer-duration");
-            this.$current = $player.find(".eplayer-current");
-            this.$bufferedBar = $player.find(".eplayer-buffered-bar");
-            this.$playedBar = $player.find(".eplayer-played-bar");
-            this.$playedInput = $player.find(".eplayer-played-input");
-            this.$playPauseBtn = $player.find(".eplayer-playpause");
+        this.audio = $player.find('audio').get(0);
+        this.bindUIAction();
+    }
 
-            this.audio = $player.find('audio').get(0);
-            this.bindUIAction();
-            return this.audio;
-        }
-    },
+    bindUIAction() {
+        this.audio.addEventListener('loadedmetadata', (e) => this.onDataLoad(e));
+        this.audio.addEventListener('loadeddata', (e)     => this.onDataLoad(e));
+        this.audio.addEventListener('loadstart', (e)      => this.onBuffering(e));
+        this.audio.addEventListener('loadeddata', (e)     => this.onBuffering(e));
+        this.audio.addEventListener('progress', (e)       => this.onBuffering(e));
+        this.audio.addEventListener('timeupdate', (e)     => this.onTimeUpdate(e));
+        this.audio.addEventListener('play', ()            => this.onPlay());
+        this.audio.addEventListener('pause', ()           => this.onPause());
+        this.audio.addEventListener('seeking', ()         => this.onSeeking());
+        this.audio.addEventListener('seeked', ()          => this.onSeeked());
 
-    bindUIAction: function () {
-        this.audio.addEventListener('loadedmetadata', this.onDataLoad);
-        this.audio.addEventListener('loadeddata', this.onDataLoad);
-        this.audio.addEventListener('loadstart', this.onBuffering);
-        this.audio.addEventListener('loadeddata', this.onBuffering);
-        this.audio.addEventListener('progress', this.onBuffering);
-        this.audio.addEventListener('timeupdate', this.onTimeUpdate);
-        this.audio.addEventListener('play', this.onPlay);
-        this.audio.addEventListener('pause', this.onPause);
-        this.audio.addEventListener('seeking', this.onSeeking);
-        this.audio.addEventListener('seeked', this.onSeeked);
+        this.$playPauseBtn.on('click', ()  => this.toggolePlayPause());
+        this.$playedInput.on('change', (e) => this.onSkip(e));
+        this.$playedInput.on('input', (e)  => this.onSkip(e));
+    }
 
-        this.$playPauseBtn.on('click', this.toggolePlayPause);
-        this.$playedInput.on('change', this.onSkip);
-        this.$playedInput.on('input', this.onSkip);
+    onDataLoad(e) {
+        this.$playedBar.prop('max', e.target.duration);
+        this.$playedInput.prop('max', e.target.duration);
+        this.$bufferedBar.prop('max', e.target.duration);
+        this.$duration.text(formatTime(e.target.duration));
+    }
 
-    },
-
-    onDataLoad: function (event) {
-        Media.$playedBar.prop('max', event.target.duration);
-        Media.$playedInput.prop('max', event.target.duration);
-        Media.$bufferedBar.prop('max', event.target.duration);
-        Media.$duration.text(formatTime(event.target.duration));
-    },
-
-    onBuffering: function (event) {
-        if (event.target.buffered.length) {
-            Media.$bufferedBar.prop('value', event.target.buffered.end(0));
-        }
-    },
-
-    onTimeUpdate: function (event) {
-        Media.$playedBar.prop('value', event.target.currentTime);
-        Media.$playedInput.prop('value', event.target.currentTime);
-        Media.$current.text(formatTime(event.target.currentTime));
-    },
-
-    onSeeking: function (event) {
-        Media.audio.pause();
-    },
-
-    onSeeked: function (event) {
-        Media.audio.play();
-    },
-
-    onSkip: function (event) {
-        Media.audio.currentTime = event.target.value;
-        Media.$current.text(formatTime(event.target.value));
-    },
-
-    onPlay: function (event) {
-        Media.$playPauseBtn.attr('data-status', 'playing');
-    },
-
-    onPause: function (event) {
-        Media.$playPauseBtn.attr('data-status', 'paused');
-    },
-
-    toggolePlayPause: function (event) {
-        if (Media.audio.paused) {
-            Media.audio.play();
-        } else {
-            Media.audio.pause();
+    onBuffering(e) {
+        if (e.target.buffered.length) {
+            this.$bufferedBar.prop('value', e.target.buffered.end(0));
         }
     }
 
+    onTimeUpdate(e) {
+        this.$playedBar.prop('value', e.target.currentTime);
+        this.$playedInput.prop('value', e.target.currentTime);
+        this.$current.text(formatTime(e.target.currentTime));
+    }
+
+    onSkip(e) {
+        this.audio.currentTime = e.target.value;
+        this.$current.text(formatTime(e.target.value));
+    }
+
+    onSeeking() {
+        this.audio.pause();
+    }
+
+    onSeeked() {
+        this.audio.play();
+    }
+
+    onPlay() {
+        this.$playPauseBtn.attr('data-status', 'playing');
+    }
+
+    onPause() {
+        this.$playPauseBtn.attr('data-status', 'paused');
+    }
+
+    toggolePlayPause() {
+        if (this.audio.paused) {
+            this.audio.play();
+        } else {
+            this.audio.pause();
+        }
+    }
 };
 
 const init = () => {
-    Media.init();
+    const $player = $('#episode_player');
+    if ($player.length) {
+        const media = new Media($player);
+        return media;
+    }
 };
 
 export default init;

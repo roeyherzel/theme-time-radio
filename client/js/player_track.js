@@ -3,8 +3,8 @@
  * -------------------------------*/
 
 const cachedAudio = new Map();
-const getAudio = (previewBtn) => {
 
+const getAudio = (previewBtn) => {
     if (cachedAudio.has(previewBtn)) {
         return cachedAudio.get(previewBtn);
     } else {
@@ -53,4 +53,4 @@ const init = () => {
 };
 
 
-export default { init };
+export default init;

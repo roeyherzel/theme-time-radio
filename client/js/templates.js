@@ -18,7 +18,7 @@ const _renderHbs = (file, data, ph) => {
 const renderTracks = (tracks, ph = '#tracklist_placeholder') => {
     return _renderHbs('track_cards', tracks, ph)
         .then((tracks) => {
-            trackPlayer.init();
+            trackPlayer();
             return tracks; // returning data for chaining more promises
         });
 };
