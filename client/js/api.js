@@ -1,8 +1,8 @@
 /* -------------------------
  * theme-time web server API
  * -------------------------*/
+import $ from 'jquery'
 
-// TODO: import jQuery
 const _get = (path, params) => $.getJSON(path, params);
 
 const getEpisodes      = (params) => _get('/api/episodes', params);
@@ -25,7 +25,7 @@ const getArtistByLastfm = (lastfmName) => {
 };
 
 // Exports
-export default {
+export {
     getEpisodes,
     getEpisodeTracks,
     getArtists,

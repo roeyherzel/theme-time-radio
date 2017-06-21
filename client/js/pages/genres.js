@@ -1,4 +1,4 @@
-import { Genres } from '../js/app';
+import { Genres } from '../app';
 
 ! function () {
     Genres.renderGroups();

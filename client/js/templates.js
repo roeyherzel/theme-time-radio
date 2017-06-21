@@ -1,10 +1,11 @@
-import trackPlayer from './player_track';
-
-// TODO: import Handlebars and jQuery
-
 /*--------------------------------------------------------------------------------------
  Handlebars templates rendering 
 --------------------------------------------------------------------------------------*/
+import $ from 'jquery'
+import _ from 'underscore'
+import Handlebars from 'handlebars';
+import trackPlayer from './player_track';
+
 // Get Handlbars template from server and render template with givien data
 const _renderHbs = (file, data, ph) => {
     if (!$(ph).length) console.error("placeholder not found:", ph, $(ph));
@@ -84,7 +85,7 @@ const renderGroups = (data) => {
 };
 
 // Exports
-export default {
+export {
     renderTracks,
     renderThumbs,
     renderArtistBio,

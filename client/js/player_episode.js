@@ -1,7 +1,7 @@
 /* -------------------------------
  * Episode Player
  * -------------------------------*/
-
+import $ from 'jquery'
 
 const formatTime = (seconds) => {
     let minutes, minutes_float;

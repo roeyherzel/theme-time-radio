@@ -1,7 +1,7 @@
 /* ----------
  * LastFM API
  * ----------*/
-
+import $ from 'jquery'
 
 const _get = (method, resource) => {
     const data = {
@@ -17,7 +17,7 @@ const getArtistInfo = (artist) => _get('artist', artist);
 const getGenreInfo  = (genre)  => _get('tag', genre);
 
 // Exports
-export default {
+export {
     getArtistInfo,
     getGenreInfo
 };

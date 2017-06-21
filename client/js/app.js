@@ -1,6 +1,8 @@
-import API from './api';
-import LastFM from './lastfm';
-import Templates from './templates';
+import $ from 'jquery'
+import _ from 'underscore'
+import * as API from './api';
+import * as LastFM from './lastfm';
+import * as Templates from './templates';
 
 
 const Episodes = {

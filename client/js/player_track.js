@@ -1,6 +1,7 @@
 /* -------------------------------
  * Track Player
  * -------------------------------*/
+import $ from 'jquery'
 
 const cachedAudio = new Map();
 

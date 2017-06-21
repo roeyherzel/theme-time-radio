@@ -1,4 +1,4 @@
-import { Episodes, Artists, Genres } from '../js/app';
+import { Episodes, Artists, Genres } from '../app';
 
 ! function () {
     Episodes.renderThumbs({limit: 6});

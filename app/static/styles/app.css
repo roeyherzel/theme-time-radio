@@ -394,8 +394,7 @@ body {
 h1 {
   font-family: "Open Sans", sans-serif; }
 
-h2
-h3,
+h2 h3,
 h4 {
   font-family: "Open Sans", sans-serif; }
 
@@ -421,6 +420,7 @@ label {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; } }
+
 @media (min-width: 1024px) {
   ul.tabs li.tab:nth-of-type(1) {
     flex: 0 0 100%; }
@@ -428,12 +428,14 @@ label {
     flex: 2 2; }
   ul.tabs li.tab:nth-of-type(3) {
     flex: 1 1; } }
+
 ul.tabs li.tab input[type=checkbox] {
   display: none; }
   ul.tabs li.tab input[type=checkbox]:checked ~ label::after {
     transform: rotate(0deg); }
   ul.tabs li.tab input[type=checkbox]:checked ~ section {
     display: block; }
+
 ul.tabs li.tab label {
   display: flex;
   justify-content: space-between;
@@ -462,6 +464,7 @@ ul.tabs li.tab label {
     @media (min-width: 1024px) {
       ul.tabs li.tab label::after {
         content: unset; } }
+
 ul.tabs li.tab section {
   display: none;
   padding: 15px;
@@ -625,20 +628,25 @@ ul.thumbnails {
 
 #groups section h2 {
   border-bottom: 1px solid lightgray; }
+
 #groups section ul {
   padding-left: 1rem;
   font-size: .85rem; }
+
 #groups section li {
   margin-bottom: .5rem; }
+
 #groups section a {
   color: #222222;
   text-transform: capitalize; }
+
 @media (min-width: 768px) {
   #groups section ul {
     display: flex;
     flex-wrap: wrap; }
   #groups section li {
     flex: 0 0 40%; } }
+
 @media (min-width: 1440px) {
   #groups section li {
     flex: 0 0 30%; } }
@@ -649,13 +657,16 @@ ul.thumbnails {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap; }
+
 #tracklist_placeholder .track-year {
   color: #A0A0A0; }
+
 #tracklist_placeholder .track-artists {
   /* seperator between multiple performers */ }
   #tracklist_placeholder .track-artists a:nth-child(1n+2)::before {
     content: "/\00A0";
     color: #222222; }
+
 #tracklist_placeholder .track-actions {
   flex: 0 0 3.3rem;
   height: 100%;
@@ -664,6 +675,7 @@ ul.thumbnails {
   justify-content: center;
   align-items: center;
   padding: 4px; }
+
 #tracklist_placeholder .track-preview {
   padding: 0;
   border: none;
@@ -695,6 +707,7 @@ ul.thumbnails {
     opacity: 0; }
   #tracklist_placeholder .track-preview[data-media-url=""] svg {
     fill: lightgray; }
+
 #tracklist_placeholder .track-spotify {
   padding: 0;
   border: none;
@@ -1027,6 +1040,7 @@ input#mobile_nav {
 
 #page.artist-info header h1 {
   margin-bottom: 10px; }
+
 #page.artist-info header img {
   margin-top: 1rem;
   border-radius: 100%; }
@@ -1048,10 +1062,12 @@ ul#artist_tags {
 
 #page.episode-info header h1 {
   margin: 0; }
+
 #page.episode-info header p:first-of-type {
   font-size: 0.7em;
   color: #A0A0A0;
   text-transform: lowercase; }
+
 #page.episode-info header a {
   text-decoration: underline;
   font-size: 0.8em;
@@ -1060,6 +1076,7 @@ ul#artist_tags {
 #page.episodes header p {
   color: salmon;
   font-weight: lighter; }
+
 #page.episodes header ul.seasons {
   display: flex;
   justify-content: center; }
@@ -1078,6 +1095,7 @@ ul#artist_tags {
       border: 1px solid white;
       box-shadow: 0 0 0.5px 0.5px salmon;
       color: #222222; }
+
 #page.episodes main ul.episode-cards {
   display: flex;
   flex-direction: column; }
@@ -1092,6 +1110,7 @@ ul#artist_tags {
   @media (min-width: 1024px) {
     #page.episodes main ul.episode-cards li {
       flex: 1 1 30%; } }
+
 #page.episodes main .card .aired {
   font-style: italic;
   color: #A0A0A0;
@@ -1103,18 +1122,26 @@ ul#artist_tags {
   #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
     flex: 1 1; }
   #page.home #episodes_placeholder .thumbnails {
-    justify-content: space-around; } }
+    justify-content: space-around; }
+  #page.home #genres_placeholder .thumbnails .thumb img {
+    border-radius: 100%; }
+  #page.home #genres_placeholder .thumbnails .thumb figcaption {
+    border-top: none; } }
+
 #page.home header img {
   margin-top: 2rem; }
+
 #page.home header .site-name {
   font-size: 2rem;
   margin: 1rem 0; }
+
 #page.home header p.pitch {
   color: lightsalmon;
   font-weight: lighter; }
   #page.home header p.pitch span {
     display: block;
     font-style: italic; }
+
 #page.home main blockquote {
   margin: 0;
   font-size: .9rem; }

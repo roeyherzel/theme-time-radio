@@ -1,45 +1,28 @@
 'use strict';
 
-import gulp from 'gulp';
-import sass from 'gulp-sass';
-import maps from 'gulp-sourcemaps';
+import gulp       from 'gulp';
+import sass       from 'gulp-sass';
+import maps       from 'gulp-sourcemaps';
+import browserify from 'browserify';
+import babelify   from 'babelify';
+import source     from 'vinyl-source-stream';
+import buffer     from 'vinyl-buffer';
+import rename     from 'gulp-rename';
+import glob       from 'glob'
+import es         from 'event-stream';
 
-const dirs = {
-    src: 'app/static',
-    dest: 'app/static'
-};
-
-
-gulp.task("hello", () => {
-    console.log("Hello!");
-});
 
 gulp.task("styles", () => {
-    const files = {
-        src: `${dirs.src}/scss/app.sass`,
-        dst: `${dirs.src}/css/app.css`
-    };
-    gulp.src(files.src)
+    gulp.src('./client/scss/app.scss')
         .pipe(maps.init())
         .pipe(sass())
         .pipe(maps.write('./'))
-        .pipe(gulp.dest(files.dst));
+        .pipe(gulp.dest('./app/static/styles'));
 });
 
-
-let browserify = require('browserify');
-let babelify   = require('babelify');
-let source     = require('vinyl-source-stream');
-let buffer     = require('vinyl-buffer');
-let rename     = require('gulp-rename');
-let glob       = require('glob')
-let es         = require('event-stream');
-
-
 // handle es6 modules and bundeling
-gulp.task('javascript', (done) => {
-
-    glob('./client/pages/*.js', (err, files) => {
+gulp.task('js', (done) => {
+    glob('./client/js/pages/*.js', (err, files) => {
         if (err) done(files);
         console.log(files);
 
@@ -55,18 +38,21 @@ gulp.task('javascript', (done) => {
             .pipe(buffer())
             .pipe(maps.init({loadMaps: true}))
             .pipe(rename({
-                dirname: 'pages',
+                dirname: '',    // remove src dir stracture
                 extname: '.bundle.js'
             }))
             .pipe(maps.write('./'))
-            .pipe(gulp.dest('./app/static'));
+            .pipe(gulp.dest('./app/static/js'));
         });
         es.merge(tasks).on('end', done);
     });
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./client/**/*.js', ['javascript'])
+    gulp.watch('./client/js/*.js', ['js']);
+    gulp.watch('./client/scss/*.scss', ['styles']);
 });
+
+gulp.task('build', ['styles', 'js']);
 
 gulp.task('default', ['watch']);

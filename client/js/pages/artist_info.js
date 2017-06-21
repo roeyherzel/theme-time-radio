@@ -1,5 +1,5 @@
-import { Artists } from '../js/app';
-
+import $ from 'jquery';
+import { Artists } from '../app';
 
 ! function () {
     const artistId = $('#page header h1').attr('data-artist-id');
