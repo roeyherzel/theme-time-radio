@@ -1,64 +1,56 @@
 /* -------------------------------
  * Track Player
- * -------------------------------
- */
+ * -------------------------------*/
 
-const trackPlayer = (function () {
-
-  const cachedAudio = new Map();
-  const getAudio = (previewBtn) => {
+const cachedAudio = new Map();
+const getAudio = (previewBtn) => {
 
     if (cachedAudio.has(previewBtn)) {
-      return cachedAudio.get(previewBtn);
+        return cachedAudio.get(previewBtn);
     } else {
-      const $btn = $(previewBtn);
-      const audio = new Audio($btn.attr('data-media-url'));
+        const $btn = $(previewBtn);
+        const audio = new Audio($btn.attr('data-media-url'));
 
-      // bind handlers
-      audio.addEventListener('play', (e) => $btn.attr('data-status', 'playing'));
-      audio.addEventListener('pause', (e) => onPause(e, $btn));
-      audio.addEventListener('ended', (e) => onPause(e, $btn));
+        // bind handlers
+        audio.addEventListener('play', () => $btn.attr('data-status', 'playing'));
+        audio.addEventListener('pause', (e) => onPause(e, $btn));
+        audio.addEventListener('ended', (e) => onPause(e, $btn));
 
-      // Add to cache
-      cachedAudio.set(previewBtn, audio);
-      return audio;
+        // Add to cache
+        cachedAudio.set(previewBtn, audio);
+        return audio;
     }
-  };
+};
 
-  const onPause = (event, $btn) => {
+const onPause = (event, $btn) => {
     event.target.currentTime = 0;
     $btn.attr('data-status', 'paused');
-  };
+};
 
-  const toggolePlayPause = (event) => {
+const toggolePlayPause = (event) => {
     const previewBtn = event.currentTarget;
     const audio = getAudio(previewBtn);
 
     // Pause all other tracks
     for (let cached of cachedAudio.values()) {
-      if (cached !== audio) {
-        cached.pause();
-      }
+        if (cached !== audio) {
+            cached.pause();
+        }
     }
     // Toggle state
     if (audio.paused) {
-      audio.play();
+        audio.play();
     } else {
-      audio.pause();
+        audio.pause();
     }
-  };
+};
 
-  const init = () => {
+const init = () => {
     const $tracks = $('.track-preview[data-media-url!=""]');
     if ($tracks) {
-      $tracks.on('click', toggolePlayPause);
+        $tracks.on('click', toggolePlayPause);
     }
-  };
+};
 
-  return {
-    init
-  };
 
-})();
-
-export default trackPlayer;
+export default { init };

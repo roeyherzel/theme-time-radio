@@ -1,7 +1,5 @@
-import API from '../js/api';
-import HBS from '../js/hbs';
-
+import { Genres } from '../js/app';
 
 ! function () {
-    API.getGenres().then(genres => HBS.renderGroups(genres));
+    Genres.renderGroups();
 }();
