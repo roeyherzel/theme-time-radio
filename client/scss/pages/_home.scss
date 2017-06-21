@@ -20,6 +20,15 @@
     #episodes_placeholder .thumbnails {
       justify-content: space-around;
     }
+
+    #genres_placeholder .thumbnails .thumb {
+      img {
+        border-radius: 100%;
+      }
+      figcaption {
+        border-top: none;
+      }
+    }
   }
 
   header {

@@ -67,4 +67,4 @@ def index():
         'artists': "{:,}".format(Artists.query.count()),
         'genres': "{:,}".format(Tags.query.count())
     }
-    return render_template('index.html.j2', stats=stats)
+    return render_template('home.html.j2', stats=stats)

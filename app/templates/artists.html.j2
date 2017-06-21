@@ -15,7 +15,5 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript">
-    Pages.Artists();
-  </script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/artists.bundle.js')}}"></script>
 {% endblock %}

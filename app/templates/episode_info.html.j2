@@ -92,7 +92,5 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript">
-    Pages.EpisodeInfo();
-  </script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/episode_info.bundle.js')}}"></script>
 {% endblock %}

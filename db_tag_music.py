@@ -6,6 +6,7 @@ import json
 import unicodedata
 import sqlalchemy
 
+
 from app import create_app, models
 
 logging.getLogger("requests").setLevel(logging.WARNING)

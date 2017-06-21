@@ -7,6 +7,7 @@ __pycache__/
 # Distribution / packaging
 # ------------------------
 venv/
+node_modules/
 
 # Logs
 # ----
@@ -14,6 +15,6 @@ tagging.log
 output.log
 
 
-# Sass
-# ----
-app/static/.sass-cache/
+# build
+# -----
+app/static/js

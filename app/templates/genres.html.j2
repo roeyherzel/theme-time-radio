@@ -14,7 +14,5 @@
 {% endblock %}
 
 {% block page_scripts %}
-  <script type="text/javascript">
-    Pages.Genres();
-  </script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/genres.bundle.js')}}"></script>
 {% endblock %}
