@@ -15,6 +15,7 @@ tagging.log
 output.log
 
 
-# build
+# build - disabled due to Heroku GitHub deployment
 # -----
-app/static/js
+# app/static/js 
+# app/static/styles
