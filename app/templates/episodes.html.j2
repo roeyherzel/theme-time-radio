@@ -15,26 +15,19 @@
     </header>
 
     <main>
-      <ul class="episode-cards">
-      {% for e in episodes %}
-        <li>
-          <a class="card" href="/episodes/{{e.id}}">
-            <div class="card-number">
-              <span>{{e.id}}</span>
-            </div>
-
-            <div class="card-text">
-              <span class="text-lg">{{e.title}}</span>
-              <span class="text-sm aired">{{e.aired}}</span>
-            </div>
-
-            <div class="card-thumb">
-              <img src="{{e.image}}" alt="Episode poster image">
-              <span class="overlay"></span>
-            </div>
-          </a>
-        </li>
-      {% endfor %}
+      <ul class="thumbnails">
+        {% for e in episodes %}
+          <li>
+            <a href="/episodes/{{e.id}}">
+              <figure class="thumb">
+                <img src="{{e.image}}" alt="Poster image of episode {{e.title}}">
+                <figcaption>
+                  <span>{{e.id}}. {{e.title}}</span>
+                </figcaption>
+              </figure>
+            </a>
+          </li>
+        {% endfor %}
       </ul>
     </main>
   </div>

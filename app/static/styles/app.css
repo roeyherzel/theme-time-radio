@@ -976,8 +976,7 @@ ul.thumbnails {
     transform: translateX(-100%);
     transition: transform .3s;
     background: #222;
-    border-top: 1px solid #424;
-    padding: 1rem; }
+    border-top: 1px solid #424; }
     @media (min-width: 1024px) {
       #header_wrapper nav {
         position: static;
@@ -988,10 +987,13 @@ ul.thumbnails {
         transition: none;
         padding: 0; } }
     #header_wrapper nav a {
-      padding: .8rem 1rem;
+      padding: 1.5rem 1rem;
+      padding-top: 1rem;
       display: block;
-      color: mediumaquamarine;
-      font-weight: lighter; }
+      color: white;
+      font-weight: 800;
+      font-size: 1.5rem;
+      border-bottom: 1px solid lightgray; }
 
 input#mobile_nav {
   display: none; }
@@ -1076,7 +1078,7 @@ ul#artist_tags {
     color: mediumaquamarine; }
 
 #page.episodes header p {
-  color: salmon;
+  color: lightgray;
   font-weight: lighter; }
 
 #page.episodes header ul.seasons {
@@ -1089,13 +1091,11 @@ ul#artist_tags {
   #page.episodes header ul.seasons a {
     display: block;
     padding: 5px;
-    color: salmon;
-    border: 1px solid salmon;
+    color: white;
+    border: 1px solid white;
     border-radius: 3px; }
     #page.episodes header ul.seasons a.selected {
-      background: salmon;
-      border: 1px solid white;
-      box-shadow: 0 0 0.5px 0.5px salmon;
+      background: white;
       color: #222; }
 
 #page.episodes main ul.episode-cards {

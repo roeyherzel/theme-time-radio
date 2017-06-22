@@ -7,9 +7,10 @@
   header {
 
     p {
-      color: $color-salmon;
+      color: $color-light-gray;
       font-weight: lighter;
     }
+
 
     ul.seasons {
       display: flex;
@@ -24,15 +25,13 @@
       a {
         display: block;
         padding: 5px;
-        color: $color-salmon;
-        border: 1px solid $color-salmon;
+        color: white;
+        border: 1px solid white;
         border-radius: 3px;
 
 
         &.selected {
-          background: $color-salmon;
-          border: 1px solid white;
-          box-shadow: 0 0 .5px .5px $color-salmon;
+          background: white;
           color: $color-black;
         }
       }
