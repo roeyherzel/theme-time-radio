@@ -3,7 +3,6 @@
 //================================================
 
 ul.tabs {
-  @extend %remove-page-padding;
 
   @media (min-width: $screen-desktop) {
     display: flex;
@@ -75,6 +74,8 @@ ul.tabs {
       padding: $padding-tab-body;
       color: $color-black;
       background: $color-white-smoke;
+
+     
 
       @media (min-width: $screen-desktop) {
         display: block;

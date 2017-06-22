@@ -7,13 +7,15 @@
 /*--------------------------------------------------
   Main mixin got input button type range
 --------------------------------------------------*/
-#page header img, #page.artist-info header img, #page.episode-info header img {
+#page.artist-info header img, #page.episode-info header img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain; }
 
-ul.tabs {
-  margin: -1rem; }
+ul.thumbnails figcaption span {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
@@ -479,17 +481,22 @@ ul.tabs li.tab section {
       background: white;
       border-radius: 10px; } }
 
+#episodes_placeholder,
+#artists_placeholder,
+#genres_placeholder {
+  padding: 0; }
+
 ul.thumbnails {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; }
+  background: #222; }
   ul.thumbnails li {
-    margin: 5px; }
+    width: calc((100vw / 3) - 1px);
+    margin: .5px; }
   ul.thumbnails figure.thumb {
     display: flex;
     flex-direction: column;
-    margin: 0;
-    width: 120px; }
+    margin: 0; }
     ul.thumbnails figure.thumb img {
       height: 120px;
       object-fit: cover;
@@ -509,14 +516,15 @@ ul.thumbnails {
     border-top: 1px solid whitesmoke;
     text-transform: capitalize; }
     ul.thumbnails figcaption span {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       text-align: center;
-      padding: 4px 2px 6px 2px; }
+      padding: 4px;
+      padding-bottom: 6px; }
 
 #groups_nav {
   position: relative;
   width: 120px;
-  margin: auto; }
+  margin: 1rem auto; }
   @media (min-width: 1024px) {
     #groups_nav {
       width: 100%; } }
@@ -1011,21 +1019,17 @@ input#mobile_nav {
   #page header {
     background: #222;
     color: white;
-    padding: 15px;
+    padding: 2rem 1rem;
     text-align: center; }
     #page header h1 {
       text-transform: capitalize; }
-    #page header img {
-      margin: auto;
-      margin-top: 2rem; }
     #page header a {
       text-transform: capitalize; }
   #page main {
     max-width: 1024px;
     margin: auto;
     background-color: whitesmoke;
-    color: #222;
-    padding: 1rem; }
+    color: #222; }
     @media (min-width: 1024px) {
       #page main {
         margin-top: 2rem;
@@ -1059,9 +1063,6 @@ ul#artist_tags {
     text-decoration: underline; }
   ul#artist_tags a {
     color: lightpink; }
-
-#page.artists header .thumbnails {
-  justify-content: center; }
 
 #page.episode-info header h1 {
   font-size: 2.25rem; }

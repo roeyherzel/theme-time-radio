@@ -2,20 +2,27 @@
 // Thumbs
 //================================================
 
+#episodes_placeholder,
+#artists_placeholder,
+#genres_placeholder {
+  padding: 0;
+}
+
 ul.thumbnails {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  background: $color-black;
 
   li {
-    margin: 5px;
+    width: calc((100vw / 3) - 1px); // so figcature will be limited too
+    margin: .5px;
   }
+  
 
   figure.thumb {
     display: flex;
     flex-direction: column;
     margin: 0;
-    width: 120px; // so figcature will be limited too
 
     img {
       height: 120px;
@@ -41,9 +48,11 @@ ul.thumbnails {
     text-transform: capitalize;
 
     span {
-      font-size: $font-size-s;
+      @extend %text-nowrap;
+      font-size: $font-size-xs;
       text-align: center;
-      padding: 4px 2px 6px 2px;
+      padding: 4px;
+      padding-bottom: 6px;
     }
   }
 
