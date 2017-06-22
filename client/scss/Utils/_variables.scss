@@ -26,7 +26,6 @@ $font-size-xxl: calc-rem(54);
 $primary-font-color: white;
 
 $color-black: #222;
-$color-charcoal: #424;
 $color-gray: #A0A0A0;
 
 $color-light-gray: lightgray;
@@ -47,6 +46,7 @@ $padding-tab-body: $padding-tab-header;
 
 
 // Screen size
+$screen-mobile-m: 375px;
 $screen-tablet: 768px;
 $screen-desktop: 1024px;
 $screen-desktop-lg: 1440px;

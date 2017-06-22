@@ -19,7 +19,7 @@ ul.tabs {
         flex: 2 2;
       }
       &:nth-of-type(3) {
-        flex: 1 1;
+        flex: 2 2;
       }
     }
 
@@ -75,13 +75,22 @@ ul.tabs {
       color: $color-black;
       background: $color-white-smoke;
 
-     
+      &#episodes_placeholder,
+      &#artists_placeholder,
+      &#genres_placeholder {
+        padding: 0;
+
+        @media (min-width: $screen-desktop) {
+          padding: $padding-tab-body 0;
+        }
+      }
 
       @media (min-width: $screen-desktop) {
         display: block;
         margin: 0 1rem 2rem 1rem;
-        background: white;
-        border-radius: 10px;
+
+        
+
       }
     }
 

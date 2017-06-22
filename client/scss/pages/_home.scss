@@ -17,18 +17,10 @@
       }
     }
 
-    #episodes_placeholder .thumbnails {
-      justify-content: space-around;
+    #episodes_placeholder .thumbnails li {
+      width: calc(100% / 6);
     }
 
-    #genres_placeholder .thumbnails .thumb {
-      img {
-        border-radius: 100%;
-      }
-      figcaption {
-        border-top: none;
-      }
-    }
   }
 
   header {

@@ -431,7 +431,7 @@ label {
   ul.tabs li.tab:nth-of-type(2) {
     flex: 2 2; }
   ul.tabs li.tab:nth-of-type(3) {
-    flex: 1 1; } }
+    flex: 2 2; } }
 
 ul.tabs li.tab input[type=checkbox] {
   display: none; }
@@ -474,25 +474,32 @@ ul.tabs li.tab section {
   padding: 15px;
   color: #222;
   background: whitesmoke; }
+  ul.tabs li.tab section#episodes_placeholder, ul.tabs li.tab section#artists_placeholder, ul.tabs li.tab section#genres_placeholder {
+    padding: 0; }
+    @media (min-width: 1024px) {
+      ul.tabs li.tab section#episodes_placeholder, ul.tabs li.tab section#artists_placeholder, ul.tabs li.tab section#genres_placeholder {
+        padding: 15px 0; } }
   @media (min-width: 1024px) {
     ul.tabs li.tab section {
       display: block;
-      margin: 0 1rem 2rem 1rem;
-      background: white;
-      border-radius: 10px; } }
-
-#episodes_placeholder,
-#artists_placeholder,
-#genres_placeholder {
-  padding: 0; }
+      margin: 0 1rem 2rem 1rem; } }
 
 ul.thumbnails {
   display: flex;
-  flex-wrap: wrap;
-  background: #222; }
+  flex-wrap: wrap; }
   ul.thumbnails li {
-    width: calc((100vw / 3) - 1px);
-    margin: .5px; }
+    width: calc(100vw / 2);
+    outline: 1px solid white;
+    margin-bottom: 10px; }
+    @media (min-width: 375px) {
+      ul.thumbnails li {
+        width: calc(100vw / 3); } }
+    @media (min-width: 768px) {
+      ul.thumbnails li {
+        width: calc(100vw / 6); } }
+    @media (min-width: 1024px) {
+      ul.thumbnails li {
+        width: calc(100% / 3); } }
   ul.thumbnails figure.thumb {
     display: flex;
     flex-direction: column;
@@ -501,11 +508,6 @@ ul.thumbnails {
       height: 120px;
       object-fit: cover;
       object-position: top center; }
-    @media (min-width: 768px) and (max-width: 1023px) {
-      ul.thumbnails figure.thumb {
-        width: 110px; }
-        ul.thumbnails figure.thumb img {
-          height: 110px; } }
   ul.thumbnails figcaption {
     display: flex;
     justify-content: center;
@@ -943,7 +945,6 @@ ul.thumbnails {
   display: flex;
   justify-content: center;
   position: relative;
-  border-bottom: 1px solid #424;
   padding: 20px; }
   @media (min-width: 1024px) {
     #header_wrapper {
@@ -984,7 +985,7 @@ ul.thumbnails {
     transform: translateX(-100%);
     transition: transform .3s;
     background: #222;
-    border-top: 1px solid #424; }
+    border-top: 1px solid lightgray; }
     @media (min-width: 1024px) {
       #header_wrapper nav {
         position: static;
@@ -1002,11 +1003,19 @@ ul.thumbnails {
       font-weight: 800;
       font-size: 1.5rem;
       border-bottom: 1px solid lightgray; }
+      @media (min-width: 1024px) {
+        #header_wrapper nav a {
+          font-size: 1rem;
+          font-weight: bold;
+          margin-left: .5rem;
+          border: none; }
+          #header_wrapper nav a:hover {
+            text-decoration: underline; } }
 
 input#mobile_nav {
   display: none; }
   input#mobile_nav:checked ~ header label {
-    background: lightgray; }
+    background: white; }
     input#mobile_nav:checked ~ header label svg {
       fill: #222; }
   input#mobile_nav:checked ~ header nav {
@@ -1053,16 +1062,21 @@ input#mobile_nav {
   border-radius: 100%; }
 
 ul#artist_tags {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 2px 0 30px 0;
-  border-top: 1px solid #424; }
+  border-top: 1px solid lightgray; }
   ul#artist_tags li {
-    margin: 2px 5px;
-    text-decoration: underline; }
+    margin: 2px 5px; }
   ul#artist_tags a {
-    color: lightpink; }
+    color: lightpink;
+    text-decoration: underline;
+    font-size: 0.875rem; }
+
+@media (min-width: 1024px) {
+  #page.artists .thumbnails li {
+    width: calc(100% / 6); } }
 
 #page.episode-info header h1 {
   font-size: 2.25rem; }
@@ -1076,7 +1090,7 @@ ul#artist_tags {
     text-transform: lowercase; }
   #page.episode-info header .info span.season a {
     text-decoration: underline;
-    color: mediumaquamarine; }
+    color: lightpink; }
 
 #page.episodes header p {
   color: lightgray;
@@ -1099,37 +1113,17 @@ ul#artist_tags {
       background: white;
       color: #222; }
 
-#page.episodes main ul.episode-cards {
-  display: flex;
-  flex-direction: column; }
-  @media (min-width: 768px) {
-    #page.episodes main ul.episode-cards {
-      flex-direction: row;
-      flex-wrap: wrap; } }
-  @media (min-width: 768px) {
-    #page.episodes main ul.episode-cards li {
-      flex: 1 1 40%;
-      margin: 0 10px; } }
-  @media (min-width: 1024px) {
-    #page.episodes main ul.episode-cards li {
-      flex: 1 1 30%; } }
-
-#page.episodes main .card .aired {
-  font-style: italic;
-  color: #A0A0A0;
-  overflow: hidden; }
+@media (min-width: 1024px) {
+  #page.episodes main .thumbnails li {
+    width: calc(100% / 6); } }
 
 @media (min-width: 1024px) {
   #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {
     flex: 0 0 100%; }
   #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
     flex: 1 1; }
-  #page.home #episodes_placeholder .thumbnails {
-    justify-content: space-around; }
-  #page.home #genres_placeholder .thumbnails .thumb img {
-    border-radius: 100%; }
-  #page.home #genres_placeholder .thumbnails .thumb figcaption {
-    border-top: none; } }
+  #page.home #episodes_placeholder .thumbnails li {
+    width: calc(100% / 6); } }
 
 #page.home header img {
   margin-top: 2rem; }

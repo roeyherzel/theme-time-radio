@@ -2,20 +2,30 @@
 // Thumbs
 //================================================
 
-#episodes_placeholder,
-#artists_placeholder,
-#genres_placeholder {
-  padding: 0;
+@mixin thumbs-per-line($count: 2) {
+  width: calc((100vw / $count) - 1px); // so figcature will be limited too
+  margin: .5px;
 }
 
 ul.thumbnails {
   display: flex;
   flex-wrap: wrap;
-  background: $color-black;
 
   li {
-    width: calc((100vw / 3) - 1px); // so figcature will be limited too
-    margin: .5px;
+    width: calc(100vw / 2); // so figcature will be limited too
+    outline: 1px solid white;
+    margin-bottom: 10px;
+
+    @media (min-width: $screen-mobile-m) {
+      width: calc(100vw / 3);
+    }
+    @media (min-width: $screen-tablet) {
+      width: calc(100vw / 6);
+    }
+    @media (min-width: $screen-desktop) {
+      width: calc(100% / 3);
+    }
+    
   }
   
 
@@ -28,11 +38,6 @@ ul.thumbnails {
       height: 120px;
       object-fit: cover;
       object-position: top center;
-    }
-
-    @media (min-width: $screen-tablet) and (max-width: $screen-desktop - 1) {
-      width: 110px;
-      img { height: 110px; }
     }
 
   }

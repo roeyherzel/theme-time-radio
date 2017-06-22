@@ -3,5 +3,9 @@
 //================================================
 
 #page.artists {
-
+    @media (min-width: $screen-desktop) {
+      .thumbnails li {
+        width: calc(100% / 6);
+      }
+    }
 }

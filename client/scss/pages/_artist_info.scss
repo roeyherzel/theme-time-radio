@@ -20,18 +20,19 @@
 }
 
 ul#artist_tags {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 2px 0 30px 0;
-  border-top: 1px solid $color-charcoal;
+  border-top: 1px solid $color-light-gray;
 
   li {
     margin: 2px 5px;
-    text-decoration: underline;
   }
 
   a {
     color: $color-light-pink;
+    text-decoration: underline;
+    font-size: $font-size-s;
   }
 }

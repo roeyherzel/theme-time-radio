@@ -13,7 +13,6 @@
   display: flex;
   justify-content: center;
   position: relative;
-  border-bottom: 1px solid $color-charcoal;
   padding: 20px;
 
   @media (min-width: $screen-desktop) {
@@ -49,7 +48,7 @@
     transform: translateX(-100%);
     transition: transform .3s;
     background: $color-black;
-    border-top: 1px solid $color-charcoal;
+    border-top: 1px solid $color-light-gray;
 
     @media (min-width: $screen-desktop) {
       position: static;
@@ -69,6 +68,17 @@
       font-weight: 800;
       font-size: $font-size-l;
       border-bottom: 1px solid $color-light-gray;
+
+      @media (min-width: $screen-desktop) {
+        font-size: $font-size-m;
+        font-weight: bold;
+        margin-left: .5rem;
+        border: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
@@ -81,7 +91,8 @@ input#mobile_nav {
     ~ header {
 
       label {
-        background: $color-light-gray;
+        background: white;
+
         svg {
           fill: $color-black;
         }

@@ -39,29 +39,10 @@
   }
 
   main {
-    ul.episode-cards {
-      display: flex;
-      flex-direction: column;
-
-      @media (min-width: $screen-tablet) {
-        flex-direction: row;
-        flex-wrap: wrap;
+    @media (min-width: $screen-desktop) {
+      .thumbnails li {
+        width: calc(100% / 6);
       }
-      li {
-        @media (min-width: $screen-tablet) {
-          flex: 1 1 40%;
-          margin: 0 10px;
-        }
-        @media (min-width: $screen-desktop) {
-          flex: 1 1 30%;
-        }
-      }
-    }
-
-    .card .aired {
-      font-style: italic;
-      color: $color-gray;
-      overflow: hidden;
     }
   }
 
