@@ -16,7 +16,7 @@
     padding: 3px;
     background-color: $color-black;
     border-radius: 4px;
-    font-size: .9rem;
+    font-size: $font-size-m;
     font-weight: lighter;
     border: 1px solid white;
     transition: all .2s;
@@ -90,7 +90,7 @@
 
     ul {
       padding-left: 1rem;
-      font-size: .85rem;
+      font-size: $font-size-s;
     }
 
     li {

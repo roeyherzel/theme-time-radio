@@ -5,11 +5,11 @@
     <header>
       <img src="{{ episode.image }}" alt="Photo of {{ episode.title }}">
       <div class="info">
-        <p>{{ episode.aired }}</p>
         <h1 data-episode-title="{{ episode.title }}" data-episode-id="{{ episode.id }}">{{ episode.title }}</h1>
-        <p>
+        <span class="season">
           <a href="/episodes/season/{{episode.season}}">Season {{episode.season}}</a> - <a href="#">Episode {{episode.id}}</a>
-        </p>
+        </span>
+        <span class="aired">{{ episode.aired }}</span>
       </div>
 
       <div id="episode_player">

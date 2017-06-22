@@ -38,18 +38,15 @@
     }
 
     .site-name {
-      font-size: 2rem;
+      font-size: $font-size-xl;
       margin: 1rem 0;
     }
 
     p.pitch {
-      color: $color-light-salmon;
+      color: $color-light-gray;
       font-weight: lighter;
-
-      span {
-        display: block;
-        font-style: italic;
-      }
+      font-size: $font-size-s;
+      line-height: 1.5;
     }
 
   }
@@ -57,7 +54,7 @@
   main {
     blockquote {
       margin: 0;
-      font-size: .9rem;
+      font-size: $font-size-m;
 
       footer {
         margin-top: .5rem;

@@ -50,7 +50,7 @@ gulp.task('js', (done) => {
 
 gulp.task('watch', function () {
     gulp.watch('./client/js/*.js', ['js']);
-    gulp.watch('./client/scss/*.scss', ['styles']);
+    gulp.watch('./client/scss/**/*.scss', ['styles']);
 });
 
 gulp.task('build', ['styles', 'js']);

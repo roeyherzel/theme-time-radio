@@ -388,8 +388,7 @@ ul {
   box-sizing: border-box; }
 
 body {
-  font-family: "Open Sans", sans-serif;
-  font-size: 1rem; }
+  font-family: "Open Sans", sans-serif; }
 
 h1 {
   font-family: "Open Sans", sans-serif; }
@@ -401,6 +400,9 @@ h4 {
 a {
   text-decoration: none;
   color: royalblue; }
+
+p {
+  font-size: 1rem; }
 
 .site-name {
   margin: 0;
@@ -441,16 +443,16 @@ ul.tabs li.tab label {
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background-color: mediumaquamarine;
-  border-bottom: 1.5px solid #222222;
+  background-color: lightpink;
+  border-bottom: 1.5px solid #222;
   font-family: "Open Sans", sans-serif;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: white; }
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #222; }
   @media (min-width: 1024px) {
     ul.tabs li.tab label {
       justify-content: center;
-      color: #222222;
+      color: #222;
       background: transparent;
       border: none;
       font-size: 1rem; } }
@@ -468,7 +470,7 @@ ul.tabs li.tab label {
 ul.tabs li.tab section {
   display: none;
   padding: 15px;
-  color: #222222;
+  color: #222;
   background: whitesmoke; }
   @media (min-width: 1024px) {
     ul.tabs li.tab section {
@@ -476,64 +478,6 @@ ul.tabs li.tab section {
       margin: 0 1rem 2rem 1rem;
       background: white;
       border-radius: 10px; } }
-
-.card {
-  display: flex;
-  justify-content: space-between;
-  height: 85px;
-  width: 100%;
-  margin-bottom: 10px;
-  box-shadow: 0 0 1px black;
-  border-radius: 3px;
-  overflow: hidden;
-  background: white;
-  color: #222222; }
-  .card .card-number {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 0 0 1.5rem;
-    height: 100%;
-    background: lightgray;
-    border-left: 1px solid rgba(0, 0, 0, 0.17); }
-    .card .card-number span {
-      width: 100%;
-      color: white;
-      text-align: center;
-      font-size: 0.7rem;
-      padding-top: 8px; }
-  .card .card-thumb {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    flex: 0 0 70px;
-    height: 100%; }
-    .card .card-thumb img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-      object-position: top left; }
-    .card .card-thumb span.overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.2); }
-  .card .card-text {
-    flex: 1 1;
-    padding: 6px 10px;
-    font-size: 0.8rem;
-    display: flex;
-    flex-direction: column; }
-    .card .card-text span {
-      line-height: 2; }
-    .card .card-text .text-lg {
-      font-size: 0.85rem; }
-    .card .card-text .text-md {
-      font-size: 0.75rem; }
-    .card .card-text .text-sm {
-      font-size: 0.7rem; }
 
 ul.thumbnails {
   display: flex;
@@ -565,7 +509,7 @@ ul.thumbnails {
     border-top: 1px solid whitesmoke;
     text-transform: capitalize; }
     ul.thumbnails figcaption span {
-      font-size: .7rem;
+      font-size: 0.875rem;
       text-align: center;
       padding: 4px 2px 6px 2px; }
 
@@ -579,9 +523,9 @@ ul.thumbnails {
   #groups_nav label[for="toggle_group_nav"] {
     display: block;
     padding: 3px;
-    background-color: #222222;
+    background-color: #222;
     border-radius: 4px;
-    font-size: .9rem;
+    font-size: 1rem;
     font-weight: lighter;
     border: 1px solid white;
     transition: all .2s; }
@@ -631,13 +575,13 @@ ul.thumbnails {
 
 #groups section ul {
   padding-left: 1rem;
-  font-size: .85rem; }
+  font-size: 0.875rem; }
 
 #groups section li {
   margin-bottom: .5rem; }
 
 #groups section a {
-  color: #222222;
+  color: #222;
   text-transform: capitalize; }
 
 @media (min-width: 768px) {
@@ -651,21 +595,79 @@ ul.thumbnails {
   #groups section li {
     flex: 0 0 30%; } }
 
+#tracklist_placeholder .card {
+  display: flex;
+  justify-content: space-between;
+  height: 85px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0 0 1px black;
+  border-radius: 3px;
+  overflow: hidden;
+  background: white;
+  color: #222; }
+
+#tracklist_placeholder .card-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 1.5rem;
+  height: 100%;
+  border-left: 1px solid rgba(0, 0, 0, 0.17);
+  border-right: 1px solid rgba(0, 0, 0, 0.17);
+  background: lightgray; }
+  #tracklist_placeholder .card-number span {
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-size: 0.875rem;
+    padding-top: 8px; }
+
+#tracklist_placeholder .card-thumb {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex: 0 0 70px;
+  height: 100%; }
+  #tracklist_placeholder .card-thumb img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top left; }
+  #tracklist_placeholder .card-thumb span.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2); }
+
 #tracklist_placeholder .card-text {
-  width: 100px; }
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  padding: 6px 10px;
+  font-size: 0.75rem; }
+  #tracklist_placeholder .card-text a {
+    text-decoration: underline; }
   #tracklist_placeholder .card-text span {
+    line-height: 1.8;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap; }
 
-#tracklist_placeholder .track-year {
-  color: #A0A0A0; }
+#tracklist_placeholder .track-title {
+  font-size: 0.875rem; }
 
 #tracklist_placeholder .track-artists {
   /* seperator between multiple performers */ }
   #tracklist_placeholder .track-artists a:nth-child(1n+2)::before {
     content: "/\00A0";
-    color: #222222; }
+    color: #222; }
+
+#tracklist_placeholder .track-year {
+  color: #A0A0A0; }
 
 #tracklist_placeholder .track-actions {
   flex: 0 0 3.3rem;
@@ -925,7 +927,7 @@ ul.thumbnails {
   overflow: hidden; }
 
 #main_wrapper > header {
-  background-color: #222222; }
+  background-color: #222; }
 
 #header_wrapper {
   max-width: 1024px;
@@ -933,7 +935,7 @@ ul.thumbnails {
   display: flex;
   justify-content: center;
   position: relative;
-  border-bottom: 1px solid #424242;
+  border-bottom: 1px solid #424;
   padding: 20px; }
   @media (min-width: 1024px) {
     #header_wrapper {
@@ -973,8 +975,8 @@ ul.thumbnails {
     z-index: 100;
     transform: translateX(-100%);
     transition: transform .3s;
-    background: #222222;
-    border-top: 1px solid #424242;
+    background: #222;
+    border-top: 1px solid #424;
     padding: 1rem; }
     @media (min-width: 1024px) {
       #header_wrapper nav {
@@ -996,7 +998,7 @@ input#mobile_nav {
   input#mobile_nav:checked ~ header label {
     background: lightgray; }
     input#mobile_nav:checked ~ header label svg {
-      fill: #222222; }
+      fill: #222; }
   input#mobile_nav:checked ~ header nav {
     transform: translateX(0); }
   input#mobile_nav:checked ~ #page {
@@ -1005,7 +1007,7 @@ input#mobile_nav {
 #page {
   transition: opacity .3s; }
   #page header {
-    background: #222222;
+    background: #222;
     color: white;
     padding: 15px;
     text-align: center; }
@@ -1015,13 +1017,12 @@ input#mobile_nav {
       margin: auto;
       margin-top: 2rem; }
     #page header a {
-      text-transform: capitalize;
-      font-size: 0.8rem; }
+      text-transform: capitalize; }
   #page main {
     max-width: 1024px;
     margin: auto;
     background-color: whitesmoke;
-    color: #222222;
+    color: #222;
     padding: 1rem; }
     @media (min-width: 1024px) {
       #page main {
@@ -1030,13 +1031,13 @@ input#mobile_nav {
         padding: 2rem; } }
 
 #main_wrapper > footer {
-  background-color: #222222;
+  background-color: #222;
   margin: 0;
   margin-top: auto;
   padding: 20px;
   text-align: center;
   color: whitesmoke;
-  font-size: .85rem; }
+  font-size: 0.75rem; }
 
 #page.artist-info header h1 {
   margin-bottom: 10px; }
@@ -1050,28 +1051,29 @@ ul#artist_tags {
   flex-wrap: wrap;
   justify-content: center;
   padding: 2px 0 30px 0;
-  border-top: 1px solid #424242; }
+  border-top: 1px solid #424; }
   ul#artist_tags li {
     margin: 2px 5px;
     text-decoration: underline; }
   ul#artist_tags a {
-    color: lightsalmon; }
+    color: lightpink; }
 
 #page.artists header .thumbnails {
   justify-content: center; }
 
 #page.episode-info header h1 {
-  margin: 0; }
+  font-size: 2.25rem; }
 
-#page.episode-info header p:first-of-type {
-  font-size: 0.7em;
-  color: #A0A0A0;
-  text-transform: lowercase; }
-
-#page.episode-info header a {
-  text-decoration: underline;
-  font-size: 0.8em;
-  color: lightsalmon; }
+#page.episode-info header .info span {
+  display: block;
+  margin: .5rem 0;
+  font-size: 0.875rem; }
+  #page.episode-info header .info span.aired {
+    color: lightgray;
+    text-transform: lowercase; }
+  #page.episode-info header .info span.season a {
+    text-decoration: underline;
+    color: mediumaquamarine; }
 
 #page.episodes header p {
   color: salmon;
@@ -1094,7 +1096,7 @@ ul#artist_tags {
       background: salmon;
       border: 1px solid white;
       box-shadow: 0 0 0.5px 0.5px salmon;
-      color: #222222; }
+      color: #222; }
 
 #page.episodes main ul.episode-cards {
   display: flex;
@@ -1132,19 +1134,18 @@ ul#artist_tags {
   margin-top: 2rem; }
 
 #page.home header .site-name {
-  font-size: 2rem;
+  font-size: 2.25rem;
   margin: 1rem 0; }
 
 #page.home header p.pitch {
-  color: lightsalmon;
-  font-weight: lighter; }
-  #page.home header p.pitch span {
-    display: block;
-    font-style: italic; }
+  color: lightgray;
+  font-weight: lighter;
+  font-size: 0.875rem;
+  line-height: 1.5; }
 
 #page.home main blockquote {
   margin: 0;
-  font-size: .9rem; }
+  font-size: 1rem; }
   #page.home main blockquote footer {
     margin-top: .5rem;
     margin-left: .5rem; }

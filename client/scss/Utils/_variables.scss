@@ -2,19 +2,36 @@
 // Variables
 //-------------------------------------------------
 
+//----------------------------------------------
 // Fonts
 $font-family: 'Open Sans', sans-serif;
-$font-family-h1: 'Righteous', cursive;
+$font-family-logo: 'Righteous', cursive;
 
+//----------------------------------------------
+// Convert px to rem
+@function calc-rem($px, $base-px: 16) {
+    @return #{$px / $base-px}rem;
+}
+
+$font-size-xxs: calc-rem(10);
+$font-size-xs:  calc-rem(12);
+$font-size-s:   calc-rem(14);
+$font-size-m:   calc-rem(16);
+$font-size-l:   calc-rem(24);
+$font-size-xl:  calc-rem(36);
+$font-size-xxl: calc-rem(54);
+
+//----------------------------------------------
 // Colors
 $primary-font-color: white;
 
-$color-black: #222222;
-$color-charcoal: #424242;
+$color-black: #222;
+$color-charcoal: #424;
 $color-gray: #A0A0A0;
 
 $color-light-gray: lightgray;
-$color-light-salmon: lightsalmon;
+$color-light-pink: lightpink;
+$color-light-blue: lightblue;
 
 $color-white: white;
 $color-white-smoke: whitesmoke;
@@ -27,7 +44,6 @@ $color-spotify-black: #191414;
 
 // Layout
 $padding-page-sides: 1rem;
-
 $padding-tab-header: 15px;
 $padding-tab-body: $padding-tab-header;
 

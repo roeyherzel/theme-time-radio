@@ -8,7 +8,6 @@
 
 body {
   font-family: $font-family;
-  font-size: 1rem;
 }
 
 h1 {
@@ -26,12 +25,16 @@ a {
   color: $color-blue;
 }
 
+p {
+  font-size: $font-size-m;
+}
+
 .site-name {
   margin: 0;
-  font-family: $font-family-h1;
+  font-family: $font-family-logo;
   font-weight: normal;
   text-align: center;
-  font-size: 1rem;
+  font-size: $font-size-m;
   color: $color-white;
 
   span {

@@ -41,19 +41,19 @@ ul.tabs {
       justify-content: space-between;
       align-items: center;
       padding: $padding-tab-header;
-      background-color: $color-aquagreen;
+      background-color: $color-light-pink;
       border-bottom: 1.5px solid $color-black;
       font-family: $font-family;
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: $color-white;
+      font-size: $font-size-l;
+      font-weight: 800;
+      color: $color-black;
 
       @media (min-width: $screen-desktop) {
         justify-content: center;
         color: $color-black;
         background: transparent;
         border: none;
-        font-size: 1rem;
+        font-size: $font-size-m;
       }
 
       &::after {

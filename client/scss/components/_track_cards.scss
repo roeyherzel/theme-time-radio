@@ -3,17 +3,85 @@
 //================================================
 
 #tracklist_placeholder {
-  .card-text {
-    width: 100px; // to allow span text to be cliped
+
+  .card {
+    display: flex;
+    justify-content: space-between;
+    height: 85px;
+    width: 100%;
+    margin-bottom: 10px;
+    box-shadow: 0 0 1px black;
+    border-radius: 3px;
+    overflow: hidden;
+    background: white;
+    color: $color-black;
+  }
+
+  .card-number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 1.5rem;
+    height: 100%;
+    border-left: 1px solid rgba(0, 0, 0, 0.17);
+    border-right: 1px solid rgba(0, 0, 0, 0.17);
+    background: $color-light-gray;
+
     span {
+      width: 100%;
+      color: white;
+      text-align: center;
+      font-size: $font-size-s;
+      padding-top: 8px;
+    }
+  }
+
+  .card-thumb {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex: 0 0 70px;
+    height: 100%;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: top left;
+    }
+
+    span.overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .card-text {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    width: 100px; // to allow span text to be cliped
+    padding: 6px 10px;
+    font-size: $font-size-xs;
+
+    a {
+      text-decoration: underline;
+    }
+
+    span {
+      line-height: 1.8;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
     }
   }
 
-  .track-year {
-    color: $color-gray;
+  .track-title {
+    font-size: $font-size-s;
   }
 
   .track-artists {
@@ -22,6 +90,10 @@
       content: "/\00A0";
       color: $color-black;
     }
+  }
+
+  .track-year {
+    color: $color-gray;
   }
 
   .track-actions {

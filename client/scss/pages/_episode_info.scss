@@ -7,23 +7,29 @@
   header {
 
     h1 {
-      margin: 0;
+      font-size: $font-size-xl;
     }
 
-    p {
-      &:first-of-type {
-        font-size: 0.7em;
-        color: $color-gray;
-        text-transform: lowercase;
+    .info {
+
+      span {
+        display: block;
+        margin: .5rem 0;
+        font-size: $font-size-s;
+
+        &.aired {
+          color: $color-light-gray;
+          text-transform: lowercase;
+        }
+
+        &.season a {
+          text-decoration: underline;
+          color: $color-aquagreen;
+        }
       }
-    }
 
-    a {
-      text-decoration: underline;
-      font-size: 0.8em;
-      color: $color-light-salmon;
     }
-
+    
     img {
       @extend %img-responsive;
     }
