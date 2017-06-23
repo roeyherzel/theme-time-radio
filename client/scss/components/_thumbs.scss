@@ -2,15 +2,10 @@
 // Thumbs
 //================================================
 
-@mixin thumbs-per-line($count: 2, $fixed: true) {
+@mixin thumbs-per-line($count: 2) {
   $flex-basis: calc(100% / #{$count});
-  $width: $flex-basis;
-
-  @if $fixed != true {
-    $flex-basis: 0;
-  }
   flex: 1 1 $flex-basis;
-  width: $width;
+  width: $flex-basis;
 }
 
 ul.thumbnails {

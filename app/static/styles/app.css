@@ -429,9 +429,9 @@ label {
   ul.tabs li.tab:nth-of-type(1) {
     flex: 0 0 100%; }
   ul.tabs li.tab:nth-of-type(2) {
-    flex: 3 3; }
+    flex: 3 3 60%; }
   ul.tabs li.tab:nth-of-type(3) {
-    flex: 2 2; } }
+    flex: 2 2 40%; } }
 
 ul.tabs li.tab input[type=checkbox] {
   display: none; }
@@ -1080,6 +1080,7 @@ ul#artist_tags {
 
 @media (min-width: 1024px) {
   #page.artists .thumbnails li {
+    flex: 1 1 calc(100% / 6);
     width: calc(100% / 6); } }
 
 #page.episode-info header h1 {
@@ -1119,14 +1120,14 @@ ul#artist_tags {
 
 @media (min-width: 1024px) {
   #page.episodes main .thumbnails li {
-    flex: 1 1 0;
-    width: calc(100% / 6); } }
+    flex: 1 1 calc(100% / 5);
+    width: calc(100% / 5); } }
 
 @media (min-width: 1024px) {
   #page.home .tabs .tab:nth-of-type(1), #page.home .tabs .tab:nth-of-type(2) {
     flex: 0 0 100%; }
   #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
-    flex: 1 1; }
+    flex: 1 1 50%; }
   #page.home #episodes_placeholder .thumbnails li {
     flex: 1 1 calc(100% / 6);
     width: calc(100% / 6); }
