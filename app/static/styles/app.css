@@ -487,18 +487,21 @@ ul.thumbnails {
   display: flex;
   flex-wrap: wrap; }
   ul.thumbnails li {
-    width: calc(100vw / 2);
+    flex: 1 1 calc(100% / 2);
+    width: calc(100% / 2);
     box-shadow: 0 0 2px white;
-    outline: 1px solid white;
-    flex: 1 1; }
+    outline: 1px solid white; }
     @media (min-width: 375px) {
       ul.thumbnails li {
+        flex: 1 1 calc(100% / 3);
         width: calc(100% / 3); } }
     @media (min-width: 768px) {
       ul.thumbnails li {
+        flex: 1 1 calc(100% / 6);
         width: calc(100% / 6); } }
     @media (min-width: 1024px) {
       ul.thumbnails li {
+        flex: 1 1 calc(100% / 2);
         width: calc(100% / 2); } }
   ul.thumbnails figure.thumb {
     display: flex;
@@ -1116,6 +1119,7 @@ ul#artist_tags {
 
 @media (min-width: 1024px) {
   #page.episodes main .thumbnails li {
+    flex: 1 1 0;
     width: calc(100% / 6); } }
 
 @media (min-width: 1024px) {
@@ -1124,9 +1128,11 @@ ul#artist_tags {
   #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
     flex: 1 1; }
   #page.home #episodes_placeholder .thumbnails li {
+    flex: 1 1 calc(100% / 6);
     width: calc(100% / 6); }
   #page.home #artists_placeholder .thumbnails li,
   #page.home #genres_placeholder .thumbnails li {
+    flex: 1 1 calc(100% / 3);
     width: calc(100% / 3); } }
 
 #page.home header img {

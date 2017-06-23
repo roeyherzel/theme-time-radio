@@ -2,24 +2,35 @@
 // Thumbs
 //================================================
 
+@mixin thumbs-per-line($count: 2, $fixed: true) {
+  $flex-basis: calc(100% / #{$count});
+  $width: $flex-basis;
+
+  @if $fixed != true {
+    $flex-basis: 0;
+  }
+  flex: 1 1 $flex-basis;
+  width: $width;
+}
+
 ul.thumbnails {
   display: flex;
   flex-wrap: wrap;
 
   li {
-    width: calc(100vw / 2); // so figcature will be limited too
+    // default split thumbs 2 per line, can be overriden by page styles
+    @include thumbs-per-line;
     box-shadow: 0 0 2px white;
     outline: 1px solid white;
-    flex: 1 1;
 
     @media (min-width: $screen-mobile-m) {
-      width: calc(100% / 3);
+      @include thumbs-per-line(3);
     }
     @media (min-width: $screen-tablet) {
-      width: calc(100% / 6);
+      @include thumbs-per-line(6);
     }
     @media (min-width: $screen-desktop) {
-      width: calc(100% / 2);  // default split thumbs 2 per line, can be overriden by page styles
+      @include thumbs-per-line(2);
     }
     
   }

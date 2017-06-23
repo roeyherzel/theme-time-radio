@@ -41,7 +41,7 @@
   main {
     @media (min-width: $screen-desktop) {
       .thumbnails li {
-        width: calc(100% / 6);
+        @include thumbs-per-line(6, 'false');
       }
     }
   }
