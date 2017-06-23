@@ -429,7 +429,7 @@ label {
   ul.tabs li.tab:nth-of-type(1) {
     flex: 0 0 100%; }
   ul.tabs li.tab:nth-of-type(2) {
-    flex: 2 2; }
+    flex: 3 3; }
   ul.tabs li.tab:nth-of-type(3) {
     flex: 2 2; } }
 
@@ -453,7 +453,6 @@ ul.tabs li.tab label {
   color: #222; }
   @media (min-width: 1024px) {
     ul.tabs li.tab label {
-      justify-content: center;
       color: #222;
       background: transparent;
       border: none;
@@ -489,8 +488,9 @@ ul.thumbnails {
   flex-wrap: wrap; }
   ul.thumbnails li {
     width: calc(100vw / 2);
+    box-shadow: 0 0 2px white;
     outline: 1px solid white;
-    margin-bottom: 10px; }
+    flex: 1 1; }
     @media (min-width: 375px) {
       ul.thumbnails li {
         width: calc(100vw / 3); } }
@@ -499,13 +499,13 @@ ul.thumbnails {
         width: calc(100vw / 6); } }
     @media (min-width: 1024px) {
       ul.thumbnails li {
-        width: calc(100% / 3); } }
+        width: calc(100% / 2); } }
   ul.thumbnails figure.thumb {
     display: flex;
     flex-direction: column;
     margin: 0; }
     ul.thumbnails figure.thumb img {
-      height: 120px;
+      height: 150px;
       object-fit: cover;
       object-position: top center; }
   ul.thumbnails figcaption {
@@ -515,7 +515,7 @@ ul.thumbnails {
     width: 100%;
     height: 2.5rem;
     background: white;
-    border-top: 1px solid whitesmoke;
+    border-top: 1px solid lightgray;
     text-transform: capitalize; }
     ul.thumbnails figcaption span {
       font-size: 0.75rem;
@@ -581,6 +581,7 @@ ul.thumbnails {
     padding: 10px; }
 
 #groups section h2 {
+  padding-left: 1rem;
   border-bottom: 1px solid lightgray; }
 
 #groups section ul {
@@ -1123,7 +1124,10 @@ ul#artist_tags {
   #page.home .tabs .tab:nth-of-type(3), #page.home .tabs .tab:nth-of-type(4) {
     flex: 1 1; }
   #page.home #episodes_placeholder .thumbnails li {
-    width: calc(100% / 6); } }
+    width: calc(100% / 6); }
+  #page.home #artists_placeholder .thumbnails li,
+  #page.home #genres_placeholder .thumbnails li {
+    width: calc(100% / 3); } }
 
 #page.home header img {
   margin-top: 2rem; }

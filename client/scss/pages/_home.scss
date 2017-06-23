@@ -21,6 +21,13 @@
       width: calc(100% / 6);
     }
 
+    #artists_placeholder,
+    #genres_placeholder {
+       .thumbnails li {
+         width: calc(100% / 3);
+       }
+    }
+
   }
 
   header {

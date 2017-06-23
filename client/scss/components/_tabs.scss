@@ -16,7 +16,7 @@ ul.tabs {
         flex: 0 0 100%;
       }
       &:nth-of-type(2) {
-        flex: 2 2;
+        flex: 3 3;
       }
       &:nth-of-type(3) {
         flex: 2 2;
@@ -48,7 +48,7 @@ ul.tabs {
       color: $color-black;
 
       @media (min-width: $screen-desktop) {
-        justify-content: center;
+        // justify-content: center;
         color: $color-black;
         background: transparent;
         border: none;
