@@ -2,10 +2,16 @@
 // Thumbs
 //================================================
 
-@mixin thumbs-per-line($count: 2) {
-  $flex-basis: calc(100% / #{$count});
-  flex: 1 1 auto;
-  width: $flex-basis;
+@mixin thumbs-per-line($count: 2, $mobile: false) {
+  $width: calc(100% / #{$count});
+  $flex-basis: auto;
+
+  @if $mobile == true {
+    $flex-basis: $width;
+  }
+
+  flex: 1 1 $flex-basis;
+  width: $width;
 }
 
 ul.thumbnails {
@@ -14,7 +20,7 @@ ul.thumbnails {
 
   li {
     // default split thumbs 2 per line, can be overriden by page styles
-    @include thumbs-per-line;
+    @include thumbs-per-line(2, false);
     box-shadow: 0 0 2px white;
     outline: 1px solid white;
 
