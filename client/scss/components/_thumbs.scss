@@ -13,10 +13,10 @@ ul.thumbnails {
     flex: 1 1;
 
     @media (min-width: $screen-mobile-m) {
-      width: calc(100vw / 3);
+      width: calc(100% / 3);
     }
     @media (min-width: $screen-tablet) {
-      width: calc(100vw / 6);
+      width: calc(100% / 6);
     }
     @media (min-width: $screen-desktop) {
       width: calc(100% / 2);  // default split thumbs 2 per line, can be overriden by page styles

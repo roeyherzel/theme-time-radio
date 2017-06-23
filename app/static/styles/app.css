@@ -493,10 +493,10 @@ ul.thumbnails {
     flex: 1 1; }
     @media (min-width: 375px) {
       ul.thumbnails li {
-        width: calc(100vw / 3); } }
+        width: calc(100% / 3); } }
     @media (min-width: 768px) {
       ul.thumbnails li {
-        width: calc(100vw / 6); } }
+        width: calc(100% / 6); } }
     @media (min-width: 1024px) {
       ul.thumbnails li {
         width: calc(100% / 2); } }
